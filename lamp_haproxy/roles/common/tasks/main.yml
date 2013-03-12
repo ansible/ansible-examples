@@ -6,7 +6,7 @@
   tags: ntp
 
 - name: Configure ntp file
-  template: src=common/templates/ntp.conf.j2 dest=/etc/ntp.conf
+  template: src=../roles/common/templates/ntp.conf.j2 dest=/etc/ntp.conf
   tags: ntp
   notify: restart ntp
 
