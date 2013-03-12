@@ -42,17 +42,6 @@ Now we setup our Lamp Stack, The stack can be on a single node or multiple nodes
 
 Here the webserver would be configured on the localhost and the dbserver on bensible. The stack can be deployed using the following command.
 
- 	ansible-playbook -i hosts site.yml
+        ansible-playbook -i hosts site.yml
 
 Once Done, you can check by browsing to http://<ipofhost>/index.php
-
-If you want to add a new webserver to the stack it would be as simple as changing the hosts file to add the new webserver name and rerun the above command.
-
-        [webservers]
-        localhost
-        webserver1
-
-        [dbservers]
-        bensible
-
-        ansible-playbook -i hosts site.yml
