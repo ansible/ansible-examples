@@ -1,0 +1,10 @@
+[webservers]
+web3
+web2
+
+[dbservers]
+web3
+
+[lbservers]
+web2
+

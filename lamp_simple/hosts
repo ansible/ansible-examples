@@ -1,0 +1,5 @@
+[webservers]
+web2
+
+[dbservers]
+web3

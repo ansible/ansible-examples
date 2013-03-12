@@ -1,0 +1,18 @@
+---
+# This playbook contains common plays that would be run on all Nodes.
+
+- name: Install ntp 
+  yum: name=ntp state=present
+  tags: ntp
+
+- name: Configure ntp file
+  template: src=common/templates/ntp.conf.j2 dest=/etc/ntp.conf
+  tags: ntp
+  notify: restart ntp
+
+- name: Start the ntp service
+  service: name=ntpd state=started enabled=true
+  tags: ntp
+
+
+ 

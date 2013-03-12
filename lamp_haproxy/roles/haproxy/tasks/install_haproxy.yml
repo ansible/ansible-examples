@@ -1,0 +1,19 @@
+---
+# This PlayBook Installs the HAProxy and configures it.
+
+- name: Download and install haproxy
+  command: creates=/opt/haproxy.rpm curl -o /opt/haproxy.rpm ftp://ftp.univie.ac.at/systems/linux/fedora/epel/6/i386/haproxy-1.4.18-1.el6.i686.rpm
+
+- name: Install the haproxy rpm.
+  command: creates=/etc/haproxy/haproxy.cfg yum -y localinstall  /opt/haproxy.rpm
+
+- name: Install the socat package for dynamic addition/removal of hosts
+  yum: name=socat state=installed
+
+- name: Open firewall port for haproxy.
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$listenport" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport $listenport -j  ACCEPT"
+  notify: restart iptables
+
+- name: Configure the haproxy cnf file with hosts
+  template: src=haproxy/templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  notify: restart haproxy

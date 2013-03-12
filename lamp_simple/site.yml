@@ -1,0 +1,5 @@
+---
+#This Playbook deploys the whole application stack in this site.  
+
+- include: roles/db.yml
+- include: roles/web.yml

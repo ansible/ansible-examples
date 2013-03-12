@@ -1,0 +1,10 @@
+---
+# This Playbook adds  a webserver into the the web cluster
+
+- hosts: webservers
+  user: root
+  serial: 1
+  tasks:
+   - include: ../roles/webtier/tasks/install_httpd.yml
+   - include: ../roles/webtier/tasks/copy_code.yml
+   - include: ../roles/webtier/tasks/add_to_lb.yml

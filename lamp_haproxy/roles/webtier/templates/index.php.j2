@@ -1,0 +1,16 @@
+<html>
+ <head>
+  <title>Ansible Application</title>
+ </head>
+ <body>
+ </br>
+  <a href=http://{{ ansible_eth0.ipv4.address }}/index.html>Homepage</a>
+ </br>
+<?php 
+ Print "Hello, World! I am configured in Ansible and i am : ";
+ echo exec('hostname');
+ Print  "</BR>";
+?>
+</body>
+</html>
+
