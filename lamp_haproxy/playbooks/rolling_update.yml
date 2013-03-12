@@ -1,0 +1,8 @@
+---
+# This Playbook does a rolling update of the code for all webservers serially (one at a time). Change the value of serial: to adjust the number of server to be updated.
+
+- hosts: webservers
+  user: root
+  serial: 1
+  tasks:
+   - include: ../roles/web/tasks/rolling_update.yml

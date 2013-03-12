@@ -1,0 +1,11 @@
+---
+# This Playbook deploys the WebServers with httpd and the code.
+
+- hosts: webservers
+  user: root
+  tasks:
+  - include: ../roles/common/tasks/main.yml
+  - include: ../roles/web/tasks/install_httpd.yml
+  - include: ../roles/web/tasks/copy_code.yml
+  handlers:
+   - include: ../roles/web/handlers/main.yml

@@ -1,0 +1,15 @@
+---
+# This Playbook does utility stuff's like adding a webserver into the pool, etc..
+
+- name: Add server to LB
+  lineinfile: dest=/etc/haproxy/haproxy.cfg state=present regexp="${ansible_hostname}" line="server ${ansible_hostname} ${ansible_eth0.ipv4.address}:${httpd_port}"
+  delegate_to: $item
+  with_items: ${groups.lbservers}  
+  register: last_run
+   
+- name: Reload the haproxy
+  service: name=haproxy state=reloaded
+  delegate_to: $item
+  with_items: ${groups.lbservers} 
+  only_if: ${last_run.changed}
+

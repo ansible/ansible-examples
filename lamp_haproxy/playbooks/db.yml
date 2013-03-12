@@ -1,0 +1,11 @@
+---
+# This playbook deploys mysql and configures database on the db node/nodes  
+
+- hosts: dbservers
+  user: root
+  tasks: 
+     - include: ../roles/common/tasks/main.yml 
+     - include: ../roles/db/tasks/main.yml
+  handlers:
+     - include: ../roles/db/handlers/main.yml
+     - include: ../roles/common/handlers/main.yml 

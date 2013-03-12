@@ -1,0 +1,10 @@
+---
+#PlayBook for haproxy operations
+
+- hosts: lbservers
+  user: root
+  tasks:
+   - include: ../roles/haproxy/tasks/main.yml
+  handlers:
+   - include: ../roles/haproxy/handlers/main.yml
+   - include: ../roles/common/handlers/main.yml

@@ -1,0 +1,9 @@
+---
+# This Playbook removes a  webserver from  the pool serialy.
+
+
+- hosts: webservers
+  user: root
+  serial: 1
+  tasks:
+   - include: ../roles/web/tasks/remove_from_lb.yml

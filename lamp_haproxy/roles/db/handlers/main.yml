@@ -1,0 +1,6 @@
+---
+# Handler to handle DB tier notifications
+
+- name: restart mysql
+  service: name=mysqld state=restarted
+
