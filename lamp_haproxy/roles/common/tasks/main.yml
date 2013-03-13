@@ -14,5 +14,12 @@
   service: name=ntpd state=started enabled=true
   tags: ntp
 
+- name: Download the EPEL repository RPM
+  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/ force=yes
 
- 
+- name: Install EPEL RPM
+#  command: rpm -Uvh --force /tmp/epel-release-6-8.noarch.rpm
+  yum: name=/tmp/epel-release-6-8.noarch.rpm state=installed
+
+- name: Clean up
+  command: rm -f /tmp/epel-release-6-8.noarch.rpm

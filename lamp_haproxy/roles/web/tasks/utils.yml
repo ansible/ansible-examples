@@ -2,7 +2,7 @@
 # This Playbook does utility stuff's like adding a webserver into the pool, etc..
 
 - name: Add server to LB
-  lineinfile: dest=/etc/haproxy/haproxy.cfg state=present regexp="${ansible_hostname}" line="server ${ansible_hostname} ${ansible_eth0.ipv4.address}:${httpd_port}"
+  lineinfile: dest=/etc/haproxy/haproxy.cfg state=present regexp="${ansible_hostname}" line="server ${ansible_hostname} ${hostvars.{$inventory_hostname}.ansible_$iface.ipv4.address}:${httpd_port}"
   delegate_to: ${lbserver}
   register: last_run
   tags: add
