@@ -1,0 +1,5 @@
+---
+# File for the web server configuration
+
+# Which Ethernet interface on which the web server should listen
+iface: eth0

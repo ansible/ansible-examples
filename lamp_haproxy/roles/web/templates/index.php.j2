@@ -4,7 +4,7 @@
  </head>
  <body>
  </br>
-  <a href=http://{{ ansible_eth0.ipv4.address }}/index.html>Homepage</a>
+  <a href=http://{{ hostvars[ansible_hostname]['ansible_' + iface].ipv4.address }}/index.html>Homepage</a>
  </br>
 <?php 
  Print "Hello, World! I am configured in Ansible and i am : ";

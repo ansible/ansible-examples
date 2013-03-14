@@ -9,3 +9,4 @@
   - include: ../roles/web/tasks/copy_code.yml
   handlers:
    - include: ../roles/web/handlers/main.yml
+   - include: ../roles/common/handlers/main.yml

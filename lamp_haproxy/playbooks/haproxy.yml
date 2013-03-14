@@ -4,6 +4,7 @@
 - hosts: lbservers
   user: root
   tasks:
+   - include: ../roles/common/tasks/main.yml
    - include: ../roles/haproxy/tasks/main.yml
   handlers:
    - include: ../roles/haproxy/handlers/main.yml
