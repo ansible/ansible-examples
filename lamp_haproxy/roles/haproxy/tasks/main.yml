@@ -1,5 +1,5 @@
 ---
-# This PlayBook Installs the HAProxy and configures it.
+# This playbook installs HAProxy and configures it.
 
 - name: Download and install haproxy and socat
   yum: name=$item state=installed

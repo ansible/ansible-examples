@@ -4,7 +4,5 @@
 - name: Copy the code from repository
   git: repo=${repository} dest=/var/www/html/
 
-
-- name: Create's the index.php file 
+- name: Create the index.php file 
   template: src=../roles/web/templates/index.php.j2 dest=/var/www/html/index.php
-  

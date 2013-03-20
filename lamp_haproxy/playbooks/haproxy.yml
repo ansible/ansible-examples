@@ -1,5 +1,5 @@
 ---
-#PlayBook for haproxy operations
+# Playbook for HAProxy operations
 
 - hosts: lbservers
   user: root

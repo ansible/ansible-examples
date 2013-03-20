@@ -1,5 +1,5 @@
 ---
-# This Playbook deploys the WebServers with httpd and the code.
+# This playbook deploys the webservers with httpd and the code.
 
 - hosts: webservers
   user: root

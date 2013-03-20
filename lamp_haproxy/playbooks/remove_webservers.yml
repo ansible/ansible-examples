@@ -1,6 +1,7 @@
 ---
-# This Playbook removes a  webserver from  the pool serialy.
-
+# This playbook removes a webserver from the pool serially.
+# Change the value of serial: to adjust the number of servers
+# to be removed at a time.
 
 - hosts: webservers
   user: root
