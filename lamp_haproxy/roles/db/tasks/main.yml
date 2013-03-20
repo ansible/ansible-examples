@@ -1,5 +1,5 @@
 ---
-# This playbook will install mysql and create db user and give permissions.
+# This playbook will install MySQL and create db user and give permissions.
 
 - name: Install Mysql package
   action: yum pkg=$item state=installed
@@ -23,7 +23,6 @@
 - name: insert iptables rule
   lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$mysql_port" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport $mysql_port -j  ACCEPT"
   notify: restart iptables
-
 
 - name: Create Application Database
   mysql_db: name=$dbname state=present

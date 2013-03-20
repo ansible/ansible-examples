@@ -1,5 +1,5 @@
 ---
-# This Playbook adds  a webserver into the the web cluster
+# This Playbook adds a webserver into the the web cluster
 
 - hosts: webservers
   user: root

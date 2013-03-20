@@ -1,5 +1,6 @@
 ---
-# Handler for the webtier
+# Handler for the webtier: handlers are called by other plays.
+# See http://ansible.cc/docs/playbooks.html for more information about handlers.
 
 - name: restart iptables
   service: name=iptables state=restarted

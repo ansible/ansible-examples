@@ -1,5 +1,6 @@
 ---
-# The variables file used by the playbooks in the dbservers group, these dont have to be imported by vars_files: these are autopopulated.
+# The variables file used by the playbooks in the dbservers group.
+# These don't have to be explicitly imported by vars_files: they are autopopulated.
 
 mysqlservice: mysqld
 mysql_port: 3306

@@ -1,9 +1,9 @@
 ---
-# This Playbook does utility stuff's like adding a webserver into the pool, etc..
+# This playbook handles the removal of a webserver from the pool.
 
 - name: Remove the code from server
   command: rm -rf /var/www/html/*
-  
+
 - name: Remove server from LB
   lineinfile: dest=/etc/haproxy/haproxy.cfg state=absent regexp="${ansible_hostname}" 
   delegate_to: $item
