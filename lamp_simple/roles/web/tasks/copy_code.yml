@@ -7,4 +7,3 @@
 
 - name: Create's the index.php file 
   template: src=../roles/web/templates/index.php.j2 dest=/var/www/html/index.php
-  
