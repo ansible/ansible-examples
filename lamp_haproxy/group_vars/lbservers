@@ -1,18 +1,19 @@
 ---
-# File for the HAproxy configuration
+# Variables for the HAproxy configuration
 
-# Supports http and tcp, for ssl smtp etc.. use tcp
+# HAProxy supports "http" and "tcp". For SSL, SMTP, etc, use "tcp".
 mode: http
 
-# port on which the lb should listen
+# Port on which HAProxy should listen
 listenport: 8888
 
-# A name for the proxy daemon, this would be the suffix in the logs.
+# A name for the proxy daemon, this wil be the suffix in the logs.
 daemonname: myapplb
 
-# Balancing Algorithm Avalilable options: roundrobin,source,leastconn,source,uri
-# (if persistance is required use source)
+# Balancing Algorithm. Available options:
+# roundrobin, source, leastconn, source, uri
+# (if persistance is required use, "source")
 balance: roundrobin 
 
-# Which Ethernet interface on which the load balancer should listen
+# Ethernet interface on which the load balancer should listen
 iface: eth0

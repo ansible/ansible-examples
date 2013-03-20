@@ -1,5 +1,5 @@
 ---
-# Handler for the webtier
+# Handler for the web tier
 
 - name: restart iptables
   service: name=iptables state=restarted

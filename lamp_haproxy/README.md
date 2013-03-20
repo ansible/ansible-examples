@@ -1,12 +1,10 @@
-Lamp Stack + load balancer(haproxy) + add/remove nodes from cluster + Serial Rolling update of webserserver
-----------------------------------------------------------------------------------------------------------
+LAMP Stack + HAProxy: Example Playbooks
+-----------------------------------------------------------------------------
 
-This example is an extension of the simple lamp deployment, In this example we deploy a lampstack with a LoadBalancer in front.
-This also has the capability to add/remove nodes from the deployment. It also includes examples to do a rolling update of a stack
-without affecting the service.
+This example is an extension of the simple LAMP deployment. Here we'll deploy a web server with an HAProxy load balancer in front. This set of playbooks also have the capability to dynamically add and remove web server nodes from the deployment. It also includes examples to do a rolling update of a stack without affecting the service.
 
 ###Setup Entire Site.
-Firstly we setup the entire stack, configure the 'hosts' inventory file to include the names of your hosts on which the stack would be deployed.
+First we configure the entire stack by listing our hosts in the 'hosts' inventory file, grouped by their purpose:
 
 		[webservers]
 		web3
@@ -16,26 +14,32 @@ Firstly we setup the entire stack, configure the 'hosts' inventory file to inclu
 		[lbservers]
 		lbserver
 
-After which we execute the following command to deploy the site.
+After which we execute the following command to deploy the site:
 
 	ansible-playbook -i hosts site.yml
 
-The deployment can be verified by accessing the webpage." lynx http://<ip-of-lb>:8888. multiple access should land you up in different webservers.
+The deployment can be verified by accessing the IP address of your load balnacer host in a web browser: http://<ip-of-lb>:8888. Reloading the page should have you hit different webservers.
 
-###Remove a node from the cluster.
-Removal of a node from the cluster would be as simple as executing the following command:
+###Remove a Node
 
-	ansible-playbook -i hosts playbooks/remove_webservers.yml  --limit=web2
+Removal of a node from the cluster is as simple as executing the following command:
 
-###Adding a node to the cluster.
+	ansible-playbook -i hosts playbooks/remove_webservers.yml --limit=web2
+
+###Add a Node
+
 Adding a node to the cluster can be done by executing the following command:
  
-	ansible-playbook -i hosts playbooks/add_webservers.yml  --limit=web2
+	ansible-playbook -i hosts playbooks/add_webservers.yml --limit=web2
 
-###Rolling update of the entire site or  a single hosts
-Rolling updates are the preffered way to do an update as this wont affect the end users, In this example the hosts are updated in serial fashion, which means
-that only one server would be updated at one time, this behaviour can be changed by setting the 'serial' keyword in webservers.yml file.
-Once the code has been updated in the repository which can be defined in the group_vars/all file, execute the following command:
+###Rolling Update
+
+Rolling updates are the preferred way to update the web server software or deployed application, since the load balancer can be dynamically configured to take the hosts to be updated out of the pool. This will keep the service running on other servers so that the users are not interrupted.
+
+In this example the hosts are updated in serial fashion, which means
+that only one server will be updated at one time. If you have a lot of web server hosts, this behaviour can be changed by setting the 'serial' keyword in webservers.yml file.
+
+Once the code has been updated in the source repository for your application which can be defined in the group_vars/all file, execute the following command:
 
 	 ansible-playbook -i hosts playbooks/rolling_update.yml
 
