@@ -1,0 +1,21 @@
+---
+# This playbook  deploys the mongodb configurationdb  servers
+
+- name: Create data directory for mongoc configuration server
+  file: path=${mongodb_datadir_prefix}/configdb state=directory owner=mongod group=mongod
+
+- name: Create the mongo configuration server startup file
+  template: src=../roles/mongoc/templates/mongoc.j2 dest=/etc/init.d/mongoc mode=0655
+
+- name: Insert iptables rule for mongoc
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$mongoc_port" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport "$mongoc_port" -j  ACCEPT"
+
+- name: Apply iptable rule
+  service: name=iptables state=restarted
+
+- name: Create the mongo configuration server file
+  template: src=../roles/mongoc/templates/mongoc.conf.j2 dest=/etc/mongoc.conf
+
+- name: Start the mongo configuration server service
+  command: creates=/var/lock/subsys/mongoc /etc/init.d/mongoc start
+

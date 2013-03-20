@@ -1,0 +1,22 @@
+#where to log
+logpath=/var/log/mongo/mongos.log
+
+logappend=true
+
+# fork and run in background
+fork = true
+
+port = {{ mongos_port }}
+{% set hosts = '' %}
+ {% for host in groups['mongocservers'] %}
+   {% if loop.last %}
+      {% set hosts = hosts + host + ':' ~ mongoc_port  %}
+       configdb = {{ hosts }}
+      {% else %}
+        {% set hosts = hosts + host + ':' ~ mongoc_port + ','  %}
+   {% endif %}
+ {% endfor %}
+
+# location of pidfile
+pidfilepath = /var/run/mongodb/mongos.pid
+chunkSize={{ mongos_chunk_size }}

@@ -1,0 +1,10 @@
+---
+# This Playbook would deploy the whole mongodb cluster with replication and sharding.
+
+- include: playbooks/common.yml
+- include: playbooks/mongod.yml
+- include: playbooks/mongoc.yml
+- include: playbooks/mongos.yml
+- include: playbooks/addshard.yml
+
+

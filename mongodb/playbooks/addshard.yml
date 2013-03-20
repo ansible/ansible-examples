@@ -1,0 +1,9 @@
+---
+# This playbook adds the shards to the mongos service
+
+- hosts: mongosservers
+  
+- hosts: mongoservers
+  user: root
+  tasks:
+   - include: ../roles/mongod/tasks/addshard.yml

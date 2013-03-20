@@ -1,0 +1,17 @@
+
+#where to log
+logpath=/var/log/mongo/mongod-config.log
+
+logappend=true
+
+# fork and run in background
+fork = true
+
+port = {{ mongoc_port }}
+
+dbpath={{ mongodb_datadir_prefix }}configdb
+
+# location of pidfile
+pidfilepath = /var/run/mongoc.pid
+
+configsvr=true

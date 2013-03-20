@@ -1,0 +1,19 @@
+---
+#This Playbooks adds shards to the mongos servers once everythig is added
+
+- name: get the port number for mongod processes
+  shell: ifconfig ${iface} | grep "inet addr" | cut -d':' -f2 | cut -d. -f4 | cut -d' ' -f1
+  register: result
+  
+
+- name: Create the file to initialize the mongod Shard
+  template: src=../roles/mongod/templates/shard_init.j2 dest=/tmp/shard_init_${inventory_hostname}.js
+  delegate_to: $item
+  with_items: ${groups.mongosservers}
+
+- name: Add the shard to the mongos 
+  shell: /usr/bin/mongo --port ${mongos_port} /tmp/shard_init_${inventory_hostname}.js
+  delegate_to: $item
+  with_items: ${groups.mongosservers}
+
+

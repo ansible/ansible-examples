@@ -1,0 +1,17 @@
+#The site wide list of mongodb servers
+[mongoservers]
+web2
+web3
+
+#The list of servers where replication should happen, by default include all servers
+[replicationservers]
+web2
+web3
+
+#The list of mongodb configuration servers, make sure it is 1 or 3
+[mongocservers]
+web3
+
+#The list of servers where mongos servers would run. 
+[mongosservers]
+web3

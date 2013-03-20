@@ -1,0 +1,14 @@
+---
+# This Playbook runs all the common plays in the deployment 
+
+- name: Create the hosts file for all machines
+  template: src=../roles/common/templates/hosts.j2 dest=/etc/hosts
+
+- name: Creates the repository for 10Gen  
+  template: src=../roles/common/templates/10gen.repo.j2 dest=/etc/yum.repos.d/10gen.repo
+
+- name: Install the mongodb package
+  yum: name=$item state=installed
+  with_items:
+   - mongo-10gen
+   - mongo-10gen-server

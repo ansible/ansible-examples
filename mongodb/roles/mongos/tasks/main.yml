@@ -1,0 +1,18 @@
+---
+#This Playbook configures the mongos service of mongodb
+
+- name: Create the mongos startup file
+  template: src=../roles/mongos/templates/mongos.j2 dest=/etc/init.d/mongos mode=0655
+
+- name: insert iptables rule for mongos 
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$mongos_port" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport "$mongos_port" -j  ACCEPT"
+
+- name: Apply iptable rule on replication servers also
+  service: name=iptables state=restarted
+
+- name: Create the mongos configuration file
+  template: src=../roles/mongos/templates/mongos.conf.j2 dest=/etc/mongos.conf
+
+- name: Start the mongos service
+  command: creates=/var/lock/subsys/mongos /etc/init.d/mongos start
+
