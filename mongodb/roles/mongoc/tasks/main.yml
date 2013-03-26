@@ -16,6 +16,17 @@
 - name: Create the mongo configuration server file
   template: src=../roles/mongoc/templates/mongoc.conf.j2 dest=/etc/mongoc.conf
 
+- name: Create the script to add the admin user 
+  template: src=../roles/mongoc/templates/adduser.j2 dest=/tmp/adduser.js
+
+- name: Copy the keyfile for authentication
+  copy: src=../roles/mongod/files/secret dest=${mongodb_datadir_prefix}/secret owner=mongod group=mongod mode=0400
+
 - name: Start the mongo configuration server service
   command: creates=/var/lock/subsys/mongoc /etc/init.d/mongoc start
 
+- name: pause
+  pause: seconds=20
+
+- name: add the admin user
+  shell: /usr/bin/mongo localhost:7777/admin /tmp/adduser.js

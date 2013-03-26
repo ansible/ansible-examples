@@ -12,6 +12,7 @@ fork = true
 port = {{ mongodb_port_prefix }}{{ result.stdout }}
 
 dbpath={{ mongodb_datadir_prefix }}mongo-{{ inventory_hostname }}
+keyFile={{ mongodb_datadir_prefix }}/secret
 
 # location of pidfile
 pidfilepath = /var/run/mongod.pid

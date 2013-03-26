@@ -12,7 +12,7 @@
   with_items: ${groups.mongosservers}
 
 - name: Add the shard to the mongos 
-  shell: /usr/bin/mongo --port ${mongos_port} /tmp/shard_init_${inventory_hostname}.js
+  shell: /usr/bin/mongo localhost:8888/admin -u admin -p ${mongo_admin_pass} /tmp/shard_init_${inventory_hostname}.js
   delegate_to: $item
   with_items: ${groups.mongosservers}
 

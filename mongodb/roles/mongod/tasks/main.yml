@@ -21,7 +21,7 @@
   with_items: ${groups.replicationservers}
 
 - name: Add the iptable rule to allow traffice dynamically
-  shell: iptables -I INPUT 2  -p tcp --dport ${mongodb_port_prefix}${result.stdout} -j ACCEPT
+  shell: sleep `echo $RANDOM/1000 | bc`; iptables -I INPUT 1  -p tcp --dport ${mongodb_port_prefix}${result.stdout} -j ACCEPT
   delegate_to: $item
   with_items: ${groups.replicationservers}
 
@@ -30,6 +30,10 @@
   delegate_to: $item
   with_items: ${groups.replicationservers}
 
+- name: Copy the keyfile for authentication
+  copy: src=../roles/mongod/files/secret dest=${mongodb_datadir_prefix}/secret owner=mongod group=mongod mode=0400
+
+
 - name: Start the mongodb service
   command: creates=/var/lock/subsys/mongod-${inventory_hostname} /etc/init.d/mongod-${inventory_hostname} start
   delegate_to: $item
@@ -37,6 +41,9 @@
 
 - name: Create the file to initialize the mongod replica set
   template: src=../roles/mongod/templates/repset_init.j2 dest=/tmp/repset_init.js
+
+- name: Pause for a while
+  pause: seconds=20
 
 - name: Initialize the replication set
   shell: /usr/bin/mongo --port "$mongodb_port_prefix${result.stdout}" /tmp/repset_init.js

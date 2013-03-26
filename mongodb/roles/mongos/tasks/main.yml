@@ -13,6 +13,13 @@
 - name: Create the mongos configuration file
   template: src=../roles/mongos/templates/mongos.conf.j2 dest=/etc/mongos.conf
 
+- name: Copy the keyfile for authentication
+  copy: src=../roles/mongod/files/secret dest=${mongodb_datadir_prefix}/secret owner=mongod group=mongod mode=0400
+
 - name: Start the mongos service
   command: creates=/var/lock/subsys/mongos /etc/init.d/mongos start
+- name: pause
+  pause: seconds=20
 
+- name: copy the file for shard test 
+  template: src=../roles/mongos/templates/testsharding.j2 dest=/tmp/testsharding.js
