@@ -25,7 +25,7 @@ The way Ansible configures the three nodes is as follows:
 
 6) All the processes, mongod,mogos are secured using the keyfiles.
 
-##Once the cluster is deployed, if we want to scale the cluster, Ansible configures it as follows:
+####Once the cluster is deployed, if we want to scale the cluster, Ansible configures it as follows:
 
 1) Install the MongoDB application on the new node.
 
