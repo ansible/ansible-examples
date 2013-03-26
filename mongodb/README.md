@@ -25,13 +25,13 @@ The way Ansible configures the three nodes is as follows:
 
 6) All the processes, mongod,mogos are secured using the keyfiles.
 
-Once the cluster is deployed, if we want to scale the cluster, Ansible configures it as follows:
+##Once the cluster is deployed, if we want to scale the cluster, Ansible configures it as follows:
 
 1) Install the MongoDB application on the new node.
 
 2) Configure the replication set with primary as the new node and the secondaries as listed in the inventory file [replicationservers]. ( don't forget to add the new node also in the replicationservers section]
 
-3) Adds a new shard to the mongos service pointing to the new replication set.
+3) Adds the new shard to the mongos service pointing to the new replication set.
 
 ###The following example deploys a three node MongoDB Cluster
 
@@ -41,19 +41,19 @@ The inventory file looks as follows:
 		[mongoservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of servers where replication should happen, by default include all servers
 		[replicationservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
 		[mongocservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of servers where mongos servers would run. 
 		[mongosservers]
@@ -191,20 +191,20 @@ To add a new node to the configured MongoDb Cluster, setup the inventory file as
 		[mongoservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 		mongo4
 
 		#The list of servers where replication should happen, by default include all servers
 		[replicationservers]
 		mongo4
 		mongo1
-                mongo2
+		mongo2
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
 		[mongocservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of servers where mongos servers would run. 
 		[mongosservers]
