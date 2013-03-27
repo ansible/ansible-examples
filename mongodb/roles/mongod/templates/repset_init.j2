@@ -1,7 +1,7 @@
 rs.initiate()
 sleep(13000)
 {% for host in groups['replicationservers'] %}
-rs.add("{{ host }}:{{ mongodb_port_prefix }}{{ result.stdout }}")
+rs.add("{{ host }}:{{ mongod_ports[inventory_hostname] }}")
 sleep(8000)
 {% endfor %}
 printjson(rs.status())

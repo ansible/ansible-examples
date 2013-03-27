@@ -5,5 +5,3 @@
   user: root
   tasks:
    - include: ../roles/mongod/tasks/main.yml
-  handlers:
-   - include: ../roles/mongod/handlers/main.yml

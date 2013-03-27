@@ -7,17 +7,10 @@
 - name: Create the mongo configuration server startup file
   template: src=../roles/mongoc/templates/mongoc.j2 dest=/etc/init.d/mongoc mode=0655
 
-- name: Insert iptables rule for mongoc
-  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$mongoc_port" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport "$mongoc_port" -j  ACCEPT"
-
-- name: Apply iptable rule
-  service: name=iptables state=restarted
 
 - name: Create the mongo configuration server file
   template: src=../roles/mongoc/templates/mongoc.conf.j2 dest=/etc/mongoc.conf
 
-- name: Create the script to add the admin user 
-  template: src=../roles/mongoc/templates/adduser.j2 dest=/tmp/adduser.js
 
 - name: Copy the keyfile for authentication
   copy: src=../roles/mongod/files/secret dest=${mongodb_datadir_prefix}/secret owner=mongod group=mongod mode=0400
@@ -28,5 +21,7 @@
 - name: pause
   pause: seconds=20
 
+
 - name: add the admin user
-  shell: /usr/bin/mongo localhost:7777/admin /tmp/adduser.js
+  mongodb_user: database=admin name=admin password=${mongo_admin_pass} login_port=${mongoc_port} state=present
+  ignore_errors: yes

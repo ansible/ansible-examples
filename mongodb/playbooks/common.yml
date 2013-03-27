@@ -1,7 +1,10 @@
 ---
 # Deploys all common plays for the site
 
-- hosts: mongoservers
+- hosts: all
   user: root
   tasks:
   - include: ../roles/common/tasks/main.yml
+  
+  handlers:
+  - include: ../roles/common/handlers/main.yml

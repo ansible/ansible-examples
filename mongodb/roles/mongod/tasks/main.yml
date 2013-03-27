@@ -1,29 +1,17 @@
 ---
-#This Playbook deploys the mongod processes and sets up the firewall rules  and sets up the replication set.
+#This Playbook deploys the mongod processes and sets up the replication set.
 
 - name: create data directory for mongodb
   file: path=${mongodb_datadir_prefix}/mongo-${inventory_hostname} state=directory owner=mongod group=mongod
   delegate_to: $item
   with_items: ${groups.replicationservers}
 
-- name: Create a port number for mongod processes
-  shell: ifconfig ${iface} | grep "inet addr" | cut -d':' -f2 | cut -d. -f4 | cut -d' ' -f1
-  register: result
   
 - name: Create the mongodb startup file
   template: src=../roles/mongod/templates/mongod.j2 dest=/etc/init.d/mongod-${inventory_hostname} mode=0655
   delegate_to: $item
   with_items: ${groups.replicationservers}
 
-- name: insert iptables rule for mongod
-  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$mongodb_port_prefix${result.stdout}" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport "$mongodb_port_prefix${result.stdout}" -j  ACCEPT"
-  delegate_to: $item
-  with_items: ${groups.replicationservers}
-
-- name: Add the iptable rule to allow traffice dynamically
-  shell: sleep `echo $RANDOM/1000 | bc`; iptables -I INPUT 1  -p tcp --dport ${mongodb_port_prefix}${result.stdout} -j ACCEPT
-  delegate_to: $item
-  with_items: ${groups.replicationservers}
 
 - name: Create the mongodb configuration file
   template: src=../roles/mongod/templates/mongod.conf.j2 dest=/etc/mongod-${inventory_hostname}.conf
@@ -46,6 +34,6 @@
   pause: seconds=20
 
 - name: Initialize the replication set
-  shell: /usr/bin/mongo --port "$mongodb_port_prefix${result.stdout}" /tmp/repset_init.js
+  shell: /usr/bin/mongo --port "${mongod_ports.${inventory_hostname}}" /tmp/repset_init.js
 
 

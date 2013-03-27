@@ -1,2 +1,2 @@
-sh.addShard("{{ inventory_hostname}}/{{ inventory_hostname }}:{{ mongodb_port_prefix }}{{ result.stdout }}")
+sh.addShard("{{ inventory_hostname}}/{{ inventory_hostname }}:{{ mongod_ports[inventory_hostname] }}")
 printjson(rs.status())

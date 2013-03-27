@@ -9,9 +9,6 @@ mongos_port: 8888
 #The port for mongo config server
 mongoc_port: 7777
 
-#The port prefix for mongod servers, the latter part is appended the playbook (the last octect of the ipaddress)
-mongodb_port_prefix: 20
-
 #The directory prefix where the database files would be stored
 mongodb_datadir_prefix: /data/
 
@@ -20,3 +17,10 @@ iface: eth1
 
 #The password for admin user
 mongo_admin_pass: 123456
+
+mongod_ports:
+  bensible: 2700
+  web2: 2701
+  web3: 2702
+  web4: 2703
+

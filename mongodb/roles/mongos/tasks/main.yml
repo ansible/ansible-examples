@@ -4,11 +4,6 @@
 - name: Create the mongos startup file
   template: src=../roles/mongos/templates/mongos.j2 dest=/etc/init.d/mongos mode=0655
 
-- name: insert iptables rule for mongos 
-  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$mongos_port" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport "$mongos_port" -j  ACCEPT"
-
-- name: Apply iptable rule on replication servers also
-  service: name=iptables state=restarted
 
 - name: Create the mongos configuration file
   template: src=../roles/mongos/templates/mongos.conf.j2 dest=/etc/mongos.conf
@@ -23,3 +18,6 @@
 
 - name: copy the file for shard test 
   template: src=../roles/mongos/templates/testsharding.j2 dest=/tmp/testsharding.js
+
+- name: copy the file enable  sharding 
+  template: src=../roles/mongos/templates/enablesharding.j2 dest=/tmp/enablesharding.js

@@ -4,6 +4,8 @@
 - hosts: all 
   tasks:
    - include: ../roles/common/tasks/main.yml
+  handlers:
+   - include: ../roles/common/handlers/main.yml
 
 - hosts: ${servername}
   tasks: 
