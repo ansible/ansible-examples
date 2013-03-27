@@ -4,7 +4,9 @@ Deploying a shared production ready MongoDB cluster with Ansible
 In this example we demonstrate how we can orchestrate the deployment of a production grade MongoDB Cluster. The functionality of this example includes:
 
 1) Deploying a N node MongoDB cluster, which has N shards and N replication nodes.
+
 2) Scale out capability. Expand the Cluster by adding nodes to the cluster.
+
 3) Security, All the mongodb process are secured using the best practices.
 
 ###Deployment Architecture.
@@ -34,7 +36,7 @@ Once the cluster is deployed, if we want to scale the cluster, Ansible configure
 3) Adds a new shard to the mongos service pointing to the new replication set.
 
 
-#### Pre-Requesites 
+#### Pre-requisite 
 
 1) Update the group_vars/all file which contains site specific parmaters, especially the section which contains the mapping of the hostname's and the ports that it should use for the mongod process. Please do make sure the ansible hostname matches the same. Also dont forget to add the variable when adding a new node.
 
@@ -48,19 +50,19 @@ The inventory file looks as follows:
 		[mongoservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of servers where replication should happen, including the master server.
 		[replicationservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
 		[mongocservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of servers where mongos servers would run. 
 		[mongosservers]
@@ -109,8 +111,10 @@ and issue the command to query the status of replication set, we should get a si
 		"ok" : 1
 		}
 
+
 we can check the status of the Shards as follows: connect to the mongos service 'mongos --host <ip of mongos server> --port 8888'
 and issue the following command to get the status of the Shards.
+
 
 		 
 		mongos> sh.status()
@@ -162,20 +166,20 @@ To add a new node to the configured MongoDb Cluster, setup the inventory file as
 		[mongoservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 		mongo4
 
 		#The list of servers where replication should happen, make sure the new node is listed here.
 		[replicationservers]
 		mongo4
 		mongo1
-                mongo2
+		mongo2
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
 		[mongocservers]
 		mongo1
 		mongo2
-                mongo3
+		mongo3
 
 		#The list of servers where mongos servers would run. 
 		[mongosservers]
