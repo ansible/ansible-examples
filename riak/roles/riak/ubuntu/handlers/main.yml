@@ -1,0 +1,4 @@
+---
+
+- name: ufw
+  shell: ufw allow riak && ufw app update riak

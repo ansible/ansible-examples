@@ -1,0 +1,8 @@
+---
+- name: install riak
+  yum: name=riak state=present
+
+- name: configure iptables
+  template: src=iptables.j2 dest=/etc/sysconfig/iptables.riak owner=root group=root
+  notify:
+  - lokkit
