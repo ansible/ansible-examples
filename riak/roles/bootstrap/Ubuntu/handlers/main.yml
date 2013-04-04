@@ -1,0 +1,3 @@
+---
+- name: restore iptables
+  shell: iptables-restore < /etc/iptables.rules

@@ -1,0 +1,9 @@
+[riak_cluster]
+10.0.8.133 node_type=primary
+10.0.8.228 node_type=middle
+10.0.8.230 node_type=middle
+10.0.8.231 node_type=middle
+10.0.8.233 node_type=last
+
+[riak_servers:children]
+riak_cluster

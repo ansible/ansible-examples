@@ -1,0 +1,16 @@
+---
+# Variables for the riak node configuration
+
+# Ethernet interface on which riak should listen
+riak:
+  iface: eth0
+  handoff_port: 8099
+  http_port: 8098
+  pb_port: 8087
+  mountpoint: /
+  partition: /dev/mapper/${ansible_hostname}-root
+  physical_disk: sda
+  scheduler: noop
+  backend: bitcask
+  ring_size: 64
+  log_rotate: 4
