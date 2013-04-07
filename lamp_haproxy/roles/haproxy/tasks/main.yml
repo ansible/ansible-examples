@@ -12,5 +12,5 @@
   notify: restart iptables
 
 - name: Configure the haproxy cnf file with hosts
-  template: src=../roles/haproxy/templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
   notify: restart haproxy

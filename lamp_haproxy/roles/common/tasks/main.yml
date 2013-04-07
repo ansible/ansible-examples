@@ -1,12 +1,22 @@
 ---
 # This playbook contains common plays that will run on all nodes.
 
+- name: install some useful nagios plugins 
+  yum: name=$item state=present
+  with_items:
+   - nagios-nrpe
+   - nagios-plugins-swap
+   - nagios-plugins-users
+   - nagios-plugins-procs
+   - nagios-plugins-load
+   - nagios-plugins-disk
+
 - name: Install ntp 
   yum: name=ntp state=present
   tags: ntp
 
 - name: Configure ntp file
-  template: src=../roles/common/templates/ntp.conf.j2 dest=/etc/ntp.conf
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
   tags: ntp
   notify: restart ntp
 

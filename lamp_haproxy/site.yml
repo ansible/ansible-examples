@@ -1,6 +1,7 @@
 ---
 #This Playbook deploys the whole application stack in this site.  
 
-- include: playbooks/db.yml
-- include: playbooks/web.yml
-- include: playbooks/haproxy.yml
+- include: db.yml
+- include: web.yml
+- include: haproxy.yml
+- include: nagios.yml

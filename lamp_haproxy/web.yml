@@ -1,0 +1,13 @@
+---
+# This playbook deploys the webservers with httpd and the code.
+
+- hosts: monitoring
+  tasks:
+
+- hosts: webservers
+  user: root
+
+  roles:
+  - common
+  - base-apache
+  - web

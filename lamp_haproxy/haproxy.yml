@@ -1,0 +1,8 @@
+---
+# Playbook for HAProxy operations
+
+- hosts: lbservers
+  user: root
+  roles:
+  - common
+  - haproxy
