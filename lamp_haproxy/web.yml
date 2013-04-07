@@ -1,6 +1,7 @@
 ---
 # This playbook deploys the webservers with httpd and the code.
 
+# fetch monitoring facts for iptables rules
 - hosts: monitoring
   tasks:
 

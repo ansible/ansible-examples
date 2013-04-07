@@ -6,4 +6,4 @@
   user: root
   serial: 1
   tasks:
-   - include: ../roles/web/tasks/rolling_update.yml
+   - include: roles/web/tasks/rolling_update.yml

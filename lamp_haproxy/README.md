@@ -14,6 +14,10 @@ First we configure the entire stack by listing our hosts in the 'hosts' inventor
 		[lbservers]
 		lbserver
 
+                # an optional nagios node
+                [monitoring]
+                nagiosserver
+
 After which we execute the following command to deploy the site:
 
 	ansible-playbook -i hosts site.yml
@@ -24,13 +28,13 @@ The deployment can be verified by accessing the IP address of your load balnacer
 
 Removal of a node from the cluster is as simple as executing the following command:
 
-	ansible-playbook -i hosts playbooks/remove_webservers.yml --limit=web2
+	ansible-playbook -i hosts remove_webservers.yml --limit=web2
 
 ###Add a Node
 
 Adding a node to the cluster can be done by executing the following command:
  
-	ansible-playbook -i hosts playbooks/add_webservers.yml --limit=web2
+	ansible-playbook -i hosts add_webservers.yml --limit=web2
 
 ###Rolling Update
 
@@ -41,10 +45,5 @@ that only one server will be updated at one time. If you have a lot of web serve
 
 Once the code has been updated in the source repository for your application which can be defined in the group_vars/all file, execute the following command:
 
-	 ansible-playbook -i hosts playbooks/rolling_update.yml
+	 ansible-playbook -i hosts rolling_update.yml
 
-
-
-
-
-	 
