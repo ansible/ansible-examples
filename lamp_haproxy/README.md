@@ -24,17 +24,12 @@ After which we execute the following command to deploy the site:
 
 The deployment can be verified by accessing the IP address of your load balnacer host in a web browser: http://<ip-of-lb>:8888. Reloading the page should have you hit different webservers.
 
-###Remove a Node
+###Removing and Adding a Node
 
-Removal of a node from the cluster is as simple as executing the following command:
+Removal and addition of nodes to the cluster is as simple as editing the hosts inventory
+and re-running:
 
-	ansible-playbook -i hosts remove_webservers.yml --limit=web2
-
-###Add a Node
-
-Adding a node to the cluster can be done by executing the following command:
- 
-	ansible-playbook -i hosts add_webservers.yml --limit=web2
+        ansible-playbook -i hosts site.yml
 
 ###Rolling Update
 
