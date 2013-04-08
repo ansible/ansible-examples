@@ -16,26 +16,25 @@
 
 - name: create nagios config dir
   file: path=/etc/nagios/ansible-managed state=directory
-  tags:
-   - nagios-setup
 
 - name: configure nagios
   copy: src=nagios.cfg dest=/etc/nagios/nagios.cfg
-  tags:
-   - nagios-setup
   notify: restart nagios
 
 - name: configure localhost monitoring
   copy: src=localhost.cfg dest=/etc/nagios/objects/localhost.cfg
-  tags:
-   - nagios-setup
   notify: restart nagios
 
+- name: configure nagios services
+  copy: src=ansible-managed-services.cfg dest=/etc/nagios/
+
 - name: create the nagios object files
-  template: src=servers.cfg.j2
-            dest=/etc/nagios/ansible-managed/servers.cfg
-  tags:
-   - nagios-setup
+  template: src={{ item + ".j2" }}
+            dest=/etc/nagios/ansible-managed/{{ item }}
+  with_items:
+    - webservers.cfg
+    - dbservers.cfg
+    - lbservers.cfg
   notify: restart nagios
 
 - name: start nagios

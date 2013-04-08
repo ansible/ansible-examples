@@ -1,0 +1,17 @@
+---
+
+# httpd is handled by the base-apache role upstream
+- name: Install php 
+  action: yum  name=$item state=installed
+  with_items:
+   - php
+   - php-mysql
+
+- name: Configure SELinux to allow httpd to connect to remote database
+  seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+
+- name: Copy the code from repository
+  git: repo=${repository} dest=/var/www/html/
+
+- name: Create the index.php file
+  template: src=index.php.j2 dest=/var/www/html/index.php

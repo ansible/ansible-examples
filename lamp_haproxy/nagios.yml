@@ -1,6 +1,7 @@
 ---
 # This playbook configures the monitoring node 
 
+# trigger fact-gathering for all hosts
 - hosts: all
   tasks:
 

@@ -1,0 +1,25 @@
+# {{ ansible_managed }}
+
+define hostgroup {
+	hostgroup_name webservers
+        alias Web Servers
+}
+
+{% for host in groups['webservers'] %}
+define host {
+	use                     linux-server
+	host_name               {{ host }} 
+	alias                   {{ host }}
+	address                 {{ hostvars[host].ansible_default_ipv4.address }}
+	hostgroups 		webservers
+}
+{% endfor %}
+
+# service checks to be applied to the web server
+define service {
+	use				local-service
+	hostgroup_name			webservers
+	service_description	        webserver	
+	check_command			check_http
+	notifications_enabled		0
+}
