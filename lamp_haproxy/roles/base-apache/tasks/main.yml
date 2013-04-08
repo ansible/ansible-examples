@@ -8,13 +8,5 @@
    - libsemanage-python
    - libselinux-python
 
-- name: insert iptables template for httpd
-  template: src=iptables.j2 dest=/etc/sysconfig/iptables
-  register: last_run
-
-- name: Apply iptable rule
-  service: name=iptables state=restarted
-  only_if: ${last_run.changed}
-
 - name: http service state
   service: name=httpd state=started enabled=yes

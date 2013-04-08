@@ -29,3 +29,7 @@
 
 - name: Install EPEL RPM
   yum: name=/tmp/epel-release-6-8.noarch.rpm state=installed
+
+- name: insert iptables template
+  template: src=iptables.j2 dest=/etc/sysconfig/iptables
+  notify: restart iptables

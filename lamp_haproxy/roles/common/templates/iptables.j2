@@ -1,19 +1,26 @@
 # {{ ansible_managed }}
-
+# Manual customization of this file is not recommended.
 *filter
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
--A INPUT -p tcp  --dport 80 -j  ACCEPT
+
+{% if inventory_hostname in groups['webservers'] %}
+-A INPUT -p tcp  --dport 80 -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['dbservers'] %}
+-A INPUT -p tcp  --dport 3306 -j  ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['lbservers'] %}
+-A INPUT -p tcp  --dport {{ listenport }} -j  ACCEPT
+{% endif %}
+
 {% for host in groups['monitoring'] %}
 -A INPUT -p tcp -s {{ hostvars[host].ansible_default_ipv4.address }} --dport 5666 -j ACCEPT
 {% endfor %}
--A INPUT -p tcp  --dport 111 -j  ACCEPT
--A INPUT -p udp  --dport 111 -j  ACCEPT
--A INPUT -p tcp  --dport 892 -j  ACCEPT
--A INPUT -p udp  --dport 892 -j  ACCEPT
--A INPUT -p tcp  --dport 850 -j  ACCEPT
--A INPUT -p udp  --dport 850 -j  ACCEPT
+
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT

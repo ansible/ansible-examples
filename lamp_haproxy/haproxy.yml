@@ -1,6 +1,10 @@
 ---
 # Playbook for HAProxy operations
 
+# fetch monitoring facts for iptables rules
+- hosts: monitoring
+  tasks:
+
 - hosts: lbservers
   user: root
   roles:
