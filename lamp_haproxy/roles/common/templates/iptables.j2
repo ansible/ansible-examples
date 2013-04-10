@@ -5,7 +5,7 @@
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 
-{% if inventory_hostname in groups['webservers'] %}
+{% if (inventory_hostname in groups['webservers']) or (inventory_hostname in groups['monitoring']) %}
 -A INPUT -p tcp  --dport 80 -j ACCEPT
 {% endif %}
 
