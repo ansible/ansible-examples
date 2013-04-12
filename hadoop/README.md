@@ -16,7 +16,7 @@ The Playbooks in this example are  made to deploy Hadoop Clusters for users, the
 ### Brief introduction to diffrent components of Hadoop Cluster.
 
 The following diagram depicts a Hadoop Cluster with HA and automated failover which would be deployed by the Ansible Playbooks.
-
+![Alt text](/hadoop_ha.png "Hadoop HA")
 
 The two major categories of machines roles in a Hadoop cluster are Hadoop Masters and Hadoop Slaves.
 
