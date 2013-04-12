@@ -20,7 +20,7 @@ The following diagram depicts a Hadoop Cluster with HA and automated failover wh
 
 The two major categories of machines roles in a Hadoop cluster are Hadoop Masters and Hadoop Slaves.
 
-The Hadoop masters consists of:
+#####The Hadoop masters consists of:
     
 ####NameNode:      
 
@@ -30,7 +30,7 @@ The NameNode is the centerpiece of an HDFS file system. It keeps the directory t
 
 The JobTracker is the service within Hadoop that gives out MapReduce tasks to specific nodes in the cluster, Applications submit jobs to the Job tracker and JobTracker talks to the NameNode to determine the location of the data , once located the JobTracker submits the work to the chosen TaskTracker nodes.
 
-The Hadoop Slaves consists of:
+#####The Hadoop Slaves consists of:
 
 ####DataNode:  
 
@@ -41,7 +41,7 @@ A DataNode is responsible for storing data in the HadoopFileSystem. A functional
 A TaskTracker is a node in the cluster that accepts tasks - Map, Reduce and Shuffle operations from a JobTracker.
 
 
-The Hadoop Master processes does not have high availability built into them as thier counterparts (datanode, tasktracker). Inorder to have HA for the NameNode and Jobtracker we have the following processes.
+#####The Hadoop Master processes does not have high availability built into them as thier counterparts (datanode, tasktracker). Inorder to have HA for the NameNode and Jobtracker we have the following processes.
 
 ####Quorum Journal Nodes:    
 
@@ -51,9 +51,13 @@ The journal nodes are responsible for maintaining a journal of any modifications
 
 The purpose of Zookeepr is cluster management, Do remember that Hadoop HA is an active/passive cluster so the cluster requires stuff's like hearbeats, locks, leader election, quorum etc.. these service are provided by the zookeeper services. The recommended number for a production use is 3.
 
-zkfc namenode: zkfc (zookeeper failover controller) is a zookeeper client application that runs on each namenode server, it's responsibilites include health monitoring, zookeeper session management, leader election etc.. i,e incase of a namenode failure the zkfc process running on that machine detects the failure and informs the zookeeper as a result of which re-election takes place and a new active namenode is selected.
+####zkfc namenode: 
 
-zkfc JobTracker: The zkfc Tasktracker performs the same functionalities as that of zkfc namenode, the diffrence being the process that zkfc is resposible for is the jobtracker 
+zkfc (zookeeper failover controller) is a zookeeper client application that runs on each namenode server, it's responsibilites include health monitoring, zookeeper session management, leader election etc.. i,e incase of a namenode failure the zkfc process running on that machine detects the failure and informs the zookeeper as a result of which re-election takes place and a new active namenode is selected.
+
+####zkfc JobTracker: 
+
+The zkfc Tasktracker performs the same functionalities as that of zkfc namenode, the diffrence being the process that zkfc is resposible for is the jobtracker 
 
 
 ### Deploying a Hadoop Cluster with HA
@@ -61,7 +65,9 @@ zkfc JobTracker: The zkfc Tasktracker performs the same functionalities as that 
 ####Pre-requesite's
 
 The Playbooks have been tested using Ansible v1.2, and Centos 6.x (64 bit)
+
 Modify group_vars/all to choose the interface for hadoop communication.
+
 Optionally you change the hadoop specific parameter like port's or directories by editing hadoop_vars/hadoop file.
 
 Before launching the deployment playbook make sure the inventory file ( hosts ) have be setup properly, Here's a sample: 
