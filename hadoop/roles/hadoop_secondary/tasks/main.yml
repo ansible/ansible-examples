@@ -1,0 +1,4 @@
+---
+# Playbook for  Hadoop master secondary server
+
+- include: hadoop_secondary.yml

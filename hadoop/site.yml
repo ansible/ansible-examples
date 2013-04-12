@@ -1,0 +1,41 @@
+---
+# The main file to delpoy the site
+
+
+- hosts: all
+  vars_files:
+    - hadoop_vars/hadoop
+  roles:
+   - common
+
+- hosts: zookeeper_servers
+  vars_files:
+    - hadoop_vars/hadoop
+  roles:
+   - zookeeper_servers
+
+- hosts: qjournal_servers
+  vars_files:
+    - hadoop_vars/hadoop
+  roles:
+   - qjournal_servers
+
+- hosts: hadoop_master_primary
+  vars_files:
+    - hadoop_vars/hadoop
+  roles:
+   - hadoop_primary
+
+- hosts: hadoop_master_secondary
+  vars_files:
+    - hadoop_vars/hadoop
+  roles:
+   - hadoop_secondary
+
+- hosts: hadoop_slaves
+  vars_files:
+    - hadoop_vars/hadoop
+  roles:
+   - hadoop_slaves
+
+

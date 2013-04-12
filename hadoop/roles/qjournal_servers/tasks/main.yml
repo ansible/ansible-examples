@@ -1,0 +1,38 @@
+---
+# Playbook for the qjournal nodes
+
+- name: Install the qjournal package
+  yum: name=hadoop-hdfs-journalnode state=installed
+  
+- name: Create folder for Journaling
+  file: path=${hadoop.dfs_journalnode_edits_dir} state=directory owner=hdfs group=hdfs
+
+- name: Copy the hadoop configuration files
+  template: src=roles/common/templates/hadoop_ha_conf/${item}.j2 dest=/etc/hadoop/conf/${item}
+  with_items:
+   - core-site.xml
+   - hadoop-metrics.properties
+   - hadoop-metrics2.properties
+   - hdfs-site.xml
+   - log4j.properties
+   - mapred-site.xml
+   - slaves
+   - ssl-client.xml.example
+   - ssl-server.xml.example
+  when_unset: $ha_disabled
+  notify: restart qjournal services
+
+- name: Copy the non ha hadoop configuration files
+  template: src=roles/common/templates/hadoop_conf/${item}.j2 dest=/etc/hadoop/conf/${item}
+  with_items:
+   - core-site.xml
+   - hadoop-metrics.properties
+   - hadoop-metrics2.properties
+   - hdfs-site.xml
+   - log4j.properties
+   - mapred-site.xml
+   - slaves
+   - ssl-client.xml.example
+   - ssl-server.xml.example
+  when_set: $ha_disabled
+  notify: restart qjournal services

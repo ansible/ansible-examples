@@ -1,0 +1,47 @@
+
+hadoop:
+    
+#Variables for <core-site.xml> - common
+    
+    fs.default.FS.port: 8020
+    nameservice.id: mycluster2
+
+#Variables for <hdfs-site.xml>     
+    
+    dfs.permissions.superusergroup: hdfs
+    dfs_namenode_name_dir: 
+       - /namedir1/
+       - /namedir2/
+    dfs.replication: 3
+    dfs.namenode.handler.count: 50
+    dfs.blocksize: 67108864
+    dfs_datanode_data_dir:
+       - /datadir1/
+       - /datadir2/
+    dfs.datanode.address.port: 50010
+    dfs.datanode.http.address.port: 50075
+    dfs.datanode.ipc.address.port:  50020
+    dfs.namenode.http.address.port: 50070
+    dfs.ha.zkfc.port: 8019
+    qjournal.port: 8485  
+    qjournal.http.port: 8480 
+    dfs_journalnode_edits_dir: /journaldir/
+    zookeeper.clientport: 2181
+    zookeeper.leader_port: 2888
+    zookeeper.election_port: 3888
+
+#Variables for <mapred-site.xml> - common
+    mapred.job.tracker.ha.servicename: myjt2 
+    mapred.job.tracker.http.address.port: 50030
+    mapred.task.tracker.http.address.port: 50060 
+    mapred.job.tracker.port: 8021
+    mapred.ha.jobtracker.rpc-address.port: 8023
+    mapred.ha.zkfc.port: 8018
+    mapred_job_tracker_persist_jobstatus_dir: /jobdir/
+    mapred_local_dir:
+      - /mapred1/
+      - /mapred2/
+
+
+     
+

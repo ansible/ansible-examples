@@ -1,0 +1,5 @@
+---
+# Playbook for  Hadoop master primary servers
+
+- include: hadoop_master.yml tags=no_ha
+
