@@ -141,6 +141,9 @@ The Hadoop cluster when reaches it's maximum capacity it can be scaled by adding
 
 The following diagram illustrates a standalone hadoop cluster.
 
+![Alt text](/hadoop_simple.png "Optional title")
+
+
 To deploy this cluster fill in the inventory file as follows: 
 
 		[hadoop_master_primary]
