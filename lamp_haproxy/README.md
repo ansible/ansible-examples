@@ -25,13 +25,13 @@ inventory file, grouped by their purpose:
 		[lbservers]
 		lbserver
 
-                # an optional nagios node
-                [monitoring]
-                nagiosserver
+		# an optional nagios node
+		[monitoring]
+		nagiosserver
 
 After which we execute the following command to deploy the site:
 
-	ansible-playbook -i hosts site.yml
+		ansible-playbook -i hosts site.yml
 
 The deployment can be verified by accessing the IP address of your load
 balancer host in a web browser: http://<ip-of-lb>:8888. Reloading the page
