@@ -1,13 +1,13 @@
 iface: eth1
 
-ha_enabled: False
+ha_enabled: True
 
 hadoop:
     
 #Variables for <core-site_xml> - common
     
     fs_default_FS_port: 8020
-    nameservice_id: mycluster3
+    nameservice_id: mycluster4
 
 #Variables for <hdfs-site_xml>     
     
@@ -34,7 +34,7 @@ hadoop:
     zookeeper_election_port: 3888
 
 #Variables for <mapred-site_xml> - common
-    mapred_job_tracker_ha_servicename: myjt3 
+    mapred_job_tracker_ha_servicename: myjt4 
     mapred_job_tracker_http_address_port: 50030
     mapred_task_tracker_http_address_port: 50060 
     mapred_job_tracker_port: 8021

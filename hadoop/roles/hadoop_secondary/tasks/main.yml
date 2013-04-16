@@ -55,10 +55,10 @@
 
 - name: start zkfc for jobtracker 
   service: name=hadoop-0.20-mapreduce-zkfc state=started
-  delegate_to: ${item}
+  delegate_to: '{{ item }}'
   with_items: groups.hadoop_masters
 
 - name: start hadoop Jobtracker services
   service: name=hadoop-0.20-mapreduce-jobtrackerha state=started
-  delegate_to: ${item}
+  delegate_to: '{{ item }}'
   with_items: groups.hadoop_masters
