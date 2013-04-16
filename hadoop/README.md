@@ -170,6 +170,9 @@ To deploy this cluster fill in the inventory file as follows:
 		hadoop2
 		hadoop3
 
+		[qjournal_servers]
+		[zookeeper_servers]
+
 and edit the group_vars/all file to disable HA:
 
 		ha_enabled: False
