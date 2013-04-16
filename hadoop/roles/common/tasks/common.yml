@@ -9,11 +9,9 @@
 
 - name: create a directory for java 
   file:  state=directory path=/usr/java/
-  tags: link
 
 - name: create a link for java
   file: src=/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0.x86_64/jre state=link path=/usr/java/default
-  tags: link
 
 - name: Create the hosts file for all machines
   template: src=etc/hosts.j2 dest=/etc/hosts

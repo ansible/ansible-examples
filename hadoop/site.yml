@@ -3,39 +3,27 @@
 
 
 - hosts: all
-  vars_files:
-    - hadoop_vars/hadoop
   roles:
    - common
 
 - hosts: zookeeper_servers
-  vars_files:
-    - hadoop_vars/hadoop
   roles:
-   - zookeeper_servers
+  - { role: zookeeper_servers, when: ha_enabled }
 
 - hosts: qjournal_servers
-  vars_files:
-    - hadoop_vars/hadoop
   roles:
-   - qjournal_servers
+  - { role: qjournal_servers, when: ha_enabled }
 
 - hosts: hadoop_master_primary
-  vars_files:
-    - hadoop_vars/hadoop
   roles:
-   - hadoop_primary
+  - { role: hadoop_primary }
 
 - hosts: hadoop_master_secondary
-  vars_files:
-    - hadoop_vars/hadoop
   roles:
-   - hadoop_secondary
+  - { role: hadoop_secondary, when: ha_enabled }
 
 - hosts: hadoop_slaves
-  vars_files:
-    - hadoop_vars/hadoop
   roles:
-   - hadoop_slaves
+  - { role: hadoop_slaves }
 
 

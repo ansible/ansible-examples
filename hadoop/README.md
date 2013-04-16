@@ -68,11 +68,11 @@ The Playbooks have been tested using Ansible v1.2, and Centos 6.x (64 bit)
 
 Modify group_vars/all to choose the interface for hadoop communication.
 
-Optionally you change the hadoop specific parameter like port's or directories by editing hadoop_vars/hadoop file.
+Optionally you change the hadoop specific parameter like port's or directories by editing group_vars/all file.
 
 Before launching the deployment playbook make sure the inventory file ( hosts ) have be setup properly, Here's a sample: 
 
-		[hadoop_master_primary]15yy
+		[hadoop_master_primary]
 		zhadoop1
 
 		[hadoop_master_secondary]
@@ -124,12 +124,22 @@ and you should get a result where the standby has been promoted to the active st
 
 ### Running a mapreduce job on the cluster.
 
-To run a mapreduce job on the cluster a sample playbook has been written, this playbook runs a job on the cluster which counts the occurance of the word 'hello' on an inputfile. A sample inputfile file has been created in the playbooks/inputfile file, modify the file to match your testing.
-To deploy the mapreduce job run the following command.( Below -e server=<any of your hadoop master server> 
+To deploy the mapreduce job run the following script from any of the hadoop master nodes as user 'hdfs'. The job would count the number of occurance of the word 'hello' in the given inputfile. Eg: su - hdfs -c "/tmp/job.sh"
 
-		ansible-playbook -i hosts playbooks/job.yml -e server=zhadoop1
+		#!/bin/bash		
+		cat > /tmp/inputfile << EOF
+		hello
+		sf
+		sdf
+		hello
+		sdf
+		sdf
+		EOF
+		hadoop fs -put /tmp/inputfile /inputfile
+		hadoop jar /usr/lib/hadoop-0.20-mapreduce/hadoop-examples.jar grep /inputfile /outputfile 'hello'
+		hadoop fs -get /outputfile /tmp/outputfile/
 
-to verify the result read the file on your ansible server located at /tmp/zhadoop1/tmp/outputfile/part-00000, which should give you the count.
+to verify the result read the file on  server located at /tmp/outputfile/part-00000, which should give you the count.
 
 ###Scale the Cluster
 
@@ -160,8 +170,12 @@ To deploy this cluster fill in the inventory file as follows:
 		hadoop2
 		hadoop3
 
-and issue the following command:
+and edit the group_vars/all file to disable HA:
 
-		ansible-playbook -i hosts site.yml -e ha_disabled=true --tags=no_ha
+		ha_enabled: False
+
+and run the following command:
+
+		ansible-playbook -i hosts site.yml 
 
 The validity of the cluster can be checked by running the same mapreduce job that has documented above for an HA Hadoop Cluster

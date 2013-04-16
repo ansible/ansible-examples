@@ -1,5 +1,5 @@
 ---
 # The playbook for common tasks
 
-- include: common.yml tags=slaves,no_ha
+- include: common.yml tags=slaves
 

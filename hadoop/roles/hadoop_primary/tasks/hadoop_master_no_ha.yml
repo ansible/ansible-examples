@@ -4,13 +4,11 @@
 - name: Install the namenode and jobtracker packages
   yum: name={{ item }} state=installed
   with_items: 
-   - hadoop-0.20-mapreduce-jobtrackerha
+   - hadoop-0.20-mapreduce-jobtracker
    - hadoop-hdfs-namenode
-   - hadoop-hdfs-zkfc
-   - hadoop-0.20-mapreduce-zkfc
 
-- name: Copy the hadoop configuration files
-  template: src=roles/common/templates/hadoop_ha_conf/{{ item }}.j2 dest=/etc/hadoop/conf/{{ item }}
+- name: Copy the hadoop configuration files for no ha
+  template: src=roles/common/templates/hadoop_conf/{{ item }}.j2 dest=/etc/hadoop/conf/{{ item }}
   with_items: 
    - core-site.xml
    - hadoop-metrics.properties
@@ -21,18 +19,20 @@
    - slaves
    - ssl-client.xml.example
    - ssl-server.xml.example
-  notify: restart hadoopha master services
+  notify: restart hadoop master services
 
 - name: Create the data directory for the namenode metadata
   file: path={{ item }} owner=hdfs group=hdfs state=directory
-  with_items: hadoop.dfs_namenode_name_dir 
-
-- name: Create the data directory for the jobtracker ha
-  file: path={{ item }} owner=mapred group=mapred state=directory
-  with_items: hadoop.mapred_job_tracker_persist_jobstatus_dir
+  with_items: hadoop.dfs_namenode_name_dir
 
 - name: Format the namenode
   shell: creates=/usr/lib/hadoop/namenode.formatted su - hdfs -c "hadoop namenode -format"; touch /usr/lib/hadoop/namenode.formatted
 
 - name: start hadoop namenode services
   service: name=hadoop-hdfs-namenode state=started
+
+- name: Give permissions for mapred users
+  shell: creates=/usr/lib/hadoop/fs.initialized su - hdfs -c "hadoop fs -chown hdfs:hadoop /"; su - hdfs -c "hadoop fs -chmod 0774 /"; touch /usr/lib/hadoop/namenode.initialized
+
+- name: start hadoop jobtracker services
+  service: name=hadoop-0.20-mapreduce-jobtracker state=started

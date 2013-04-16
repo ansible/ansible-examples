@@ -20,31 +20,31 @@
 <configuration>
   <property>
     <name>dfs.blocksize</name>
-    <value>{{ hadoop['dfs.blocksize'] }}</value>
+    <value>{{ hadoop['dfs_blocksize'] }}</value>
   </property>
   <property>
     <name>dfs.permissions.superusergroup</name>
-    <value>{{ hadoop['dfs.permissions.superusergroup'] }}</value>
+    <value>{{ hadoop['dfs_permissions_superusergroup'] }}</value>
   </property>
   <property>
     <name>dfs.namenode.http.address</name>
-    <value>0.0.0.0:{{ hadoop['dfs.namenode.http.address.port'] }}</value>
+    <value>0.0.0.0:{{ hadoop['dfs_namenode_http_address_port'] }}</value>
   </property>
    <property>
     <name>dfs.datanode.address</name>
-    <value>0.0.0.0:{{ hadoop['dfs.datanode.address.port'] }}</value>
+    <value>0.0.0.0:{{ hadoop['dfs_datanode_address_port'] }}</value>
   </property>
   <property>
     <name>dfs.datanode.http.address</name>
-    <value>0.0.0.0:{{ hadoop['dfs.datanode.http.address.port'] }}</value>
+    <value>0.0.0.0:{{ hadoop['dfs_datanode_http_address_port'] }}</value>
   </property>
   <property>
     <name>dfs.datanode.ipc.address</name>
-    <value>0.0.0.0:{{ hadoop['dfs.datanode.ipc.address.port'] }}</value>
+    <value>0.0.0.0:{{ hadoop['dfs_datanode_ipc_address_port'] }}</value>
   </property>
   <property>
     <name>dfs.replication</name>
-    <value>{{ hadoop['dfs.replication'] }}</value>
+    <value>{{ hadoop['dfs_replication'] }}</value>
   </property>
   <property>
     <name>dfs.namenode.name.dir</name>

@@ -1,33 +1,33 @@
 # Firewall configuration written by system-config-firewall
-# Manual customization of this file is not recommended.
+# Manual customization of this file is not recommended_
 *filter
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 {% if 'hadoop_masters' in group_names %}
--A INPUT -p tcp  --dport {{ hadoop['fs.default.FS.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['dfs.namenode.http.address.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['mapred.job.tracker.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['mapred.job.tracker.http.address.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['mapred.ha.jobtracker.rpc-address.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['mapred.ha.zkfc.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['dfs.ha.zkfc.port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['fs_default_FS_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['dfs_namenode_http_address_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['mapred_job_tracker_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['mapred_job_tracker_http_address_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['mapred_ha_jobtracker_rpc-address_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['mapred_ha_zkfc_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['dfs_ha_zkfc_port'] }} -j  ACCEPT
 
 {% endif %}
 {% if 'hadoop_slaves' in group_names %}
--A INPUT -p tcp  --dport {{ hadoop['dfs.datanode.address.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['dfs.datanode.http.address.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['dfs.datanode.ipc.address.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['mapred.task.tracker.http.address.port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['dfs_datanode_address_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['dfs_datanode_http_address_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['dfs_datanode_ipc_address_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['mapred_task_tracker_http_address_port'] }} -j  ACCEPT
 {% endif %}
 {% if 'qjournal_servers' in group_names %}
--A INPUT -p tcp  --dport {{ hadoop['qjournal.port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['qjournal.http.port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['qjournal_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['qjournal_http_port'] }} -j  ACCEPT
 {% endif %}
 {% if 'zookeeper_servers' in group_names %}
--A INPUT -p tcp  --dport {{ hadoop['zookeeper.clientport'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['zookeeper.leader_port'] }} -j  ACCEPT
--A INPUT -p tcp  --dport {{ hadoop['zookeeper.election_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['zookeeper_clientport'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['zookeeper_leader_port'] }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ hadoop['zookeeper_election_port'] }} -j  ACCEPT
 {% endif %}
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
