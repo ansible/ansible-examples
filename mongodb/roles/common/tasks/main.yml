@@ -2,22 +2,19 @@
 # This Playbook runs all the common plays in the deployment 
 
 - name: Create the hosts file for all machines
-  template: src=../roles/common/templates/hosts.j2 dest=/etc/hosts
+  template: src=hosts.j2 dest=/etc/hosts
 
 - name: Creates the repository for 10Gen  
-  template: src=../roles/common/templates/10gen.repo.j2 dest=/etc/yum.repos.d/10gen.repo
+  template: src=10gen.repo.j2 dest=/etc/yum.repos.d/10gen.repo
 
-- name: Download the EPEL repository RPM
-  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/ force=yes
+- name: Copy the EPEL Repository.
+  template: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo
 
-- name: Install EPEL RPM
-  yum: name=/tmp/epel-release-6-8.noarch.rpm state=installed
-
-- name: Clean up
-  command: rm -f /tmp/epel-release-6-8.noarch.rpm
+- name: Create the data directory for the namenode metadata
+  file: path={{ mongodb_datadir_prefix }} owner=mongod group=mongod state=directory
 
 - name: Install the mongodb package
-  yum: name=$item state=installed
+  yum: name={{ item }} state=installed
   with_items:
    - mongo-10gen
    - mongo-10gen-server
@@ -28,6 +25,6 @@
   pip: name=pymongo state=latest use_mirrors=no 
 
 - name: Create the iptables file
-  template: src=../roles/common/templates/iptables.j2 dest=/etc/sysconfig/iptables
+  template: src=iptables.j2 dest=/etc/sysconfig/iptables
   notify: restart iptables 
 

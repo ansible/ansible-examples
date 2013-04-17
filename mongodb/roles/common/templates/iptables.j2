@@ -4,14 +4,14 @@
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
-{% if 'mongocservers' in group_names %}
+{% if 'mongoc_servers' in group_names %}
 -A INPUT -p tcp  --dport 7777 -j  ACCEPT
 {% endif %}
-{% if 'mongosservers' in group_names %}
+{% if 'mongos_servers' in group_names %}
 -A INPUT -p tcp  --dport 8888 -j  ACCEPT
 {% endif %}
-{% if 'mongoservers' in group_names %}
-{% for host in groups['mongoservers'] %}
+{% if 'mongo_servers' in group_names %}
+{% for host in groups['mongo_servers'] %}
 -A INPUT -p tcp  --dport {{ mongod_ports[host] }} -j  ACCEPT
 {% endfor %}
 {% endif %}

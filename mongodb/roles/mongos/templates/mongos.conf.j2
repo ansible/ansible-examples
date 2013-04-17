@@ -8,7 +8,7 @@ fork = true
 
 port = {{ mongos_port }}
 {% set hosts = '' %}
- {% for host in groups['mongocservers'] %}
+ {% for host in groups['mongoc_servers'] %}
    {% if loop.last %}
       {% set hosts = hosts + host + ':' ~ mongoc_port  %}
        configdb = {{ hosts }}

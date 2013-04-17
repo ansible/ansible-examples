@@ -1,80 +1,106 @@
-Deploying a shared production ready MongoDB cluster with Ansible
+##Deploying a sharded production ready MongoDB cluster with Ansible
 ------------------------------------------------------------------------------
 
-In this example we demonstrate how we can orchestrate the deployment of a production grade MongoDB Cluster. The functionality of this example includes:
+####A Primer into the MongoDB NoSQL database.
 
-1) Deploying a N node MongoDB cluster, which has N shards and N replication nodes.
+![Alt text](/images/nosql_primer.png "Primer NoSQL")
 
-2) Scale out capability. Expand the Cluster by adding nodes to the cluster.
+The above diagram shows how the MongoDB nosql differs from the traditional relational database model. In RDBMS the data of a user is stored in table and the  records of users are stored in rows/columns, While in mongodb the 'table' is replaced by 'collection' and the individual 'records' are called 'documents'.
+One thing also to be noticed is that the data is stored as key/value pairs in BJSON format.
 
-3) Security, All the mongodb process are secured using the best practices.
+Another thing to be noticed is that nosql has a looser consistency model, as an example the second document in the users collection has an additonal field of 'last name'. Due to this flexibility the nosql database model can give us:
 
-###Deployment Architecture.
+Better Horizontal scaling capability.
 
-To better explain the deployment architecture let's take an example where we are deploying a 3 node MongoDB cluster ( Minimum recommended by MongoDB).
+Also mongodb has inbuilt support for 
 
-The way Ansible configures the three nodes is as follows:
+Data Replication & HA
 
-1) Install the mongodb software on all nodes.
+Which makes it good choice for users who have very large data to handle and less requirement for ACID.
 
-2) Creates 3 replication sets, with one primary on each node and the rest two acting as secondaries.
+ 
+#### MongoDB's Data replication .
 
-3) Configures MongodDB configuration DB servers as listed in the inventory section[mongocservers]. Recommended number is 3, so it can be the same three servers as the datanodes.
-
-4) Configures a Mongos server as listed in the inventory file [mongosservers].
-
-5) Adds 3 Shards each belonging to individual replication sets.
-
-6) All the processes, mongod,mogos are secured using the keyfiles.
-
-Once the cluster is deployed, if we want to scale the cluster, Ansible configures it as follows:
-
-1) Install the MongoDB application on the new node.
-
-2) Configure the replication set with primary as the new node and the secondaries as listed in the inventory file [replicationservers]. ( don't forget to add the new node also in the replicationservers section]
-
-3) Adds a new shard to the mongos service pointing to the new replication set.
+![Alt text](/images/replica_set.png "Replica Set")
 
 
-#### Pre-requisite 
+Data backup is achieved in Mongodb via Replica sets. As the figure above show's a single replication set consists of a replication master (active) and several other replications slaves (passive). All the database operations like Add/Delete/Update happens on the replication master and the master replicates the data to the slave nodes. mongod is the process which is resposible for all the database activities as well as replication processes. The minimum recommended number of slave servers are 3.
 
-1) Update the group_vars/all file which contains site specific parmaters, especially the section which contains the mapping of the hostname's and the ports that it should use for the mongod process. Please do make sure the ansible hostname matches the same. Also dont forget to add the variable when adding a new node.
 
-2) The default directory for storing data is /data, please do change it if requried, also make sure it has sufficient space 10G recommended.
+#### MongoDB's Sharding (Horizontal Scaling) .
 
-###The following example deploys a three node MongoDB Cluster
+![Alt text](/images/Sharding.png "Sharding")
+
+Sharding allows to achieve a very high performing database, by partioning the data into seperate chunks and allocating diffent ranges of chunks to diffrent shard servers. The figure above shows a collection which has 90 documents which has been sharded across the three shard server, The first shard getting ranges from 1- 29 etc... . When a client wants to access a certian document it contacts the query router (mongos process), which inturn would contact the 'configuration node' (lightweight mongod process) which keeps a record of which ranges of chunks are distributed across which shards. 
+
+Please do note that every shard server should be backed by a replica set, so that when data is written/queried copies of the data are available. So in a three shard deployment we would require 3 replica sets and primaries of each would act as the sharding server.
+
+Here's a basic steps of how sharding works. 
+
+1) A new database is created, and collections are added.
+
+2) New documents get updated as an when clients update, all the new documents goes into a single shard.
+
+3) when the size of collection in a shard exceeds the 'chunk_size' the collection is split and balanced across shards.
+
+
+##Deploy MongoDB cluster via Ansible.
+--------------------------------------------
+
+### Deploy the Cluster.
+
+![Alt text](/images/site.png "Site")
+  
+The above diagram illustrates the deployment model for mongodb cluster via Ansible, This deployment models focuses on deploying a three shard servers, each having a replica set, the backup replica servers are other two shard primaries. The configuration server are co-located with the shard's. The mongos servers are best deployed on seperate servers. These are the minimum recomended configuration for a production grade mongodb deployment.
+Please note that the playbooks are capable of deploying N node cluster not necesarily three. Also all the processes are secured using keyfiles.
+
+####Pre-Requisite's
+
+Edit the group_vars/all file to reflect the below variables.
+
+1) iface: 'eth1'     # the interface to be used for all communication.
+2) mongod_ports:     # The hostname and tcp/ip port combination.
+     mongo1: 2700
+     mongo2: 2701
+     mongo3: 2702
+		
+3) The default directory for storing data is /data, please do change it if requried, also make sure it has sufficient space 10G recommended.
+
+###Once the pre-requisite's have been done, we can  procced with the site deployment. The following example deploys a three node MongoDB Cluster
 
 The inventory file looks as follows:
 
 		#The site wide list of mongodb servers
-		[mongoservers]
+		[mongo_servers]
 		mongo1
 		mongo2
 		mongo3
 
 		#The list of servers where replication should happen, including the master server.
-		[replicationservers]
+		[replication_servers]
 		mongo1
 		mongo2
 		mongo3
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
-		[mongocservers]
+		[mongoc_servers]
 		mongo1
 		mongo2
 		mongo3
 
 		#The list of servers where mongos servers would run. 
 		[mongosservers]
-		mongos
+		mongos1
+		mongos2
 
 Build the site with the following command:
 
 		ansible-playbook -i hosts site.yml
 
+
 ###Verifying the deployed MongoDB Cluster
 
-Once completed we can check replication set availibitly by connecting to individual primary replication set nodes, 'mongo --host <ip host> --port <port number> 
+Once completed we can check replication set availibitly by connecting to individual primary replication set nodes, 'mongo --host 192.168.1.1 --port 2700 
 and issue the command to query the status of replication set, we should get a similar output.
 
 		
@@ -112,7 +138,7 @@ and issue the command to query the status of replication set, we should get a si
 		}
 
 
-we can check the status of the Shards as follows: connect to the mongos service 'mongos --host <ip of mongos server> --port 8888'
+we can check the status of the Shards as follows: connect to the mongos service 'mongos --host 192.168.1.1 --port 8888'
 and issue the following command to get the status of the Shards.
 
 
@@ -127,7 +153,10 @@ and issue the following command to get the status of the Shards.
 			{  "_id" : "admin",  "partitioned" : false,  "primary" : "config" }
 
 
-###We can also make sure the Sharding works by creating a database,collection and populate it with documents and check if the chunks of the collection are balanced equally across nodes.
+###We can also make sure the Sharding works by creating a database,collection and populate it with documents and check if the chunks of the collection are balanced equally across nodes. The below diagram illustrates the verification step.
+
+
+![Alt text](/images/check.png "check")
 
 The above mentioned steps can be tested with an automated playbook.
 
@@ -158,7 +187,9 @@ Once the playbook completes, we check if the shadring has succeded by logging on
 			
 
  
-### Adding a new node to the Cluster
+### Scaling the Cluster
+
+![Alt text](/images/scale.png "scale")
 
 To add a new node to the configured MongoDb Cluster, setup the inventory file as follows:
 
@@ -172,6 +203,7 @@ To add a new node to the configured MongoDb Cluster, setup the inventory file as
 		#The list of servers where replication should happen, make sure the new node is listed here.
 		[replicationservers]
 		mongo4
+		mongo3
 		mongo1
 		mongo2
 
@@ -183,11 +215,12 @@ To add a new node to the configured MongoDb Cluster, setup the inventory file as
 
 		#The list of servers where mongos servers would run. 
 		[mongosservers]
-		mongos
+		mongos1
+		mongos2
 
 Make sure you have the new node added in the replicationservers section and execute the following command:
 
-		ansible-playbook -i hosts playbooks/addnode.yml -e servername=mongo4
+		ansible-playbook -i hosts site.yml
 
 ###Verification.
 

@@ -1,6 +1,0 @@
----
-- hosts: mongoservers
-  tasks:
-    - name: test
-      debug: msg="hello- ${mongod_ports.${item}}"
-      with_items: ${groups.mongoservers}

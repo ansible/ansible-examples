@@ -2,38 +2,38 @@
 #This Playbook deploys the mongod processes and sets up the replication set.
 
 - name: create data directory for mongodb
-  file: path=${mongodb_datadir_prefix}/mongo-${inventory_hostname} state=directory owner=mongod group=mongod
-  delegate_to: $item
-  with_items: ${groups.replicationservers}
+  file: path={{ mongodb_datadir_prefix }}/mongo-{{ inventory_hostname }} state=directory owner=mongod group=mongod
+  delegate_to: '{{ item }}'
+  with_items: groups.replication_servers
 
   
 - name: Create the mongodb startup file
-  template: src=../roles/mongod/templates/mongod.j2 dest=/etc/init.d/mongod-${inventory_hostname} mode=0655
-  delegate_to: $item
-  with_items: ${groups.replicationservers}
+  template: src=mongod.j2 dest=/etc/init.d/mongod-{{ inventory_hostname }} mode=0655
+  delegate_to: '{{ item }}'
+  with_items: groups.replication_servers
 
 
 - name: Create the mongodb configuration file
-  template: src=../roles/mongod/templates/mongod.conf.j2 dest=/etc/mongod-${inventory_hostname}.conf
-  delegate_to: $item
-  with_items: ${groups.replicationservers}
+  template: src=mongod.conf.j2 dest=/etc/mongod-${inventory_hostname}.conf
+  delegate_to: '{{ item }}'
+  with_items: groups.replication_servers
 
 - name: Copy the keyfile for authentication
-  copy: src=../roles/mongod/files/secret dest=${mongodb_datadir_prefix}/secret owner=mongod group=mongod mode=0400
+  copy: src=secret dest={{ mongodb_datadir_prefix }}/secret owner=mongod group=mongod mode=0400
 
 
 - name: Start the mongodb service
   command: creates=/var/lock/subsys/mongod-${inventory_hostname} /etc/init.d/mongod-${inventory_hostname} start
-  delegate_to: $item
-  with_items: ${groups.replicationservers}
+  delegate_to: '{{ item }}'
+  with_items: groups.replication_servers
 
 - name: Create the file to initialize the mongod replica set
-  template: src=../roles/mongod/templates/repset_init.j2 dest=/tmp/repset_init.js
+  template: src=repset_init.j2 dest=/tmp/repset_init.js
 
 - name: Pause for a while
   pause: seconds=20
 
 - name: Initialize the replication set
-  shell: /usr/bin/mongo --port "${mongod_ports.${inventory_hostname}}" /tmp/repset_init.js
+  shell: /usr/bin/mongo --port "${mongod_ports.${inventory_hostname}}" /tmp/repset_init.js 
 
 

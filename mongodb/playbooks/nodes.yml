@@ -1,0 +1,13 @@
+---
+#This playbook is used to add a new node the mongodb cluster
+
+- hosts: all 
+  tasks:
+   - include: roles/common/tasks/main.yml
+  handlers:
+   - include: roles/common/handlers/main.yml
+
+- hosts: ${servername}
+  tasks: 
+   - include: roles/mongod/tasks/main.yml
+   - include: roles/mongod/tasks/addshard.yml

@@ -19,8 +19,8 @@ iface: eth1
 mongo_admin_pass: 123456
 
 mongod_ports:
-  bensible: 2700
-  web2: 2701
-  web3: 2702
-  web4: 2703
+  hadoop1: 2700
+  hadoop2: 2701
+  hadoop3: 2702
+  hadoop4: 2703
 

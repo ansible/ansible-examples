@@ -1,7 +1,0 @@
----
-# Deploys the mongodb service and sets up replication sets
-
-- hosts: mongoservers
-  user: root
-  tasks:
-   - include: ../roles/mongod/tasks/main.yml

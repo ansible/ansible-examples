@@ -1,7 +1,0 @@
----
-# Deploys the mongodb configuratin db servers
-
-- hosts: mongocservers
-  user: root
-  tasks:
-   - include: ../roles/mongoc/tasks/main.yml

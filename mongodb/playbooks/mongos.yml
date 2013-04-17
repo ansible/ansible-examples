@@ -1,7 +1,0 @@
----
-# Responsible for setting up and configuring mongos services
- 
-- hosts: mongosservers
-  user: root
-  tasks:
-   - include: ../roles/mongos/tasks/main.yml
