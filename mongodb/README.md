@@ -1,7 +1,8 @@
 ##Deploying a sharded production ready MongoDB cluster with Ansible
 ------------------------------------------------------------------------------
 
-####A Primer into the MongoDB NoSQL database.
+###A Primer into the MongoDB NoSQL database.
+---------------------------------------------
 
 ![Alt text](/images/nosql_primer.png "Primer NoSQL")
 
@@ -19,7 +20,8 @@ Data Replication & HA
 Which makes it good choice for users who have very large data to handle and less requirement for ACID.
 
  
-#### MongoDB's Data replication .
+### MongoDB's Data replication .
+------------------------------------
 
 ![Alt text](/images/replica_set.png "Replica Set")
 
@@ -27,9 +29,10 @@ Which makes it good choice for users who have very large data to handle and less
 Data backup is achieved in Mongodb via Replica sets. As the figure above show's a single replication set consists of a replication master (active) and several other replications slaves (passive). All the database operations like Add/Delete/Update happens on the replication master and the master replicates the data to the slave nodes. mongod is the process which is resposible for all the database activities as well as replication processes. The minimum recommended number of slave servers are 3.
 
 
-#### MongoDB's Sharding (Horizontal Scaling) .
+### MongoDB's Sharding (Horizontal Scaling) .
+------------------------------------------------
 
-![Alt text](/images/Sharding.png "Sharding")
+![Alt text](/images/sharding.png "Sharding")
 
 Sharding allows to achieve a very high performing database, by partioning the data into seperate chunks and allocating diffent ranges of chunks to diffrent shard servers. The figure above shows a collection which has 90 documents which has been sharded across the three shard server, The first shard getting ranges from 1- 29 etc... . When a client wants to access a certian document it contacts the query router (mongos process), which inturn would contact the 'configuration node' (lightweight mongod process) which keeps a record of which ranges of chunks are distributed across which shards. 
 
@@ -44,17 +47,18 @@ Here's a basic steps of how sharding works.
 3) when the size of collection in a shard exceeds the 'chunk_size' the collection is split and balanced across shards.
 
 
-##Deploy MongoDB cluster via Ansible.
+###Deploy MongoDB cluster via Ansible.
 --------------------------------------------
 
 ### Deploy the Cluster.
+----------------------------
 
 ![Alt text](/images/site.png "Site")
   
 The above diagram illustrates the deployment model for mongodb cluster via Ansible, This deployment models focuses on deploying a three shard servers, each having a replica set, the backup replica servers are other two shard primaries. The configuration server are co-located with the shard's. The mongos servers are best deployed on seperate servers. These are the minimum recomended configuration for a production grade mongodb deployment.
 Please note that the playbooks are capable of deploying N node cluster not necesarily three. Also all the processes are secured using keyfiles.
 
-####Pre-Requisite's
+###Pre-Requisite's
 
 Edit the group_vars/all file to reflect the below variables.
 
@@ -99,6 +103,7 @@ Build the site with the following command:
 
 
 ###Verifying the deployed MongoDB Cluster
+---------------------------------------------
 
 Once completed we can check replication set availibitly by connecting to individual primary replication set nodes, 'mongo --host 192.168.1.1 --port 2700 
 and issue the command to query the status of replication set, we should get a similar output.
@@ -154,7 +159,7 @@ and issue the following command to get the status of the Shards.
 
 
 ###We can also make sure the Sharding works by creating a database,collection and populate it with documents and check if the chunks of the collection are balanced equally across nodes. The below diagram illustrates the verification step.
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ![Alt text](/images/check.png "check")
 
@@ -188,6 +193,7 @@ Once the playbook completes, we check if the shadring has succeded by logging on
 
  
 ### Scaling the Cluster
+---------------------------------------
 
 ![Alt text](/images/scale.png "scale")
 
@@ -223,6 +229,7 @@ Make sure you have the new node added in the replicationservers section and exec
 		ansible-playbook -i hosts site.yml
 
 ###Verification.
+-----------------------------
 
 The verification of the newly added node can be as easy checking the sharding status and see the chunks being rebalanced to the newly added node.
 
