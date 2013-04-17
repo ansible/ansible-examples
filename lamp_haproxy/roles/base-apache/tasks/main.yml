@@ -2,7 +2,7 @@
 # This playbook installs httpd
 
 - name: Install http and php etc
-  action: yum  name=$item state=installed
+  yum: name=$item state=installed
   with_items:
    - httpd
    - libsemanage-python

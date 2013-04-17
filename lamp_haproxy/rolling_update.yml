@@ -9,7 +9,7 @@
   serial: 1
   tasks:
   
-  - name: disable nagios alerts for this host's webserver service
+  - name: disable nagios alerts for this host webserver service
     nagios: action=disable_alerts host=$ansible_hostname services=webserver
     delegate_to: $item
     with_items: ${groups.monitoring}

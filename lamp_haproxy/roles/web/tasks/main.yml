@@ -2,7 +2,7 @@
 
 # httpd is handled by the base-apache role upstream
 - name: Install php and git 
-  action: yum  name=$item state=installed
+  yum: name=$item state=installed
   with_items:
    - php
    - php-mysql
