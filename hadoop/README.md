@@ -66,13 +66,11 @@ MapJob Results:
 
 TaskTracker1:
  
-"Black: 1"
-"Sheep: 1"
+"Black: 1"                                                                                                                                                    "Sheep: 1"
 
 TaskTracker2:
 
-"White: 1
-"Sheep: 1"
+"White: 1"                                                                                                                                                    "Sheep: 1"
 
 
 Once the Map Phase is completed the jobtracker process initiates the Shuffle and Reduce process.
