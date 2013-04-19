@@ -63,11 +63,14 @@ As the Figure above shows when the client instructs the jobtracker to run a job 
 In the above example datanode1 and datanode2 had the blocks so the tasktrackers on those nodes run the map jobs, Once the jobs are completed the two nodes would have  key,value results as below:
 
 MapJob Results:
-TaskTracker1: 
+
+TaskTracker1:
+ 
 "Black: 1"
 "Sheep: 1"
 
 TaskTracker2:
+
 "White: 1
 "Sheep: 1"
 
