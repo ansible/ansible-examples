@@ -64,13 +64,13 @@ In the above example datanode1 and datanode2 had the blocks so the tasktrackers 
 
 MapJob Results:
 
-TaskTracker1:
- 
-"Black: 1"                                                                                                                                                    "Sheep: 1"
+		TaskTracker1:
+		"Black: 1"
+		"Sheep: 1"
 
-TaskTracker2:
-
-"White: 1"                                                                                                                                                    "Sheep: 1"
+		TaskTracker2:
+		"White: 1"
+		"Sheep: 1"
 
 
 Once the Map Phase is completed the jobtracker process initiates the Shuffle and Reduce process.
