@@ -1,0 +1,12 @@
+---
+# This playbook deploys MySQL and configures the database on the db node(s)
+
+# fetch monitoring facts for iptables rules
+- hosts: monitoring
+  tasks:
+
+- hosts: dbservers
+  user: root
+  roles:
+  - common
+  - db
