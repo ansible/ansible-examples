@@ -3,4 +3,3 @@
 
 httpd_port: 80
 ntpserver: 192.168.1.2
-repository: http://github.com/bennojoy/mywebapp.git
