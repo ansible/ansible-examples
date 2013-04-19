@@ -18,16 +18,17 @@ First we configure the entire stack by listing our hosts in the 'hosts'
 inventory file, grouped by their purpose:
 
 		[webservers]
-		web3
-		web2
+		webserver1
+		webserver2
+		
 		[dbservers]
-		web3
+		dbserver
+		
 		[lbservers]
 		lbserver
-
-		# an optional nagios node
+		
 		[monitoring]
-		nagiosserver
+		nagios
 
 After which we execute the following command to deploy the site:
 
