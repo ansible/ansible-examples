@@ -1,5 +1,5 @@
 ---
-# This playbook installs httpd
+# This role installs httpd
 
 - name: Install http and php etc
   yum: name=$item state=installed

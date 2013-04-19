@@ -1,5 +1,5 @@
 ---
-# This playbook will install nagios
+# This will install nagios
 
 - name: install nagios 
   yum: pkg=$item state=installed
