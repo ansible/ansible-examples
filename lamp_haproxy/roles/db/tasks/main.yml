@@ -1,5 +1,5 @@
 ---
-# This playbook will install MySQL and create db user and give permissions.
+# This role will install MySQL and create db user and give permissions.
 
 - name: Install Mysql package
   yum: pkg=$item state=installed
