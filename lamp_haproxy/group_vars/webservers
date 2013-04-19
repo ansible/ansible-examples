@@ -3,3 +3,6 @@
 
 # Ethernet interface on which the web server should listen
 iface: eth0
+
+# this is V5 of the test webapp.
+webapp_version: 351e47276cc66b018f4890a04709d4cc3d3edb0d

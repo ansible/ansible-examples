@@ -1,12 +1,28 @@
 ---
 # This playbook contains common plays that will run on all nodes.
 
+- name: Download the EPEL repository RPM
+  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/ force=yes
+
+- name: Install EPEL RPM
+  yum: name=/tmp/epel-release-6-8.noarch.rpm state=installed
+
+- name: install some useful nagios plugins 
+  yum: name=$item state=present
+  with_items:
+   - nagios-nrpe
+   - nagios-plugins-swap
+   - nagios-plugins-users
+   - nagios-plugins-procs
+   - nagios-plugins-load
+   - nagios-plugins-disk
+
 - name: Install ntp 
   yum: name=ntp state=present
   tags: ntp
 
 - name: Configure ntp file
-  template: src=../roles/common/templates/ntp.conf.j2 dest=/etc/ntp.conf
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
   tags: ntp
   notify: restart ntp
 
@@ -14,8 +30,6 @@
   service: name=ntpd state=started enabled=true
   tags: ntp
 
-- name: Download the EPEL repository RPM
-  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/ force=yes
-
-- name: Install EPEL RPM
-  yum: name=/tmp/epel-release-6-8.noarch.rpm state=installed
+- name: insert iptables template
+  template: src=iptables.j2 dest=/etc/sysconfig/iptables
+  notify: restart iptables

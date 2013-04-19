@@ -7,10 +7,6 @@
   - haproxy
   - socat
 
-- name: Open firewall port for haproxy.
-  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="$listenport" insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport $listenport -j  ACCEPT"
-  notify: restart iptables
-
 - name: Configure the haproxy cnf file with hosts
-  template: src=../roles/haproxy/templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
   notify: restart haproxy

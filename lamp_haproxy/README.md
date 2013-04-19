@@ -1,50 +1,67 @@
 LAMP Stack + HAProxy: Example Playbooks
 -----------------------------------------------------------------------------
 
-This example is an extension of the simple LAMP deployment. Here we'll deploy a web server with an HAProxy load balancer in front. This set of playbooks also have the capability to dynamically add and remove web server nodes from the deployment. It also includes examples to do a rolling update of a stack without affecting the service.
+(This example requires Ansible 1.2)
 
-###Setup Entire Site.
-First we configure the entire stack by listing our hosts in the 'hosts' inventory file, grouped by their purpose:
+This example is an extension of the simple LAMP deployment. Here we'll install
+and configure a web server with an HAProxy load balancer in front, and deploy
+an application to the web servers. This set of playbooks also have the
+capability to dynamically add and remove web server nodes from the deployment.
+It also includes examples to do a rolling update of a stack without affecting
+the service.
+
+You can also optionally configure a Nagios monitoring node.
+
+### Initial Site Setup
+
+First we configure the entire stack by listing our hosts in the 'hosts'
+inventory file, grouped by their purpose:
 
 		[webservers]
-		web3
-		web2
+		webserver1
+		webserver2
+		
 		[dbservers]
-		web3
+		dbserver
+		
 		[lbservers]
 		lbserver
+		
+		[monitoring]
+		nagios
 
 After which we execute the following command to deploy the site:
 
-	ansible-playbook -i hosts site.yml
+		ansible-playbook -i hosts site.yml
 
-The deployment can be verified by accessing the IP address of your load balnacer host in a web browser: http://<ip-of-lb>:8888. Reloading the page should have you hit different webservers.
+The deployment can be verified by accessing the IP address of your load
+balancer host in a web browser: http://<ip-of-lb>:8888. Reloading the page
+should have you hit different webservers.
 
-###Remove a Node
+### Removing and Adding a Node
 
-Removal of a node from the cluster is as simple as executing the following command:
+Removal and addition of nodes to the cluster is as simple as editing the
+hosts inventory and re-running:
 
-	ansible-playbook -i hosts playbooks/remove_webservers.yml --limit=web2
+        ansible-playbook -i hosts site.yml
 
-###Add a Node
+### Rolling Update
 
-Adding a node to the cluster can be done by executing the following command:
- 
-	ansible-playbook -i hosts playbooks/add_webservers.yml --limit=web2
+Rolling updates are the preferred way to update the web server software or
+deployed application, since the load balancer can be dynamically configured
+to take the hosts to be updated out of the pool. This will keep the service
+running on other servers so that the users are not interrupted.
 
-###Rolling Update
+In this example the hosts are updated in serial fashion, which means that
+only one server will be updated at one time. If you have a lot of web server
+hosts, this behaviour can be changed by setting the 'serial' keyword in
+webservers.yml file.
 
-Rolling updates are the preferred way to update the web server software or deployed application, since the load balancer can be dynamically configured to take the hosts to be updated out of the pool. This will keep the service running on other servers so that the users are not interrupted.
+Once the code has been updated in the source repository for your application
+which can be defined in the group_vars/all file, execute the following
+command:
 
-In this example the hosts are updated in serial fashion, which means
-that only one server will be updated at one time. If you have a lot of web server hosts, this behaviour can be changed by setting the 'serial' keyword in webservers.yml file.
+	 ansible-playbook -i hosts rolling_update.yml
 
-Once the code has been updated in the source repository for your application which can be defined in the group_vars/all file, execute the following command:
-
-	 ansible-playbook -i hosts playbooks/rolling_update.yml
-
-
-
-
-
-	 
+You can optionally pass: -e webapp_version=xxx to the rolling_update
+playbook to specify a specific version of the example webapp to deploy.
