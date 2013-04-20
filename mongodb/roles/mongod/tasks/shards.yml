@@ -1,0 +1,15 @@
+---
+#This Playbooks adds shards to the mongos servers once everythig is added
+
+
+- name: Create the file to initialize the mongod Shard
+  template: src=shard_init.j2 dest=/tmp/shard_init_{{ inventory_hostname }}.js
+  delegate_to: '{{ item }}'
+  with_items: groups.mongos_servers
+
+- name: Add the shard to the mongos 
+  shell: /usr/bin/mongo localhost:{{ mongos_port }}/admin -u admin -p {{ mongo_admin_pass }} /tmp/shard_init_{{ inventory_hostname }}.js
+  delegate_to: '{{ item }}'
+  with_items: groups.mongos_servers
+
+
