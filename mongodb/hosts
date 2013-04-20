@@ -1,10 +1,11 @@
 #The site wide list of mongodb servers
 
+# the mongo servers need a mongod_port variable set, and they must not conflict.
 [mongo_servers]
-hadoop1
-hadoop2
-hadoop3
-hadoop4
+hadoop1 mongod_port=2700
+hadoop2 mongod_port=2701
+hadoop3 mongod_port=2702
+hadoop4 mongod_port=2703
 
 #The list of servers where replication should happen, by default include all servers
 [replication_servers]

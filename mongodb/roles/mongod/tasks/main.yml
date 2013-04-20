@@ -1,5 +1,5 @@
 ---
-#This Playbook deploys the mongod processes and sets up the replication set.
+# This role deploys the mongod processes and sets up the replication set.
 
 - name: create data directory for mongodb
   file: path={{ mongodb_datadir_prefix }}/mongo-{{ inventory_hostname }} state=directory owner=mongod group=mongod
@@ -34,6 +34,4 @@
   pause: seconds=20
 
 - name: Initialize the replication set
-  shell: /usr/bin/mongo --port "${mongod_ports.${inventory_hostname}}" /tmp/repset_init.js 
-
-
+  shell: /usr/bin/mongo --port "{{ mongod_port }}" /tmp/repset_init.js 

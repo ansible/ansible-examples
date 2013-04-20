@@ -9,7 +9,7 @@ logappend=true
 # fork and run in background
 fork = true
 
-port = {{ mongod_ports[inventory_hostname] }}
+port = {{ mongod_port }}
 
 dbpath={{ mongodb_datadir_prefix }}mongo-{{ inventory_hostname }}
 keyFile={{ mongodb_datadir_prefix }}/secret
