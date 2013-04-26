@@ -1,7 +1,36 @@
 ---
-#This Playbook deploys the whole application stack in this site.  
+# This playbook deploys the whole application stack in this site.  
 
-- include: db.yml
-- include: web.yml
-- include: haproxy.yml
-- include: nagios.yml
+# Apply common configuration to all hosts
+- hosts: all
+  roles:
+  - common
+
+# Configure and deploy database servers.
+- hosts: dbservers
+  user: root
+  roles:
+  - db
+
+# Configure and deploy the web servers. Note that we include two roles here, 
+# the 'base-apache' role which simply sets up Apache, and 'web' which includes
+# our example web application.
+- hosts: webservers
+  user: root
+
+  roles:
+  - base-apache
+  - web
+
+# Configure and deploy the load balancer(s).
+- hosts: lbservers
+  user: root
+  roles:
+  - haproxy
+
+# Configure and deploy the Nagios monitoring node(s).
+- hosts: monitoring
+  user: root
+  roles:
+  - base-apache
+  - nagios

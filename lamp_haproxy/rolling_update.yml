@@ -1,14 +1,22 @@
 ---
-# This playbook does a rolling update of the code for all webservers serially (one at a time).
+# This playbook does a rolling update for all webservers serially (one at a time).
 # Change the value of serial: to adjust the number of server to be updated.
-# This playbook also takes the webapp_version variable to specify which git version
-# of the test webapp to deploy.
+#
+# The three roles that apply to the webserver hosts will be applied: common,
+# base-apache, and web. So any changes to configuration, package updates, etc,
+# will be applied as part of the rolling update process.
+# 
+
+# gather facts from monitoring nodes for iptables rules
+- hosts: monitoring
+  tasks:
 
 - hosts: webservers
   user: root
   serial: 1
-  tasks:
   
+  # These are the tasks to run before applying updates:
+  pre_tasks:
   - name: disable nagios alerts for this host webserver service
     nagios: action=disable_alerts host=$ansible_hostname services=webserver
     delegate_to: $item
@@ -19,12 +27,13 @@
     delegate_to: $item
     with_items: ${groups.lbservers}
 
-  - name: Remove the code from server
-    command: rm -rf /var/www/html/*
+  roles:
+  - common
+  - base-apache
+  - web
 
-  - name: Copy the code from repository
-    git: repo=${repository} version=${webapp_version} dest=/var/www/html/
-
+  # These tasks run after the roles:
+  post_tasks:
   - name: Enable the server in haproxy
     shell: echo "enable server myapplb/${ansible_hostname}" | socat stdio /var/lib/haproxy/stats
     delegate_to: $item
