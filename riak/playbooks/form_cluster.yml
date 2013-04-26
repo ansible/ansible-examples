@@ -20,12 +20,21 @@
   tasks:
   - name: plan cluster changes
     riak: command=plan
-    notify: commit cluster changes
-  - name: creating new ring...
-    command: sleep 5
+    notify:
+    - commit cluster changes
+    - wait for handoffs
+    - wait for ring
 
   handlers:
   - name: commit cluster changes
-    riak: command=commit wait_for_handoffs=true
+    riak: command=commit
+
+  - name: wait for handoffs
+    riak: wait_for_handoffs=true
+    async: 600
+    poll: 10
+
+  - name: wait for ring
+    riak: wait_for_ring=true
     async: 600
     poll: 10
