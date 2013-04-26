@@ -1,3 +1,11 @@
+{% if ansible_os_family == 'Debian' %}
+  {% set libdir = '/usr/lib' %}
+{% elif ansibe_os_family == 'RedHat' %}
+  {% set libdir = '/usr/lib64' %}
+{% else %}
+  {% set libdir = '/usr/lib64' %}
+{% endif %}
+
 %% -*- mode: erlang;erlang-indent-level: 4;indent-tabs-mode: nil -*-
 %% ex: ft=erlang ts=4 sw=4 et
 [
@@ -72,9 +80,6 @@
               %% To re-enable, the setting must be changed and the node restarted.
               {enable_health_checks, true},
 
-{% if ansible_os_family == 'Debian' %}
-  {% set libdir = '/usr/lib' %}
-{% endif %}
 
               %% Platform-specific installation paths (substituted by rebar)
               {platform_bin_dir, "/usr/sbin"},
