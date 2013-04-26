@@ -21,6 +21,8 @@
   - name: plan cluster changes
     riak: command=plan
     notify: commit cluster changes
+  - name: creating new ring...
+    command: sleep 5
 
   handlers:
   - name: commit cluster changes
