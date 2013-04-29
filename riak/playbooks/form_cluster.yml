@@ -26,15 +26,4 @@
     - wait for ring
 
   handlers:
-  - name: commit cluster changes
-    riak: command=commit
-
-  - name: wait for handoffs
-    riak: wait_for_handoffs=true
-    async: 600
-    poll: 10
-
-  - name: wait for ring
-    riak: wait_for_ring=true
-    async: 600
-    poll: 10
+  - include: ../roles/riak/handlers/main.yml
