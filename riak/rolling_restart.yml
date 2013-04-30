@@ -8,4 +8,4 @@
     async: 600
     poll: 10
   roles:
-  - role: ../roles/riak
+  - role: riak

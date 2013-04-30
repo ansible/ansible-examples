@@ -26,4 +26,4 @@
     - wait for ring
 
   handlers:
-  - include: ../roles/riak/handlers/main.yml
+  - include: roles/riak/handlers/main.yml
