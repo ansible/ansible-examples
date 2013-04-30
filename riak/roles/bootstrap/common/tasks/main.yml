@@ -17,6 +17,3 @@
 - name: configure sysctl
   copy: src=etc_sysctl.d_riak.conf dest=/etc/sysctl.d/riak.conf owner=root group=root mode=0644
   notify: update sysctl
-
-- name: update system ulimit settings
-  copy: src=etc_security_limits.d_riak.conf dest=/etc/security/limits.d/riak.conf owner=root group=root mode=0644
