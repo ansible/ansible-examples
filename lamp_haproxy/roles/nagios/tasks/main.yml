@@ -2,7 +2,7 @@
 # This will install nagios
 
 - name: install nagios 
-  yum: pkg=$item state=installed
+  yum: pkg={{ item }} state=present
   with_items:
    - nagios
    - nagios-plugins
@@ -30,7 +30,7 @@
 
 - name: create the nagios object files
   template: src={{ item + ".j2" }}
-            dest=/etc/nagios/ansible-managed/{{ item }}
+            dest=/etc/nagios/ansible-managed/
   with_items:
     - webservers.cfg
     - dbservers.cfg

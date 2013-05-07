@@ -2,7 +2,7 @@
 # This role installs HAProxy and configures it.
 
 - name: Download and install haproxy and socat
-  yum: name=$item state=installed
+  yum: name={{ item }} state=present
   with_items:
   - haproxy
   - socat

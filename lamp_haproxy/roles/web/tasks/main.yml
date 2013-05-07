@@ -2,7 +2,7 @@
 
 # httpd is handled by the base-apache role upstream
 - name: Install php and git 
-  yum: name=$item state=installed
+  yum: name={{ item }} state=present
   with_items:
    - php
    - php-mysql
@@ -12,4 +12,4 @@
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
 
 - name: Copy the code from repository
-  git: repo=${repository} version=${webapp_version} dest=/var/www/html/
+  git: repo={{ repository }} version={{ webapp_version }} dest=/var/www/html/

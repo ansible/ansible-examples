@@ -8,7 +8,7 @@
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
 
 - name: install some useful nagios plugins 
-  yum: name=$item state=present
+  yum: name={{ item }} state=present
   with_items:
    - nagios-nrpe
    - nagios-plugins-swap
