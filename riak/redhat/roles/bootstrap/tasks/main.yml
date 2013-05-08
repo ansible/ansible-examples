@@ -1,10 +1,4 @@
 ---
-- name: Create groups based on distribution
-  group_by: key={{ ansible_distribution }}
-
-- name: update pam configuration
-  copy: src=etc_security_limits.d_riak.conf dest=/etc/security/limits.d/riak.conf owner=root group=root mode=0644
-
 - name: mount the riak volume with optmized settings
   mount: name={{ riak.mountpoint }} src={{ riak.partition }} opts="noatime,barrier=0,errors=remount-ro" fstype=ext4 state=mounted
 
@@ -17,3 +11,15 @@
 - name: configure sysctl
   copy: src=etc_sysctl.d_riak.conf dest=/etc/sysctl.d/riak.conf owner=root group=root mode=0644
   notify: update sysctl
+
+- name: fetch yum repository
+  get_url: url=http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm dest=/tmp
+
+- name: configure the basho repository
+  yum: name=/tmp/basho-release-6-1.noarch.rpm
+
+- name: install riak, riak-cs
+  yum: name=$item state=present
+  with_items:
+  - riak
+  - riak-cs

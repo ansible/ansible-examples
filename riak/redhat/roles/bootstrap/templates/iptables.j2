@@ -14,6 +14,8 @@
 -A INPUT -p tcp -m state --state NEW -m tcp --dport {{ riak.http_port }} -j ACCEPT
 #allow access to Riak's protocol buffer port
 -A INPUT -p tcp -m state --state NEW -m tcp --dport {{ riak.pb_port }} -j ACCEPT
+#allow access to RiakCS http port
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
 #allows access to distributed Erlang ports
 -A INPUT -p tcp -m state --state NEW -m tcp --dport 6000:7999 -j ACCEPT
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
