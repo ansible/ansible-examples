@@ -2,22 +2,5 @@
 - hosts: riak_cluster
   sudo: True
   roles:
-  - role: bootstrap/common
-
-- hosts: Ubuntu
-  gather_facts: no
-  sudo: True
-  roles:
-  - role: bootstrap/Ubuntu
-
-- hosts: CentOS
-  gather_facts: no
-  sudo: True
-  roles:
-  - role: bootstrap/CentOS
-
-- hosts: riak_cluster
-  gather_facts: no
-  sudo: True
-  roles:
+  - role: bootstrap
   - role: riak
