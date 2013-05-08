@@ -1,6 +1,9 @@
 ---
 - name: restart riak
   service: name=riak state=restarted
+  notify:
+  - wait for http
+  - wait for kv
 
 - name: wait for http
   wait_for: port={{ riak.http_port }}
@@ -13,10 +16,13 @@
 
 - name: wait for handoffs
   riak: wait_for_handoffs=true
-  async: 600
+  async: 1000
   poll: 10
 
 - name: wait for ring
   riak: wait_for_ring=true
   async: 600
   poll: 10
+
+- name: lokkit
+  command: lokkit --custom-rules /etc/sysconfig/iptables.riak --update
