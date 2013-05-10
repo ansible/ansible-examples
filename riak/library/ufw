@@ -57,6 +57,12 @@ def main():
     enable = module.params.get('enable')
     app = module.params.get('allow')
 
+#we always need ssh for ansible
+
+    rc, out, err = module.run_command("ufw allow OpenSSH")
+    if rc == 1:
+        module.fail_json(msg=out + err)
+
     rc, out, err = module.run_command("ufw allow %s" % app)
     if rc == 1:
         module.fail_json(msg=out + err)
