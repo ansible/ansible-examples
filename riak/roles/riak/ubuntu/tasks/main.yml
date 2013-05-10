@@ -7,6 +7,6 @@
 
 - name: configure iptables
   template: src=iptables.j2 dest=/etc/ufw/applications.d/riak owner=root group=root mode=0644
-  notify:
-  - ufw
 
+- name: update fw
+  ufw: enable=yes allow=riak
