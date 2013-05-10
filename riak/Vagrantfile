@@ -6,9 +6,9 @@ require 'fileutils'
 Vagrant::Config.run do |config|
 
   # choices for virtual machines:
-  config.vm.box = 'ubuntu-1204'
+  #config.vm.box = 'ubuntu-1204'
   #config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
-  #config.vm.box = 'centos-6.4'
+  config.vm.box = 'centos-6.4'
   #config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box'
 
   # specify all Riak VMs:

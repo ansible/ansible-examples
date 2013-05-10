@@ -42,3 +42,21 @@ Here are the playbooks that you can use with the ansible-playbook commands:
 configuration change.  Similar principals could apply to performing
 rolling upgrades of Riak itself.
 
+
+#### Using Vagrant
+
+Install vagrant!
+
+First choose an OS in your Vagrantfile.
+
+run:
+
+	vagrant up
+	
+launch the playbook, when prompted for password, enter "vagrant"
+
+	ansible-playbook -v   -u vagrant site.yml -i hosts -k	
+	
+ssh to your nodes
+
+	vagrant ssh riak-1.local
