@@ -115,7 +115,7 @@ The inventory file looks as follows:
 		mongo3
 
 		#The list of servers where mongos servers would run. 
-		[mongosservers]
+		[mongos_servers]
 		mongos1
 		mongos2
 
@@ -246,13 +246,13 @@ To add a new node to the existing MongoDB Cluster, modify the inventory file as 
 		mongo2
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
-		[mongocservers]
+		[mongoc_servers]
 		mongo1
 		mongo2
 		mongo3
 
 		#The list of servers where mongos servers would run. 
-		[mongosservers]
+		[mongos_servers]
 		mongos1
 		mongos2
 
