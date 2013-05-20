@@ -1,0 +1,11 @@
+---
+- name: ensure that apache is installed
+  yum: name=httpd state=present
+
+- name: write the apache config file
+  template: src=templates/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  notify:
+    - restart apache
+
+- name: ensure apache is running
+  service: name=httpd state=started

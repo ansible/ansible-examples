@@ -1,0 +1,14 @@
+---
+- name: show how to use variables in playbooks and templates (run with -v)
+  hosts: all
+
+  vars:
+    - greeting: "Hello"
+
+  tasks:
+
+  - name: report this machine's IP
+    command: echo "{{ greeting }}. This machine's IP is {{ ansible_default_ipv4.address }}"
+
+  - name: generate a file based on a template
+    template: src=templates/variable-test.j2 dest=/tmp/variable-test.txt

@@ -1,0 +1,3 @@
+---
+max_clients: 200
+http_port: 80

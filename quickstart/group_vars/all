@@ -1,0 +1,3 @@
+# this is a group variable applied to "all":
+
+my_group_variable: 123456
