@@ -1,5 +1,23 @@
 ---
-# This Playbook deploys the whole application stack in this site.  
+# This playbook deploys the whole application stack in this site.  
 
-- include: playbooks/db.yml
-- include: playbooks/web.yml
+- name: apply common configuration to all nodes
+  hosts: all
+  user: root
+
+  roles:
+    - common
+
+- name: configure and deploy the webservers and application code
+  hosts: webservers
+  user: root
+
+  roles:
+    - web
+
+- name: deploy MySQL and configure the databases
+  hosts: dbservers
+  user: root
+
+  roles:
+    - db
