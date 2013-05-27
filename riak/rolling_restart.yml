@@ -4,8 +4,6 @@
   sudo: True
   pre_tasks:
   - name: make sure there are no transfers happening
-    riak: wait_for_handoffs=true
-    async: 600
-    poll: 10
+    riak: wait_for_handoffs=600
   roles:
   - riak
