@@ -2,6 +2,8 @@
 
 These example playbooks should help you get an idea of how to use the riak ansible module.  These playbooks were tested on Ubuntu Precise (12.04) and CentOS 6.4, both on x86_64.
 
+These playbooks do not currently support selinux.
+
 #### About Riak
 
 Riak is distributed key-value store that is architected for:
