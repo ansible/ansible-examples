@@ -1,0 +1,21 @@
+---
+# Launch Job to count occurance of a word.
+
+- hosts: $server
+  user: root
+  tasks:
+   - name: copy the file 
+     copy: src=inputfile dest=/tmp/inputfile 
+ 
+   - name: upload the file
+     shell: su - hdfs -c "hadoop fs -put /tmp/inputfile /inputfile"
+
+   - name: Run the MapReduce job to count the occurance of word hello
+     shell: su - hdfs -c "hadoop jar /usr/lib/hadoop-0.20-mapreduce/hadoop-examples.jar grep /inputfile /outputfile 'hello'"
+
+   - name: Fetch the outputfile to local tmp dir
+     shell: su - hdfs -c "hadoop fs -get /outputfile /tmp/outputfile"
+
+   - name: Get the outputfile to ansible server
+     fetch: dest=/tmp src=/tmp/outputfile/part-00000
+ 
