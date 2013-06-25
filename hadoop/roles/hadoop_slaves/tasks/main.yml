@@ -1,0 +1,4 @@
+---
+# Playbook for  Hadoop slave servers
+
+- include: slaves.yml tags=slaves

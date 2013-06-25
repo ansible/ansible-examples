@@ -1,0 +1,9 @@
+tickTime=2000
+dataDir=/var/lib/zookeeper/
+clientPort={{ hadoop['zookeeper_clientport'] }}
+initLimit=5
+syncLimit=2
+{% for host in groups['zookeeper_servers'] %}
+server.{{ hostvars[host].zoo_id }}={{ host }}:{{ hadoop['zookeeper_leader_port'] }}:{{ hadoop['zookeeper_election_port'] }}
+{% endfor %}
+

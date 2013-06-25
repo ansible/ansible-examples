@@ -1,0 +1,22 @@
+<configuration>
+  
+  <property>
+    <name>mapred.job.tracker</name>
+    <value>{{ hostvars[groups['hadoop_masters'][0]]['ansible_hostname'] }}:{{ hadoop['mapred_job_tracker_port'] }}</value>
+  </property>
+
+  <property>
+    <name>mapred.local.dir</name>
+    <value>{{ hadoop["mapred_local_dir"] | join(',') }}</value>
+  </property>
+  
+  <property>
+    <name>mapred.task.tracker.http.address</name>
+    <value>0.0.0.0:{{ hadoop['mapred_task_tracker_http_address_port'] }}</value>
+  </property>
+  <property>
+    <name>mapred.job.tracker.http.address</name>
+    <value>0.0.0.0:{{ hadoop['mapred_job_tracker_http_address_port'] }}</value>
+  </property>
+
+</configuration>
