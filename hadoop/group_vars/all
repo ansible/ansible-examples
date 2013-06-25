@@ -1,6 +1,12 @@
-iface: eth1
+# Defaults to the first ethernet interface. Change this to:
+#
+#  iface: eth1
+#
+# ...to override.
+#
+iface: '{{ ansible_default_ipv4.interface }}'
 
-ha_enabled: True
+ha_enabled: False 
 
 hadoop:
     

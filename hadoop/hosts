@@ -1,3 +1,8 @@
+[hadoop_all:children]
+hadoop_masters
+hadoop_slaves
+qjournal_servers
+zookeeper_servers
 
 [hadoop_master_primary]
 hadoop1

@@ -1,8 +1,7 @@
 ---
-# The main file to delpoy the site
+# The main playbook to deploy the site
 
-
-- hosts: all
+- hosts: hadoop_all
   roles:
    - common
 

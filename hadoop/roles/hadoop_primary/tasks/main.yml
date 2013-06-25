@@ -1,5 +1,5 @@
 ---
-# Playbook for  Hadoop master primary servers
+# Playbook for Hadoop master primary servers
 
 - include: hadoop_master.yml 
   when: ha_enabled

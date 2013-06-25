@@ -7,10 +7,10 @@
 - name: Install the openjdk package
   yum: name=java-1.6.0-openjdk state=installed
 
-- name: create a directory for java 
-  file:  state=directory path=/usr/java/
+- name: Create a directory for java 
+  file: state=directory path=/usr/java/
 
-- name: create a link for java
+- name: Create a link for java
   file: src=/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0.x86_64/jre state=link path=/usr/java/default
 
 - name: Create the hosts file for all machines
@@ -19,7 +19,7 @@
 - name: Disable SELinux in conf file
   lineinfile: dest=/etc/sysconfig/selinux regexp='^SELINUX=' line='SELINUX=disabled' state=present
 
-- name: Disabel selinux dynamically
+- name: Disable SELinux dynamically
   shell: creates=/etc/sysconfig/selinux.disabled setenforce 0 ; touch /etc/sysconfig/selinux.disabled
 
 - name: Create the iptables file for all machines
