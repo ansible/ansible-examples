@@ -1,0 +1,9 @@
+---
+# Playbook for Hadoop master primary servers
+
+- include: hadoop_master.yml 
+  when: ha_enabled
+
+- include: hadoop_master_no_ha.yml 
+  when: not ha_enabled
+

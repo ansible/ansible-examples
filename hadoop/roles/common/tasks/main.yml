@@ -1,0 +1,5 @@
+---
+# The playbook for common tasks
+
+- include: common.yml tags=slaves
+

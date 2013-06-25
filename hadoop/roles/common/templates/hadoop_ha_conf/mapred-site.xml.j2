@@ -1,0 +1,120 @@
+<configuration>
+  
+  <property>
+    <name>mapred.job.tracker</name>
+    <value>{{ hadoop['mapred_job_tracker_ha_servicename'] }}</value>
+  </property>
+
+   <property>
+    <name>mapred.jobtrackers.{{ hadoop['mapred_job_tracker_ha_servicename'] }}</name>
+    <value>{{ groups['hadoop_masters'] | join(',') }}</value>
+    <description>Comma-separated list of JobTracker IDs.</description>
+  </property>
+ 
+ <property>
+    <name>mapred.ha.automatic-failover.enabled</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>mapred.ha.zkfc.port</name>
+    <value>{{ hadoop['mapred_ha_zkfc_port'] }}</value> 
+  </property>
+
+ <property>
+    <name>mapred.ha.fencing.methods</name>
+    <value>shell(/bin/true)</value>
+ </property>
+
+<property>
+  <name>ha.zookeeper.quorum</name>
+  <value>{{ groups.zookeeper_servers | join(':' ~ hadoop['zookeeper_clientport'] + ',') }}:{{ hadoop['zookeeper_clientport'] }}</value>
+</property>
+
+{% for host in groups['hadoop_masters'] %} 
+   <property>
+    <name>mapred.jobtracker.rpc-address.{{ hadoop['mapred_job_tracker_ha_servicename'] }}.{{ host }}</name> 
+    <value>{{ host }}:{{ hadoop['mapred_job_tracker_port'] }}</value>
+   </property>
+{% endfor %}
+{% for host in groups['hadoop_masters'] %} 
+ <property>
+    <name>mapred.job.tracker.http.address.{{ hadoop['mapred_job_tracker_ha_servicename'] }}.{{ host }}</name>
+    <value>0.0.0.0:{{ hadoop['mapred_job_tracker_http_address_port'] }}</value>
+  </property>
+{% endfor %}
+{% for host in groups['hadoop_masters'] %} 
+   <property>
+    <name>mapred.ha.jobtracker.rpc-address.{{ hadoop['mapred_job_tracker_ha_servicename'] }}.{{ host }}</name> 
+    <value>{{ host }}:{{ hadoop['mapred_ha_jobtracker_rpc-address_port'] }}</value>
+   </property>
+{% endfor %}
+{% for host in groups['hadoop_masters'] %} 
+ <property>
+    <name>mapred.ha.jobtracker.http-redirect-address.{{ hadoop['mapred_job_tracker_ha_servicename'] }}.{{ host }}</name>
+    <value>{{ host }}:{{ hadoop['mapred_job_tracker_http_address_port'] }}</value>
+  </property>
+{% endfor %}
+
+ <property>
+    <name>mapred.jobtracker.restart.recover</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>mapred.job.tracker.persist.jobstatus.active</name>
+    <value>true</value>
+  </property>
+
+ <property>
+    <name>mapred.job.tracker.persist.jobstatus.hours</name>
+    <value>1</value>
+  </property>
+
+  <property>
+    <name>mapred.job.tracker.persist.jobstatus.dir</name>
+    <value>{{ hadoop['mapred_job_tracker_persist_jobstatus_dir'] }}</value>
+  </property>
+
+  <property>
+    <name>mapred.client.failover.proxy.provider.{{ hadoop['mapred_job_tracker_ha_servicename'] }}</name>
+    <value>org.apache.hadoop.mapred.ConfiguredFailoverProxyProvider</value>
+  </property>
+
+  <property>
+    <name>mapred.client.failover.max.attempts</name>
+    <value>15</value>
+  </property>
+
+  <property>
+    <name>mapred.client.failover.sleep.base.millis</name>
+    <value>500</value>
+  </property>
+
+  <property>
+    <name>mapred.client.failover.sleep.max.millis</name>
+    <value>1500</value>  
+  </property>
+
+ <property>
+    <name>mapred.client.failover.connection.retries</name>
+    <value>0</value>  
+  </property>
+
+ <property>
+    <name>mapred.client.failover.connection.retries.on.timeouts</name>
+    <value>0</value>  
+  </property>
+
+
+  <property>
+    <name>mapred.local.dir</name>
+    <value>{{ hadoop["mapred_local_dir"] | join(',') }}</value>
+  </property>
+  
+  <property>
+    <name>mapred.task.tracker.http.address</name>
+    <value>0.0.0.0:{{ hadoop['mapred_task_tracker_http_address_port'] }}</value>
+  </property>
+  
+</configuration>
