@@ -10,7 +10,7 @@ group_vars/jboss-servers file to set any JBoss configuration parameters you need
 
 Then run the playbook, like this:
 
-		ansible-playbook -i hosts site.yml
+	ansible-playbook -i hosts site.yml
 
 When the playbook run completes, you should be able to see the JBoss
 Application Server running on the ports you chose, on the target machines.
