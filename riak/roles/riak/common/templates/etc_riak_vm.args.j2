@@ -17,7 +17,7 @@
 +W w
 
 
-{% if ansible_processor_cores == 'NA' %}
+{% if ansible_processor_cores == 'NA' or ansible_processor_cores == 1 %}
 -smp enable
 {% endif %}
 
