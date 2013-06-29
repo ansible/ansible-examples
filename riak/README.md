@@ -27,6 +27,24 @@ In the hosts file, we use a host variable **node_type** to ease the cluster join
 * **last** - this node plans and commits changes to the cluster, in this example, the joining of the nodes.  
 * **middle** - all nodes in between **primary** and **last**
 
+### group_vars ###
+
+All sorts of configuration settings can be tuned in group_vars/all.  Here's a breakdown.
+
+* **firewall**: **True**  - whether you'd like to enabled iptables for the configuration
+* riak:
+	* **version**: *1.3.1*  - the version of the package you want to install.  For Debian/Ubuntu distributions it needs to contain the distro. For example: *1.3.1~precise1*
+	* **iface**: *eth1* - the interface Riak will be listening on
+    * **handoff_port**: *8099* - the port used for handoffs
+    * **http_port**: *8098* - the port used for Riak's rest interface.
+    * **pb_port**: *8087* - the port used for Riak's protocol buffers interface.
+    * **mountpoint**: */var/lib/riak* - the mount point where the riak data partition lives.
+    * **partition**: */dev/mapper/VolGroup-lv_riak* - the partition where riak is mounted
+    * **physical_disk**: *sda*  - the physical disk that is associated with the partition riak is mounted
+    * **scheduler**: *noop* - the I/O scheduler you want to use
+    * **backend**: *bitcask* - the Riak backend you want to use
+    * **ring_size**: *64*  - the number of vnodes in the distributed ring
+    * **log_rotate**: *4* - how often log rotated should occur.
  
 There is no concept of node roles in Riak proper, it is master-less.
 

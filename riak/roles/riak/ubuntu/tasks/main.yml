@@ -1,6 +1,6 @@
 ---
 - name: install riak
-  apt: pkg=riak-{{ riak.version }}
+  apt: pkg=riak={{ riak.version }}
 
 - name: set the riak ulimit
   copy: src=etc_default_riak_ulimit dest=/etc/default/riak
