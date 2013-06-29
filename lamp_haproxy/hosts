@@ -1,10 +1,12 @@
 [webservers]
-web3
+web1
 web2
 
 [dbservers]
-web3
+db1
 
 [lbservers]
-web2
+lb1
 
+[monitoring]
+nagios
