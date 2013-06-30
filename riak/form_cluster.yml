@@ -1,0 +1,29 @@
+- hosts: riak_cluster
+  sudo: True
+  tasks:
+  - name: Create a group based on riak node type.
+    group_by: key={{ node_type }}
+  - name: collect riak facts
+    riak: command=ping
+    register: riak_outputs
+
+- hosts: middle:last
+  vars:
+     primary_node: "{{ hostvars[groups['primary'][0]]['riak_outputs']['node_name'] }}"
+  sudo: True
+  tasks:
+  - name: join riak cluster
+    riak: command=join target_node={{ primary_node }}
+
+- hosts: last
+  sudo: True
+  tasks:
+  - name: plan cluster changes
+    riak: command=plan
+    notify:
+    - commit cluster changes
+    - wait for handoffs
+    - wait for ring
+
+  handlers:
+  - include: roles/riak/common/handlers/main.yml
