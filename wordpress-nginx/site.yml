@@ -1,0 +1,11 @@
+---
+- name: Install Wordpress, MySQL, Nginx, and PHP-FPM
+  hosts: wordpress-server
+  user: root
+
+  roles:
+    - common
+    - mysql 
+    - nginx
+    - php-fpm
+    - wordpress
