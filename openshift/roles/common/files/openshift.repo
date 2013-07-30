@@ -1,0 +1,13 @@
+[openshift_support]
+name=Extra Packages for OpenShift - $basearch
+baseurl=https://mirror.openshift.com/pub/openshift-origin/rhel-6/$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=0
+
+[openshift]
+name=Packages for OpenShift - $basearch
+baseurl=https://mirror.openshift.com/pub/openshift-origin/nightly/rhel-6/latest/x86_64/
+failovermethod=priority
+enabled=1
+gpgcheck=0

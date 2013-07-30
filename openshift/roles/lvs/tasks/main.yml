@@ -1,0 +1,15 @@
+---
+# Tasks for deploying the loadbalancer lvs
+
+- name: Install the lvs packages
+  yum: name=piranha state=installed
+
+- name: copy the configuration file
+  template: src=lvs.cf.j2 dest=/etc/sysconfig/ha/lvs.cf
+
+- name: start the services
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+   - ipvsadm
+   - pulse
+

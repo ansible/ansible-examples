@@ -1,0 +1,9 @@
+---
+#Handlers for nodes
+
+- name: restart ssh
+  service: name=sshd state=restarted
+  async: 10
+  poll: 0
+
+

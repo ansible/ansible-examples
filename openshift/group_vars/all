@@ -1,0 +1,20 @@
+---
+# Global Vars for OpenShift
+
+iface: '{{ ansible_default_ipv4.interface }}'
+
+domain_name: example.com
+dns_port: 53
+rndc_port: 953
+dns_key: "YG70pT2h9xmn9DviT+E6H8MNlJ9wc7Xa9qpCOtuonj3oLJGBBA8udXUsJnoGdMSIIw2pk9lw9QL4rv8XQNBRLQ=="
+
+mongodb_datadir_prefix: /data/
+mongod_port:  2700
+mongo_admin_pass: passme
+
+mcollective_pass: passme
+admin_pass: passme
+amquser_pass: passme
+
+vip: 192.168.1.1
+vip_netmask: 255.255.255.0
