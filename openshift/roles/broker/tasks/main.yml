@@ -10,6 +10,7 @@
 - name: Install the broker components
   yum: name="{{ item }}" state=installed
   with_items: "{{ broker_packages }}"
+  ignore_errors: yes
 
 - name: Copy the rhc client configuration file
   template: src=express.conf.j2 dest=/etc/openshift/express.conf
@@ -26,6 +27,7 @@
   seboolean:  name="{{ item }}" state=true persistent=yes
   with_items:
       - httpd_unified
+      - httpd_execmem
       - httpd_can_network_connect
       - httpd_can_network_relay 
       - httpd_run_stickshift
@@ -54,6 +56,11 @@
 
 - name: Copy the broker configuration file
   template: src=broker.conf.j2 dest=/etc/openshift/broker.conf
+  notify: restart broker
+
+- name: Copy the console configuration file
+  template: src=console.conf.j2 dest=/etc/openshift/console.conf
+  notify: restart console
 
 - name: create the file for ssl.conf
   copy: src=ssl.conf dest=/etc/httpd/conf.d/ssl.conf owner=apache group=root
@@ -71,6 +78,11 @@
 
 - name: Copy the httpd configuration file
   copy: src=openshift-origin-auth-remote-user.conf dest=/var/www/openshift/broker/httpd/conf.d/openshift-origin-auth-remote-user.conf
+  notify: restart broker
+
+- name: Copy the httpd configuration file  for console
+  copy: src=openshift-origin-auth-remote-basic-user.conf dest=/var/www/openshift/console/httpd/conf.d/openshift-origin-auth-remote-basic-user.conf
+  notify: restart console
 
 - name: Fix the selinux contexts on several files
   shell: fixfiles -R rubygem-passenger restore; fixfiles -R mod_passenger restore; restorecon -rv /var/run; restorecon -rv /usr/share/rubygems/gems/passenger-*; touch /opt/context.fixed  creates=/opt/context.fixed

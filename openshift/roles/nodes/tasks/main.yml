@@ -6,6 +6,7 @@
 
 - name: Copy the mcollective configuration file
   template: src=server.cfg.j2 dest=/etc/mcollective/server.cfg
+  notify: restart mcollective
 
 - name: start the mcollective service
   service: name=mcollective state=started enabled=yes
@@ -100,4 +101,7 @@
 
 - name: Start the openshift gears
   service: name=openshift-gears state=started enabled=yes
+
+- name: copy the resolv.conf file
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf
 

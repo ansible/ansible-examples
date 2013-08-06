@@ -14,6 +14,7 @@ broker_packages:
    - rubygem-passenger
    - mod_passenger
    - mysql-devel
+   - openshift-origin-console
    - rhc
    - ruby193-rubygem-actionmailer
    - ruby193-rubygem-actionpack

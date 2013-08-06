@@ -49,10 +49,20 @@ Note: As a best practise if you are deploying an actual production environemnt i
 
 ## Deployment Steps for OpenShift via Ansible
 
+As a first step probably you may want to setup ansible, Assuming the Ansible host is Rhel variant install the EPEL package.
+
+		yum install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+Once the epel repo is installed ansible can be installed via the following command.
+
+		http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
 It is recommended to use seperate machines for the different components of Openshift, but if you are testing it out you could combine the services but atleast four nodes are mandatory as the mongodb and activemq cluster needs atleast three for the cluster to work properly.
 
 As a first step checkout this repository onto you ansible management host and setup the inventory(hosts) as follows.
 
+	git checkout https://github.com/ansible/ansible-examples.git
+	
         [dns]
         ec2-54-226-116-175.compute-1.amazonaws.com
 
@@ -253,4 +263,22 @@ Once the stack has been succesfully deployed, we can check if the diffrent compo
         -> ec2-54-227-171-2.compute-1.a Route   2      0          0 
 
 ## Creating an APP in Openshift
+
+To create an App in openshift access the management console via any browser, the VIP specified in group_vars/all can used or ip address of any broker node can used.
+
+		https://<ip-of-broker-or-vip>/
+
+The page would as a login, give it as demo/passme. Once logged in follow the screen instructions to create your first Application.
+Note: Python2.6 cartridge is by default installed by plabooks, so choose python2.6 as the cartridge.
+
+
+## HA Tests
+
+Few test's that can be performed to test High Availability are:
+
+- Shutdown any broker and try to create a new Application
+- Shutdown anyone mongo/mq node and try to create a new Appliaction.
+- Shutdown any loadbalaning machine, and the manamgement application should be available via the VirtualIP.
+
+
 

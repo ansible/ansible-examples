@@ -14,12 +14,12 @@ MONGO_REPLICA_SETS=true
 {% set hosts = '' %}
  {% for host in groups['mongo_servers'] %}
    {% if loop.last %}
-      {% set hosts = hosts + host + ':' ~ mongod_port  %}
+      {% set hosts = hosts + host + ':' ~ mongod_port + ' '  %}
 
-MONGO_HOST_PORT="{{ hosts }}
+MONGO_HOST_PORT="{{ hosts }}"
 
       {% else %}
-        {% set hosts = hosts + host + ':' ~ mongod_port + ' '  %}
+        {% set hosts = hosts + host + ':' ~ mongod_port + ', '  %}
    {% endif %}
  {% endfor %}
 

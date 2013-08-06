@@ -6,4 +6,6 @@
   async: 10
   poll: 0
 
+- name: restart mcollective
+  service: name=mcollective state=restarted
 

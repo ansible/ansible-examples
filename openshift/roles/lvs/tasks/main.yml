@@ -12,4 +12,5 @@
   with_items:
    - ipvsadm
    - pulse
+  ignore_errors: yes
 
