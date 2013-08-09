@@ -32,7 +32,7 @@
   service: name=hadoop-hdfs-namenode state=started
 
 - name: Give permissions for mapred users
-  shell: creates=/usr/lib/hadoop/fs.initialized su - hdfs -c "hadoop fs -chown hdfs:hadoop /"; su - hdfs -c "hadoop fs -chmod 0774 /"; touch /usr/lib/hadoop/namenode.initialized
+  shell: creates=/usr/lib/hadoop/namenode.initialized su - hdfs -c "hadoop fs -chown hdfs:hadoop /"; su - hdfs -c "hadoop fs -chmod 0775 /"; touch /usr/lib/hadoop/namenode.initialized
 
 - name: start hadoop jobtracker services
   service: name=hadoop-0.20-mapreduce-jobtracker state=started
