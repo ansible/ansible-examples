@@ -8,3 +8,17 @@
         - [ 'red', 'blue', 'green' ]
         - [ 1, 2, 3 ]
         - [ 'up', 'down', 'strange']
+
+# you can reference a raw variable name without putting it in {{ brackets }}
+
+- hosts: all
+  vars:
+    listvar1:
+    - 'a'
+    - 'b'
+    - 'c'
+  tasks:
+    - shell: echo "nested test a={{ item[0] }} b={{ item[1] }}"
+      with_nested:
+        - listvar1
+        - [ 1, 2, 3 ]
