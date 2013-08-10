@@ -31,6 +31,17 @@
 -A INPUT -p tcp --dport {{ hadoop['zookeeper_leader_port'] }} -j ACCEPT
 -A INPUT -p tcp --dport {{ hadoop['zookeeper_election_port'] }} -j ACCEPT
 {% endif %}
+
+{% if 'hbase_masters' in group_names %}
+-A INPUT -p tcp --dport {{ hbase['master_port'] }} -j ACCEPT
+-A INPUT -p tcp --dport {{ hbase['master_info_port'] }} -j ACCEPT
+{% endif %}
+
+{% if 'hbase_regionservers' in group_names %}
+-A INPUT -p tcp --dport {{ hbase['regionserver_port'] }} -j ACCEPT
+-A INPUT -p tcp --dport {{ hbase['regionserver_info_port'] }} -j ACCEPT
+{% endif %}
+
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT

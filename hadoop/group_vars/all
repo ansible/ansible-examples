@@ -6,7 +6,14 @@
 #
 iface: '{{ ansible_default_ipv4.interface }}'
 
-ha_enabled: False 
+ha_enabled: True
+hbase_enabled: False
+
+hbase:
+    master_port: 60000
+    master_info_port: 60010
+    regionserver_port : 60020
+    regionserver_info_port: 60030
 
 hadoop:
     

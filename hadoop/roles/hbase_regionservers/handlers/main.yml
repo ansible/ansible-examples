@@ -1,0 +1,7 @@
+---
+# Handlers for the HBase Regionserver 
+
+- name: restart hbase regionserver
+  service: name=${item} state=restarted
+  with_items:
+    - hbase-regionserver

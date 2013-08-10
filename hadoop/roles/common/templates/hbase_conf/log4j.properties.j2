@@ -1,0 +1,87 @@
+# Define some default values that can be overridden by system properties
+hbase.root.logger=INFO,console
+hbase.security.logger=INFO,console
+hbase.log.dir=.
+hbase.log.file=hbase.log
+
+# Define the root logger to the system property "hbase.root.logger".
+log4j.rootLogger=${hbase.root.logger}
+
+# Logging Threshold
+log4j.threshold=ALL
+
+#
+# Daily Rolling File Appender
+#
+log4j.appender.DRFA=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.DRFA.File=${hbase.log.dir}/${hbase.log.file}
+
+# Rollver at midnight
+log4j.appender.DRFA.DatePattern=.yyyy-MM-dd
+# 30-day backup
+#log4j.appender.DRFA.MaxBackupIndex=30
+log4j.appender.DRFA.layout=org.apache.log4j.PatternLayout
+
+# Pattern format: Date LogLevel LoggerName LogMessage
+log4j.appender.DRFA.layout.ConversionPattern=%d{ISO8601} %p %c: %m%n
+
+# Rolling File Appender properties
+hbase.log.maxfilesize=256MB
+hbase.log.maxbackupindex=20
+
+# Rolling File Appender
+log4j.appender.RFA=org.apache.log4j.RollingFileAppender
+log4j.appender.RFA.File=${hbase.log.dir}/${hbase.log.file}
+
+log4j.appender.RFA.MaxFileSize=${hbase.log.maxfilesize}
+log4j.appender.RFA.MaxBackupIndex=${hbase.log.maxbackupindex}
+
+log4j.appender.RFA.layout=org.apache.log4j.PatternLayout
+log4j.appender.RFA.layout.ConversionPattern=%d{ISO8601} %p %c: %m%n
+# Debugging Pattern format
+#log4j.appender.DRFA.layout.ConversionPattern=%d{ISO8601} %-5p %c{2} (%F:%M(%L)) - %m%n
+
+#
+# Security audit appender
+#
+hbase.security.log.file=SecurityAuth.audit
+log4j.appender.DRFAS=org.apache.log4j.DailyRollingFileAppender 
+log4j.appender.DRFAS.File=${hbase.log.dir}/${hbase.security.log.file}
+log4j.appender.DRFAS.layout=org.apache.log4j.PatternLayout
+log4j.appender.DRFAS.layout.ConversionPattern=%d{ISO8601} %p %c: %m%n
+log4j.category.SecurityLogger=${hbase.security.logger}
+log4j.additivity.SecurityLogger=false
+#log4j.logger.SecurityLogger.org.apache.hadoop.hbase.security.access.AccessController=TRACE
+
+#
+# Null Appender
+#
+log4j.appender.NullAppender=org.apache.log4j.varia.NullAppender
+
+# console
+# Add "console" to rootlogger above if you want to use this 
+#
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.console.target=System.err
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{2}: %m%n
+
+# Custom Logging levels
+
+log4j.logger.org.apache.zookeeper=INFO
+#log4j.logger.org.apache.hadoop.fs.FSNamesystem=DEBUG
+log4j.logger.org.apache.hadoop.hbase=DEBUG
+# Make these two classes INFO-level. Make them DEBUG to see more zk debug.
+log4j.logger.org.apache.hadoop.hbase.zookeeper.ZKUtil=INFO
+log4j.logger.org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher=INFO
+#log4j.logger.org.apache.hadoop.dfs=DEBUG
+# Set this class to log INFO only otherwise its OTT
+
+# Uncomment this line to enable tracing on _every_ RPC call (this can be a lot of output)
+#log4j.logger.org.apache.hadoop.ipc.HBaseServer.trace=DEBUG
+
+# Uncomment the below if you want to remove logging of client region caching'
+# and scan of .META. messages
+# log4j.logger.org.apache.hadoop.hbase.client.HConnectionManager$HConnectionImplementation=INFO
+# log4j.logger.org.apache.hadoop.hbase.client.MetaScanner=INFO
+
