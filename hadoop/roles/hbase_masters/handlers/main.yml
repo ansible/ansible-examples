@@ -1,0 +1,7 @@
+---
+# Handlers for the HBase Master
+
+- name: restart hbase master
+  service: name=${item} state=restarted
+  with_items: 
+    - hbase-master

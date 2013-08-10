@@ -25,4 +25,10 @@
   roles:
   - { role: hadoop_slaves }
 
+- hosts: hbase_masters
+  roles:
+  - { role: hbase_masters, when: hbase_enabled }
 
+- hosts: hbase_regionservers
+  roles:
+  - { role: hbase_regionservers, when: hbase_enabled }

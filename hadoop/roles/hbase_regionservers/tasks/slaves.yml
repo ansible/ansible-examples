@@ -1,0 +1,26 @@
+---
+# Playbook for HBase RegionServers
+
+- name: install hbase regionserver packages
+  yum: name=${item} state=installed
+  with_items: 
+   - hbase
+   - hbase-doc
+   - hbase-regionserver
+
+- name: Copy the hbase configuration files
+  template: src=roles/common/templates/hbase_conf/${item}.j2 dest=/etc/hbase/conf/${item}
+  with_items: 
+    - hadoop-metrics.properties
+    - hbase-policy.xml
+    - log4j.properties
+    - hbase-env.sh
+    - hbase-site.xml
+    - regionservers
+  notify: restart hbase regionserver
+
+- name: start hbase regionserver
+  service: name={{ item }} state=started
+  with_items:
+    - hbase-regionserver
+  

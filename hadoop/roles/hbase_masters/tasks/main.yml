@@ -1,0 +1,4 @@
+---
+# Playbook for HBase master
+
+- include: masters.yml tags=masters

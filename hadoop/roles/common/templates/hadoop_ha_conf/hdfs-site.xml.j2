@@ -100,4 +100,16 @@
     <name>dfs.datanode.data.dir</name>
     <value>{{ hadoop['dfs_datanode_data_dir'] | join(',') }}</value>
   </property>
+ <property>
+    <name>dfs.client.read.shortcircuit.skip.checksum</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>dfs.client.domain.socket.data.traffic</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>dfs.client.read.shortcircuit</name>
+    <value>true</value>
+  </property>
 </configuration>

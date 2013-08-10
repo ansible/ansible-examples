@@ -3,6 +3,8 @@ hadoop_masters
 hadoop_slaves
 qjournal_servers
 zookeeper_servers
+hbase_masters
+hbase_regionservers
 
 [hadoop_master_primary]
 hadoop1
@@ -29,3 +31,12 @@ hadoop1 zoo_id=1
 hadoop2 zoo_id=2
 hadoop3 zoo_id=3
 
+[hbase_masters]
+hadoop1
+hadoop2
+hadoop3
+
+[hbase_regionservers]
+hadoop1
+hadoop2
+hadoop3

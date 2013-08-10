@@ -1,0 +1,4 @@
+---
+# Playbook for  HBase region servers
+
+- include: slaves.yml tags=slaves

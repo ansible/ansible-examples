@@ -1,0 +1,30 @@
+<configuration> 
+	<property>
+		<name>hbase.rootdir</name>
+		<value>hdfs://{{hadoop['nameservice_id']}}/hbase</value>
+	</property>
+	<property>
+		<name>hbase.cluster.distributed</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>hbase.zookeeper.quorum</name>
+	        <value>{{ groups.zookeeper_servers | join(':' ~ hadoop['zookeeper_clientport'] + ',') }}:{{ hadoop['zookeeper_clientport'] }}</value>
+	</property>
+	<property>
+		<name>hbase.master.port</name>
+	        <value>{{ hbase['master_port'] }}</value>
+	</property>
+	<property>
+		<name>hbase.master.info.port</name>
+	        <value>{{ hbase['master_info_port'] }}</value>
+	</property>
+	<property>
+		<name>hbase.regionserver.port</name>
+	        <value>{{ hbase['regionserver_port'] }}</value>
+	</property>
+	<property>
+		<name>hbase.regionserver.info.port</name>
+	        <value>{{ hbase['regionserver_info_port'] }}</value>
+	</property>
+</configuration>
