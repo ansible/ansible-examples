@@ -17,10 +17,7 @@
   template: src=etc/hosts.j2 dest=/etc/hosts
 
 - name: Disable SELinux in conf file
-  lineinfile: dest=/etc/sysconfig/selinux regexp='^SELINUX=' line='SELINUX=disabled' state=present
-
-- name: Disable SELinux dynamically
-  shell: creates=/etc/sysconfig/selinux.disabled setenforce 0 ; touch /etc/sysconfig/selinux.disabled
+  selinux: state=disabled
 
 - name: Create the iptables file for all machines
   template: src=iptables.j2 dest=/etc/sysconfig/iptables

@@ -26,13 +26,13 @@
   with_items: hadoop.dfs_namenode_name_dir
 
 - name: Format the namenode
-  shell: creates=/usr/lib/hadoop/namenode.formatted su - hdfs -c "hadoop namenode -format"; touch /usr/lib/hadoop/namenode.formatted
+  shell: creates=/usr/lib/hadoop/namenode.formatted su - hdfs -c "hadoop namenode -format" && touch /usr/lib/hadoop/namenode.formatted
 
 - name: start hadoop namenode services
   service: name=hadoop-hdfs-namenode state=started
 
 - name: Give permissions for mapred users
-  shell: creates=/usr/lib/hadoop/namenode.initialized su - hdfs -c "hadoop fs -chown hdfs:hadoop /"; su - hdfs -c "hadoop fs -chmod 0775 /"; touch /usr/lib/hadoop/namenode.initialized
+  shell: creates=/usr/lib/hadoop/namenode.initialized su - hdfs -c "hadoop fs -chown hdfs:hadoop /"; su - hdfs -c "hadoop fs -chmod 0775 /" && touch /usr/lib/hadoop/namenode.initialized
 
 - name: start hadoop jobtracker services
   service: name=hadoop-0.20-mapreduce-jobtracker state=started

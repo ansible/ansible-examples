@@ -34,13 +34,13 @@
 
 
 - name: Initialize the secodary namenode
-  shell: creates=/usr/lib/hadoop/namenode.formatted su - hdfs -c "hadoop namenode -bootstrapStandby"; touch /usr/lib/hadoop/namenode.formatted
+  shell: creates=/usr/lib/hadoop/namenode.formatted su - hdfs -c "hadoop namenode -bootstrapStandby" && touch /usr/lib/hadoop/namenode.formatted
 
 - name: start hadoop namenode services
   service: name=hadoop-hdfs-namenode state=started
 
 - name: Initialize the zkfc for namenode
-  shell: creates=/usr/lib/hadoop/zkfc.formatted su - hdfs -c "hdfs zkfc -formatZK"; touch /usr/lib/hadoop/zkfc.formatted
+  shell: creates=/usr/lib/hadoop/zkfc.formatted su - hdfs -c "hdfs zkfc -formatZK" && touch /usr/lib/hadoop/zkfc.formatted
 
 - name: start zkfc for namenodes
   service: name=hadoop-hdfs-zkfc state=started
@@ -48,10 +48,10 @@
   with_items: groups.hadoop_masters
 
 - name: Give permissions for mapred users
-  shell: creates=/usr/lib/hadoop/fs.initialized su - hdfs -c "hadoop fs -chown hdfs:hadoop /"; su - hdfs -c "hadoop fs -chmod 0774 /"; touch /usr/lib/hadoop/namenode.initialized
+  shell: creates=/usr/lib/hadoop/fs.initialized su - hdfs -c "hadoop fs -chown hdfs:hadoop /"; su - hdfs -c "hadoop fs -chmod 0774 /" && touch /usr/lib/hadoop/namenode.initialized
 
 - name: Initialize the zkfc for jobtracker
-  shell: creates=/usr/lib/hadoop/zkfcjob.formatted su - mapred -c "hadoop mrzkfc -formatZK"; touch /usr/lib/hadoop/zkfcjob.formatted
+  shell: creates=/usr/lib/hadoop/zkfcjob.formatted su - mapred -c "hadoop mrzkfc -formatZK" && touch /usr/lib/hadoop/zkfcjob.formatted
 
 - name: start zkfc for jobtracker 
   service: name=hadoop-0.20-mapreduce-zkfc state=started

@@ -32,7 +32,7 @@
   with_items: hadoop.mapred_job_tracker_persist_jobstatus_dir
 
 - name: Format the namenode
-  shell: creates=/usr/lib/hadoop/namenode.formatted su - hdfs -c "hadoop namenode -format"; touch /usr/lib/hadoop/namenode.formatted
+  shell: creates=/usr/lib/hadoop/namenode.formatted su - hdfs -c "hadoop namenode -format" && touch /usr/lib/hadoop/namenode.formatted
 
 - name: start hadoop namenode services
   service: name=hadoop-hdfs-namenode state=started
