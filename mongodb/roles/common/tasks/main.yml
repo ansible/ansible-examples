@@ -22,6 +22,7 @@
 - name: Install the mongodb package
   yum: name={{ item }} state=installed
   with_items:
+   - libselinux-python
    - mongo-10gen
    - mongo-10gen-server
    - bc
