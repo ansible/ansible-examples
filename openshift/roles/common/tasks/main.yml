@@ -18,7 +18,6 @@
 
 - name: Create the hosts file for all machines
   template: src=hosts.j2 dest=/etc/hosts
-  tags: test
 
 - name: Create the EPEL Repository.
   copy: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo

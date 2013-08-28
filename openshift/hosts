@@ -1,23 +1,23 @@
 [dns]
-ec2-54-234-121-202.compute-1.amazonaws.com
-
+vm1
 [mongo_servers]
-ec2-54-234-121-202.compute-1.amazonaws.com
-ec2-54-224-54-161.compute-1.amazonaws.com
-ec2-54-227-92-207.compute-1.amazonaws.com
+vm1
+vm2
+vm3
 
 [mq]
-ec2-54-234-121-202.compute-1.amazonaws.com
-ec2-54-224-54-161.compute-1.amazonaws.com
-ec2-54-227-92-207.compute-1.amazonaws.com
+vm1
+vm2
+vm3
 
 [broker]
-ec2-54-227-59-55.compute-1.amazonaws.com
-ec2-54-224-225-58.compute-1.amazonaws.com
+vm1
+vm2
 
 [nodes]
-ec2-54-225-49-255.compute-1.amazonaws.com
+vm4
 
 [lvs]
-ec2-54-227-59-55.compute-1.amazonaws.com
-ec2-54-224-225-58.compute-1.amazonaws.com
+vm5
+vm3
+

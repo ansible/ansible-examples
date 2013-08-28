@@ -10,7 +10,6 @@
 - name: Install the broker components
   yum: name="{{ item }}" state=installed
   with_items: "{{ broker_packages }}"
-  ignore_errors: yes
 
 - name: Copy the rhc client configuration file
   template: src=express.conf.j2 dest=/etc/openshift/express.conf
@@ -92,4 +91,14 @@
   with_items:
       - httpd
       - openshift-broker
- 
+
+- name: Install the rhc client
+  gem: name={{ item }} state=latest
+  with_items:
+   - rdoc
+   - rhc
+  ignore_errors: yes 
+
+- name: copy the resolv.conf
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf
+

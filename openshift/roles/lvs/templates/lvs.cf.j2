@@ -18,10 +18,11 @@ virtual brokers {
      active = 1
      address = {{ vip }} {{ hostvars[groups['lvs'][0]].ansible_default_ipv4.interface }}:1
      vip_nmask = {{ vip_netmask }}
-     port = 80
+     port = 443
+     persistent = 10
      pmask = 255.255.255.255
-     send = "GET / HTTP/1.0\r\n\r\n"
-     expect = "HTTP"
+     send_program = "/opt/check.sh %h"
+     expect = "OK"
      use_regex = 0
      load_monitor = none
      scheduler = rr
@@ -32,13 +33,13 @@ virtual brokers {
      server web1 {
          address = {{ hostvars[groups['broker'][0]].ansible_default_ipv4.address }}
          active = 1
-         port = 80
-         weight = 1
+         port = 443
+         weight = 0
      }
      server web2 {
          address = {{ hostvars[groups['broker'][1]].ansible_default_ipv4.address }}
          active = 1
-         port = 80
-         weight = 2
+         port = 443
+         weight = 0
      }
 }

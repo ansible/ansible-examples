@@ -9,5 +9,8 @@ $TTL 1  ; 1 second
                                 )
                         NS      ns1.{{ domain_name }}.
 $ORIGIN {{ domain_name }}.
+{% for host in groups['nodes'] %}
+{{ hostvars[host].ansible_hostname }}   A       {{ hostvars[host].ansible_default_ipv4.address }}
+{% endfor %} 
 ns1                     A       {{ ansible_default_ipv4.address }}
 

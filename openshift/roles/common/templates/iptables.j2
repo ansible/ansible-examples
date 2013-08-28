@@ -1,5 +1,12 @@
 # Firewall configuration written by system-config-firewall
 # Manual customization of this file is not recommended.
+
+{% if 'broker' in group_names %}
+*nat
+-A PREROUTING -d {{ vip }}/32 -p tcp -m tcp --dport 443 -j REDIRECT
+COMMIT
+{% endif %}
+
 *filter
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
@@ -27,6 +34,8 @@
 {% endif %}
 {% if 'dns' in group_names %}
 -A INPUT -p tcp  --dport {{ dns_port }} -j  ACCEPT
+-A INPUT -p tcp  --dport 80 -j  ACCEPT
+-A INPUT -p tcp  --dport 443 -j  ACCEPT
 -A INPUT -p udp  --dport {{ dns_port }} -j  ACCEPT
 -A INPUT -p udp  --dport {{ rndc_port }} -j  ACCEPT
 -A INPUT -p tcp  --dport {{ rndc_port }} -j  ACCEPT

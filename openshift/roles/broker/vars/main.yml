@@ -12,10 +12,9 @@ broker_packages:
    - rubygem-openshift-origin-msg-broker-mcollective 
    - rubygem-openshift-origin-dns-bind
    - rubygem-passenger
-   - mod_passenger
+   - ruby193-mod_passenger
    - mysql-devel
    - openshift-origin-console
-   - rhc
    - ruby193-rubygem-actionmailer
    - ruby193-rubygem-actionpack
    - ruby193-rubygem-activemodel
