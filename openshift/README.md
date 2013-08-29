@@ -271,6 +271,31 @@ To create an App in openshift access the management console via any browser, the
 The page would as a login, give it as demo/passme. Once logged in follow the screen instructions to create your first Application.
 Note: Python2.6 cartridge is by default installed by plabooks, so choose python2.6 as the cartridge.
 
+## Deploying Openshift in EC2
+
+The repo also has playbook that would deploy the Highly Available Openshift in EC2. The playbooks should also be able to deploy the cluster in any ec2 api compatible clouds like Eucalyptus etc..
+
+Before deploying Please make sure:
+
+        - A security groups is created which allows ssh and HTTP/HTTPS traffic.
+        - The access/secret key is entered in group_vars/all
+        - Also specify the number of nodes required for the cluser in group_vars/all in the variable "count".
+
+Once that is done the cluster can be deployed simply by issuing the command.
+
+        ansible-playbook -i ec2hosts ec2.yml -e id=openshift
+
+Note: 'id' is a unique identifier for the cluster, if you are deploying multiple clusters, please make sure the value given is seperate for each deployments. Also the role of the created instances can figured out checking the tags tab in ec2 console.
+
+###Remove the cluster from EC2.
+
+To remove the deployed openshift cluster in ec2, just run the following command. The id paramter should be the same which was given to create the Instance.
+
+Note: The id can be figured out by checking the tags tab in the ec2 console.
+
+        ansible-playbook -i ec2hosts ec2_remove.yml -e id=openshift5 
+
+  
 
 ## HA Tests
 
