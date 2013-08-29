@@ -1,55 +1,33 @@
 - hosts: localhost
   connection: local
-  tasks:
+  pre_tasks:
    - fail: msg=" Please make sure the variables  id is specified and unique in the command line -e id=uniquedev1"
      when: id is not defined
    
-   - name: Create Instance
-     ec2: >
-      region="{{ region }}"
-      zone="{{ zone }}"
-      id="{{ id }}"
-      ec2_access_key="{{ ec2_access_key }}"
-      ec2_secret_key="{{ ec2_secret_key }}"
-      keypair="{{ keypair }}"
-      instance_type="{{ instance_type }}"
-      image="{{ image }}"
-      wait=true
-      group="{{ group }}"
-      instance_tags='{"type": "openshift_servers", "id":"{{ id }}"}'
-      count="{{ count }}"
-     register: ec2
-    
+  roles: 
+   - role: ec2 
+     type: dns 
+     ncount: 1
+   
+   - role: ec2 
+     type: mq 
+     ncount: 3
+   
+   - role: ec2 
+     type: broker
+     ncount: 2
+   
+   - role: ec2 
+     type: nodes
+     ncount: "{{ count }}"
+  
+  post_tasks:
    - name: Wait for the instance to come up
      wait_for: delay=10 host={{ item.public_dns_name }} port=22 state=started timeout=360
-     with_items: ec2.instances
-
-   - pause: seconds=60
-
-   - name: Add new instance to host group dns
-     add_host: hostname={{ ec2.instances[0].public_dns_name }} groupname=dns
-   
-   - name: Add new instance to host group mongo
-     add_host: hostname={{ ec2.instances[item|int()].public_dns_name }} groupname="mongo_servers"
-     with_sequence: start=0 end=2    
-   
-   - name: Add new instance to host group mq
-     add_host: hostname={{ ec2.instances[item| int()].public_dns_name }} groupname="mq"
-     with_sequence: start=0 end=2    
-   
-   - name: Add new instance to host group broker
-     add_host: hostname={{ ec2.instances[item| int()].public_dns_name }} groupname=broker
-     with_sequence: start=0 end=1    
-   
-   - name: Add new instance to host group broker
-     set_fact: >
-       broker1="{{ ec2.instances[0].id }}"
-       broker2="{{ ec2.instances[1].id }}"
-   
-   - name: Add new instance to host group nodes
-     add_host: hostname={{ ec2.instances[item| int()].public_dns_name }} groupname=nodes
-     with_sequence: start=3 end={{ count|int - 1 }}   
-
+     with_items: ec2.instances 
+    
+   - debug: msg="{{ groups }}"
+ 
 - hosts: all:!localhost
   user: root
   roles:
@@ -59,6 +37,7 @@
   user: root
   roles:
       - role: dns
+
 - hosts: mongo_servers
   user: root
   roles:
@@ -79,14 +58,4 @@
   roles:
    - role: nodes
 
-- hosts: localhost
-  gather_facts: no
-  connection: local
-  tasks:   
-   - name: Add the Instance to elb
-     ec2_elb: region={{ region }} ec2_access_key={{ ec2_access_key }} ec2_secret_key={{ ec2_secret_key }} ec2_elbs={{ ec2_elbs }} instance_id={{ item }} state=present
-     with_items: 
-      - "{{ broker1 }}"
-      - "{{ broker2 }}"
-     when: ec2_elbs is defined
    

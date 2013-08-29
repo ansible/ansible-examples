@@ -8,7 +8,7 @@ keypair: "axialkey"
 instance_type: "m1.small"
 image: "ami-bf5021d6"
 group: "default"
-count: 5
+count: 2
 ec2_elbs: oselb
 region: "us-east-1"
 zone: "us-east-1a"
