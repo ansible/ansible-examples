@@ -1,5 +1,6 @@
 [dns]
 vm1
+
 [mongo_servers]
 vm1
 vm2
@@ -11,8 +12,8 @@ vm2
 vm3
 
 [broker]
-vm1
-vm2
+vm6
+vm7
 
 [nodes]
 vm4

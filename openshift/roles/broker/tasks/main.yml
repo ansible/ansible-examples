@@ -1,15 +1,18 @@
 ---
 # Tasks for the Openshift broker installation
 
+- name: install mcollective common
+  yum: name=mcollective-common-2.2.1 state=installed
+
+- name: Install the broker components
+  yum: name="{{ item }}" state=installed disablerepo=epel
+  with_items: "{{ broker_packages }}"
+
 - name: Install mcollective
   yum: name=mcollective-client
 
 - name: Copy the mcollective configuration file
   template: src=client.cfg.j2 dest=/etc/mcollective/client.cfg
-
-- name: Install the broker components
-  yum: name="{{ item }}" state=installed
-  with_items: "{{ broker_packages }}"
 
 - name: Copy the rhc client configuration file
   template: src=express.conf.j2 dest=/etc/openshift/express.conf

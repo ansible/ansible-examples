@@ -2,8 +2,8 @@
 # Global Vars for OpenShift
 
 #EC2 specific varibles
-ec2_access_key: "AKIAQUFDNXQ"
-ec2_secret_key: "RyhzTz1wzZ3kmtMEu"
+ec2_access_key: "AKIUFDNXQ"
+ec2_secret_key: "RyhTz1wzZ3kmtMEu"
 keypair: "axialkey"
 instance_type: "m1.small"
 image: "ami-bf5021d6"

@@ -2,7 +2,13 @@
 # Tasks for the openshift nodes
 
 - name: Install the mcollective packages
-  yum: name=openshift-origin-msg-node-mcollective state=installed
+  yum: name={{ item }} state=installed 
+  with_items: 
+   - mcollective-common-2.2.1
+
+
+- name: Install the mcollective packages
+  yum: name=openshift-origin-msg-node-mcollective state=installed disablerepo=epel
 
 - name: Copy the mcollective configuration file
   template: src=server.cfg.j2 dest=/etc/mcollective/server.cfg
@@ -12,7 +18,7 @@
   service: name=mcollective state=started enabled=yes
 
 - name: Install OpenShift node packages
-  yum: name="{{ item }}" state=installed
+  yum: name="{{ item }}" state=installed 
   with_items:
       - rubygem-openshift-origin-node 
       - rubygem-openshift-origin-container-selinux.noarch
