@@ -1,0 +1,17 @@
+[local]
+# One or more variables can be specified for each host
+# in a host file
+#
+# Higher Precedent: Role variables
+# Lower Precedent: Inventory group variables
+#
+localhost echo_var="an inventory host var"
+
+[local:vars]
+# One or more variables can be specified for each group
+# of hosts in a host file
+#
+# Higher Precedent: Inventory host variables
+# Lower Precedent: Role default variables
+#
+echo_var="an inventory group var"

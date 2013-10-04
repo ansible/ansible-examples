@@ -1,0 +1,9 @@
+---
+# Default variables can be specified for each role.
+#
+# Higher Precedent: Inventory group variables
+# Lower Precedent: None. These variables will only be
+#                  used if not specified in any other
+#                  location with the same name.
+#
+echo_var: a role default variable

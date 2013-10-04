@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Run with the `-v` option so we can see the stdout
+# of each task
+
+# Extra variable assignments can be passed in on the
+# command line. This is useful for one-off assignments
+# or for passing in data during an automated playbook
+# run.
+#
+# Higher Precedent: Playbook variable files
+# Lower Precedent: Inline playbook variables
+#
+ansible-playbook \
+  playbook.yml \
+  -i hosts/local.hosts \
+  --extra-vars "echo_var='a command line extra var'" \
+  -v
