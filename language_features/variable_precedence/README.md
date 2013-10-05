@@ -41,6 +41,26 @@ task name mentioned above.
 * Ability to SSH into localhost without a password
 * `ansible-playbook` script available in Bash shell environment
 
+## v1.2 and earlier
+
+To test the precedence rules against 1.2, simply change the
+required role in the playbook from `dummy` to precedence since
+v1.2 does not support role dependencies.
+
+The predecedence list using this setup against Ansible v1.2
+in order from highest to lowest:
+
+* Register Variables
+* Playbook Role parameter
+* Vars file vars
+* Role var
+* Command line extra var
+* Playbook vars
+* Inventory Host variable
+* Inventory Group variable
+
+__Earlier versions than v1.2 were not tested.__
+
 ## Official Documentation
 
 [http://www.ansibleworks.com/docs/playbooks2.html#understanding-variable-precedence](http://www.ansibleworks.com/docs/playbooks2.html#understanding-variable-precedence)
