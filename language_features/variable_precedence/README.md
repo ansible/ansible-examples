@@ -59,7 +59,7 @@ in order from highest to lowest:
 * Inventory Host variable
 * Inventory Group variable
 
-__Earlier versions than v1.2 were not tested.__
+__Versions prior to v1.2 were not tested.__
 
 ## Official Documentation
 
