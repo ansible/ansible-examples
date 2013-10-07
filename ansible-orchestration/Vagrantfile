@@ -1,0 +1,111 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+hosts = {
+	"proxy"        => "192.168.35.10",
+	"host1"        => "192.168.35.11",
+	"host2"        => "192.168.35.12",
+	"ansible-head" => "192.168.35.9"    # the bootstrap node that executes the orchestration
+}
+
+groups = {
+	"[proxy]"       => [ "proxy" ],
+	"[webserver]"   => [ "host1", "host2" ],
+	"[dbserver]"    => [ "mongodb0", "mongodb1", "mongodb2" ]	# not used in this example
+	}
+
+# Create a temp data directory for the handshake of info between Vagrant and Ansible
+# First check if data is a file, and if it is remove the file
+if (File::file?("data")) then
+  File.delete("data")
+end
+# now you have a clean decision: either data directory is there or not: create if not
+if !(File::directory?("data")) then
+  Dir.mkdir("data")
+end
+
+# we are going to create a /etc/hosts file so that we can use symbolic hostnames without a formal DNS
+# The format of a line in the /etc/hosts file is: ip alias1 alias2 alias3....
+# One of the aliases we want is a FQDN, so we need to define the fully qualified domain
+FQD = "som.state.me.us"
+# now build the 'extension' of the default /etc/hosts file that the base box contains.
+# double check if the duplicate "ansible-head" entry is going to be trouble.
+File.open("data/etc.hosts.file", "w") do |etcHostsFile|
+  hosts.each do |name, ip|
+    if name != "ansible-head" then
+      etcHostsFile.syswrite(ip + " " + (name + "." + FQD) + " " + name + "\n");
+    end
+  end
+end
+
+# to drive the orchestration script to scan the host keys, we need a little helper file
+# containing the hosts that make up the overall system. If we have the /etc/hosts file 
+# functional then we can use the symbolic names, so let's create a one host per line file
+# Double check if the duplicate "ansible-head" entry is going to be trouble
+File.open("data/hosts.helper.file", "w") do |helperFile|
+  hosts.each do |name, ip|
+    if name != "ansible-head" then
+      helperFile.syswrite(ip + " ");
+      helperFile.syswrite(name + " ");
+      helperFile.syswrite(name + "." + FQD + " ");
+    end
+  end
+end
+
+# create an inventory file from the hosts and groups list so it is all dynamic
+File.open("data/inventory.file", "w") do |inventoryFile|
+  groups.each do |group, host_list|
+    inventoryFile.syswrite(group + "\n");
+    host_list.each do |host|
+      if (hosts[host] != nil) then
+        inventoryFile.syswrite(host + "." + FQD + " " + 
+			     "ansible_ssh_host=" + hosts[host] + " ansible_ssh_user=vagrant\n");
+      end
+    end
+    inventoryFile.syswrite("\n");
+  end
+end
+
+# 32-bit CentOS variables
+#base_box         = "CentOS-6.4.32b"
+#box_url          =  "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130427.box"
+#head_bootstrap   = "rhel-ansible.sh"
+#worker_bootstrap = "rhel-worker.sh"
+
+# 32-bit Ubuntu precise (12.04LTS)
+base_box         = "precise32"
+box_url          = "http://files.vagrantup.com/precise32.box"
+head_bootstrap   = "ubuntu-ansible.sh"
+worker_bootstrap = "ubuntu-worker.sh"
+
+# 64-bit Ubuntu precise (12.04LTS)
+#base_box         = "precise64"
+#box_url          = "http://files.vagrantup.com/precise64.box"
+#head_bootstrap   = "ubuntu-ansible.sh"
+#worker_bootstrap = "ubuntu-worker.sh"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  hosts.each do |name, ip|
+    config.vm.define name do |machine|
+      machine.vm.box     = base_box
+      machine.vm.box_url = box_url
+      if name == "ansible-head" then
+        machine.vm.provision :shell, :path => head_bootstrap
+      else
+        machine.vm.provision :shell, :path => worker_bootstrap
+      end
+      machine.vm.hostname = "%s.som.state.me.us" % name
+      machine.vm.network "private_network", ip: ip
+
+      machine.vm.provider :virtualbox do |vb|
+	  # Use VBoxManage to customize the VM. For example to change memory:
+	  vb.name = name
+	  vb.customize ["modifyvm", :id, "--memory", "200"]
+      end
+    end
+  end
+end
