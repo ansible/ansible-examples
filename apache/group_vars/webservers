@@ -1,3 +1,0 @@
----
-# The variables file used by the playbooks in the webservers group.
-# These don't have to be explicitly imported by vars_files: they are autopopulated.
