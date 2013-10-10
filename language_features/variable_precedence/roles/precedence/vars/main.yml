@@ -1,0 +1,7 @@
+---
+# Variables can be specified for each role.
+#
+# Higher Precedent: Playbook role parameters
+# Lower Precedent: Inventory host variables
+#
+echo_var: a role var

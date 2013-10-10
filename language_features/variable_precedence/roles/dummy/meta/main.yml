@@ -1,0 +1,13 @@
+---
+dependencies:
+
+  # For each role that is specified as a dependency, parameters
+  # can be passed as well. This can be useful for calling the
+  # same role more than once with different values passed used
+  # each time.
+  #
+  # Higher Precedent: Automatically assigned Ansible fact variables
+  # Lower Precedent: Playbook variable files
+  #
+  - role: precedence
+    echo_var: a role dependency parameter

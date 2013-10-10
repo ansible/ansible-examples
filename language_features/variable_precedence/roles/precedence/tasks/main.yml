@@ -1,0 +1,28 @@
+---
+# Each task in an Ansible playbook allows you to register the
+# results as a variable for later use. This is typically a dictionary
+# containing keys such as stderr and stdout.
+#
+# Higher Precedent: None. Registered variables have the highest precedent.
+#                   Only other registered variables with the same name
+#                   that occur _later_ in the flow may override existing
+#                   registered variables.
+#
+# Lower Precedent: Automatically assigned Ansible fact variables.
+#
+- name: register echo echo
+  command: echo "a register variable"
+  register: echo_var
+
+- name: THE MAIN EVENT echo echo echo
+  command: echo "{{ echo_var.stdout | default( echo_var ) }}"
+
+# The only way to defeat an automatically assigned Ansible
+# fact variable is to register one with the same name.
+#
+# - name: register ansible_
+#   command: echo "a register variable"
+#   register: ansible_os_family
+#
+# - name: did you override an ansible_ variable by accident?
+#   command: echo "{{ ansible_os_family.stdout | default( ansible_os_family ) }}"

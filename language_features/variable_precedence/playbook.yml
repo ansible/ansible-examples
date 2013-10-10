@@ -1,0 +1,46 @@
+---
+- name: an example play demonstrating variable precedence
+  hosts: all
+
+  # Ansible predefines variables that you can use when
+  # it gathers facts. You should not override these variables
+  # manually. Even if you tried to, there's only one way: by
+  # registering the output of a task as a variable with the same
+  # name.
+  #
+  # Higher Precedent: Task Registered Variables
+  # Lower Precedent: Role Dependency Parameters
+  #
+  gather_facts: no
+
+  roles:
+
+    # For each role that is specified, parameters can be passed as
+    # well. This can be useful for calling the same role more than
+    # once with different values passed used each time.
+    #
+    # Higher Precedent: Inline Playbook Variables
+    # Lower Precedent: Role Variables
+    #
+    - role: dummy
+      echo_var: a playbook role parameter
+
+  vars:
+
+    # Each play in a playbook can specify variables inline in this
+    # nested dictionary.
+    #
+    # Higher Precedent: Command Line --extra-vars
+    # Lower Precedent: Playbook Role Parameters
+    #
+    echo_var: a playbook var
+
+  vars_files:
+
+    # Each play in a playbook can specify external files containing
+    # variables.
+    #
+    # Higher Precedent: Role Dependency Parameters
+    # Lower Precedent: Command Line --extra-vars
+    #
+    - vars/precedence.yml
