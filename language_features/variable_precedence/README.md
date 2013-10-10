@@ -44,13 +44,14 @@ task name mentioned above.
 ## v1.2 and earlier
 
 To test the precedence rules against 1.2, simply change the
-required role in the playbook from `dummy` to precedence since
+required role in the playbook from `dummy` to `precedence` since
 v1.2 does not support role dependencies.
 
 The predecedence list using this setup against Ansible v1.2
 in order from highest to lowest:
 
 * Register Variables
+* Ansible assigned fact vars
 * Playbook Role parameter
 * Vars file vars
 * Role var
