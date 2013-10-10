@@ -64,5 +64,5 @@ __Versions prior to v1.2 were not tested.__
 
 ## Official Documentation
 
-[http://www.ansibleworks.com/docs/playbooks2.html#understanding-variable-precedence](http://www.ansibleworks.com/docs/playbooks2.html#understanding-variable-precedence)
+[http://www.ansibleworks.com/docs/playbooks_variables.html](http://www.ansibleworks.com/docs/playbooks_variables.html)
 
