@@ -9,7 +9,7 @@
 
 # gather facts from monitoring nodes for iptables rules
 - hosts: monitoring
-  tasks:
+  tasks: []
 
 - hosts: webservers
   user: root
