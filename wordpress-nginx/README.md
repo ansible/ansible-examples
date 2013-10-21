@@ -5,8 +5,9 @@
 
 These playbooks deploy a simple all-in-one configuration of the popular
 Wordpress blogging platform and CMS, frontend by the Nginx web server and the
-PHP-FPM process manager. To use, edit the "hosts" inventory file to include the
-names of the servers you want to deploy.
+PHP-FPM process manager. To use, copy the 'hosts.example' file to 'hosts' and 
+edit the `hosts` inventory file to include the names or URLs of the servers
+you want to deploy.
 
 Then run the playbook, like this:
 
