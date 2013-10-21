@@ -10,6 +10,7 @@
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+  ignore_errors: true
 
 - name: Copy the code from repository
   git: repo={{ repository }} version={{ webapp_version }} dest=/var/www/html/
