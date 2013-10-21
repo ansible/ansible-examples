@@ -30,6 +30,6 @@
   service: name=ntpd state=started enabled=true
   tags: ntp
 
-- name: insert iptables template
-  template: src=iptables.j2 dest=/etc/sysconfig/iptables
-  notify: restart iptables
+#- name: insert iptables template
+#  template: src=iptables.j2 dest=/etc/sysconfig/iptables
+#  notify: restart iptables
