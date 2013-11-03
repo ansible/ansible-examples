@@ -28,14 +28,14 @@
   vars:
     dbname: myapp
     dbuser: django
-    dbpassword: mysupersecreetpassword
+    dbpassword: mysupersecretpassword
 
   tasks:
   - name: ensure database is created
-    action: postgresql_db db={{dbname}}
+    postgresql_db: name={{dbname}}
 
   - name: ensure user has access to database
-    action: postgresql_user db={{dbname}} user={{dbuser}} password={{dbpassword}} priv=ALL
+    postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
 
   - name: ensure user does not have unnecessary privilege
-    action: postgresql_user user={{dbuser}} role_attr_flags=NOSUPERUSER,NOCREATEDB
+    postgresql_user: name={{dbuser}} role_attr_flags=NOSUPERUSER,NOCREATEDB
