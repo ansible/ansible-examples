@@ -4,6 +4,9 @@
 - name: Deploy the Cloudera Repository
   copy: src=etc/cloudera-CDH4.repo dest=/etc/yum.repos.d/cloudera-CDH4.repo
 
+- name: Install the libselinux-python package
+  yum: name=libselinux-python state=installed
+
 - name: Install the openjdk package
   yum: name=java-1.6.0-openjdk state=installed
 
