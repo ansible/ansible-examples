@@ -2,6 +2,7 @@
 
 - Requires Ansible 1.3
 - Expects CentOS/RHEL 6 hosts (64 bit)
+- RHEL 6 requires rhel-x86_64-server-optional-6 in enabled channels
 
 
 ## A Primer into OpenShift Architecture
