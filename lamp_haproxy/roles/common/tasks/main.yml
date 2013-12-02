@@ -33,3 +33,8 @@
 - name: insert iptables template
   template: src=iptables.j2 dest=/etc/sysconfig/iptables
   notify: restart iptables
+
+- name: test to see if selinux is running
+  command: getenforce
+  register: sestatus
+  changed_when: false
