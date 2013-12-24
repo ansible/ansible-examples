@@ -1,6 +1,12 @@
 ---
 # This role contains common plays that will run on all nodes.
 
+- name: install the python libselinux binding package
+  yum: name={{ item }} state=installed
+  with_items:
+  - libselinux-python
+  - python-httplib2
+
 - name: Create the repository for EPEL
   copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
 

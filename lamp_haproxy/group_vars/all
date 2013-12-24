@@ -3,3 +3,8 @@
 
 httpd_port: 80
 ntpserver: 192.168.1.2
+env:
+ GIT_SSL_NO_VERIFY: true
+check_url_file: index.html
+check_url_proto: http
+
