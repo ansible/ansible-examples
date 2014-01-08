@@ -2,7 +2,7 @@
 # This playbook will install mysql and create db user and give permissions.
 
 - name: Install Mysql package
-  action: yum pkg={{ item }} state=installed
+  yum: name={{ item }} state=installed
   with_items:
    - mysql-server
    - MySQL-python
@@ -14,7 +14,7 @@
   when: sestatus.rc != 0
 
 - name: Create Mysql configuration file
-  action: template src=my.cnf.j2 dest=/etc/my.cnf
+  template: src=my.cnf.j2 dest=/etc/my.cnf
   notify: 
   - restart mysql
 
