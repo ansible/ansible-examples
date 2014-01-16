@@ -2,23 +2,29 @@
 - name: Install Java 1.7
   yum: name=java-1.7.0-openjdk state=present
 
-- name: Download Tomcat
-  get_url: url=http://mirror.symnds.com/software/Apache/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.tar.gz dest=/opt/apache-tomcat-7.0.47.tar.gz
-
-- name: Extract archive
-  command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-7.0.47.tar.gz -C /usr/share/ creates=/usr/share/tomcat
-
-- name: Symlink install directory
-  file: src=/usr/share/apache-tomcat-7.0.47 path=/usr/share/tomcat state=link
-
-- name: Add group "tomcat"
+- name: add group "tomcat"
   group: name=tomcat
 
-- name: Add user "tomcat"
+- name: add user "tomcat"
   user: name=tomcat group=tomcat home=/usr/share/tomcat
+  sudo: True
+
+- name: delete home dir for symlink of tomcat
+  shell: rm -fr /usr/share/tomcat
+  sudo: True
+
+- name: Download Tomcat
+  get_url: url=http://www.eng.lsu.edu/mirrors/apache/tomcat/tomcat-7/v7.0.50/bin/apache-tomcat-7.0.50.tar.gz dest=/opt/apache-tomcat-7.0.50.tar.gz
+
+- name: Extract archive
+  command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-7.0.50.tar.gz -C /opt/ creates=/opt/apache-tomcat-7.0.50
+
+- name: Symlink install directory
+  file: src=/opt/apache-tomcat-7.0.50 path=/usr/share/tomcat state=link
 
 - name: Change ownership of Tomcat installation
   file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
+
 
 - name: Configure Tomcat server
   template: src=server.xml dest=/usr/share/tomcat/conf/
