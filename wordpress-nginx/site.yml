@@ -2,6 +2,8 @@
 - name: Install Wordpress, MySQL, Nginx, and PHP-FPM
   hosts: wordpress-server
   user: root
+  # remote_user: user
+  # sudo: yes
 
   roles:
     - common
