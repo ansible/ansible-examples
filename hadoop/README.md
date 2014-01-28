@@ -142,7 +142,7 @@ cluster can be scaled to thousands of nodes with petabytes of storage.
 
 The above deployment model provides redundancy for data as the HDFS filesytem
 takes care of the data replication. The only single point of failure are the
-NameNode and the TaskTracker. If any of these components fail the cluster will
+NameNode and the JobTracker. If any of these components fail the cluster will
 not be usable.
 
 
