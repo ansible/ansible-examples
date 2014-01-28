@@ -31,7 +31,7 @@ Here's a list and a brief overview of the diffrent components used by OpenShift.
 
 ### An Overview of application creation process in OpenShift.
  
-![Alt text](/images/app_deploy.png "App")
+![Alt text](images/app_deploy.png "App")
 
 The above figure depicts an overview of the different steps involved in creating an application in OpenShift.  If a developer wants to create or deploy a JBoss & MySQL application, they can request the same from different client tools that are available, the choice can be an Eclipse IDE , command line tool (RHC) or even a web browser (management console).
 
@@ -40,7 +40,7 @@ Once the user has instructed the client tool to deploy a JBoss & MySQL applicati
 
 ### Deployment Diagram of OpenShift via Ansible.
  
-![Alt text](/images/arch.png "App")
+![Alt text](images/arch.png "App")
 
 The above diagram shows the Ansible playbooks deploying a highly-available Openshift PaaS environment. The deployment has two servers running LVS (Piranha) for load balancing and provides HA for the Brokers. Two instances of Brokers also run for fault tolerance. Ansible also configures a DNS server which provides name resolution for all the new apps created in the OpenShift environment.
 
@@ -165,7 +165,7 @@ Once the stack has been succesfully deployed, we can check if the diffrent compo
         http://ec2-54-226-116-175.compute-1.amazonaws.com:8161/admin/network.jsp
 
 
-![Alt text](/images/mq.png "App")
+![Alt text](images/mq.png "App")
 
 - Broker: To check if the broker node is installed/configured succesfully, issue the following command on any broker node and a similar output should be displayed. Make sure there is a PASS at the end.
 

@@ -27,7 +27,7 @@ Let's have a closer look at each of these components.
 
 ## HDFS
 
-![Alt text](/images/hdfs.png "HDFS")
+![Alt text](images/hdfs.png "HDFS")
 
 The above diagram illustrates an HDFS filesystem. The cluster consists of three
 DataNodes which are responsible for storing/replicating data, while the NameNode
@@ -89,7 +89,7 @@ to run the MapReduce job on "File1"
 Let's have closer look at the anotomy of a Map job.
     
 
-![Alt text](/images/map.png "Map job")
+![Alt text](images/map.png "Map job")
 
 As the figure above shows, when the client instructs the JobTracker to run a
 job on File1, the JobTracker first contacts the NameNode to determine where the
@@ -117,7 +117,7 @@ and Reduce process.
 
 Let's have closer look at the Shuffle-Reduce job.
 
-![Alt text](/images/reduce.png "Reduce job")
+![Alt text](images/reduce.png "Reduce job")
 
 As the figure above demonstrates, the first thing that the JobTracker does is
 spawn a Reducer job on the DataNode/Tasktracker nodes for each "key" in the job
@@ -133,7 +133,7 @@ is the Reducer/partition number.
 
 ## Hadoop Deployment
 
-![Alt text](/images/hadoop.png "Reduce job")
+![Alt text](images/hadoop.png "Reduce job")
 
 The above diagram depicts a typical Hadoop deployment. The NameNode and
 JobTracker usually reside on the same machine, though they can run on seperate
@@ -162,7 +162,7 @@ metadata is handled by the Quorum Journal Manager.
 
 ### Quorum Journal Manager
 
-![Alt text](/images/qjm.png "QJM")
+![Alt text](images/qjm.png "QJM")
 
 As the figure above shows the Quorum Journal manager consists of the journal
 manager client and journal manager nodes. The journal manager clients reside
@@ -182,7 +182,7 @@ the secondary node to tell if the primary node is running properly, and if not
 it has to take up the role of the primary. Zookeeper provides Hadoop with a
 mechanism to coordinate in this way.
 
-![Alt text](/images/zookeeper.png "Zookeeper")
+![Alt text](images/zookeeper.png "Zookeeper")
 
 As the figure above shows, the Zookeeper services are client/server baseds
 service. The server component itself is replicated over a set of machines that
@@ -204,7 +204,7 @@ fences the node/service and takes over the primary role.
 
 ## Hadoop HA Deployment
 
-![Alt text](/images/hadoopha.png "Hadoop_HA")
+![Alt text](images/hadoopha.png "Hadoop_HA")
 
 The above diagram depicts a fully HA Hadoop Cluster with no single point of
 failure and automated failover.
