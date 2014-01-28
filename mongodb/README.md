@@ -7,7 +7,7 @@
 ### A Primer
 ---------------------------------------------
 
-![Alt text](/images/nosql_primer.png "Primer NoSQL")
+![Alt text](images/nosql_primer.png "Primer NoSQL")
 
 The above diagram shows how MongoDB differs from the traditional relational
 database model. In an RDBMS, the data associated with 'user' is stored in a
@@ -23,7 +23,7 @@ additonal field of 'last name'.
 ### Data Replication
 ------------------------------------
 
-![Alt text](/images/replica_set.png "Replica Set")
+![Alt text](images/replica_set.png "Replica Set")
 
 Data backup is achieved in MongoDB via _replica sets_. As the figure above shows,
 a single replication set consists of a replication master (active) and several
@@ -36,7 +36,7 @@ recommended number of slave servers are 3.
 ### Sharding (Horizontal Scaling) .
 ------------------------------------------------
 
-![Alt text](/images/sharding.png "Sharding")
+![Alt text](images/sharding.png "Sharding")
 
 Sharding works by partioning the data into seperate chunks and allocating
 diffent ranges of chunks to diffrent shard servers. The figure above shows a
@@ -69,7 +69,7 @@ collection is split and balanced across shards.
 #### Deploy the Cluster
 ----------------------------
 
-![Alt text](/images/site.png "Site")
+![Alt text](images/site.png "Site")
   
 The diagram above illustrates the deployment model for a MongoDB cluster deployed by
 Ansible. This deployment model focuses on deploying three shard servers,
@@ -190,7 +190,7 @@ step.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-![Alt text](/images/check.png "check")
+![Alt text](images/check.png "check")
 
 The above mentioned steps can be tested with an automated playbook.
 
@@ -227,7 +227,7 @@ the number of chunks spread across the shards.
 ### Scaling the Cluster
 ---------------------------------------
 
-![Alt text](/images/scale.png "scale")
+![Alt text](images/scale.png "scale")
 
 To add a new node to the existing MongoDB Cluster, modify the inventory file as follows:
 

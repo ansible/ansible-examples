@@ -48,7 +48,7 @@ Once the playbooks complete, you can check the deployment by logging into the
 server console at http://<server-ip>:9000/. You should get a page similar to
 image below.
 
-![Alt text](/images/play_webapp.png "webapp")
+![Alt text](images/play_webapp.png "webapp")
 
 ## Fetching Facts from Hosts
 
