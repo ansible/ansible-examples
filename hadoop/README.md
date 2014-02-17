@@ -332,6 +332,10 @@ The following diagram illustrates a standalone Hadoop cluster.
 
 To deploy this cluster fill in the inventory file as follows: 
 
+		[hadoop_all:children]
+		hadoop_masters
+		hadoop_slaves
+
 		[hadoop_master_primary]
 		zhadoop1
 
