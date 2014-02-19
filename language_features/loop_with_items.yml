@@ -26,5 +26,10 @@
         - testuser1
         - testuser2
 
-
-
+  - name: copy templates
+    template: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+        - src: templates/testsource1
+          dest: /example/dest1/test.conf
+        - src: templates/testsource2
+          dest: /example/dest2/test.conf
