@@ -30,6 +30,6 @@
     template: src={{ item.src }} dest={{ item.dest }}
     with_items:
         - src: templates/testsource1
-          dest: dest=/example/dest1/test.conf
+          dest: /example/dest1/test.conf
         - src: templates/testsource2
-          dest: dest=dest=/example/dest2/test.conf
+          dest: /example/dest2/test.conf
