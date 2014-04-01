@@ -1,23 +1,6 @@
----
 - hosts: riak_cluster
   sudo: True
   roles:
-  - bootstrap/common
+  - { role: basho.riak, tags: ["riak"] }
 
-- hosts: Ubuntu
-  gather_facts: no
-  sudo: True
-  roles:
-  - bootstrap/ubuntu
-  - riak/ubuntu
-  - riak/common
-
-- hosts: CentOS:RedHat
-  gather_facts: no
-  sudo: True
-  roles:
-  - bootstrap/redhat
-  - riak/redhat
-  - riak/common
-
-
+- include: form_cluster.yml

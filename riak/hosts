@@ -1,4 +1,0 @@
-[riak_cluster]
-10.42.0.6 node_type=primary
-10.42.0.7 node_type=middle
-10.42.0.8 node_type=last

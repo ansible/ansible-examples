@@ -1,0 +1,7 @@
+[riak_cluster]
+10.42.0.6 
+10.42.0.7 
+10.42.0.8 
+
+[riak_servers:children]
+riak_cluster

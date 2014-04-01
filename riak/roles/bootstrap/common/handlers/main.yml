@@ -1,6 +1,0 @@
----
-- name: update sysctl
-  command: sysctl -e -p /etc/sysctl.d/riak.conf
-
-- name: source rclocal
-  command: /bin/bash /etc/rc.local
