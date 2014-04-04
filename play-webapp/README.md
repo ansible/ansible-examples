@@ -45,7 +45,7 @@ Run the playbook to deploy the app:
         ansible-playbook -i hosts site.yml
 
 Once the playbooks complete, you can check the deployment by logging into the
-server console at http://<server-ip>:9000/. You should get a page similar to
+server console at `http://<server-ip>:9000/`. You should get a page similar to
 image below.
 
 ![Alt text](images/play_webapp.png "webapp")
@@ -104,5 +104,5 @@ facts:
 
 The facts can also be fetched by making a GET request with following url.
 
-        http://<serverip>:9000/inventoryID?hostname=<hostname>
+        http://<server-ip>:9000/inventoryID?hostname=<hostname>
 
