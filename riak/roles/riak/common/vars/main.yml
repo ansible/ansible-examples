@@ -1,1 +1,0 @@
-ip_addr: "{{ hostvars[inventory_hostname]['ansible_' + riak.iface]['ipv4']['address'] }}"

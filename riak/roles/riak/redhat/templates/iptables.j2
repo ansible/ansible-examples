@@ -1,5 +1,0 @@
--A INPUT -p tcp -m state --state NEW -m tcp --dport 4369 -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport {{ riak.handoff_port }} -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport {{ riak.http_port }} -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport {{ riak.pb_port }} -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport 6000:7999 -j ACCEPT

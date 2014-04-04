@@ -1,6 +1,0 @@
----
-- name: fetch yum repository
-  get_url: url=http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm dest=/tmp
-
-- name: configure the basho repository
-  yum: name=/tmp/basho-release-6-1.noarch.rpm

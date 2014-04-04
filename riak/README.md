@@ -17,45 +17,23 @@ For more information, please visit [http://docs.basho.com/riak/latest/](http://d
 
 #### Requirements
 
-This playbook requires ansible 1.2.
+After checking out the ansible-examples project:
 
-#### Hosts File Naming Conventions
+	cd ansible-examples/riak
+	ansible-galaxy install -r roles.txt -p roles
 
-In the hosts file, we use a host variable **node_type** to ease the cluster joining process.  The following values of **node_type** can be used.
+This will pull down the roles that are required to run this playbook from Ansible Galaxy and place them in ansible-examples/riak/roles.  Should you have another directory you have configured for roles, specify it with the `-p` option. 
 
-* **primary** - all nodes attempt to join this node.
-* **last** - this node plans and commits changes to the cluster, in this example, the joining of the nodes.  
-* **middle** - all nodes in between **primary** and **last**
+### Riak Role Documentation
 
-### group_vars ###
+Documentation for the Riak role [can be found here](https://github.com/basho/ansible-riak/blob/master/README.md). This covers all of the variables one can use with the Riak role.
 
-All sorts of configuration settings can be tuned in group_vars/all.  Here's a breakdown.
 
-* **firewall**: **True**  - whether you'd like to enabled iptables for the configuration
-* riak:
-	* **version**: *1.3.1*  - the version of the package you want to install.  For Debian/Ubuntu distributions it needs to contain the distro. For example: *1.3.1~precise1*
-	* **iface**: *eth1* - the interface Riak will be listening on
-    * **handoff_port**: *8099* - the port used for handoffs
-    * **http_port**: *8098* - the port used for Riak's rest interface.
-    * **pb_port**: *8087* - the port used for Riak's protocol buffers interface.
-    * **mountpoint**: */var/lib/riak* - the mount point where the riak data partition lives.
-    * **partition**: */dev/mapper/VolGroup-lv_riak* - the partition where riak is mounted
-    * **physical_disk**: *sda*  - the physical disk that is associated with the partition riak is mounted
-    * **scheduler**: *noop* - the I/O scheduler you want to use
-    * **backend**: *bitcask* - the Riak backend you want to use
-    * **ring_size**: *64*  - the number of vnodes in the distributed ring
-    * **log_rotate**: *4* - how often log rotated should occur.
- 
-There is no concept of node roles in Riak proper, it is master-less.
-
-You can build an entire cluster by first modifying the hosts file to fit your
-network.
-
-#### Using the Playbooks
+#### Playbooks 
 
 Here are the playbooks that you can use with the ansible-playbook commands:
 
-* **site.yml** - creates a complete riak cluster, it calls setup_riak.yml and form_cluster.yml
+
 * **setup_riak.yml** - installs riak onto nodes
 * **form_cluster.yml** - forms a riak cluster
 * **rolling_restart.yml** - demonstrates the ability to perform a rolling
@@ -67,15 +45,12 @@ rolling upgrades of Riak itself.
 
 Install vagrant!
 
-First choose an OS in your Vagrantfile.
 
 run:
 
+	ssh-add ~/.vagrant.d/insecure_private_key
 	vagrant up
-	
-launch the playbook, when prompted for password, enter "vagrant"
-
-	ansible-playbook -v   -u vagrant site.yml -i hosts -k	
+	ansible-playbook -v -u vagrant setup_riak.yml -i hosts 		
 	
 ssh to your nodes
 

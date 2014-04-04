@@ -1,4 +1,0 @@
----
-
-- name: lokkit
-  command: lokkit --custom-rules /etc/sysconfig/iptables.riak --update
