@@ -15,8 +15,8 @@ mysql_port: 3306
 # Wordpress site is not restricted by a named host.
 server_hostname: www.example.com
 
-# Diable All Updates
-# By default automatic updates are enable, set this value to tru to disable all automatic updates
+# Disable All Updates
+# By default automatic updates are enabled, set this value to true to disable all automatic updates
 auto_up_disable: false
 
 #Define Core Update Level
