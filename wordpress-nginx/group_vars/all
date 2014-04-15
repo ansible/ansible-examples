@@ -1,7 +1,7 @@
 ---
 # Which version of Wordpress to deploy
-wp_version: 3.6
-wp_sha256sum: cf3dac69cd1810d8f4880b2c982fee869a0c56e1c4f793bbfc6d7021fd6da97c
+wp_version: 3.7
+wp_sha256sum: 94b8b7a7241ec0817defa1c35f738d777f01ac17a4e45ee325c0f1778504fd94
 
 # These are the Wordpress database settings
 wp_db_name: wordpress 
@@ -14,3 +14,13 @@ mysql_port: 3306
 # This is used for the nginx server configuration, but access to the
 # Wordpress site is not restricted by a named host.
 server_hostname: www.example.com
+
+# Disable All Updates
+# By default automatic updates are enabled, set this value to true to disable all automatic updates
+auto_up_disable: false
+
+#Define Core Update Level
+#true  = Development, minor, and major updates are all enabled
+#false = Development, minor, and major updates are all disabled
+#minor = Minor updates are enabled, development, and major updates are disabled
+core_update_level: true
