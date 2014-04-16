@@ -1,2 +1,11 @@
 [wordpress-server]
-webserver2
+webserver1
+
+[sql-server]
+sqlserver1
+
+[php-fpm]
+phpfpm1
+
+[nginx-server]
+nginxserver1
