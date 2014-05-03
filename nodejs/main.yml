@@ -1,0 +1,14 @@
+#############################
+## Upstream Node.js Install
+## Author: Anubhav Mishra
+#############################
+---
+- hosts: all
+  user: ubuntu
+  sudo: true
+  vars:
+    home_dir: /home/ubuntu
+
+  roles:
+  - { role: common }
+  - { role: node } 
