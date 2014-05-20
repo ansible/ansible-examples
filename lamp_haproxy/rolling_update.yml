@@ -34,6 +34,14 @@
 
   # These tasks run after the roles:
   post_tasks:
+
+  - name: Make sure that the webserver is up and serving pages
+    uri: url={{ check_url_proto + '://localhost/' + check_url_file }}
+    register: result
+    until: result.status is defined and result.status == 200
+    retries: 5
+    delay: 10
+
   - name: Enable the server in haproxy
     shell: echo "enable server myapplb/{{ ansible_hostname }}" | socat stdio /var/lib/haproxy/stats
     delegate_to: "{{ item }}"
