@@ -5,7 +5,7 @@
 # The three roles that apply to the webserver hosts will be applied: common,
 # base-apache, and web. So any changes to configuration, package updates, etc,
 # will be applied as part of the rolling update process.
-# 
+#
 
 # gather facts from monitoring nodes for iptables rules
 - hosts: monitoring
@@ -14,7 +14,7 @@
 - hosts: webservers
   user: root
   serial: 1
-  
+
   # These are the tasks to run before applying updates:
   pre_tasks:
   - name: disable nagios alerts for this host webserver service
@@ -34,6 +34,9 @@
 
   # These tasks run after the roles:
   post_tasks:
+  - name: Wait for webserver to come up
+    wait_for: host={{ inventory_hostname }} port=80 state=started timeout=80
+
   - name: Enable the server in haproxy
     shell: echo "enable server myapplb/{{ ansible_hostname }}" | socat stdio /var/lib/haproxy/stats
     delegate_to: "{{ item }}"
