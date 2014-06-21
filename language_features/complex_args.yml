@@ -40,11 +40,8 @@
 
     - name: can we make that cleaner? sure!
       action: ping
-      args: { data: $complex }
+      args: { data: "{{ complex }}" }
 
     - name: here is an example of how it works with defaults, notice the key=value format wins
       action: service name=httpd state=running
-      args: $defaults
-
-
-
+      args: defaults
