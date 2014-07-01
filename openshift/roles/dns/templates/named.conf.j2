@@ -37,7 +37,7 @@ include "{{ domain_name }}.key";
 
 controls {   
 	inet * port {{ rndc_port }} allow { any; } 
-	keys { example.com; }; 
+	keys { {{ domain_name }}; }; 
 };
 
 zone "{{ domain_name }}" IN {
