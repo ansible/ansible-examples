@@ -5,8 +5,6 @@
   yum: name={{ item }} state=present
   with_items:
    - httpd
-   - libsemanage-python
-   - libselinux-python
 
 - name: http service state
   service: name=httpd state=started enabled=yes
