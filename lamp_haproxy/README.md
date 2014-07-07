@@ -39,6 +39,10 @@ The deployment can be verified by accessing the IP address of your load
 balancer host in a web browser: http://<ip-of-lb>:8888. Reloading the page
 should have you hit different webservers.
 
+The Nagios web interface can be reached at http://<ip-of-nagios>/nagios/
+
+The default username and password are "nagiosadmin" / "nagiosadmin".
+
 ### Removing and Adding a Node
 
 Removal and addition of nodes to the cluster is as simple as editing the
