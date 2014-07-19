@@ -35,5 +35,5 @@ backend app
     {% endfor %}
     balance     {{ balance }}
     {% for host in groups['webservers'] %}
-        server {{ hostvars[host].ansible_hostname }} {{ hostvars[host]['ansible_' + iface].ipv4.address }}:{{ httpd_port }}
+        server {{ host }} {{ hostvars[host]['ansible_' + iface].ipv4.address }}:{{ httpd_port }}
     {% endfor %}
