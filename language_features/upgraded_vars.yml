@@ -11,7 +11,7 @@
         - c
 
     tasks:
-      - shell: echo hello {{ ansible_hostname.upper() }}
+      - debug: msg="hello {{ ansible_hostname.upper() }}"
 
       - shell: echo match
         when: 2 == 2
@@ -19,7 +19,7 @@
       - shell: echo no match
         when: 2 == 2 + 1
 
-      - shell: echo {{ ansible_os_family }}
+      - debug: msg="{{ ansible_os_family }}"
 
       - shell: echo {{ item }}
         with_items: a_list
