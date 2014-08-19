@@ -1,5 +1,6 @@
 [webservers]
 web3
+web4
 
 [dbservers]
 web2
