@@ -1,0 +1,11 @@
+---
+# This playbook uses the win_get_url module to download a simple HTML file for IIS
+
+- name: Download simple web site 
+  hosts: windows
+  gather_facts: false
+  tasks:
+    - name: Download simple web site to 'C:\inetpub\wwwroot\ansible.html'
+      win_get_url:
+        url: 'https://raw.githubusercontent.com/thisdavejohnson/mywebapp/master/index.html'
+        dest: 'C:\inetpub\wwwroot\ansible.html'
