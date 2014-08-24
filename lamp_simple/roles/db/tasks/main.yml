@@ -19,7 +19,7 @@
   - restart mysql
 
 - name: Start Mysql Service
-  service: name=mysqld state=started enabled=true
+  service: name=mysqld state=started enabled=yes
 
 - name: insert iptables rule
   lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ mysql_port }}"
