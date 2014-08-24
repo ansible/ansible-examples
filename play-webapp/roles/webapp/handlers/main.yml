@@ -1,3 +1,0 @@
----
-- name: restart play 
-  service: name=play state=restarted

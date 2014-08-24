@@ -1,8 +1,0 @@
----
-# Variables for the bind daemon
-
-forwarders: 
-  - 8.8.8.8
-  - 8.8.4.4
-
-
