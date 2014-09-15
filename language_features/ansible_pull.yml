@@ -16,7 +16,7 @@
 ---
 
 - hosts: pull_mode_hosts
-  user: root
+  remote_user: root
 
   vars:
 
