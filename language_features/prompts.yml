@@ -4,7 +4,7 @@
 # of a playbook run, for example, as part of a release script.
 
 - hosts: all
-  user: root
+  remote_user: root
 
 # regular variables are a dictionary of keys and values
 

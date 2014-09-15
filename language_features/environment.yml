@@ -8,7 +8,7 @@
 
 
 - hosts: all
-  user: root
+  remote_user: root
 
   # here we make a variable named "env" that is a dictionary
   vars:

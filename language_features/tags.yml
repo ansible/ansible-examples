@@ -13,7 +13,7 @@
 
 - name: example play one
   hosts: all
-  user: root
+  remote_user: root
 
   # any tags applied to the play are shorthand to applying
   # the tag to all tasks in it.  Here, each task is given
@@ -33,7 +33,7 @@
 
 - name: example play two
   hosts: all
-  user: root
+  remote_user: root
   tasks:
   - name: hi
     tags:

@@ -4,7 +4,7 @@
 
 ---
 - hosts: all
-  user: root
+  remote_user: root
 
   tasks:
 

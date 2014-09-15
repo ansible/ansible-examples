@@ -6,7 +6,7 @@
   group: name=tomcat
 
 - name: add user "tomcat"
-  user: name=tomcat group=tomcat home=/usr/share/tomcat
+  remote_user: name=tomcat group=tomcat home=/usr/share/tomcat
   sudo: True
 
 - name: delete home dir for symlink of tomcat

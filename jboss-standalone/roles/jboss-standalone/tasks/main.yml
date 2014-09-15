@@ -23,7 +23,7 @@
   group: name=jboss
 
 - name: Add user "jboss"
-  user: name=jboss group=jboss home=/usr/share/jboss-as
+  remote_user: name=jboss group=jboss home=/usr/share/jboss-as
 
 - name: Change ownership of JBoss installation
   file: path=/usr/share/jboss-as/ owner=jboss group=jboss state=directory recurse=yes

@@ -13,7 +13,7 @@
 # parameters take a higher priority, so you can use them for defaults, which can be useful.
 
 - hosts: all
-  user: root
+  remote_user: root
   gather_facts: no
  
   vars:
