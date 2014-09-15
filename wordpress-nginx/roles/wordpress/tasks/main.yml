@@ -10,7 +10,7 @@
   group: name=wordpress
 
 - name: Add user "wordpress"
-  remote_user: name=wordpress group=wordpress home=/srv/wordpress/
+  user: name=wordpress group=wordpress home=/srv/wordpress/
 
 - name: Fetch random salts for Wordpress config
   local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/

@@ -14,7 +14,7 @@
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
 
 - name: Create the mongod user
-  remote_user: name=mongod comment="MongoD"
+  user: name=mongod comment="MongoD"
 
 - name: Create the data directory for the namenode metadata
   file: path={{ mongodb_datadir_prefix }} owner=mongod group=mongod state=directory
