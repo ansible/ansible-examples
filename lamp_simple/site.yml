@@ -3,21 +3,21 @@
 
 - name: apply common configuration to all nodes
   hosts: all
-  user: root
+  remote_user: root
 
   roles:
     - common
 
 - name: configure and deploy the webservers and application code
   hosts: webservers
-  user: root
+  remote_user: root
 
   roles:
     - web
 
 - name: deploy MySQL and configure the databases
   hosts: dbservers
-  user: root
+  remote_user: root
 
   roles:
     - db
