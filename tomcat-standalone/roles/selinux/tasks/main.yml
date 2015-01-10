@@ -1,6 +1,6 @@
 ---
 - name: Download EPEL Repo
-  get_url: url=http://mirror-fpt-telecom.fpt.net/fedora/epel/6/i386/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6-8.noarch.rpm
+  get_url: url=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm dest=/tmp/epel-release-6-8.noarch.rpm
 
 - name: Install EPEL Repo
   command: rpm -ivh /tmp/epel-release-6-8.noarch.rpm creates=/etc/yum.repos.d/epel.repo

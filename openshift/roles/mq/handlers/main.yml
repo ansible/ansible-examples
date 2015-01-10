@@ -1,5 +1,0 @@
----
-# handlers for mq
-
-- name: restart mq
-  service: name=activemq state=restarted

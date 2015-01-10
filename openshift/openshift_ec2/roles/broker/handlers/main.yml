@@ -1,9 +1,0 @@
----
-# handlers for broker
-
-- name: restart broker
-  service: name=openshift-broker state=restarted
-
-- name: restart console
-  service: name=openshift-console state=restarted
-

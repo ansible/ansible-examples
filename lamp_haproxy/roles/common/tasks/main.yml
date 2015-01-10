@@ -33,7 +33,7 @@
   notify: restart ntp
 
 - name: Start the ntp service
-  service: name=ntpd state=started enabled=true
+  service: name=ntpd state=started enabled=yes
   tags: ntp
 
 - name: insert iptables template
