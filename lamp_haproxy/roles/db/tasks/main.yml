@@ -17,7 +17,7 @@
   - restart mysql
 
 - name: Start Mysql Service
-  service: name=mysqld state=started enabled=true
+  service: name=mysqld state=started enabled=yes
 
 - name: Create Application Database
   mysql_db: name={{ dbname }} state=present
