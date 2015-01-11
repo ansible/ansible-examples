@@ -3,7 +3,7 @@
 
 - hosts: all
   roles:
-   - role: common
+  - role: common
 
 - hosts: mongo_servers
   roles:
