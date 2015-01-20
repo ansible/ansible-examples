@@ -1,0 +1,14 @@
+# ANSIBLE_LIBRARY=/usr/share/ansible/ ansible-playbook --syntax-check -i /etc/ansible/hosts Codes/ansible-examples/heat/site.yml
+---
+- name: launch ansible heat example
+  heat: >
+    stack_name: "ansible-heat"
+    action=create
+    disable_rollback: false
+    template: files/heat-example.yaml
+  args:
+    template_parameters:
+      KeyName: "justina"
+      DiskType: "ephemeral"
+      InstanceType: "m1.small"
+      Images: ["uuid", "uuid"]

@@ -1,0 +1,4 @@
+export OS_PASSWORD=admin_123456
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://10.74.151.172:35357/v2.0
+export OS_USERNAME=ADMIN
