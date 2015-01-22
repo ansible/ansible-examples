@@ -43,7 +43,7 @@
     action: "{{ packager }} pkg={{ apache }} state=latest"
 
   - name: ensure apache is running
-    action: service name={{ apache }} state=running
+    service: name={{ apache }} state=running
 
 
 

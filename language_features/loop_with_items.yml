@@ -9,19 +9,19 @@
   tasks:
 
   - name: install packages
-    action: yum name={{ item }} state=installed
+    yum: name={{ item }} state=installed
     with_items:
        - cobbler
        - httpd
 
   - name: configure users
-    action: user name={{ item }} state=present groups=wheel
+    user: name={{ item }} state=present groups=wheel
     with_items:
        - testuser1
        - testuser2
 
   - name: remove users
-    action: user name={{ item }} state=absent
+    user: name={{ item }} state=absent
     with_items:
         - testuser1
         - testuser2

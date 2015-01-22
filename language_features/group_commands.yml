@@ -9,10 +9,10 @@
 
     # Walk through group creation, modification, and deletion
     - name: create a group
-      action: group name=tset
+      group: name=tset
 
     # You can only modify the group's gid
-    - action: group name=tset gid=7777
+    - group: name=tset gid=7777
 
     # And finally remove the group
-    - action: group name=tset state=absent
+    - group: name=tset state=absent

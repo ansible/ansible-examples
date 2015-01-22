@@ -13,7 +13,7 @@
   tasks:
 
   - name: Create a group of all hosts by operating system
-    action: group_by key={{ansible_distribution}}-{{ansible_distribution_version}}
+    group_by: key={{ansible_distribution}}-{{ansible_distribution_version}}
 
 # the following host group does not exist in inventory and was created by the group_by
 # module.
@@ -23,13 +23,13 @@
   tasks:
 
   - name: ping all CentOS 6.2 hosts
-    action: ping
+    ping:
 
 - hosts: CentOS-6.3
 
   tasks:
   
   - name: ping all CentOS 6.3 hosts
-    action: ping
+    ping:
 
 

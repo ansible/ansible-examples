@@ -12,8 +12,8 @@
   tasks:
 
   - name: ping
-    action: ping
+    ping:
   - name: ping2
-    action: ping
+    ping:
 
 

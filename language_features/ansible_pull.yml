@@ -40,17 +40,17 @@
   tasks:
 
     - name: Install ansible
-      action: yum pkg=ansible state=installed
+      yum: pkg=ansible state=installed
 
     - name: Create local directory to work from
-      action: file path={{workdir}} state=directory owner=root group=root mode=0751
+      file: path={{workdir}} state=directory owner=root group=root mode=0751
 
     - name: Copy ansible inventory file to client
-      action: copy src=/etc/ansible/hosts dest=/etc/ansible/hosts
+      copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
               owner=root group=root mode=0644
 
     - name: Create crontab entry to clone/pull git repository
-      action: template src=templates/etc_cron.d_ansible-pull.j2 dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
+      template: src=templates/etc_cron.d_ansible-pull.j2 dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
 
     - name: Create logrotate entry for ansible-pull.log
-      action: template src=templates/etc_logrotate.d_ansible-pull.j2 dest=/etc/logrotate.d/ansible-pull owner=root group=root mode=0644
+      template: src=templates/etc_logrotate.d_ansible-pull.j2 dest=/etc/logrotate.d/ansible-pull owner=root group=root mode=0644

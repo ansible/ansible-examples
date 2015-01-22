@@ -9,10 +9,10 @@
   tasks:
 
     - name: Create database user
-      action: mysql_user user=bob password=12345 priv=*.*:ALL state=present
+      mysql_user: user=bob password=12345 priv=*.*:ALL state=present
 
     - name: Create database
-      action: mysql_db db=bobdata state=present
+      mysql_db: db=bobdata state=present
 
     - name: Ensure no user named 'sally' exists and delete if found.
-      action: mysql_user user=sally state=absent
+      mysql_user: user=sally state=absent

@@ -5,6 +5,6 @@
 # just like normal handlers.
 
 - name: restart apache
-  action: service name=httpd state=restarted
+  service: name=httpd state=restarted
 - name: restart memcached
-  action: service name=memcached state=restarted
+  service: name=memcached state=restarted

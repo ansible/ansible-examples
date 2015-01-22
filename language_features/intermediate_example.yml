@@ -25,7 +25,7 @@
   # tasks can be written the normal way...
 
   - name: arbitrary command
-    action: command /bin/true
+    command: /bin/true
 
   # or we can promote reuse and simplicity by including tasks
   # from other files, for instance, to reuse common tasks
@@ -53,7 +53,7 @@
     # handlers that have been notified get executed
 
     - name: restart foo
-      action: service name=foo state=restarted
+      service: name=foo state=restarted
 
 # ===============================================================
 
@@ -86,6 +86,6 @@
   tasks:
 
      - name: some random command
-       action: command /bin/true
+       command: /bin/true
 
 
