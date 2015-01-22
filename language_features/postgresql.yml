@@ -12,9 +12,9 @@
 
   tasks:
   - name: ensure apt cache is up to date
-    action: apt update_cache=yes
+    apt: update_cache=yes
   - name: ensure packages are installed
-    action: apt name={{item}}
+    apt: name={{item}}
     with_items:
         - postgresql
         - libpq-dev

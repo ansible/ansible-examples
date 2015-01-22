@@ -29,7 +29,7 @@
 
   - name: hi
     tags: foo
-    action: shell echo "first task ran"
+    shell: echo "first task ran"
 
 - name: example play two
   hosts: all
@@ -38,7 +38,7 @@
   - name: hi
     tags:
        - bar
-    action: shell echo "second task ran"
+    shell: echo "second task ran"
   - include: tasks/base.yml tags=base
 
 

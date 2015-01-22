@@ -22,7 +22,7 @@
   tasks:
   
   - name: take the machine out of rotation
-    action: command echo taking out of rotation {{inventory_hostname}}
+    command: echo taking out of rotation {{inventory_hostname}}
     delegate_to: 127.0.0.1
 
 # here's an alternate notation if you are delegating to 127.0.0.1, you can use 'local_action' 
@@ -31,9 +31,9 @@
 # - local_action: command echo taking out of rotation {{inventory_hostname}}
 
   - name: do several things on the actual host
-    action: command echo hi mom {{inventory_hostname}}
+    command: echo hi mom {{inventory_hostname}}
   
   - name: put machine back into rotation
-    action: command echo inserting into rotation {{inventory_hostname}}
+    command: echo inserting into rotation {{inventory_hostname}}
     delegate_to: 127.0.0.1
 

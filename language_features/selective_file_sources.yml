@@ -9,7 +9,7 @@
   tasks:
 
   - name: template a config file
-    action: template dest=/etc/imaginary_file.conf
+    template: dest=/etc/imaginary_file.conf
     first_available_file:
 
        # first see if we have a file for this specific host

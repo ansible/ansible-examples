@@ -16,10 +16,10 @@
 
   tasks:
     - name: disable service in the lb
-      action: netscaler nsc_host={{nsc_host}} user={{nsc_user}} password={{nsc_pass}} name={{name}} type={{type}} action=disable
+      netscaler: nsc_host={{nsc_host}} user={{nsc_user}} password={{nsc_pass}} name={{name}} type={{type}} action=disable
 
     - name: deploy new code
-      action: shell yum upgrade -y
+      shell: yum upgrade -y
 
     - name: enable in the lb
-      action: netscaler nsc_host={{nsc_host}} user={{nsc_user}} password={{nsc_pass}} name={{name}} type={{type}} action=enable
+      netscaler: nsc_host={{nsc_host}} user={{nsc_user}} password={{nsc_pass}} name={{name}} type={{type}} action=enable

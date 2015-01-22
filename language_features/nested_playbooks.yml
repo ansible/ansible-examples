@@ -14,7 +14,7 @@
   tasks:
   - name: say hi
     tags: foo
-    action: shell echo "hi..."
+    shell: echo "hi..."
 
 # and this is how we include another playbook, be careful and
 # don't recurse infinitely or anything.  Note you can't use
