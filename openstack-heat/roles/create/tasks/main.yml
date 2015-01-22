@@ -4,4 +4,4 @@
     stack_name: "ansible-heat"
     action: create
     disable_rollback: false
-    template: roles/client/files/single-instance.yaml
+    template: roles/create/files/single-instance.yaml
