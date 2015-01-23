@@ -6,13 +6,22 @@ define hostgroup {
 }
 
 {% for host in groups['webservers'] %}
-define host {
+  define host {
+    	use                     linux-server
+	host_name               {{ host }} 
+	alias                   {{ host }}
+	address                 {{ hostvars[host].ansible_default_ipv4.address }}
+	hostgroups 		webservers
+  }
+{% endfor %}
+{% for host in groups['tag_ansible_group_webservers'] %}
+  define host {
 	use                     linux-server
 	host_name               {{ host }} 
 	alias                   {{ host }}
 	address                 {{ hostvars[host].ansible_default_ipv4.address }}
 	hostgroups 		webservers
-}
+  }    
 {% endfor %}
 
 # service checks to be applied to the web server

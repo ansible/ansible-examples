@@ -1,0 +1,17 @@
+---
+# Variables for the web server configuration
+
+# Ethernet interface on which the web server should listen.
+# Defaults to the first interface. Change this to:
+#
+#  iface: eth1
+#
+# ...to override.
+#
+iface: '{{ ansible_default_ipv4.interface }}'
+
+# this is the repository that holds our sample webapp
+repository: https://github.com/bennojoy/mywebapp.git
+
+# this is the sha1sum of V5 of the test webapp.
+webapp_version: 351e47276cc66b018f4890a04709d4cc3d3edb0d
