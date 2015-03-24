@@ -22,7 +22,7 @@ Here are some ideas for ways that these playbooks could be extended:
 
 - Parameterize the Wordpress deployment to handle multi-site configurations.
 - Separate the components (PHP-FPM, MySQL, Nginx) onto separate hosts and 
-hande the configuration appropriately.
+handle the configuration appropriately.
 - Handle Wordpress upgrades automatically.
 
 We would love to see contributions and improvements, so please fork this
