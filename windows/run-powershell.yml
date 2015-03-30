@@ -6,4 +6,4 @@
   gather_facts: false
   tasks:
     - name: Run powershell script 
-      script: files/helloworld.ps1
+      script: files\helloworld.ps1
