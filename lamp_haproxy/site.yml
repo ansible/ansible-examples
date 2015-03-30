@@ -3,6 +3,7 @@
 
 # Apply common configuration to all hosts
 - hosts: all
+  user: root
   roles:
   - common
 
@@ -17,7 +18,6 @@
 # our example web application.
 - hosts: webservers
   user: root
-
   roles:
   - base-apache
   - web
