@@ -1,9 +1,9 @@
 ---
-# Which version of Wordpress to deploy
+# Which version of WordPress to deploy
 wp_version: 3.7
 wp_sha256sum: 94b8b7a7241ec0817defa1c35f738d777f01ac17a4e45ee325c0f1778504fd94
 
-# These are the Wordpress database settings
+# These are the WordPress database settings
 wp_db_name: wordpress 
 wp_db_user: wordpress
 wp_db_password: secret
@@ -12,7 +12,7 @@ wp_db_password: secret
 mysql_port: 3306
 
 # This is used for the nginx server configuration, but access to the
-# Wordpress site is not restricted by a named host.
+# WordPress site is not restricted by a named host.
 server_hostname: www.example.com
 
 # Disable All Updates
