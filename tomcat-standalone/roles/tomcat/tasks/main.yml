@@ -14,13 +14,13 @@
   sudo: True
 
 - name: Download Tomcat
-  get_url: url=http://www.us.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz dest=/opt/apache-tomcat-7.0.55.tar.gz
+  get_url: url=http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.61/bin/apache-tomcat-7.0.61.tar.gz dest=/opt/apache-tomcat-7.0.61.tar.gz
 
 - name: Extract archive
-  command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-7.0.55.tar.gz -C /opt/ creates=/opt/apache-tomcat-7.0.55
+  command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-7.0.61.tar.gz -C /opt/ creates=/opt/apache-tomcat-7.0.61
 
 - name: Symlink install directory
-  file: src=/opt/apache-tomcat-7.0.55 path=/usr/share/tomcat state=link
+  file: src=/opt/apache-tomcat-7.0.61 path=/usr/share/tomcat state=link
 
 - name: Change ownership of Tomcat installation
   file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
