@@ -1,0 +1,5 @@
+# This inventory file only contains a single group name localhost
+# point to a single machine whos IP is 127.0.0.1
+
+[localhost]
+127.0.0.1
