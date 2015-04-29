@@ -31,12 +31,12 @@
         when: motd_result.stdout.find('hi') != -1
         
       # you can use 'stdout_lines' to loop over the registered output lines
-      - name: motd lines mathing 'hi'
+      - name: motd lines matching 'hi'
         shell: echo "{{ item  }}"
         with_items: motd_result.stdout_lines
         
       # you can also split 'stdout' yourself
-      - name: motd lines mathing 'hi'
+      - name: motd lines matching 'hi'
         shell: echo "{{ item  }}"
         with_items: motd_result.stdout.split('\n')
 
