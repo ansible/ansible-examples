@@ -6,11 +6,7 @@
   group: name=tomcat
 
 - name: add user "tomcat"
-  user: name=tomcat group=tomcat home=/usr/share/tomcat
-  sudo: True
-
-- name: delete home dir for symlink of tomcat
-  shell: rm -fr /usr/share/tomcat
+  user: name=tomcat group=tomcat home=/usr/share/tomcat createhome=no
   sudo: True
 
 - name: Download Tomcat
