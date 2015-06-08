@@ -17,28 +17,22 @@
 
 - hosts: pull_mode_hosts
   user: root
-
   vars:
-
     # schedule is fed directly to cron
     schedule: '*/15 * * * *'
-
     # User to run ansible-pull as from cron
     cron_user: root
-
+    inventory_file: /etc/ansible/localhost_hosts
     # File that ansible will use for logs
     logfile: /var/log/ansible-pull.log
-
     # Directory to where repository will be cloned
     workdir: /var/lib/ansible/local
-
     # Repository to check out -- YOU MUST CHANGE THIS
     # repo must contain a local.yml file at top level
     #repo_url: git://github.com/sfromm/ansible-playbooks.git
-    repo_url: SUPPLY_YOUR_OWN_GIT_URL_HERE
-
+ -    repo_url: SUPPLY_YOUR_OWN_GIT_URL_HERE
+ 
   tasks:
-
     - name: Install ansible
       yum: pkg=ansible state=installed
 
@@ -46,8 +40,7 @@
       file: path={{workdir}} state=directory owner=root group=root mode=0751
 
     - name: Copy ansible inventory file to client
-      copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
-              owner=root group=root mode=0644
+      copy: src=files/localhost_hosts dest=/etc/ansible/localhost_hosts owner=root group=root mode=0644
 
     - name: Create crontab entry to clone/pull git repository
       template: src=templates/etc_cron.d_ansible-pull.j2 dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
