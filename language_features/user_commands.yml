@@ -3,7 +3,7 @@
 # in vars sections.  You could also use vars_files if you like (see other examples)
 
 - hosts: all
-  user: root
+  remote_user: root
   vars:
     # created with:
     # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'

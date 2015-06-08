@@ -3,7 +3,7 @@
 # certain tasks on machines/platforms/etc where they do not apply.  
 
 - hosts: all
-  user: root
+  remote_user: root
 
   vars:
      favcolor: "red"

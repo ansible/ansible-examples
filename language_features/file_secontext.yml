@@ -1,7 +1,7 @@
 ---
 # This is a demo of how to manage the selinux context using the file module
 - hosts: test
-  user: root
+  remote_user: root
   tasks:
     - name: Change setype of /etc/exports to non-default value
       file: path=/etc/exports setype=etc_t

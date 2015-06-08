@@ -14,7 +14,7 @@
 # as root
 
 - hosts: all
-  user: root
+  remote_user: root
 
 # we have a common list of variables stored in /vars/external_vars.yml
 # that we will always import

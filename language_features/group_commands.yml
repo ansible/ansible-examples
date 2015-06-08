@@ -2,7 +2,7 @@
 # This is a demo of how the group command works.
 
 - hosts: all
-  user: root
+  remote_user: root
   sudo: yes
 
   tasks:

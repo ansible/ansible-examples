@@ -9,10 +9,10 @@
 
 - name: example play
   hosts: all
-  user: root
+  remote_user: root
 
 # could have also have done:
-#  user: mdehaan
+#  remote_user: mdehaan
 #  sudo: yes
 
   # make these variables available inside of templates

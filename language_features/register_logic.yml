@@ -4,7 +4,7 @@
 # easy to do, and here we'll show you how.
 
 - name: test playbook
-  user: root
+  remote_user: root
   hosts: all
 
   tasks:

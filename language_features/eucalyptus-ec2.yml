@@ -14,7 +14,7 @@
 - name: Stage instance(s)
   hosts: local
   connection: local
-  user: root
+  remote_user: root
   gather_facts: false
 
   vars:
@@ -53,7 +53,7 @@
 # This play targets the new host group
 - name: Configure instance
   hosts: deploy
-  user: root
+  remote_user: root
 
   # Do some stuff on each instance ....
 

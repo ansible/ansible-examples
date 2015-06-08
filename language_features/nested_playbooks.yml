@@ -10,7 +10,7 @@
 
 - name: this is a play at the top level of a file
   hosts: all
-  user: root
+  remote_user: root
   tasks:
   - name: say hi
     tags: foo
