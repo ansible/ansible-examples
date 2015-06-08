@@ -104,9 +104,9 @@ The inventory file looks as follows:
 
 		#The list of servers where replication should happen, including the master server.
 		[replication_servers]
+		mongo3
 		mongo1
 		mongo2
-		mongo3
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
 		[mongoc_servers]

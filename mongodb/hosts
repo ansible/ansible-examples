@@ -9,10 +9,10 @@ mongo4 mongod_port=2703
 
 #The list of servers where replication should happen, by default include all servers
 [replication_servers]
+mongo4
+mongo3
 mongo1
 mongo2
-mongo3
-mongo4
 
 #The list of mongodb configuration servers, make sure it is 1 or 3
 [mongoc_servers]
