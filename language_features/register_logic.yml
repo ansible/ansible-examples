@@ -30,6 +30,11 @@
       - shell: echo "motd contains the word hi"
         when: motd_result.stdout.find('hi') != -1
         
+      # or also:
+      
+      - shell: echo "motd contains word hi"
+        when: "'hi' in motd_result.stdout"
+        
       # you can use 'stdout_lines' to loop over the registered output lines
       - name: motd lines matching 'hi'
         shell: echo "{{ item  }}"
