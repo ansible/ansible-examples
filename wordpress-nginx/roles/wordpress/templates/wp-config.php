@@ -74,6 +74,12 @@ define('WPLANG', '');
  */
 define('WP_DEBUG', false);
 
+/** Disable Automatic Updates Completely */
+define( 'AUTOMATIC_UPDATER_DISABLED', {{auto_up_disable}} );
+
+/** Define AUTOMATIC Updates for Components. */
+define( 'WP_AUTO_UPDATE_CORE', {{core_update_level}} );
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
@@ -82,9 +88,3 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
-
-/** Disable Automatic Updates Completely */
-define( 'AUTOMATIC_UPDATER_DISABLED', {{auto_up_disable}} );
-
-/** Define AUTOMATIC Updates for Components. */
-define( 'WP_AUTO_UPDATE_CORE', {{core_update_level}} );
