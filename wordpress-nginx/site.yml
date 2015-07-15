@@ -7,7 +7,7 @@
 
   roles:
     - common
-    - mysql 
+    - mysql
     - nginx
     - php-fpm
     - wordpress
