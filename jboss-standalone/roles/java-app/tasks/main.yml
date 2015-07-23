@@ -1,0 +1,3 @@
+---
+- name: Deploy application to JBoss
+  jboss: deploy_path=/usr/share/jboss-as/standalone/deployments/ src=jboss-helloworld.war deployment=helloworld.war state=present
