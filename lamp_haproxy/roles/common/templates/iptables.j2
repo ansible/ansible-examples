@@ -5,23 +5,19 @@
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 
-{% if (inventory_hostname in groups['webservers']) or (inventory_hostname in groups['monitoring']) or (inventory_hostname in groups['tag_ansible_group_webservers']) or (inventory_hostname in groups['tag_ansible_group_monitoring']) %}
+{% if (inventory_hostname in groups[group_webservers]) or (inventory_hostname in groups[group_monitoring]) %}
 -A INPUT -p tcp  --dport 80 -j ACCEPT
 {% endif %}
 
-{% if (inventory_hostname in groups['dbservers']) or (inventory_hostname in groups['tag_ansible_group_dbservers']) %}
+{% if (inventory_hostname in groups[group_dbservers]) %}
 -A INPUT -p tcp  --dport 3306 -j  ACCEPT
 {% endif %}
 
-{% if (inventory_hostname in groups['lbservers']) or (inventory_hostname in groups['tag_ansible_group_lbservers']) %}
+{% if (inventory_hostname in groups[group_lbservers]) %}
 -A INPUT -p tcp  --dport {{ listenport }} -j  ACCEPT
 {% endif %}
 
-{% for host in groups['monitoring'] %}
--A INPUT -p tcp -s {{ hostvars[host].ansible_default_ipv4.address }} --dport 5666 -j ACCEPT
-{% endfor %}
-
-{% for host in groups['tag_ansible_group_monitoring'] %}
+{% for host in groups[group_monitoring] %}
 -A INPUT -p tcp -s {{ hostvars[host].ansible_default_ipv4.address }} --dport 5666 -j ACCEPT
 {% endfor %}
 
