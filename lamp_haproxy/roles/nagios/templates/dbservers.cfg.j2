@@ -5,7 +5,7 @@ define hostgroup {
         alias Database Servers
 }
 
-{% for host in groups[grooup_dbservers] %}
+{% for host in groups[group_dbservers] %}
         define host {
                 use                     linux-server
                 host_name               {{ host }}
