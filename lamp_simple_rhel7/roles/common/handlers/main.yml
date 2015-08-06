@@ -1,0 +1,6 @@
+---
+# Handler to handle common notifications. Handlers are called by other plays.
+# See http://docs.ansible.com/playbooks_intro.html for more information about handlers.
+
+- name: restart ntp
+  service: name=ntpd state=restarted
