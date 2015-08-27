@@ -7,6 +7,7 @@
 
 - hosts: tag_ansible_group_windows_webservers
   serial: 1
+  gather_facts: False
 
   # These are the tasks to run before applying updates:
   pre_tasks:
