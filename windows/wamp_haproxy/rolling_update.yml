@@ -2,47 +2,37 @@
 # This playbook does a rolling update for all webservers serially (one at a time).
 # Change the value of serial: to adjust the number of server to be updated.
 #
-# The three roles that apply to the webserver hosts will be applied: common,
-# base-apache, and web. So any changes to configuration, package updates, etc,
-# will be applied as part of the rolling update process.
-#
+# The three roles that apply to the webserver hosts will be applied: web
 
-# gather facts from monitoring nodes for iptables rules
-- hosts: monitoring
-  tasks: []
 
-- hosts: webservers
-  user: root
+- hosts: tag_ansible_group_webservers
   serial: 1
 
   # These are the tasks to run before applying updates:
   pre_tasks:
-  - name: disable nagios alerts for this host webserver service
-    nagios: action=disable_alerts host={{ inventory_hostname }} services=webserver
-    delegate_to: "{{ item }}"
-    with_items: groups.monitoring
-
-  - name: disable the server in haproxy
-    shell: echo "disable server myapplb/{{ inventory_hostname }}" | socat stdio /var/lib/haproxy/stats
-    delegate_to: "{{ item }}"
-    with_items: groups.lbservers
+  - name: Remove host from load balancing pool
+    local_action:
+      module: ec2_elb
+      region: us-east-1
+      instance_id: "{{ ec2_id }}"
+      ec2_elbs: "ansible-windows-demo-lb"
+      wait_timeout: 330
+      state: 'absent'
 
   roles:
-  - common
-  - base-apache
+#  - iis 
   - web
 
   # These tasks run after the roles:
   post_tasks:
   - name: Wait for webserver to come up
-    wait_for: host={{ inventory_hostname }} port=80 state=started timeout=80
+    local_action: wait_for host={{ inventory_hostname }} port=80 state=started timeout=80
 
-  - name: Enable the server in haproxy
-    shell: echo "enable server myapplb/{{ inventory_hostname }}" | socat stdio /var/lib/haproxy/stats
-    delegate_to: "{{ item }}"
-    with_items: groups.lbservers
-
-  - name: re-enable nagios alerts
-    nagios: action=enable_alerts host={{ inventory_hostname }} services=webserver
-    delegate_to: "{{ item }}"
-    with_items: groups.monitoring
+  - name: Add host to load balancing pool
+    local_action:
+      module: ec2_elb
+      region: us-east-1
+      instance_id: "{{ ec2_id }}"
+      ec2_elbs: "ansible-windows-demo-lb"
+      wait_timeout: 330
+      state: 'present'

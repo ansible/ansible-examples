@@ -32,15 +32,44 @@
   - web
 
 # Configure and deploy the load balancer(s).
-- hosts: tag_ansible_group_windows_lbservers
+#- hosts: tag_ansible_group_windows_lbservers
+- hosts: localhost
+  connection: local 
 
-  vars:
-    ansible_ssh_private_key_file: /var/lib/awx/.ssh/id_rsa
+#  vars:
+#    ansible_ssh_private_key_file: /var/lib/awx/.ssh/id_rsa
 
   roles:
-  - common 
-  - haproxy
+#  - common 
+#  - haproxy
+   - elb
   
   tags: 
   - lb
 
+# Add the webservers to the load balancer(s)
+- hosts: tag_ansible_group_windows_webservers
+  connection: winrm
+
+  vars:
+    ansible_ssh_port : 5986
+
+  tasks:
+
+  - name: Wait for webserver to come up
+    local_action: wait_for host={{ inventory_hostname }} port=80 state=started timeout=80
+
+#  - name: Gathering ec2 facts
+#    ec2_facts:
+
+  - name: Add host to load balancing pool 
+    local_action: 
+      module: ec2_elb
+      region: us-east-1
+      instance_id: "{{ ec2_id }}"
+      ec2_elbs: "ansible-windows-demo-lb"
+      wait_timeout: 330
+      state: 'present'
+
+  tags:
+  - lb
