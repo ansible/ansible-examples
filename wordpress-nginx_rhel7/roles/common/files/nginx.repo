@@ -1,0 +1,7 @@
+[nginx]
+name=Nginx repo - $basearch
+baseurl=http://nginx.org/packages/centos/7/$basearch
+failovermethod=priority
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX
