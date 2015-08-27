@@ -3,6 +3,11 @@
 
 # Configure and deploy database servers.
 - hosts: tag_ansible_group_windows_dbservers
+  connection: winrm
+
+  vars:
+    ansible_ssh_port : 5986
+
 
   roles:
   - mssql
@@ -14,6 +19,10 @@
 # the 'base-apache' role which simply sets up Apache, and 'web' which includes
 # our example web application.
 - hosts: tag_ansible_group_windows_webservers
+  connection: winrm
+
+  vars:
+    ansible_ssh_port : 5986
 
   roles:
   - iis 
@@ -26,6 +35,7 @@
 #- hosts: tag_ansible_group_windows_lbservers
 - hosts: localhost
   connection: local 
+  gather_facts: False
 
 #  vars:
 #    ansible_ssh_private_key_file: /var/lib/awx/.ssh/id_rsa
@@ -40,6 +50,10 @@
 
 # Add the webservers to the load balancer(s)
 - hosts: tag_ansible_group_windows_webservers
+  connection: winrm
+
+  vars:
+    ansible_ssh_port : 5986
 
   tasks:
 
