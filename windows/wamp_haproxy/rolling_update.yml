@@ -5,7 +5,7 @@
 # The three roles that apply to the webserver hosts will be applied: web
 
 
-- hosts: tag_ansible_group_webservers
+- hosts: tag_ansible_group_windows_webservers
   serial: 1
 
   # These are the tasks to run before applying updates:
