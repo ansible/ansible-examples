@@ -11,6 +11,9 @@
   user: root
   roles:
   - db
+  
+  tags:
+  - db
 
 # Configure and deploy the web servers. Note that we include two roles here, 
 # the 'base-apache' role which simply sets up Apache, and 'web' which includes
@@ -21,12 +24,18 @@
   roles:
   - base-apache
   - web
+  
+  tags:
+  - web
 
 # Configure and deploy the load balancer(s).
 - hosts: "{{ group_lbservers }}"
   user: root
   roles:
   - haproxy
+  
+  tags:
+  - lb
 
 # Configure and deploy the Nagios monitoring node(s).
 - hosts: "{{ group_monitoring }}"
@@ -34,3 +43,6 @@
   roles:
   - base-apache
   - nagios
+  
+  tags:
+  - monitoring
