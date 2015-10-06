@@ -30,7 +30,21 @@
     dbuser: django
     dbpassword: mysupersecretpassword
 
+  handlers:
+  - name: Start postgresql
+  service: name=postgresql state=restarted enabled=yes
+
   tasks:
+  - name: Ensure the PostgreSQL service is running
+    service: name=postgresql state=started enabled=yes
+
+  - name: Allow md5 authentication for local connections
+    lineinfile: >
+        dest='/etc/postgresql/9.3/main/pg_hba.conf'
+        regexp='^local.+all.+all.+peer$' backrefs=yes
+        line='local all all md5'
+    tags: packages
+
   - name: ensure database is created
     postgresql_db: name={{dbname}}
 
