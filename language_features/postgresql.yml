@@ -3,7 +3,9 @@
 #
 # This installs PostgreSQL on an Ubuntu system, creates a database called
 # "myapp" and a user called "django" with password "mysupersecretpassword"
-# with access to the "myapp" database.
+# with access to the "myapp" database. A provision for md5 authentication
+# for local connections is added and a task to verify that your Postgres is
+# always running.
 #
 ---
 - hosts: webservers
@@ -30,10 +32,6 @@
     dbuser: django
     dbpassword: mysupersecretpassword
 
-  handlers:
-  - name: Start postgresql
-  service: name=postgresql state=restarted enabled=yes
-
   tasks:
   - name: Ensure the PostgreSQL service is running
     service: name=postgresql state=started enabled=yes
@@ -53,3 +51,8 @@
 
   - name: ensure user does not have unnecessary privilege
     postgresql_user: name={{dbuser}} role_attr_flags=NOSUPERUSER,NOCREATEDB
+
+  handlers:
+  - name: Start postgresql
+  service: name=postgresql state=restarted enabled=yes
+
