@@ -1,4 +1,7 @@
 ---
+- name: Enable the mongoc port.
+  firewalld: port={{ mongoc_port }}/tcp permanent=true state=enabled
+
 # This playbook  deploys the mongodb configurationdb  servers
 
 - name: Create data directory for mongoc configuration server

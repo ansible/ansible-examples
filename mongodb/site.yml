@@ -9,9 +9,9 @@
   roles:
   - role: mongod
 
-- hosts: mongoc_servers
-  roles:
-  - role: mongoc
+#- hosts: mongoc_servers
+#  roles:
+#  - role: mongoc
 
 - hosts: mongos_servers
   roles:
@@ -19,4 +19,4 @@
 
 - hosts: mongo_servers
   tasks:
-  - include: roles/mongod/tasks/shards.yml 
+  - include: roles/mongod/tasks/shards.yml
