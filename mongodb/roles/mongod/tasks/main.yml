@@ -29,8 +29,18 @@
   command: systemctl --system daemon-reload
   command: systemctl enable mongod.service
 
-- name: Start the mongodb service
-  service: name=mongod.service state=started
+#- name: Start the mongodb service
+#  command: systemctl start mongod.service
+
+- name: Enable at boot and start mongodb
+  service: name=mongod.service enabled=yes state=started
+
+# Setup the replica set
+- name: Create the file to initialize the mongod replica set
+  template: src=repset_init.j2 dest=/tmp/repset_init.js
+
+- name: Initialize the replication set
+  shell: /usr/bin/mongo --port "{{ mongod_port }}" /tmp/repset_init.js
 
 - name: add the admin user
   mongodb_user: database=admin name=admin password={{ mongo_admin_pass }} login_port={{ mongod_port }} roles='readWrite,dbAdmin,userAdmin' state=present
@@ -43,14 +53,8 @@
 - name: Create the authenticated mongodb configuration file
   template: src=mongod.conf.j2 dest=/etc/mongod.conf
 
-- name: Create the file to initialize the mongod replica set
-  template: src=repset_init.j2 dest=/tmp/repset_init.js
+#- name: Start the mongodb service
+#  command: systemctl restart mongod.service
 
-- name: Restart the mongodb service
-  service: name=mongod.service state=restarted
-
-- name: Pause for a while
-  pause: seconds=5
-
-- name: Initialize the replication set
-  shell: /usr/bin/mongo --port "{{ mongod_port }}" /tmp/repset_init.js
+- name: Restart mongodb
+  service: name=mongod.service enabled=yes state=restarted
