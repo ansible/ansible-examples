@@ -3,7 +3,7 @@
 # The chunksize for shards in MB
 mongos_chunk_size: 1
 
-# The port in which mongos server should listen on 
+# The port in which mongos server should listen on
 mongos_port: 8888
 
 # The port for mongo config server
@@ -14,12 +14,16 @@ mongodb_datadir_prefix: /data/
 
 # The interface where the mongodb process should listen on.
 # Defaults to the first interface. Change this to:
-# 
+#
 #  iface: eth1
 #
 # ...to override.
-# 
-iface: '{{ ansible_default_ipv4.interface }}'
+#
+# iface: '{{ ansible_default_ipv4.interface }}'
+iface: enp0s8
 
 # The password for admin user
 mongo_admin_pass: 123456
+
+# The name of the replication set
+replica_set_name: mongo_replication
