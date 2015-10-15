@@ -1,6 +1,9 @@
 ---
 - name: Enable the mongod port.
-  firewalld: port={{ mongod_port }}/tcp permanent=true state=enabled
+  firewalld: port={{ mongod_port }}/tcp permanent=true state=enabled immediate=true
+
+#- name: Enable the port with the command line
+#  command: firewall-cmd --add-port={{ mongod_port }}/tcp
 
 # This role deploys the mongod processes and sets up the replication set.
 - name: create data directory for mongodb
