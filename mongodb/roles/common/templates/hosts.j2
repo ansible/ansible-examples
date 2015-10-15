@@ -1,4 +1,4 @@
-127.0.0.1 localhost
+127.0.0.1 localhost {{ ansible_hostname }}
 {% for host in groups['all'] %}
 {{ hostvars[host]['ansible_' + iface].ipv4.address }}  {{ host }}
 {% endfor %}
