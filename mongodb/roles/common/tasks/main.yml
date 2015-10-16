@@ -29,6 +29,3 @@
 
 - name: Install the latest pymongo package
   pip: name=pymongo state=latest use_mirrors=no
-
-- name: Enable at boot and start firewallD
-  service: name=firewalld enabled=yes state=started
