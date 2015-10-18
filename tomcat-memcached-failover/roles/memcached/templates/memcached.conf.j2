@@ -14,4 +14,4 @@ LOGFILE="/var/log/memcached.log"
 CACHESIZE="{{ ansible_memtotal_mb / 2 }}"
 
 #Set server IP address
-OPTIONS="-l {{ ansible_eth1['ipv4']['address'] }}"
+OPTIONS="-l {{ ansible_default_ipv4['address'] }}"

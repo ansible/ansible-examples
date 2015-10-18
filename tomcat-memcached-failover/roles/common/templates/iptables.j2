@@ -7,7 +7,6 @@
 
 {% if (inventory_hostname in groups['lb_servers']) %}
 -A INPUT -p tcp  --dport {{ nginx_http_port }} -j ACCEPT
--A INPUT -p tcp  --dport {{ nginx_https_port }} -j ACCEPT
 {% endif %}
 
 {% if inventory_hostname in groups['backend_servers'] %}
