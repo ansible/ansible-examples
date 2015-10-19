@@ -28,18 +28,5 @@ net:
   port: {{ mongod_port }}
   # bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.
 
-security:
-  keyFile: {{ mongodb_datadir_prefix }}secret
-
-#operationProfiling:
-
 replication:
   replSetName: {{ replica_set_name }}
-
-#sharding:
-
-## Enterprise-Only Options
-
-#auditLog:
-
-#snmp:

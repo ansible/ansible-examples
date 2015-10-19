@@ -1,42 +1,63 @@
 ---
+- name: Enable the mongod port.
+  firewalld: port={{ mongod_port }}/tcp permanent=true state=enabled immediate=true
+
+#- name: Enable the port with the command line
+#  command: firewall-cmd --add-port={{ mongod_port }}/tcp
+
 # This role deploys the mongod processes and sets up the replication set.
-
 - name: create data directory for mongodb
-  file: path={{ mongodb_datadir_prefix }}/mongo-{{ inventory_hostname }} state=directory owner=mongod group=mongod
-  delegate_to: '{{ item }}'
-  with_items: groups.replication_servers
+  file: path={{ mongodb_datadir_prefix }}/db state=directory owner=mongod group=mongod
 
-- name: create data directory for mongodb
-  file: path=/var/log/mongo state=directory owner=mongod group=mongod
+- name: create log directory for mongodb
+  file: path=/var/log/mongodb state=directory owner=mongod group=mongod
 
-- name: create data directory for mongodb
+- name: create run directory for mongodb
   file: path=/var/run/mongo state=directory owner=mongod group=mongod
 
-- name: Create the mongodb startup file
-  template: src=mongod.j2 dest=/etc/init.d/mongod-{{ inventory_hostname }} mode=0655
-  delegate_to: '{{ item }}'
-  with_items: groups.replication_servers
+# We need to start mongo without authentication or a keyfile enabled first,
+# otherwise it's not possible to configure the users, so the first version
+# of the configuration won't have authentication enabled.
+- name: Create the unauthenticated mongodb configuration file
+  template: src=mongod_unauthenticated.conf.j2 dest=/etc/mongod.conf
 
+# http://tom-chapman.uk/2012/12/28/installing-mongodb-on-a-linux-distro-using-systemd-instead-of-inittab/
+- name: Copy the systemd init file
+  copy: src=mongod.service dest=/lib/systemd/system/mongod.service
 
-- name: Create the mongodb configuration file
-  template: src=mongod.conf.j2 dest=/etc/mongod-{{ inventory_hostname }}.conf
-  delegate_to: '{{ item }}'
-  with_items: groups.replication_servers
+- name: Copy the mongod sysconfig file
+  copy: src=mongod_sysconfig dest=/etc/sysconfig/mongod
 
-- name: Copy the keyfile for authentication
-  copy: src=secret dest={{ mongodb_datadir_prefix }}/secret owner=mongod group=mongod mode=0400
+- name: Set up the mongodb service using systemd
+  command: systemctl --system daemon-reload
+  command: systemctl enable mongod.service
 
+#- name: Start the mongodb service
+#  command: systemctl start mongod.service
 
-- name: Start the mongodb service
-  command: creates=/var/lock/subsys/mongod-{{ inventory_hostname }} /etc/init.d/mongod-{{ inventory_hostname }} start
-  delegate_to: '{{ item }}'
-  with_items: groups.replication_servers
+- name: Enable at boot and start mongodb
+  service: name=mongod.service enabled=yes state=started
 
+# Setup the replica set
 - name: Create the file to initialize the mongod replica set
   template: src=repset_init.j2 dest=/tmp/repset_init.js
 
-- name: Pause for a while
-  pause: seconds=20
-
 - name: Initialize the replication set
   shell: /usr/bin/mongo --port "{{ mongod_port }}" /tmp/repset_init.js
+
+- name: add the admin user
+  mongodb_user: database=admin name=admin password={{ mongo_admin_pass }} login_port={{ mongod_port }} roles='readWrite,dbAdmin,userAdmin' state=present
+  ignore_errors: yes
+
+# Now setup replication.
+- name: Copy the keyfile for replicated authentication
+  copy: src=secret dest={{ mongodb_datadir_prefix }}secret owner=mongod group=mongod mode=0400
+
+- name: Create the authenticated mongodb configuration file
+  template: src=mongod.conf.j2 dest=/etc/mongod.conf
+
+#- name: Start the mongodb service
+#  command: systemctl restart mongod.service
+
+- name: Restart mongodb
+  service: name=mongod.service enabled=yes state=restarted

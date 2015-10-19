@@ -86,7 +86,7 @@ Edit the group_vars/all file to reflect the below variables.
 
 1) iface: 'eth1'     # the interface to be used for all communication.
 		
-2) Set a unique mongod_port variable in the inventory file for each MongoDB
+2) Set a mongod_port variable in the inventory file for each MongoDB
 server.
 
 3) The default directory for storing data is /data, please do change it if
