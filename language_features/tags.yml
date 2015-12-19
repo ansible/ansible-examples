@@ -28,7 +28,7 @@
   # if you specify 'foo' or if you specify 'extra'
 
   - name: hi
-    tags: foo
+    tags: ['foo']
     shell: echo "first task ran"
 
 - name: example play two
@@ -37,8 +37,9 @@
   tasks:
   - name: hi
     tags:
-       - bar
+      - bar
     shell: echo "second task ran"
-  - include: tasks/base.yml tags=base
-
+  - include: tasks/base.yml
+    tags:
+      - base
 
