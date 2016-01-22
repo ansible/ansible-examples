@@ -36,8 +36,6 @@
   gather_facts: False
 
   roles:
-#  - common 
-#  - haproxy
    - elb
   
   tags: 
