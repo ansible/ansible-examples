@@ -8,10 +8,10 @@
 #
 
 # gather facts from monitoring nodes for iptables rules
-- hosts: monitoring
+- hosts: "{{ group_monitoring }}"
   tasks: []
 
-- hosts: webservers
+- hosts: "{{ group_webservers }}"
   user: root
   serial: 1
 
@@ -20,12 +20,12 @@
   - name: disable nagios alerts for this host webserver service
     nagios: action=disable_alerts host={{ inventory_hostname }} services=webserver
     delegate_to: "{{ item }}"
-    with_items: groups.monitoring
+    with_items: groups."{{ group_monitoring }}"
 
   - name: disable the server in haproxy
     shell: echo "disable server myapplb/{{ inventory_hostname }}" | socat stdio /var/lib/haproxy/stats
     delegate_to: "{{ item }}"
-    with_items: groups.lbservers
+    with_items: groups."{{ group_lbservers }}"
 
   roles:
   - common
@@ -40,9 +40,9 @@
   - name: Enable the server in haproxy
     shell: echo "enable server myapplb/{{ inventory_hostname }}" | socat stdio /var/lib/haproxy/stats
     delegate_to: "{{ item }}"
-    with_items: groups.lbservers
+    with_items: groups."{{ group_lbservers }}"
 
   - name: re-enable nagios alerts
     nagios: action=enable_alerts host={{ inventory_hostname }} services=webserver
     delegate_to: "{{ item }}"
-    with_items: groups.monitoring
+    with_items: groups."{{ group_monitoring }}"
