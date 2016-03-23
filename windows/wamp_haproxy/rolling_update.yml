@@ -4,10 +4,13 @@
 #
 # The three roles that apply to the webserver hosts will be applied: web
 
-
 - hosts: tag_ansible_group_windows_webservers
   serial: 1
   gather_facts: False
+  connection: winrm
+
+  vars:
+    ansible_ssh_port : 5986
 
   # These are the tasks to run before applying updates:
   pre_tasks:
