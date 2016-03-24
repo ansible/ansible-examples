@@ -16,3 +16,9 @@
 
 - name: Create the GPG key for REMI
   copy: src=RPM-GPG-KEY-remi dest=/etc/pki/rpm-gpg
+  
+- name: Install Firewalld
+  yum: name=firewalld state=present
+
+- name: Firewalld service state
+  service: name=firewalld state=started enabled=yes
