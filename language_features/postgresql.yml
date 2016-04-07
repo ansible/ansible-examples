@@ -7,7 +7,7 @@
 #
 ---
 - hosts: webservers
-  sudo: yes
+  become: yes
   gather_facts: no
 
   tasks:
@@ -21,8 +21,8 @@
         - python-psycopg2
 
 - hosts: webservers
-  sudo: yes
-  sudo_user: postgres
+  become: yes
+  become_user: postgres
   gather_facts: no
 
   vars:
