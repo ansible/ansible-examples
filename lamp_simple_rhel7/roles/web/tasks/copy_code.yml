@@ -1,9 +1,9 @@
 ---
 # These tasks are responsible for copying the latest dev/production code from
-# the version control system. 
+# the version control system.
 
 - name: Copy the code from repository
   git: repo={{ repository }} dest=/var/www/html/
 
-- name: Creates the index.php file 
+- name: Creates the index.php file
   template: src=index.php.j2 dest=/var/www/html/index.php

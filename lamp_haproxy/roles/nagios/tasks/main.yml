@@ -1,7 +1,7 @@
 ---
 # This will install nagios
 
-- name: install nagios 
+- name: install nagios
   yum: pkg={{ item }} state=present
   with_items:
    - nagios

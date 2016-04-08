@@ -28,7 +28,7 @@
 - hosts: CentOS-6.3
 
   tasks:
-  
+
   - name: ping all CentOS 6.3 hosts
     ping:
 

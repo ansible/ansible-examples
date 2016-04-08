@@ -1,5 +1,5 @@
 ---
-- name: restart jboss 
+- name: restart jboss
   service: name=jboss state=restarted
 
 - name: restart iptables

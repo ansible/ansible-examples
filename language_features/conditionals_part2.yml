@@ -1,6 +1,6 @@
 ---
 # this is a demo of conditional executions using 'when' statements, which can skip
-# certain tasks on machines/platforms/etc where they do not apply.  
+# certain tasks on machines/platforms/etc where they do not apply.
 
 - hosts: all
   remote_user: root
@@ -28,7 +28,7 @@
      - name: "do this if I have one of these SSNs"
        shell: /bin/true
        when:  ssn in [ 8675309, 8675310, 8675311 ]
-     
+
      - name: "do this if a variable named hippo is NOT defined"
        shell: /bin/true
        when: hippo is not defined

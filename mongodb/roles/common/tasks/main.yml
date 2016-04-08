@@ -1,10 +1,10 @@
 ---
-# This Playbook runs all the common plays in the deployment 
+# This Playbook runs all the common plays in the deployment
 
 - name: Create the hosts file for all machines
   template: src=hosts.j2 dest=/etc/hosts
 
-- name: Create the repository for 10Gen  
+- name: Create the repository for 10Gen
   copy: src=10gen.repo.j2 dest=/etc/yum.repos.d/10gen.repo
 
 - name: Create the EPEL Repository.
@@ -29,8 +29,8 @@
    - python-pip
 
 - name: Install the latest pymongo package
-  pip: name=pymongo state=latest use_mirrors=no 
+  pip: name=pymongo state=latest use_mirrors=no
 
 - name: Create the iptables file
   template: src=iptables.j2 dest=/etc/sysconfig/iptables
-  notify: restart iptables 
+  notify: restart iptables

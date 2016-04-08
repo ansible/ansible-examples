@@ -19,4 +19,4 @@
 
 - hosts: mongo_servers
   tasks:
-  - include: roles/mongod/tasks/shards.yml 
+  - include: roles/mongod/tasks/shards.yml

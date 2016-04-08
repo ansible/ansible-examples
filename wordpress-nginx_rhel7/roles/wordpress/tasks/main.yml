@@ -34,7 +34,7 @@
 
 - name: set the SELinux policy for the Wordpress directory
   command: semanage fcontext -a -t httpd_sys_content_t "/srv/wordpress(/.*)?"
-  
+
 - name: set the SELinux policy for wp-config.php
   command: semanage fcontext -a -t httpd_sys_script_exec_t "/srv/wordpress/wp-config\.php"
 
