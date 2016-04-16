@@ -17,5 +17,3 @@
   command: rpm -ivh /tmp/epel-release-7-5.noarch.rpm creates=/etc/yum.repos.d/epel.repo
   when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
 
-- name: Install libselinux-python
-  yum: name=libselinux-python
