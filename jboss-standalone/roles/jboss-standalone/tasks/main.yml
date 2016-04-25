@@ -36,6 +36,8 @@
 - name: Enable JBoss to be started at boot
   service: name=jboss enabled=yes state=started 
 
+  # don't manage iptables for RHEL / CentOS 7
 - name: deploy iptables rules
   template: src=iptables-save dest=/etc/sysconfig/iptables
+  when: ansible_distribution_major_version != "7" 
   notify: restart iptables

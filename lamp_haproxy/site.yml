@@ -8,7 +8,7 @@
 
 # Configure and deploy database servers.
 - hosts: "{{ group_dbservers }}"
-  user: root
+  
   roles:
   - db
   
@@ -19,7 +19,7 @@
 # the 'base-apache' role which simply sets up Apache, and 'web' which includes
 # our example web application.
 - hosts: "{{ group_webservers }}"
-  user: root
+  
 
   roles:
   - base-apache
@@ -30,7 +30,7 @@
 
 # Configure and deploy the load balancer(s).
 - hosts: "{{ group_lbservers }}"
-  user: root
+  
   roles:
   - haproxy
   
@@ -39,7 +39,7 @@
 
 # Configure and deploy the Nagios monitoring node(s).
 - hosts: "{{ group_monitoring }}"
-  user: root
+  
   roles:
   - base-apache
   - nagios
