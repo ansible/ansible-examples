@@ -11,7 +11,7 @@
   get_url: url=http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip dest=/opt/jboss-as-7.1.1.Final.zip
 
 - name: Extract archive
-  unarchive: dest=/usr/share src=/opt/jboss-as-7.1.1.Final.zip creates=/usr/share/jboss-as
+  unarchive: dest=/usr/share src=/opt/jboss-as-7.1.1.Final.zip creates=/usr/share/jboss-as copy=no 
 
   # Rename the dir to avoid encoding the version in the init script
 - name: Rename install directory
