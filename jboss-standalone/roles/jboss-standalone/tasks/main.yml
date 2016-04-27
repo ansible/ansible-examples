@@ -44,7 +44,7 @@
 
   # diables the firewall for now
 - name: disable firewalld
-  service: name=firewalld enabled=no
+  service: name=firewalld enabled=no state=stopped
   when: ansible_distribution_major_version == "7"
 
 
