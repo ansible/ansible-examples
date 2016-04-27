@@ -36,15 +36,15 @@
 - name: Enable JBoss to be started at boot
   service: name=jboss enabled=yes state=started 
 
-  # don't manage iptables for RHEL / CentOS 7
 - name: deploy iptables rules
   template: src=iptables-save dest=/etc/sysconfig/iptables
   when: ansible_distribution_major_version != "7" 
   notify: restart iptables
 
-  # diables the firewall for now
-- name: disable firewalld
-  service: name=firewalld enabled=no state=stopped
+- name: deploy firewalld rules
+  firewalld: immediate=yes port={{ item }} state=enabled permanent=yes
   when: ansible_distribution_major_version == "7"
-
+  with_items:
+  - "{{ http_port }}/tcp"
+  - "{{ https_port }}/tcp"
 
