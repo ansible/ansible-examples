@@ -41,3 +41,10 @@
   template: src=iptables-save dest=/etc/sysconfig/iptables
   when: ansible_distribution_major_version != "7" 
   notify: restart iptables
+
+  # diables the firewall for now
+- name: disable firewalld
+  service: name=firewalld enabled=no
+  when: ansible_distribution_major_version == "7"
+
+
