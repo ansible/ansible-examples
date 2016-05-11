@@ -36,9 +36,8 @@
     # a role more than once with different parameters too.  It might look like this:
 
       - role: foo
-        param1: '{{ item }}'
-        param2: '{{ item + "/" + item }}'
-        with_items: ['a','b','c']
+        param1: '{{ foo }}'
+        param2: '{{ some_var1 + "/" + some_var2 }}'
         when: ansible_os_family == 'RedHat'
 
     # add as many roles as you like, roles takes a list of roles names
