@@ -3,6 +3,7 @@
 
 - hosts: tomcat-servers 
   remote_user: root
+  sudo: yes
 
   roles:
     - selinux
