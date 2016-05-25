@@ -8,3 +8,15 @@
   roles:
     - selinux
     - tomcat
+  
+  tasks:
+    - name: Deploy war file from Arty
+      get_url: url=http://toolchain.phillyair.com:8081/artifactory/libs-snapshot-local/com/phillyair/phillyapp/1.0-SNAPSHOT/phillyapp-1.0-SNAPSHOT.war dest=/opt/apache-tomcat-7.0.61/webapps/phillyapp.war 
+      register: war_downloaded
+
+    - name: Set correct permissions
+      file: 
+        path: "/opt/apache-tomcat-7.0.61/webapps/phillyapp.war"
+        owner: tomcat
+        group: tomcat
+      when: war_downloaded.changed
