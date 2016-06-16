@@ -1,2 +1,2 @@
 #!/bin/bash
-ansible-playbook -i inventory/localhost roles/common/tasks/main.yml
+ansible-playbook -i inventory/localhost ./debug_default_vars.yml
