@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Print myvar
+      debug:  "{{ myvar }}"
