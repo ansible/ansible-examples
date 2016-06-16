@@ -1,5 +1,3 @@
 ---
-- hosts: localhost
-  tasks:
-    - name: Print myvar
-      debug:  "{{ myvar }}"
+- name: Print myvar
+  debug:  "{{ myvar }}"
