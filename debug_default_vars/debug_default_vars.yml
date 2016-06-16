@@ -1,4 +1,4 @@
 ---
 - hosts: localhost
-- roles:
+  roles:
     - role: common
