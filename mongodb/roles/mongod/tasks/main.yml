@@ -6,10 +6,10 @@
   delegate_to: '{{ item }}'
   with_items: groups.replication_servers
 
-- name: create data directory for mongodb
+- name: create log directory for mongodb
   file: path=/var/log/mongo state=directory owner=mongod group=mongod
 
-- name: create data directory for mongodb
+- name: create run directory for mongodb
   file: path=/var/run/mongo state=directory owner=mongod group=mongod
 
 - name: Create the mongodb startup file
