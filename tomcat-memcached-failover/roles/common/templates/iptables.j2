@@ -1,0 +1,25 @@
+# {{ ansible_managed }}
+# Manual customization of this file is not recommended.
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+{% if (inventory_hostname in groups['lb_servers']) %}
+-A INPUT -p tcp  --dport {{ nginx_http_port }} -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['backend_servers'] %}
+-A INPUT -p tcp  --dport {{ tomcat_http_port }} -j  ACCEPT
+-A INPUT -p tcp  --dport {{ tomcat_https_port }} -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['memcached_servers'] %}
+-A INPUT -p tcp  --dport {{ memcached_port }} -j  ACCEPT
+{% endif %}
+
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+COMMIT

@@ -1,0 +1,16 @@
+upstream tomcat  {
+{% for host in groups['backend_servers'] %}
+      server {{ host }}:{{ tomcat_http_port }};
+{% endfor %}
+}
+
+server {
+    listen       80 default_server;
+    server_name  {{ inventory_hostname }};
+    include /etc/nginx/default.d/*.conf;
+
+    location / {
+      proxy_pass http://tomcat;
+    }
+
+}

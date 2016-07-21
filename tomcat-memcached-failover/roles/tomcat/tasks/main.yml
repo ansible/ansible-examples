@@ -1,0 +1,27 @@
+---
+  - name: Install OpenJDK
+    yum: name=java-1.7.0-openjdk state=present
+
+  - name: Install Tomcat
+    yum: name=tomcat state=present
+
+  - name: Deliver configuration files for tomcat
+    template: src={{ item.src }} dest={{ item.dest }} backup=yes
+    with_items:
+      - { src: 'default.j2', dest: '/etc/tomcat/default' }
+      - { src: 'server.xml.j2', dest: '/etc/tomcat/server.xml' }
+      - { src: 'context.xml.j2', dest: '/etc/tomcat/context.xml' }
+    notify: restart tomcat
+
+  - name: Deliver libraries support memcached
+    get_url: url="{{ item }}" dest=/usr/share/tomcat/lib/
+    with_items:
+      - http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/1.8.0/memcached-session-manager-1.8.0.jar
+      - http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/1.8.0/memcached-session-manager-tc7-1.8.0.jar
+      - https://spymemcached.googlecode.com/files/spymemcached-2.10.2.jar
+
+  - name: Deploy sample app
+    copy: src=msm-sample-webapp-1.0-SNAPSHOT.war dest=/var/lib/tomcat/webapps/ROOT.war owner=tomcat group=tomcat
+
+  - name: Start tomcat service
+    service: name=tomcat state=started enabled=yes
