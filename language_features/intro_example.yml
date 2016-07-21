@@ -13,7 +13,8 @@
 
 # could have also have done:
 #  remote_user: mdehaan
-#  sudo: yes
+#  become: yes
+#  become_method: sudo
 
   # make these variables available inside of templates
   # for when we use the 'template' action/module later on...
