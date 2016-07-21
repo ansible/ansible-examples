@@ -1,0 +1,12 @@
+---
+- name: Copy application WAR file to host
+  copy: src=jboss-helloworld.war dest=/tmp
+
+- name: Deploy HelloWorld to JBoss
+  jboss: deploy_path=/usr/share/jboss-as/standalone/deployments/ src=/tmp/jboss-helloworld.war deployment=helloworld.war state=present
+  
+- name: Copy application WAR file to host
+  copy: src=ticket-monster.war dest=/tmp
+
+- name: Deploy Ticket Monster to JBoss
+  jboss: deploy_path=/usr/share/jboss-as/standalone/deployments/ src=/tmp/ticket-monster.war deployment=ticket-monster.war state=present

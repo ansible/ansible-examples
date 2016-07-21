@@ -1,0 +1,42 @@
+---
+# This playbook does a rolling update for all webservers serially (one at a time).
+# Change the value of serial: to adjust the number of server to be updated.
+#
+# The three roles that apply to the webserver hosts will be applied: web
+
+- hosts: tag_ansible_group_windows_webservers
+  serial: 1
+  gather_facts: False
+  connection: winrm
+
+  vars:
+    ansible_ssh_port : 5986
+
+  # These are the tasks to run before applying updates:
+  pre_tasks:
+  - name: Remove host from load balancing pool
+    local_action:
+      module: ec2_elb
+      region: us-east-1
+      instance_id: "{{ ec2_id }}"
+      ec2_elbs: "ansible-windows-demo-lb"
+      wait_timeout: 330
+      state: 'absent'
+
+  roles:
+#  - iis 
+  - web
+
+  # These tasks run after the roles:
+  post_tasks:
+  - name: Wait for webserver to come up
+    local_action: wait_for host={{ inventory_hostname }} port=80 state=started timeout=80
+
+  - name: Add host to load balancing pool
+    local_action:
+      module: ec2_elb
+      region: us-east-1
+      instance_id: "{{ ec2_id }}"
+      ec2_elbs: "ansible-windows-demo-lb"
+      wait_timeout: 330
+      state: 'present'

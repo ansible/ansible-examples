@@ -3,7 +3,8 @@
   hosts: wordpress-server
   remote_user: root
   # remote_user: user
-  # sudo: yes
+  # become: yes
+  # become_method: sudo
 
   roles:
     - common
