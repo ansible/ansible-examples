@@ -5,7 +5,8 @@
 
 - hosts: webservers
   gather_facts: no
-  sudo: yes
+  become: yes
+  become_method: sudo 
 
   vars:
     pool: rpool
