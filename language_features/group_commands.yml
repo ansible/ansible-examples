@@ -3,7 +3,8 @@
 
 - hosts: all
   remote_user: root
-  sudo: yes
+  become: yes
+  become_method: sudo
 
   tasks:
 
