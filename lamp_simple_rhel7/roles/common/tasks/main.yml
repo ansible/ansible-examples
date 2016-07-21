@@ -5,6 +5,13 @@
   yum: name=ntp state=present
   tags: ntp
 
+- name: Install common dependencies
+  yum: name={{ item }} state=installed
+  with_items:
+   - libselinux-python
+   - libsemanage-python
+   - firewalld
+
 - name: Configure ntp file
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
   tags: ntp
