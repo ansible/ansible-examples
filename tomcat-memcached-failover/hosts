@@ -1,0 +1,10 @@
+[lb_servers]
+lbserver
+
+[backend_servers]
+tomcat_server_1
+tomcat_server_2
+
+[memcached_servers]
+cached_server1
+cached_server2

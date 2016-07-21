@@ -13,7 +13,7 @@
 - name: Create the GPG key for EPEL
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
 
-- name: install some useful nagios plugins 
+- name: install some useful nagios plugins
   yum: name={{ item }} state=present
   with_items:
    - nagios-nrpe
@@ -23,7 +23,7 @@
    - nagios-plugins-load
    - nagios-plugins-disk
 
-- name: Install ntp 
+- name: Install ntp
   yum: name=ntp state=present
   tags: ntp
 
@@ -33,7 +33,7 @@
   notify: restart ntp
 
 - name: Start the ntp service
-  service: name=ntpd state=started enabled=true
+  service: name=ntpd state=started enabled=yes
   tags: ntp
 
 # work around RHEL 7, for now

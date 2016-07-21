@@ -1,0 +1,5 @@
+---
+# Handler to handle DB tier notifications
+
+- name: restart mariadb
+  service: name=mariadb state=restarted

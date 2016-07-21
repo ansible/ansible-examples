@@ -1,5 +1,5 @@
 ---
-# handlers for nagios 
+# handlers for nagios
 - name: restart httpd
   service: name=httpd state=restarted
 

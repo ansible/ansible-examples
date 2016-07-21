@@ -15,11 +15,11 @@
 
 - name: Create Mysql configuration file
   template: src=my.cnf.j2 dest=/etc/my.cnf
-  notify: 
+  notify:
   - restart mysql
 
 - name: Start Mysql Service
-  service: name=mysqld state=started enabled=true
+  service: name=mysqld state=started enabled=yes
 
 - name: insert iptables rule
   lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ mysql_port }}"

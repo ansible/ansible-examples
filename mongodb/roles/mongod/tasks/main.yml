@@ -6,7 +6,12 @@
   delegate_to: '{{ item }}'
   with_items: groups.replication_servers
 
-  
+- name: create log directory for mongodb
+  file: path=/var/log/mongo state=directory owner=mongod group=mongod
+
+- name: create run directory for mongodb
+  file: path=/var/run/mongo state=directory owner=mongod group=mongod
+
 - name: Create the mongodb startup file
   template: src=mongod.j2 dest=/etc/init.d/mongod-{{ inventory_hostname }} mode=0655
   delegate_to: '{{ item }}'
@@ -14,7 +19,7 @@
 
 
 - name: Create the mongodb configuration file
-  template: src=mongod.conf.j2 dest=/etc/mongod-${inventory_hostname}.conf
+  template: src=mongod.conf.j2 dest=/etc/mongod-{{ inventory_hostname }}.conf
   delegate_to: '{{ item }}'
   with_items: groups.replication_servers
 
@@ -23,7 +28,7 @@
 
 
 - name: Start the mongodb service
-  command: creates=/var/lock/subsys/mongod-${inventory_hostname} /etc/init.d/mongod-${inventory_hostname} start
+  command: creates=/var/lock/subsys/mongod-{{ inventory_hostname }} /etc/init.d/mongod-{{ inventory_hostname }} start
   delegate_to: '{{ item }}'
   with_items: groups.replication_servers
 
@@ -34,4 +39,4 @@
   pause: seconds=20
 
 - name: Initialize the replication set
-  shell: /usr/bin/mongo --port "{{ mongod_port }}" /tmp/repset_init.js 
+  shell: /usr/bin/mongo --port "{{ mongod_port }}" /tmp/repset_init.js

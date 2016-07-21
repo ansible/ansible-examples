@@ -4,30 +4,45 @@
 # easy to do, and here we'll show you how.
 
 - name: test playbook
-  user: root
+  remote_user: root
   hosts: all
 
   tasks:
 
       # it is possible to save the result of any command in a named register.  This variable will be made
-      # available to tasks and templates made further down in the execution flow.  
+      # available to tasks and templates made further down in the execution flow.
 
-      - action: shell grep hi /etc/motd
+      - shell: grep hi /etc/motd
         ignore_errors: yes
         register: motd_result
 
       # and here we access the register.  Note that variable is structured data because
       # it is a return from the command module.   The shell module makes available variables such as
-      # as 'stdout', 'stderr', and 'rc'.  
+      # as 'stdout', 'stderr', and 'rc'.
 
       # here we run the next action only if the previous grep returned true
 
-      - action: shell echo "motd contains the word hi"
+      - shell: echo "motd contains the word hi"
         when: motd_result.rc == 0
 
       # alternatively:
 
-      - action: shell echo "motd contains the word hi"
+      - shell: echo "motd contains the word hi"
         when: motd_result.stdout.find('hi') != -1
+
+      # or also:
+
+      - shell: echo "motd contains word hi"
+        when: "'hi' in motd_result.stdout"
+
+      # you can use 'stdout_lines' to loop over the registered output lines
+      - name: motd lines matching 'hi'
+        shell: echo "{{ item  }}"
+        with_items: motd_result.stdout_lines
+
+      # you can also split 'stdout' yourself
+      - name: motd lines matching 'hi'
+        shell: echo "{{ item  }}"
+        with_items: motd_result.stdout.split('\n')
 
 

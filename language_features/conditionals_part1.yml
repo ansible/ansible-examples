@@ -14,7 +14,7 @@
 # as root
 
 - hosts: all
-  user: root
+  remote_user: root
 
 # we have a common list of variables stored in /vars/external_vars.yml
 # that we will always import
@@ -43,7 +43,7 @@
     action: "{{ packager }} pkg={{ apache }} state=latest"
 
   - name: ensure apache is running
-    action: service name={{ apache }} state=running
+    service: name={{ apache }} state=running
 
 
 

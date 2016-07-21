@@ -9,11 +9,12 @@
 
 - name: example play
   hosts: all
-  user: root
+  remote_user: root
 
 # could have also have done:
-#  user: mdehaan
-#  sudo: yes
+#  remote_user: mdehaan
+#  become: yes
+#  become_method: sudo
 
   # make these variables available inside of templates
   # for when we use the 'template' action/module later on...
@@ -31,7 +32,7 @@
   # obviously this does nothing useful but you get the idea
 
   - name: longrunner
-    action: command /bin/sleep 15
+    command: /bin/sleep 15
     async: 45
     poll: 5
 
@@ -47,19 +48,19 @@
   # end of the playbook run
 
   - name: write some_random_foo configuration
-    action: template src=templates/foo.j2 dest=/etc/some_random_foo.conf
+    template: src=templates/foo.j2 dest=/etc/some_random_foo.conf
     notify:
     - restart apache
 
   # make sure httpd is installed at the latest version
 
   - name: install httpd
-    action: yum pkg=httpd state=latest
+    yum: pkg=httpd state=latest
 
   # make sure httpd is running
 
   - name: httpd start
-    action: service name=httpd state=running
+    service: name=httpd state=running
 
   # handlers are only run when things change, at the very end of each
   # play.  Let's define some.  The names are significant and must
@@ -71,6 +72,6 @@
     # is changed, and only then
 
     - name: restart apache
-      action: service name=httpd state=restarted
+      service: name=httpd state=restarted
 
 

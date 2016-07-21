@@ -4,7 +4,7 @@
 # of a playbook run, for example, as part of a release script.
 
 - hosts: all
-  user: root
+  remote_user: root
 
 # regular variables are a dictionary of keys and values
 
@@ -34,14 +34,14 @@
       prompt: "Product release version"
       default: "my_default_version"
       private: no
-   
+
     - name: "my_password2"
       prompt: "Enter password2"
       private: yes
-      encrypt: "md5_crypt" 
+      encrypt: "md5_crypt"
       confirm: yes
       salt_size: 7
-      salt: "foo" 
+      salt: "foo"
 
 # this is just a simple example to show that vars_prompt works, but
 # you might ask for a tag to use with the git module or perhaps
@@ -50,10 +50,10 @@
   tasks:
 
   - name: imagine this did something interesting with {{release_version}}
-    action: shell echo foo >> /tmp/{{release_version}}-alpha
+    shell: echo foo >> /tmp/{{release_version}}-alpha
 
   - name: look we crypted a password
-    action: shell echo my password is {{my_password2}}
+    shell: echo my password is {{my_password2}}
 
 
 

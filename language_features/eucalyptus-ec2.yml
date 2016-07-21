@@ -1,12 +1,12 @@
 ---
 # This playbook is an example for deploying multiple instances into
 # EC2/Euca and "doing something" with them.
-#  
+#
 # - uses the ec2 and ec2_vol module.
 #
 # Run this with ansible-playbook and supply the private key for your
 # EC2/Euca user (to access the instance in the second play), e.g:
-# 
+#
 # ansible-playbook eucalyptus-ec2-deploy.yml -v --private-key=/path/to/ec2/pri/key
 #
 
@@ -14,7 +14,7 @@
 - name: Stage instance(s)
   hosts: local
   connection: local
-  user: root
+  remote_user: root
   gather_facts: false
 
   vars:
@@ -26,12 +26,12 @@
   # Launch 5 instances with the following parameters.  Register the output.
 
   tasks:
-    - name: Launch instance 
+    - name: Launch instance
       ec2: keypair={{keypair}} group={{security_group}}
            instance_type={{instance_type}} image={{image}}
-           wait=true count=5 
+           wait=true count=5
       register: ec2
-    
+
     # Use with_items to add each instances public IP to a new hostgroup for use in the next play.
 
     - name: Add new instances to host group
@@ -53,13 +53,13 @@
 # This play targets the new host group
 - name: Configure instance
   hosts: deploy
-  user: root
+  remote_user: root
 
   # Do some stuff on each instance ....
 
   tasks:
     - name: Ensure NTP is up and running
       service: name=ntpd state=started
-   
+
     - name: Install Apache Web Server
       yum: pkg=httpd state=latest

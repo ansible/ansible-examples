@@ -1,9 +1,0 @@
----
-- hosts: riak_cluster
-  serial: 1
-  sudo: True
-  pre_tasks:
-  - name: make sure there are no transfers happening
-    riak: wait_for_handoffs=600
-  roles:
-  - basho.riak

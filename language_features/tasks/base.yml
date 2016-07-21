@@ -12,10 +12,10 @@
 # (like this) that might be applied to all your systems as well.
 
 - name: no selinux
-  action: command /usr/sbin/setenforce 0
+  command: /usr/sbin/setenforce 0
 
 - name: no iptables
-  action: service name=iptables state=stopped
+  service: name=iptables state=stopped
 
 - name: made up task just to show variables work here
-  action: command /bin/echo release is $release
+  command: /bin/echo release is $release

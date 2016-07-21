@@ -2,7 +2,7 @@
 # The playbook creates a new database test and populates data in the database to test the sharding.
 
 - hosts: $servername
-  user: root
+  remote_user: root
   tasks:
    - name: Create a new database and user
      mongodb_user: login_user=admin login_password=${mongo_admin_pass} login_port=${mongos_port} database=test user=admin password=${mongo_admin_pass} state=present
@@ -11,7 +11,7 @@
      pause: minutes=3
 
    - name: Execute the collection creation script
-     command: /usr/bin/mongo localhost:${mongos_port}/test -u admin -p ${mongo_admin_pass} /tmp/testsharding.js 
+     command: /usr/bin/mongo localhost:${mongos_port}/test -u admin -p ${mongo_admin_pass} /tmp/testsharding.js
 
-   - name: Enable sharding on the database and collection 
+   - name: Enable sharding on the database and collection
      command: /usr/bin/mongo localhost:${mongos_port}/admin -u admin -p ${mongo_admin_pass} /tmp/enablesharding.js

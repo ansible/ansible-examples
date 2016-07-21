@@ -6,7 +6,7 @@
 
     vars:
       a_list:
-        - a 
+        - a
         - b
         - c
 

@@ -8,11 +8,11 @@
 
 
 - hosts: all
-  user: root
+  remote_user: root
 
   # here we make a variable named "env" that is a dictionary
   vars:
-    env: 
+    env:
        HI: test2
        http_proxy: http://proxy.example.com:8080
 
@@ -26,7 +26,7 @@
          HI: test1
 
     # here we are using the $env variable above
-    
+
     - shell: echo $HI
       environment: env
 

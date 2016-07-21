@@ -1,0 +1,17 @@
+# Running on Port 11211
+PORT="{{ memcached_port }}"
+
+# Start as memcached daemon
+USER="memcached"
+
+# Set max simultaneous connections to 1024
+MAXCONN="1024"
+
+# Set log file
+LOGFILE="/var/log/memcached.log"
+
+# Set Memory size to half of all memory
+CACHESIZE="{{ ansible_memtotal_mb / 2 }}"
+
+#Set server IP address
+OPTIONS="-l {{ ansible_default_ipv4['address'] }}"
