@@ -16,8 +16,8 @@
 - name: pause
   pause: seconds=20
 
-- name: copy the file for shard test 
+- name: copy the file for shard test
   template: src=testsharding.j2 dest=/tmp/testsharding.js
 
-- name: copy the file enable  sharding 
+- name: copy the file enable  sharding
   template: src=enablesharding.j2 dest=/tmp/enablesharding.js

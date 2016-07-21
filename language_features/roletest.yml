@@ -1,4 +1,4 @@
-# in Ansible 1.2 and later, roles allow easy best-practices organization of content 
+# in Ansible 1.2 and later, roles allow easy best-practices organization of content
 # and maximize shareability of ansible building blocks.
 #
 # suppose a playbook applied to a group of hosts includes two roles, foo and bar.
@@ -18,7 +18,7 @@
 #
 # templates and copy operations also get smarter about where to look for content when using
 # roles.
-# 
+#
 # as an example, a task in foo/tasks/main.yml could copy or template a file by
 # referencing a "src=foo.j2" rather than having to explicitly path src=roles/foo/templates/foo.j2.
 
@@ -35,7 +35,7 @@
 
     roles:
 
-    # a role can be listed flat like this: 
+    # a role can be listed flat like this:
     #
     #   - common
     #   - webservers

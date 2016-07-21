@@ -1,7 +1,7 @@
 ---
 
 # httpd is handled by the base-apache role upstream
-- name: Install php and git 
+- name: Install php and git
   yum: name={{ item }} state=present
   with_items:
    - php
