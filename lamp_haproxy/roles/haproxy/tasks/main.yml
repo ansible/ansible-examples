@@ -1,11 +1,8 @@
 ---
 # This role installs HAProxy and configures it.
 
-- name: Download and install haproxy and socat
-  yum: name={{ item }} state=present
-  with_items:
-  - haproxy
-  - socat
+- name: Download and install haproxy
+  yum: name=haproxy state=present
 
 - name: Configure the haproxy cnf file with hosts
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
