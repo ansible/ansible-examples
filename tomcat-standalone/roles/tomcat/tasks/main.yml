@@ -7,7 +7,8 @@
 
 - name: add user "tomcat"
   user: name=tomcat group=tomcat home=/usr/share/tomcat createhome=no
-  sudo: True
+  become: True
+  become_method: sudo
 
 - name: Download Tomcat
   get_url: url=http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.61/bin/apache-tomcat-7.0.61.tar.gz dest=/opt/apache-tomcat-7.0.61.tar.gz
