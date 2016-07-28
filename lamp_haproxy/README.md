@@ -11,6 +11,8 @@ capability to dynamically add and remove web server nodes from the deployment.
 It also includes examples to do a rolling update of a stack without affecting
 the service.
 
+(To use this demonstration with Amazon Web Services, please use the "aws" sub-directory.)
+
 You can also optionally configure a Nagios monitoring node.
 
 ### Initial Site Setup
