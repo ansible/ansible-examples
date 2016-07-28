@@ -1,4 +1,4 @@
-LAMP Stack + HAProxy: Example Playbooks
+LAMP Stack + HAProxy: Example Playbooks for Amazon Web Services
 -----------------------------------------------------------------------------
 
 - Requires Ansible 1.2
