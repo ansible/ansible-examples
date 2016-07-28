@@ -5,7 +5,7 @@ define hostgroup {
         alias Load Balancers
 }
 
-{% for host in groups.lbservers %}
+{% for host in groups.tag_ansible_group_lbservers %}
 define host {
         use                     linux-server
         host_name               {{ host }}

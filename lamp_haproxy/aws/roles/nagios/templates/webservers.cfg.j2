@@ -5,7 +5,7 @@ define hostgroup {
         alias Web Servers
 }
 
-{% for host in groups.webservers %}
+{% for host in groups.tag_ansible_group_webservers %}
   define host {
 	use                     linux-server
 	host_name               {{ host }} 
