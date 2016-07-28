@@ -15,10 +15,6 @@ ec2_keypair: djohnson
 ec2_security_group: default
 ec2_instance_count: 3
 ec2_tag: demo
-ec2_tag_webservers: webservers
-ec2_tag_dbservers: dbservers
-ec2_tag_lbservers: lbservers
-ec2_tag_monitoring: monitoring
 ec2_tag_name_prefix: dj
 ec2_hosts: all
 wait_for_port: 22
