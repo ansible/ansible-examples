@@ -1,4 +1,4 @@
-LAMP Stack + HAProxy: Example Playbooks
+LAMP Stack + HAProxy: Example Playbooks for Amazon Web Services
 -----------------------------------------------------------------------------
 
 - Requires Ansible 1.2
@@ -11,31 +11,28 @@ capability to dynamically add and remove web server nodes from the deployment.
 It also includes examples to do a rolling update of a stack without affecting
 the service.
 
-(To use this demonstration with Amazon Web Services, please use the "aws" sub-directory.)
-
 You can also optionally configure a Nagios monitoring node.
 
 ### Initial Site Setup
 
-First we configure the entire stack by listing our hosts in the 'hosts'
-inventory file, grouped by their purpose:
+First, we provision the hosts neccessary for this demonstration using the included playbook, "demo-aws-launch.yml". This will provision the following instances, with the group structure specified below. The hosts are tagged via AWS EC2 tagging and the Ansible inventory sync script (or Tower) will create the appropriate groups from these tags.
 
-		[webservers]
+		[tag_ansible_group_webservers]
 		webserver1
 		webserver2
 		
-		[dbservers]
+		[tag_ansible_group_dbservers]
 		dbserver
 		
-		[lbservers]
+		[tag_ansible_group_lbservers]
 		lbserver
 		
-		[monitoring]
+		[tag_ansible_group_monitoring]
 		nagios
 
 After which we execute the following command to deploy the site:
 
-		ansible-playbook -i hosts site.yml
+		ansible-playbook -i ec2.py site.yml
 
 The deployment can be verified by accessing the IP address of your load
 balancer host in a web browser: http://<ip-of-lb>:8888. Reloading the page
@@ -47,10 +44,10 @@ The default username and password are "nagiosadmin" / "nagiosadmin".
 
 ### Removing and Adding a Node
 
-Removal and addition of nodes to the cluster is as simple as editing the
-hosts inventory and re-running:
+Removal and addition of nodes to the cluster is as simple as creating new instances, syncing the
+Ansible inventory and re-running:
 
-        ansible-playbook -i hosts site.yml
+        ansible-playbook -i ec2.py site.yml
 
 ### Rolling Update
 
@@ -68,7 +65,7 @@ Once the code has been updated in the source repository for your application
 which can be defined in the group_vars/all file, execute the following
 command:
 
-	 ansible-playbook -i hosts rolling_update.yml
+	 ansible-playbook -i ec2.py rolling_update.yml
 
 You can optionally pass: -e webapp_version=xxx to the rolling_update
 playbook to specify a specific version of the example webapp to deploy.

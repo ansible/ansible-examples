@@ -1,0 +1,16 @@
+---
+
+# httpd is handled by the base-apache role upstream
+- name: Install php and git
+  yum: name={{ item }} state=present
+  with_items:
+   - php
+   - php-mysql
+   - git
+
+- name: Configure SELinux to allow httpd to connect to remote database
+  seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+  when: sestatus.rc != 0
+
+- name: Copy the code from repository
+  git: repo={{ repository }} version={{ webapp_version }} dest=/var/www/html/
