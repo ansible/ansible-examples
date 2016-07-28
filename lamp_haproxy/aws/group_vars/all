@@ -18,3 +18,6 @@ ec2_tag: demo
 ec2_tag_name_prefix: dj
 ec2_hosts: all
 wait_for_port: 22
+
+# This user name will be set by Tower, when run through Tower
+tower_user_name: admin
