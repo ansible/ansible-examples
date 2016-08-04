@@ -12,7 +12,8 @@
   tasks: []
 
 - hosts: webservers
-  remote_user: root
+
+- hosts: webservers
   serial: 1
 
   # These are the tasks to run before applying updates:

@@ -1,8 +1,6 @@
 ---
-# This playbook uses various Windows modules to test their functionality
-
 - name: test raw module
-  hosts: windows
+  hosts: all 
   tasks:
     - name: run ipconfig
       raw: ipconfig
@@ -25,12 +23,3 @@
              - "not stat_file.stat.isdir"
              - "stat_file.stat.size > 0"
              - "stat_file.stat.md5"
-
-- name: Add a user
-  hosts: all
-  gather_facts: false
-  tasks:
-    - name: Add User
-      win_user:
-        name: ansible
-        password: "@ns1bl3"

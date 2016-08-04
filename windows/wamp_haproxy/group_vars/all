@@ -1,0 +1,12 @@
+---
+ec2_access_key: 
+ec2_secret_key: 
+ec2_region: us-east-1 
+ec2_zone: 
+ec2_image: ami-bc8131d4 
+ec2_instance_type: m1.small 
+ec2_keypair: djohnson 
+ec2_security_group: default
+ec2_instance_count: 3
+
+tower_user_name: admin

@@ -1,0 +1,25 @@
+# {{ ansible_managed }}
+
+define hostgroup {
+	hostgroup_name dbservers 
+        alias Database Servers
+}
+
+{% for host in groups.tag_ansible_group_dbservers %}
+        define host {
+                use                     linux-server
+                host_name               {{ host }}
+                alias                   {{ host }}
+                address                 {{ hostvars[host].ansible_default_ipv4.address }}
+                hostgroups              dbservers 
+                }
+{% endfor %}
+
+#define service {
+#	use				local-service
+#	hostgroup_name			dbservers
+#	service_description		MySQL Database Server
+#	check_command			check_mysql
+#	notifications_enabled		0
+#}
+

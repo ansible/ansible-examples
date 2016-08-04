@@ -2,21 +2,21 @@
 
 define hostgroup {
 	hostgroup_name loadbalancers 
-        alias Load Balancers 
+        alias Load Balancers
 }
 
-{% for host in groups['lbservers'] %}
+{% for host in groups.lbservers %}
 define host {
-	use                     linux-server
-	host_name               {{ host }} 
-	alias                   {{ host }}
-	address                 {{ hostvars[host].ansible_default_ipv4.address }}
-	hostgroups 	        loadbalancers	
+        use                     linux-server
+        host_name               {{ host }}
+        alias                   {{ host }}
+        address                 {{ hostvars[host].ansible_default_ipv4.address }}
+        hostgroups              loadbalancers 
 }
 define service {
 	use				local-service
-	host_name			{{ host }}	
-	service_description		HAProxy Load Balancer 
+	host_name			{{ host }}
+	service_description		HAProxy Load Balancer
 	check_command			check_http!-p{{ hostvars[host].listenport }}
 }
 {% endfor %}

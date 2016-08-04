@@ -1,0 +1,48 @@
+---
+## This playbook deploys the whole application stack in this site.  
+
+# Apply common configuration to all hosts
+- hosts: all
+  
+  roles:
+  - common
+
+# Configure and deploy database servers.
+- hosts: tag_ansible_group_dbservers
+
+  roles:
+  - db
+
+  tags:
+  - db
+
+# Configure and deploy the web servers. Note that we include two roles here,
+# the 'base-apache' role which simply sets up Apache, and 'web' which includes
+# our example web application.
+- hosts: tag_ansible_group_webservers
+
+  roles:
+  - base-apache
+  - web
+  
+  tags:
+  - web
+
+# Configure and deploy the load balancer(s).
+- hosts: tag_ansible_group_lbservers
+
+  roles:
+  - haproxy
+  
+  tags:
+  - lb
+
+# Configure and deploy the Nagios monitoring node(s).
+- hosts: tag_ansible_group_monitoring
+  
+  roles:
+  - base-apache
+  - nagios
+  
+  tags:
+  - monitoring

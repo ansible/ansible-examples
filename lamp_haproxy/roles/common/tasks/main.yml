@@ -36,8 +36,10 @@
   service: name=ntpd state=started enabled=yes
   tags: ntp
 
+# work around RHEL 7, for now
 - name: insert iptables template
   template: src=iptables.j2 dest=/etc/sysconfig/iptables
+  when: ansible_distribution_major_version != '7'
   notify: restart iptables
 
 - name: test to see if selinux is running

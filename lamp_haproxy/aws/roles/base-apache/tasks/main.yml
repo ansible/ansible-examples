@@ -1,0 +1,10 @@
+---
+# This role installs httpd
+
+- name: Install http
+  yum: name={{ item }} state=present
+  with_items:
+   - httpd
+
+- name: http service state
+  service: name=httpd state=started enabled=yes

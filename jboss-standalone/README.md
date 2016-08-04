@@ -6,7 +6,7 @@
 These playbooks deploy a very basic implementation of JBoss Application Server,
 version 7. To use them, first edit the "hosts" inventory file to contain the
 hostnames of the machines on which you want JBoss deployed, and edit the 
-group_vars/jboss-servers file to set any JBoss configuration parameters you need.
+group_vars/all file to set any JBoss configuration parameters you need.
 
 Then run the playbook, like this:
 
