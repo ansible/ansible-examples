@@ -1,7 +1,7 @@
 ## Standalone JBoss Deployment
 
 - Requires Ansible 1.2 or newer
-- Expects CentOS/RHEL 6.x hosts
+- Expects CentOS/RHEL 6 or 7 hosts
 
 These playbooks deploy a very basic implementation of JBoss Application Server,
 version 7. To use them, first edit the "hosts" inventory file to contain the
@@ -17,6 +17,14 @@ Application Server running on the ports you chose, on the target machines.
 
 This is a very simple playbook and could serve as a starting point for more
 complex JBoss-based projects. 
+
+## Application deployment
+
+The playbook deploy-application.yml may be used to deploy the HelloWorld and Ticket Monster demo applications to JBoss hosts that have been deployed using site.yml, as above.
+
+Run the playbook using:
+
+	ansible-playbook -i hosts deploy-application.yml
 
 ### Ideas for Improvement
 
