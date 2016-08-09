@@ -26,12 +26,17 @@ Run the playbook using:
 
 	ansible-playbook -i hosts deploy-application.yml
 
+## Provisioning for Amazon Web Services
+
+A simple playbook is provided, as an example, to provision hosts in preparation for running this JBoss deployment example.
+
+	ansible-playbook -i hosts demo-aws-launch.yml
+
 ### Ideas for Improvement
 
 Here are some ideas for ways that these playbooks could be extended:
 
 - Write a playbook or an Ansible module to configure JBoss users.
-- Write a playbook to deploy an actual application into the server.
 - Extend this configuration to multiple application servers fronted by a load
 balancer or other web server frontend.
 
