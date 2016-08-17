@@ -26,9 +26,9 @@ Run the playbook using:
 
 	ansible-playbook -i hosts deploy-application.yml
 	
-The HelloWorld application will be available at http://<jboss server>:<http_port>/helloworld
+The HelloWorld application will be available at `http://<jboss server>:<http_port>/helloworld`
 
-The Ticket Monster application will be available at http://<jboss server>:<http_port>/ticket-monster
+The Ticket Monster application will be available at `http://<jboss server>:<http_port>/ticket-monster`
 
 ## Provisioning for Amazon Web Services
 
