@@ -25,6 +25,10 @@ The playbook deploy-application.yml may be used to deploy the HelloWorld and Tic
 Run the playbook using:
 
 	ansible-playbook -i hosts deploy-application.yml
+	
+The HelloWorld application will be available at http://<jboss server>:<http_port>/helloworld
+
+The Ticket Monster application will be available at http://<jboss server>:<http_port>/ticket-monster
 
 ## Provisioning for Amazon Web Services
 
