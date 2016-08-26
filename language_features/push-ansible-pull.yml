@@ -1,0 +1,45 @@
+# push method of ansible-pull
+#
+# if you don't want to execute ansible-pull periodically with cron
+# you can trigger ansible-pull from a master server
+# it has advantage to let you see which node has changed|failed|succeded
+# and to let you trigger it instantly on different branch of your git repo
+#
+# DO NOT RUN THIS AGAINST YOUR HOSTS WITHOUT SETTING
+# extra-vars : 'target' 'sleep' 'branch' as
+# exemple : screen sh -c 'ansible-playbook push-pull.yml --extra-vars "target=all sleep=100 branch=dev" | tee -a push-ansible-pull.log'
+# AND CHANGING THE repo_url AND repo_dir
+# TO SOMETHING YOU HAVE PERSONNALY VERIFIED
+
+---
+
+- hosts: '{{ target }}'
+
+  vars:
+      
+      # File that ansible will use for logs
+      logfile: '/var/log/ansible_pull.log'
+
+      # Repository to check out -- YOU MUST CHANGE THIS
+      # repo must contain a local.yml file at top level
+      #repo_url: git://github.com/sfromm/ansible-playbooks.git
+      repo_url: SUPPLY_YOUR_OWN_GIT_URL_HERE
+      
+      # Repository dir on the node
+      #repo_dir: /root/playbooks.git
+      repo_dir: SUPPLY_YOUR_OWN_REPO_DIR
+
+  tasks:
+  
+  - name: Test if ansible-pull already running
+    shell: pgrep ansible-pull
+    register: ansible_running
+    failed_when: "'' not in ansible_running.stdout"
+    changed_when: False
+
+  - name: Trigger ansible-pull
+    shell: /usr/local/bin/ansible-pull -s '{{ sleep }}' -d '{{repo_dir}}' -C '{{ branch }}' -i '{{repo_dir}}'/hosts -U '{{repo_url}}' | tee -a '{{logfile}}'
+    when: ansible_running.stdout == ""
+    register: ansible_pull_result
+    changed_when: "'changed=0' not in ansible_pull_result.stdout"
+    failed_when: "'failed=1' in ansible_pull_result.stdout"
