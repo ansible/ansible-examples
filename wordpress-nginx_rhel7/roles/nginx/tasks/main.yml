@@ -8,6 +8,7 @@
 
 - name: insert firewalld rule for nginx
   firewalld: port={{ nginx_port }}/tcp permanent=true state=enabled immediate=yes
+  ignore_errors: yes
 
 - name: http service state
   service: name=nginx state=started enabled=yes
