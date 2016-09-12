@@ -128,4 +128,4 @@ case $1 in
                 echo -e $TOMCAT_USAGE
         ;;
 esac    
-exit 0
+exit 0   
