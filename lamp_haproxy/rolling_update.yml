@@ -12,8 +12,6 @@
   tasks: []
 
 - hosts: webservers
-
-- hosts: webservers
   serial: 1
 
   # These are the tasks to run before applying updates:
