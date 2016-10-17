@@ -3,8 +3,7 @@
 - hosts: localhost
   connection: local
   gather_facts: False
-  ec2_access_key: 'AKIAJIQKDFQQFQ3SRWAQ'
-  ec2_secret_key: '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'
+ 
 
   tasks:
 
