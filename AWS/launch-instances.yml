@@ -11,9 +11,11 @@
       ec2:
          key_name: lrich-key
          region: us-east-1
-         group: sg-ec606896
+         group_id: sg-ec606896
          instance_type: t2.micro
          image: ami-2051294a
+         vpc_subnet_id: subnet-f0ab60a8
+         assign_public_ip: yes
          wait: true
          instance_tags:
             Name: Demo
