@@ -11,7 +11,7 @@
          key_name: lrich-key
          group: ec2-test
          instance_type: t2.micro
-         image: "{{ 2051294a }}"
+         image: "{{ ami-2051294a }}"
          wait: true
          exact_count: 2
          count_tag:
