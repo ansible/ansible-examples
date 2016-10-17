@@ -5,3 +5,9 @@
   roles:
     - git
     - geerlingguy.jenkins
+    
+  tasks:
+    - name: install git only if it is not already installed
+      yum:
+        name=git
+        state=present
