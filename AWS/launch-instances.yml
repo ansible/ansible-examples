@@ -10,13 +10,10 @@
       ec2:
          key_name: lrich-key
          region: us-east-1
-         group: ec2-test
+         group: sg-ec606896
          instance_type: t2.micro
          image: ami-2051294a
          wait: true
-         exact_count: 2
-         count_tag:
-            Name: Demo
          instance_tags:
             Name: Demo
       register: ec2
