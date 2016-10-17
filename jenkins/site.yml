@@ -1,1 +1,7 @@
 
+- name: Configure Jenkins server
+  hosts: all
+  sudo: True
+  roles:
+    - git
+    - geerlingguy.jenkins
