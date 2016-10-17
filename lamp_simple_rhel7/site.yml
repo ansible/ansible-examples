@@ -9,14 +9,14 @@
     - common
 
 - name: configure and deploy the webservers and application code
-  hosts: webservers
+  hosts: tag_Name_Webserver
   remote_user: ec2-user
 
   roles:
     - web
 
 - name: deploy MySQL and configure the databases
-  hosts: dbservers
+  hosts: tag_Name_Dbserver
   remote_user: ec2-user
 
   roles:
