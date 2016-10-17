@@ -3,6 +3,8 @@
 - hosts: localhost
   connection: local
   gather_facts: False
+  aws_access_key: 'AKIAJIQKDFQQFQ3SRWAQ'
+  aws_secret_key: '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'
 
   tasks:
 
