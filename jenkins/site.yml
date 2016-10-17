@@ -1,7 +1,6 @@
 
 - name: Configure Jenkins server
   hosts: all
-  sudo: True
   remote_user: ec2-user
   roles:
     - git
