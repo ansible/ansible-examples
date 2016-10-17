@@ -20,7 +20,7 @@
             Name: Demo
       register: ec2
 
-   - name: Add all instances public IPs to host group
-     add_host: hostname={{ item.public_ip }} groups=ec2hosts
-     with_items: ec2.instances
+    - name: Add all instances public IPs to host group
+      add_host: hostname={{ item.public_ip }} groups=ec2hosts
+      with_items: ec2.instances
      
