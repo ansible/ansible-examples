@@ -12,7 +12,7 @@
          region: us-east-1
          group: ec2-test
          instance_type: t2.micro
-         image: "{{ ami-2051294a }}"
+         image: ami-2051294a
          wait: true
          exact_count: 2
          count_tag:
