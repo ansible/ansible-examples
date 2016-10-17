@@ -1,0 +1,25 @@
+# demo_setup.yml
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+
+    - name: Provision a set of instances
+      ec2:
+         key_name: lrich-key
+         group: ec2-test
+         instance_type: t2.micro
+         image: "{{ ami-2051294a }}"
+         wait: true
+         exact_count: 2
+         count_tag:
+            Name: Demo
+         instance_tags:
+            Name: Demo
+      register: ec2
+
+   - name: Add all instance public IPs to host group
+     add_host: hostname={{ item.public_ip }} groups=ec2hosts
+     with_items: ec2.instances
