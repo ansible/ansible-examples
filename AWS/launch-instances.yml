@@ -16,12 +16,32 @@
          image: ami-2051294a
          vpc_subnet_id: subnet-f0ab60a8
          assign_public_ip: yes
+         count: 1
          wait: true
          instance_tags:
-            Name: Demo
+            Name: Webserver
       register: ec2
 
     - name: Add all instances public IPs to host group
-      add_host: hostname={{ item.public_ip }} groups=ec2hosts
+      add_host: hostname={{ item.public_ip }} groupname=webservers
+      with_items: ec2.instances
+      
+    - name: Provision a set of instances
+      ec2:
+         key_name: lrich-key
+         region: us-east-1
+         group_id: sg-ec606896
+         instance_type: t2.micro
+         image: ami-2051294a
+         vpc_subnet_id: subnet-f0ab60a8
+         assign_public_ip: yes
+         count: 1
+         wait: true
+         instance_tags:
+            Name: Dbserver
+      register: ec2
+
+    - name: Add all instances public IPs to host group
+      add_host: hostname={{ item.public_ip }} groupname=dbservers
       with_items: ec2.instances
      
