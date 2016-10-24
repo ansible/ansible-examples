@@ -1,6 +1,12 @@
 ---
 # This playbook deploys the whole application stack in this site.
 
+- name: Add Dbserver to dbservers group
+  add_host: hostname={{ item }} groups=dbservers
+  with_items: groups['all']
+  when:
+    - tag_Name_Dbserver: true
+  
 - name: apply common configuration to all nodes
   hosts: all
   remote_user: ec2-user
