@@ -1,7 +1,12 @@
 ---
 # These tasks are responsible for copying the latest dev/production code from
 # the version control system.
-- add_host: {{ tag_Name_Dbserver }} groups=dbservers
+-name: Find DBserver
+  hosts: {{ tag_Name_Dbserver }}
+  
+  tasks:
+  -name: Add DBservers to dbservers group
+    local_action: add_host {{ ec2_public_dns_name }} groups=dbservers
 
 - name: Copy the code from repository
   git: repo={{ repository }} dest=/var/www/html/
