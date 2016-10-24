@@ -19,6 +19,7 @@ echo  "List of Databases: </BR>";
                 echo $row['Database'] . "\n";
         }
         #}
+        $link = mysqli_connect('{{ hostvars[host].ansible_default_ipv4.address }}', '{{ hostvars[host].dbuser }}', '{{ hostvars[host].upassword }}') or die(mysqli_connect_error($link));
 ?>
 </body>
 </html>
