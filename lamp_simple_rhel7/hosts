@@ -1,7 +1,7 @@
 [webservers]
-webserver.local
+#webserver.local
 
 [dbservers]
-dbserver.local
+#dbserver.local
 
 
