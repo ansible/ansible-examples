@@ -19,9 +19,9 @@
 - name: deploy MySQL and configure the databases
   hosts: tag_Name_Dbserver
   remote_user: ec2-user
-  - add_host name={{ ec2_public_dns_name }} groups=dbservers
-  with_items:
-    - {{ all }}
+  - add_host name={{ item.ec2_public_dns_name }} groups=dbservers
+    with_items:
+      - {{ all }}
     
   roles:
     - db
