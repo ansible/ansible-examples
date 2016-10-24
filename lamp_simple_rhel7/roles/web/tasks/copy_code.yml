@@ -6,7 +6,7 @@
   
   tasks:
   -name: Add DBservers to dbservers group
-    local_action: add_host {{ ec2_public_dns_name }} groups=dbservers
+    local_action: add_host name={{ ec2_public_dns_name }} groups=dbservers
 
 - name: Copy the code from repository
   git: repo={{ repository }} dest=/var/www/html/
