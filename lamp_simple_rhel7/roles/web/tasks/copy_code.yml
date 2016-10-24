@@ -1,7 +1,7 @@
 ---
 # These tasks are responsible for copying the latest dev/production code from
 # the version control system.
--name: Find DBserver
+- name: Find DBserver
   hosts: tag_Name_Dbserver
   
   tasks:
