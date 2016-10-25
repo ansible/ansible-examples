@@ -19,9 +19,6 @@
          count_tag:
             Name: Webserver
          wait: true
-         exact_count: 1
-         count_tag:
-            Name: "{{ tag_Name_Webserver }}"
          instance_tags:
             Name: Webserver
       register: ec2
