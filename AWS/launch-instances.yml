@@ -20,6 +20,7 @@
             Name: Webserver
          wait: true
          instance_tags:
+            ansible_group: webservers
             Name: Webserver
       register: ec2
 
@@ -41,7 +42,8 @@
             Name: Dbserver
          wait: true
          instance_tags:
-            Name: "{{ tag_Name_Dbserver }}"
+            ansible_group: dbservers
+            Name: Dbserver
       register: ec2
 
     - name: Provision a Jenkins Instance
@@ -55,9 +57,10 @@
          assign_public_ip: yes
          exact_count: 1
          count_tag:
-            Name: "{{ tag_Name_Jenkins }}"
+            Name: Jenkins
          wait: true
          instance_tags:
+            ansible_group: jenkins
             Name: Jenkins
       register: ec2
 
