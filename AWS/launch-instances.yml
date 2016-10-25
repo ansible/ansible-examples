@@ -15,8 +15,13 @@
          image: ami-2051294a
          vpc_subnet_id: subnet-f0ab60a8
          assign_public_ip: yes
-         count: 1
+         exact_count: 1
+         count_tag:
+            Name: Webserver
          wait: true
+         exact_count: 1
+         count_tag:
+            Name: "{{ tag_Name_Webserver }}"
          instance_tags:
             Name: Webserver
       register: ec2
@@ -34,10 +39,12 @@
          image: ami-2051294a
          vpc_subnet_id: subnet-f0ab60a8
          assign_public_ip: yes
-         count: 1
+         exact_count: 1
+         count_tag:
+            Name: Dbserver
          wait: true
          instance_tags:
-            Name: Dbserver
+            Name: "{{ tag_Name_Dbserver }}"
       register: ec2
 
     - name: Provision a Jenkins Instance
@@ -49,7 +56,9 @@
          image: ami-2051294a
          vpc_subnet_id: subnet-f0ab60a8
          assign_public_ip: yes
-         count: 1
+         exact_count: 1
+         count_tag:
+            Name: "{{ tag_Name_Jenkins }}"
          wait: true
          instance_tags:
             Name: Jenkins
