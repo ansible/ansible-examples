@@ -26,7 +26,7 @@
 
     - name: Add all instances public IPs to host group
       add_host: hostname="{{ item.public_ip }}" groupname=webservers
-      with_items: ec2.instances
+      with_items: "{{ ec2.instances }}"
       
     - name: Provision a DBServer Instance
       ec2:
@@ -47,7 +47,7 @@
       register: ec2
     - name: Add all instances public IPs to host group
       add_host: hostname="{{ item.public_ip }}" groupname=dbservers
-      with_items: ec2.instances
+      with_items: "{{ ec2.instances }}"
       #with_items: "{{ tag_Name_Dbserver }}"
 
     - name: Provision a Jenkins Instance
