@@ -2,6 +2,9 @@
 - name: Install libselinux-python
   yum: name=libselinux-python state=present
 
+- name: Reload ansible_facts
+  setup:
+
 - name: Copy the EPEL repository definition
   copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
 
