@@ -28,7 +28,7 @@
   template: src=wp-config.php dest=/srv/wordpress/
 
 - name: Change ownership of WordPress installation
-  file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yess setype=httpd_sys_content_t
+  file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes setype=httpd_sys_content_t
 
 - name: Start php-fpm Service
   service: name=php-fpm state=started enabled=yes
