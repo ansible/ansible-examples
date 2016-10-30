@@ -12,7 +12,7 @@
  Print  "</BR>";
 echo  "List of Databases: </BR>";
         {% for host in groups['tag_ansible_group_dbservers'] %}
-                $link = mysqli_connect('{{ hostvars[host].ansible_default_ipv4.address }}', 'foouser', '{{ hostvars[host].upassword }}') or die(mysqli_connect_error($link));
+                $link = mysqli_connect('{{ hostvars[host].ansible_default_ipv4.address }}', 'foouser', 'abc') or die(mysqli_connect_error($link));
         {% endfor %}
         $res = mysqli_query($link, "SHOW DATABASES;");
         while ($row = mysqli_fetch_assoc($res)) {
