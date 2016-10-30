@@ -22,6 +22,8 @@
          instance_tags:
             ansible_group: webservers
             Name: Webserver
+         tag:
+            - webserver
       register: ec2
 
     - name: Add all instances public IPs to host group
@@ -44,6 +46,8 @@
          instance_tags:
             ansible_group: dbservers
             Name: Dbserver
+         tags:
+            - dbserver
       register: ec2
     - name: Add all instances public IPs to host group
       add_host: hostname="{{ item.public_ip }}" groupname=dbservers
@@ -66,6 +70,8 @@
          instance_tags:
             ansible_group: jenkins
             Name: Jenkins
+         tags:
+            - jenkins
       register: ec2
 
    
