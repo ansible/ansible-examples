@@ -22,7 +22,7 @@
          instance_tags:
             ansible_group: webservers
             Name: Webserver
-         tag:
+         tags:
             - webserver
       register: ec2
 
