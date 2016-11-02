@@ -4,6 +4,8 @@
 - name: Install IIS
   hosts: all
   gather_facts: false
+  ansible_port: 5986
+  ansible_connection: winrm
   tasks:
     - name: Install IIS
       win_feature:
