@@ -13,7 +13,6 @@
         include_sub_features: yes
         include_management_tools: yes
         
-# This playbook uses the win_get_url module to download a simple HTML file for IIS
 - name: Download simple web site 
   hosts: all 
 
