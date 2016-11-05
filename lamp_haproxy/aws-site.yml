@@ -6,7 +6,7 @@
     - common
 
 - name: Configure and deploy database servers.
-  hosts: dbservers
+  hosts: tag_Group_dbservers
   roles:
     - db
   tags:
@@ -16,23 +16,22 @@
 # the 'base-apache' role which simply sets up Apache, and 'web' which includes
 # our example web application.
 - name: Configure and deploy the web servers.
-  hosts: webservers
+  hosts: tag_Group_webservers
   roles:
     - base-apache
     - web
-
   tags:
     - web
 
 - name: Configure and deploy the load balancer(s).
-  hosts: lbservers
+  hosts: tag_Group_lbservers
   roles:
     - haproxy
   tags:
     - lb
 
 - name: Configure and deploy the Nagios monitoring node(s).
-  hosts: monitoring
+  hosts: tag_Group_monitoring
   roles:
     - base-apache
     - nagios

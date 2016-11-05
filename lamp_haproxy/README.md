@@ -1,8 +1,8 @@
 LAMP Stack + HAProxy: Example Playbooks
 -----------------------------------------------------------------------------
 
-- Requires Ansible 1.2
-- Expects CentOS/RHEL 6 hosts
+- Requires Ansible 2.0
+- Expects at least CentOS/RHEL 6 hosts
 
 This example is an extension of the simple LAMP deployment. Here we'll install
 and configure a web server with an HAProxy load balancer in front, and deploy
@@ -23,13 +23,13 @@ inventory file, grouped by their purpose:
 		[webservers]
 		webserver1
 		webserver2
-		
+
 		[dbservers]
 		dbserver
-		
+
 		[lbservers]
 		lbserver
-		
+
 		[monitoring]
 		nagios
 
