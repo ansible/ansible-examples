@@ -1,0 +1,7 @@
+---
+- name: launch ansible heat example
+  heat:
+    stack_name: "ansible-heat"
+    action: create
+    disable_rollback: false
+    template: roles/create/files/single-instance.yaml

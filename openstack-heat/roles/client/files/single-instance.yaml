@@ -1,0 +1,36 @@
+#
+# This is a hello world HOT template just defining a single compute
+# server.
+#
+heat_template_version: 2013-05-23
+
+description: >
+  Defines a single server.
+
+parameters:
+  key_name:
+    type: string
+    description: Name of an existing key pair to use for the server
+    default: ''
+  flavor:
+    type: string
+    description: Flavor for the server to be created
+    default: m1.large
+  image:
+    type: string
+    description: Image ID or image name to use for the server
+    default: a13349a4-fba5-4791-8db4-de82672311a6
+
+resources:
+  server:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      networks: [{'network':'48afdbad-ba45-48d7-9b01-29ca6203cc01'}]
+
+outputs:
+  server_networks:
+    description: The networks of the deployed server
+    value: { get_attr: [server, networks] }

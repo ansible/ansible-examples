@@ -1,0 +1,10 @@
+---
+# ANSIBLE_LIBRARY=/usr/share/ansible/ ansible-playbook --syntax-check -i /etc/ansible/hosts Codes/ansible-examples/heat/site.yml
+# This playbook deploys a simple standalone openstack server.
+
+- hosts: localhost
+  user: root
+
+  roles:
+    - delete
+    - create
