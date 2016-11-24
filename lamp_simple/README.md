@@ -22,6 +22,6 @@ command:
 
         ansible-playbook -i hosts site.yml
 
-Once done, you can check the results by browsing to http://localhost/index.php.
+Once done, you can check the results by browsing to http://localhost/index.html.
 You should see a simple test page and a list of databases retrieved from the
 database server.
