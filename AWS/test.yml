@@ -1,0 +1,31 @@
+# demo_setup.yml
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+ 
+  tasks:
+
+    - name: Provision a Webserver Instance
+      ec2:
+         key_name: lrich-key
+         region: us-east-1
+         group_id: sg-ec606896
+         instance_type: t2.micro
+         image: ami-2051294a
+         vpc_subnet_id: subnet-f0ab60a8
+         assign_public_ip: yes
+         exact_count: 1
+         count_tag:
+            Name: Webserver
+         wait: true
+         user_data: |
+           #!/bin/bash
+           echo "hello world"
+           
+         instance_tags:
+            ansible_group: webservers
+            Name: Webserver
+      tags:
+         - webserver
+      register: ec2
