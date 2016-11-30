@@ -20,6 +20,9 @@
      instance_tags="{'ansible_group':'windows_webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
      count="{{ ec2_instance_count }}"
      wait=true
+     user_data: '<script>
+net user Administrator "C0smoc0met"
+</script>'
     register: ec2
 
     tags:
@@ -37,6 +40,9 @@
      instance_tags="{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
      count="1"
      wait=true
+     user_data: '<script>
+net user Administrator "C0smoc0met"
+</script>'
     register: ec2
 
     tags:
