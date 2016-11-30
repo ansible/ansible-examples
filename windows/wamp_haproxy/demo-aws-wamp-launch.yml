@@ -9,7 +9,7 @@
  
   tasks:
   - name: Launch webserver instances
-    ec2: 
+    ec2: >
      access_key="{{ ec2_access_key }}"
      secret_key="{{ ec2_secret_key }}"
      keypair="{{ ec2_keypair }}"
@@ -20,14 +20,14 @@
      instance_tags="{'ansible_group':'windows_webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
      count="{{ ec2_instance_count }}"
      wait=true
-     user_data: "{{ lookup('template', 'userdata.txt.j2') }}"
+    user_data: "{{ lookup('template', 'userdata.txt.j2') }}"
     register: ec2
 
     tags:
       - web
 
   - name: Launch database instance
-    ec2: 
+    ec2: >
      access_key="{{ ec2_access_key }}"
      secret_key="{{ ec2_secret_key }}"
      keypair="{{ ec2_keypair }}"
