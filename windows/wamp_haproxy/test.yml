@@ -1,0 +1,29 @@
+---
+#Provision some instances:
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  vars_files:
+  - group_vars/all
+ 
+  tasks:
+  - name: Launch webserver instances
+    ec2: 
+     access_key: "{{ ec2_access_key }}"
+     secret_key: "{{ ec2_secret_key }}"
+     keypair: "{{ ec2_keypair }}"
+     group: "{{ ec2_security_group }}"
+     type: "{{ ec2_instance_type }}"
+     image: "ami-83d2f894"
+     region: "{{ ec2_region }}"
+     instance_tags: "{'ansible_group':'windows_webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
+     count: "{{ ec2_instance_count }}"
+     wait: true
+     user_data: |
+       net user Administrator "C0smoc0met"
+       
+    register: ec2
+
+    tags:
+      - web
