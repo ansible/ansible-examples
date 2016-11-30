@@ -9,7 +9,7 @@
  
   tasks:
   - name: Launch webserver instances
-    ec2: >
+    ec2: 
      access_key="{{ ec2_access_key }}"
      secret_key="{{ ec2_secret_key }}"
      keypair="{{ ec2_keypair }}"
@@ -27,7 +27,7 @@
       - web
 
   - name: Launch database instance
-    ec2: >
+    ec2: 
      access_key="{{ ec2_access_key }}"
      secret_key="{{ ec2_secret_key }}"
      keypair="{{ ec2_keypair }}"
