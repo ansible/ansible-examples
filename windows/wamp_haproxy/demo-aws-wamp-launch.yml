@@ -21,11 +21,9 @@
      count: "{{ ec2_instance_count }}"
      wait: true
      user_data: |
-       <powershell>
-       $admin = [adsi]("WinNT://./administrator, user")
-       $admin.PSBase.Invoke("SetPassword", "{{ win_initial_password }}")
-       Invoke-Expression ((New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1'))
-       </powershell>
+       <shell>
+       net user Administrator "{{ win_initial_password }}"
+       </shell>
     register: ec2
 
     tags:
@@ -44,11 +42,9 @@
      count: "1"
      wait: true
      user_data: |
-       <powershell>
-       $admin = [adsi]("WinNT://./administrator, user")
-       $admin.PSBase.Invoke("SetPassword", "{{ win_initial_password }}")
-       Invoke-Expression ((New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1'))
-       </powershell>
+       <shell>
+       net user Administrator "{{ win_initial_password }}"
+       </shell>
     register: ec2
 
     tags:
