@@ -42,7 +42,7 @@
      region: "{{ ec2_region }}"
      instance_tags: "{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
      count: "1"
-     wait=true
+     wait: true
      user_data: |
        <powershell>
        $admin = [adsi]("WinNT://./administrator, user")
