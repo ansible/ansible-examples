@@ -21,9 +21,9 @@
      count: "{{ ec2_instance_count }}"
      wait: true
      user_data: |
-       <shell>
+       <script>
        net user Administrator "{{ win_initial_password }}"
-       </shell>
+       </script>
     register: ec2
 
     tags:
@@ -42,9 +42,9 @@
      count: "1"
      wait: true
      user_data: |
-       <shell>
+       <script>
        net user Administrator "{{ win_initial_password }}"
-       </shell>
+       </script>
     register: ec2
 
     tags:
