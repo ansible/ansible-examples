@@ -22,7 +22,7 @@
      wait: true
      user_data: |
        <script>
-       net user Administrator "C0smoc0met"
+       net user Administrator "{{ win_initial_password }}"
        </script>
     register: ec2
 
