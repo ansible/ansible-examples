@@ -20,25 +20,31 @@
      instance_tags: "{'ansible_group':'windows_webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
      count: "{{ ec2_instance_count }}"
      wait: true
-     user_data: "{{ lookup('template', 'userdata.txt.j2') }}"
+     user_data: |
+       <script>
+       net user Administrator "{{ win_initial_password }}"
+       </script>
     register: ec2
 
     tags:
       - web
 
   - name: Launch database instance
-    ec2: >
-     access_key="{{ ec2_access_key }}"
-     secret_key="{{ ec2_secret_key }}"
-     keypair="{{ ec2_keypair }}"
-     group="{{ ec2_security_group }}"
-     type="{{ ec2_instance_type }}"
-     image="ami-48dcf65f"
-     region="{{ ec2_region }}"
-     instance_tags="{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
-     count="1"
+    ec2:
+     access_key: "{{ ec2_access_key }}"
+     secret_key: "{{ ec2_secret_key }}"
+     keypair: "{{ ec2_keypair }}"
+     group: "{{ ec2_security_group }}"
+     type: "{{ ec2_instance_type }}"
+     image: "ami-48dcf65f"
+     region: "{{ ec2_region }}"
+     instance_tags: "{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
+     count: "1"
      wait=true
-     user_data: "{{ lookup('template', 'userdata.txt.j2') }}"
+     user_data: |
+       <script>
+       net user Administrator "{{ win_initial_password }}"
+       </script>
     register: ec2
 
     tags:
