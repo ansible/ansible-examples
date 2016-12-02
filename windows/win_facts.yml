@@ -5,5 +5,3 @@
   tasks:
   - setup:
     register: ansible_facts
-  - debug: item
-    with_dict: ansible_facts
