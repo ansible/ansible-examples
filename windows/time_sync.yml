@@ -1,0 +1,8 @@
+---
+- name: Set service startup mode to auto and ensure it is started
+  hosts: all
+  gather_facts: false
+  win_service:
+    name: spooler
+    start_mode: auto
+    state: started
