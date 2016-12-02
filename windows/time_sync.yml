@@ -5,6 +5,6 @@
   tasks:
     - name: Set Time Service
       win_service:
-        name: w32tm
+        name: W32TM
         start_mode: auto
         state: started
