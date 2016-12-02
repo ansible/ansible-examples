@@ -5,6 +5,6 @@
   tasks:
     - name: Set Time Service
       win_service:
-        name: spooler
+        name: w32tm
         start_mode: auto
         state: started
