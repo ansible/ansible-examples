@@ -1,0 +1,7 @@
+Get-ChildItem "D:\Apache24\conf\" -Filter *.conf | Foreach-Object {
+
+  $_.BaseName
+
+  get-content $_.FullName | select-string -Pattern '.' | where {$_ -notmatch '^#.*' -and $_ -notmatch '^\s*#.*' } | select Line,LineNumber
+
+}
