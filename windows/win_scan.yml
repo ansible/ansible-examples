@@ -8,12 +8,6 @@
 
  
 
-Roles/scan/task
-
- 
-
----
-
 - name: Ensuring ansible directory Exists
 
   win_file: path=C:\ProgramData\Ansible state=directory
