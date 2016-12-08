@@ -1,7 +1,9 @@
-Get-ChildItem "D:\Apache24\conf\" -Filter *.conf | Foreach-Object {
+$object = @()
 
-  $_.BaseName
+Get-ChildItem C:\Windows\System32\ -Filter *.dll -Recurse -ErrorAction 'silentlycontinue' | Select-Object -ExpandProperty VersionInfo -ErrorAction 'silentlycontinue' | Foreach-Object {
 
-  get-content $_.FullName | select-string -Pattern '.' | where {$_ -notmatch '^#.*' -and $_ -notmatch '^\s*#.*' } | select Line,LineNumber
+  $object += [pscustomobject]@{$_.FileName = $_.ProductVersion}
 
 }
+
+echo $object
