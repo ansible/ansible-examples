@@ -1,4 +1,5 @@
 
+# Open ports 135 and 445 for system you're going to connect to 
 
 # .\remotely_enable_winrm.ps1 -computerName computer name
 
