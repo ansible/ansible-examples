@@ -1,0 +1,19 @@
+---
+  - name: change path to include commands from ~/local/bin
+    shell: echo 'export PATH=$HOME/local/bin:$PATH' >> {{ home_dir }}/.bashrc
+
+  - name: source .bashrc
+    command: source {{ home_dir }}/.bashrc executable=/bin/bash
+
+  - name: create new directories
+    shell: mkdir {{ home_dir }}/local && mkdir {{ home_dir }}/node-latest-install
+
+  - name: change directory ~/node-latest-install, download node.js and install npm
+    shell: chdir={{ home_dir }}/node-latest-install {{ item }}
+    with_items:
+        - curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+        - ./configure --prefix={{ home_dir }}/local
+        - sudo make install
+
+  - name: install npm
+    apt: pkg=npm state=present

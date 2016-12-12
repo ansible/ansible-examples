@@ -1,0 +1,9 @@
+---
+  - name: apt-get update
+    apt: update_cache=yes
+
+  - name: install build-essentials
+    apt: pkg=build-essential state=present
+
+  - name: install curl
+    apt: pkg=curl state=present 
