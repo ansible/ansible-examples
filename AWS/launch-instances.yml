@@ -17,11 +17,11 @@
          assign_public_ip: yes
          exact_count: 1
          count_tag:
-            Name: Webserver
+            Name: demo_Webserver
          wait: true
          instance_tags:
             ansible_group: webservers
-            Name: Webserver
+            Name: demo_Webserver
       tags:
          - webserver
       register: ec2
@@ -41,11 +41,11 @@
          assign_public_ip: yes
          exact_count: 1
          count_tag:
-            Name: Dbserver
+            Name: demo_Dbserver
          wait: true
          instance_tags:
             ansible_group: dbservers
-            Name: Dbserver
+            Name: demo_Dbserver
       tags:
          - dbserver
       register: ec2
@@ -65,11 +65,11 @@
          assign_public_ip: yes
          exact_count: 1
          count_tag:
-            Name: Jenkins
+            Name: demo_Jenkins
          wait: true
          instance_tags:
             ansible_group: jenkins
-            Name: Jenkins
+            Name: demo_Jenkins
       tags:
          - jenkins
       register: ec2
