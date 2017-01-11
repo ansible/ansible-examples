@@ -6,8 +6,8 @@
   # sudo: yes
 
   roles:
-    - common
-    - mariadb
-    - nginx
-    - php-fpm
-    - wordpress
+    - { role: git, strategy: linear }
+    - { role: mariadb }
+    - { role: nginx }
+    - { role: php-fpm }
+    - { role: wordpress }

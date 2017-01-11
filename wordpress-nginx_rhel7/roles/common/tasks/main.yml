@@ -5,6 +5,9 @@
 - name: Copy the EPEL repository definition
   copy: src=epel.repo dest=/etc/yum.repos.d/
 
+- name: Copy the MariaDB repository definition
+  copy: src=mariaDB.repo dest=/etc/yum.repos.d/
+
 - name: Copy the REMI repository definition
   copy: src=remi.repo dest=/etc/yum.repos.d/
 
@@ -16,7 +19,7 @@
 
 - name: Create the GPG key for REMI
   copy: src=RPM-GPG-KEY-remi dest=/etc/pki/rpm-gpg
-  
+
 - name: Install Firewalld
   yum: name=firewalld state=present
 
