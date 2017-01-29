@@ -6,6 +6,7 @@
 
   vars_files:
   - group_vars/all
+  - group_vars/vault.yml
  
   tasks:
   - name: Launch webserver instances
