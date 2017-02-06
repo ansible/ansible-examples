@@ -4,7 +4,9 @@
 # Configure and deploy database servers.
 - hosts: tag_ansible_group_windows_dbservers
   connection: winrm
-
+  
+  vars_files:
+    - group_vars/vault.yml
   vars:
     ansible_ssh_port : 5986
 
