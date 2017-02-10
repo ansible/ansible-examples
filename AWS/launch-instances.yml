@@ -8,8 +8,8 @@
 
     - name: Provision a Webserver Instance
       ec2:
-         access_key: "{{ ec2_access_key }}"
-         secret_key: "{{ ec2_secret_key }}"
+         #access_key: "{{ ec2_access_key }}"
+         #secret_key: "{{ ec2_secret_key }}"
          keypair: "{{ ec2_keypair }}"
          group: "{{ ec2_security_group }}"
          type: "{{ ec2_instance_type }}"
@@ -34,8 +34,8 @@
       
     - name: Provision a DBServer Instance
       ec2:
-         access_key: "{{ ec2_access_key }}"
-         secret_key: "{{ ec2_secret_key }}"
+         #access_key: "{{ ec2_access_key }}"
+         #secret_key: "{{ ec2_secret_key }}"
          keypair: "{{ ec2_keypair }}"
          group: "{{ ec2_security_group }}"
          type: "{{ ec2_instance_type }}"
@@ -60,8 +60,8 @@
 
     - name: Provision a Jenkins Instance
       ec2:
-         access_key: "{{ ec2_access_key }}"
-         secret_key: "{{ ec2_secret_key }}"
+         #access_key: "{{ ec2_access_key }}"
+         #secret_key: "{{ ec2_secret_key }}"
          keypair: "{{ ec2_keypair }}"
          group: "{{ ec2_security_group }}"
          type: "{{ ec2_instance_type }}"
