@@ -15,7 +15,7 @@
          instance_type: "{{ ec2_instance_type }}"
          image: "{{ ec2_image }}"
          region: "{{ ec2_region }}"
-         vpc_subnet_id: subnet-e70d9fca
+         #vpc_subnet_id: subnet-e70d9fca
          #count: "{{ ec2_instance_count }}"
          wait: true
          assign_public_ip: yes
