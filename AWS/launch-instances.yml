@@ -13,7 +13,7 @@
          group_id: sg-705c730d
          instance_type: t2.micro
          image: ami-2051294a
-         vpc_subnet_id: subnet-4b26b210
+         #vpc_subnet_id: subnet-4b26b210
          assign_public_ip: yes
          exact_count: 1
          count_tag:
@@ -61,7 +61,7 @@
          group_id: sg-705c730d
          instance_type: t2.micro
          image: ami-2051294a
-         vpc_subnet_id: subnet-4b26b210
+         #vpc_subnet_id: subnet-4b26b210
          assign_public_ip: yes
          exact_count: 1
          count_tag:
