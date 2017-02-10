@@ -17,11 +17,10 @@
          region="{{ ec2_region }}"
          count="{{ ec2_instance_count }}"
          wait=true
-         assign_public_ip: yes
-         exact_count: 1
+         assign_public_ip-=yes
+         exact_count=1
          count_tag:
             Name: demo_Webserver
-         wait: true
          instance_tags:
             ansible_group: webservers
             Name: demo_Webserver
@@ -44,11 +43,10 @@
          region="{{ ec2_region }}"
          count="{{ ec2_instance_count }}"
          wait=true
-         assign_public_ip: yes
-         exact_count: 1
+         assign_public_ip=yes
+         exact_count=1
          count_tag:
             Name: demo_Dbserver
-         wait: true
          instance_tags:
             ansible_group: dbservers
             Name: demo_Dbserver
@@ -71,11 +69,10 @@
          region="{{ ec2_region }}"
          count="{{ ec2_instance_count }}"
          wait=true
-         assign_public_ip: yes
-         exact_count: 1
+         assign_public_ip=yes
+         exact_count=1
          count_tag:
             Name: demo_Jenkins
-         wait: true
          instance_tags:
             ansible_group: jenkins
             Name: demo_Jenkins
