@@ -17,7 +17,7 @@
          region: "{{ ec2_region }}"
          #count: "{{ ec2_instance_count }}"
          wait: true
-         assign_public_ip: yes
+         #assign_public_ip: yes
          exact_count: 1
          count_tag:
             Name: demo_Webserver
@@ -43,7 +43,7 @@
          region: "{{ ec2_region }}"
          #count: "{{ ec2_instance_count }}"
          wait: true
-         assign_public_ip: yes
+         #assign_public_ip: yes
          exact_count: 1
          count_tag:
             Name: demo_Dbserver
@@ -69,7 +69,7 @@
          region: "{{ ec2_region }}"
          #count: "{{ ec2_instance_count }}"
          wait: true
-         assign_public_ip: yes
+         #assign_public_ip: yes
          exact_count: 1
          count_tag:
             Name: demo_Jenkins
