@@ -1,0 +1,9 @@
+hostname {{ inventory_hostname }}
+
+interface mgmt0
+  ip address {{ mgmt_ip }}
+
+ntp server {{ ntp_server }}
+snmp-server {{ snmp_server }}
+
+username cisco password cisco
