@@ -7,6 +7,6 @@ ec2_image: ami-bc8131d4
 ec2_instance_type: m1.small
 ec2_keypair: lrich-key
 ec2_security_group: default
-ec2_instance_count: 3
+ec2_instance_count: 1
 
 tower_user_name: admin
