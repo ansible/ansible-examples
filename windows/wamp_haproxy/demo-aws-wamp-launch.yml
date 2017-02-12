@@ -41,7 +41,7 @@
      type: "{{ ec2_instance_type }}"
      image: "ami-48dcf65f"
      region: "{{ ec2_region }}"
-     instance_tags: "{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_Windows_DBServer'}"
+     instance_tags: "{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'Demo_Windows_DBServer'}"
      count: "1"
      wait: true
      user_data: |
