@@ -2,6 +2,7 @@
 - name: test windows registry module
   hosts: all
   connection: winrm
+  gather_facts: false
   vars:
     ansible_ssh_port: 5986
     ansible_winrm_server_cert_validation: ignore
