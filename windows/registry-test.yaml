@@ -15,7 +15,7 @@
     
     - name: change registry
       win_regedit:
-        path: HKCU:\Software\Ansible
+        key: HKCU:\Software\Ansible
        # name: hello
        # data: 1337
        # type: dword
