@@ -23,5 +23,5 @@
        
     - win_regedit:
          key: HKLM:\\Software\\Microsoft\\inetstp
-         entry: 'PathWWWRoot-test'
+         name: 'PathWWWRoot-test'
          data: 'E:\\Inetpub\\wwwroot'
