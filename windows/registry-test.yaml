@@ -23,7 +23,7 @@
        
     - win_regedit:
          key: HKLM:\\Software\\Microsoft\\inetstp
-         name: 'PathWWWRoot-test'
-         data: 'E:\\Inetpub\\wwwroot'
+         name: PathWWWRoot-test
+         data: E:\\Inetpub\\wwwroot
          type: dword
          state: present
