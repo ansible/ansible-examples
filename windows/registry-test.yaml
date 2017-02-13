@@ -3,7 +3,6 @@
   hosts: all
   connection: winrm
   gather_facts: false
-
   
   tasks:
     - name: change registry
@@ -12,3 +11,4 @@
         name: hello
         data: 1337
         type: dword
+        state: present
