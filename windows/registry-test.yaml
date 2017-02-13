@@ -1,6 +1,9 @@
 ---
 - name: test windows registry module
   hosts: all
+  connection: winrm
+  ansible_ssh_port : 5986
+  
   tasks:
     - name: change registry
       win_regedit:
