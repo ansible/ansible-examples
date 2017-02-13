@@ -6,8 +6,7 @@
   
   tasks:
   
-    - name: Read Registry
-      win_reg_stat:
+    - win_reg_stat:
         key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
       register: current_version
       
