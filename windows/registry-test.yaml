@@ -6,12 +6,12 @@
   
   tasks:
   
-    - win_reg_stat:
-        key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
-      register: current_version
+    #- win_reg_stat:
+    #    key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
+    #  register: current_version
       
-    - debug: 
-        msg: "{{ current_version }}"
+    #- debug: 
+    #    msg: "{{ current_version }}"
     
     - name: change registry
       win_regedit:
