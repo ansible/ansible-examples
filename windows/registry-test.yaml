@@ -16,12 +16,14 @@
     - name: change registry
       win_regedit:
         key: HKLM:\Software\Ansible
-       # name: hello
-       # data: 1337
-       # type: dword
-       # state: present
+        name: hello
+        data: 1337
+        type: dword
+        state: present
        
     - win_regedit:
          key: HKLM:\\Software\\Microsoft\\inetstp
          name: 'PathWWWRoot-test'
          data: 'E:\\Inetpub\\wwwroot'
+         type: dword
+         state: present
