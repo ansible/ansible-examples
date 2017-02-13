@@ -1,0 +1,8 @@
+---
+- name: test windows registry module
+  hosts: all
+  tasks:
+    - name: change registry
+      win_regedit:
+        path: HKCU:\Software\Ansible
+        state: present
