@@ -4,6 +4,7 @@
   connection: winrm
   vars:
     ansible_ssh_port: 5986
+    ansible_winrm_server_cert_validation: ignore
   
   tasks:
     - name: change registry
