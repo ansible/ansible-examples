@@ -11,4 +11,4 @@
     - name: change registry
       win_regedit:
         path: HKCU:\Software\Ansible
-        state: present
+       
