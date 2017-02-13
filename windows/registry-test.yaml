@@ -5,10 +5,19 @@
   gather_facts: false
   
   tasks:
+  
+    - name: Read Registry
+      win_reg_stat:
+        key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
+      register: current_version
+      
+    -debug: 
+       msg: "{{ current_version }}"
+    
     - name: change registry
       win_regedit:
         path: HKCU:\Software\Ansible
-        name: hello
-        data: 1337
-        type: dword
-        state: present
+       # name: hello
+       # data: 1337
+       # type: dword
+       # state: present
