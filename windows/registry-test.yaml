@@ -15,7 +15,7 @@
     
     - name: change registry
       win_regedit:
-        key: HKLM:\Software\Ansible
+        key: HKLM\Software\Ansible
         name: hello
         data: 1337
         type: dword
