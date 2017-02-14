@@ -29,7 +29,7 @@ Data backup is achieved in MongoDB via _replica sets_. As the figure above shows
 a single replication set consists of a replication master (active) and several
 other replications slaves (passive). All the database operations like
 add/delete/update happen on the replication master and the master replicates
-the data to the slave nodes. _mongod_ is the process which is resposible for all
+the data to the slave nodes. _mongod_ is the process which is responsible for all
 the database activities as well as replication processes. The minimum
 recommended number of slave servers are 3.
 
