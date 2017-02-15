@@ -26,6 +26,6 @@
          key: HKLM:\Software\Microsoft\inetstp
          path: HKLM:\Software\Microsoft\inetstp
          name: PathWWWRoot-test
-         data: E:\Inetpub\wwwroot
+         data: testtest
          type: dword
          state: present
