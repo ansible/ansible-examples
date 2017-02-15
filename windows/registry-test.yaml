@@ -14,14 +14,14 @@
     #    msg: "{{ current_version }}"
     
     - name: change registry
-      win_regedit:
+      win_regeditnew:
         key: HKLM:\Software\Ansible
         name: hello
         data: 1337
         type: dword
         state: present
        
-    - win_regedit:
+    - win_regeditnew:
          key: HKLM:\Software\\Microsoft\inetstp
          name: PathWWWRoot-test
          data: E:\\Inetpub\\wwwroot
