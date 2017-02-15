@@ -23,9 +23,9 @@
         state: present
        
     - win_regeditnew:
-         key: HKLM:\Software\\Microsoft\inetstp
-         path: HKLM:\Software\\Microsoft\inetstp
+         key: HKLM:\Software\Microsoft\inetstp
+         path: HKLM:\Software\Microsoft\inetstp
          name: PathWWWRoot-test
-         data: E:\\Inetpub\\wwwroot
+         data: E:\Inetpub\wwwroot
          type: dword
          state: present
