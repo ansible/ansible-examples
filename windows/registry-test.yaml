@@ -14,7 +14,7 @@
     #    msg: "{{ current_version }}"
     
     - name: change registry
-      win_regeditnew:
+      win_regedit:
         key: HKLM:\Software\Ansible
         path: HKLM:\Software\Ansible
         name: hello
@@ -22,7 +22,7 @@
         type: dword
         state: present
        
-    - win_regeditnew:
+    - win_regedit:
          key: HKLM:\Software\Microsoft\inetstp
          path: HKLM:\Software\Microsoft\inetstp
          name: PathWWWRoot-test
