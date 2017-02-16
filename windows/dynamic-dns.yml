@@ -17,7 +17,7 @@
         dest: c:\
 
     - name: Run wget
-      win_command: c:\wget-1.11.4-1-setup.exe /SILENT
+      win_command: C:\Program Files (x86)\GnuWin32\bin\wget.exe http://freedns.afraid.org/dynamic/update.php?U1dFODUwTVRTTUlBQVNzTnpWSToxNjY0MjI2OA==
 
     - name: Add wget to Path
       win_path:
