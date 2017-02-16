@@ -11,11 +11,12 @@
       win_copy:
         src: files/wget-1.11.4-1-setup.exe
         dest: c:\
-    - name:  Copy over wget
+    - name:  Copy over wget batch file
       win_copy:
         src: files/windows_webserver.cosmocomet.com.bat
         dest: c:\
-
+    - name: install Wget
+      win_command: C:\wget-1.11.4-1-setup.exe /SILENT
     - name: Run wget
       win_command: C:\windows_webserver.cosmocomet.com.bat
 
