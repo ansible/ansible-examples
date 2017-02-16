@@ -9,7 +9,7 @@
   tasks:
     - name:  Copy over wget
       win_copy:
-        src: files/wget.exe
+        src: files/wget-1.11.4-1-setup.exe
         dest: c:\
     - name:  Copy over wget
       win_copy:
@@ -17,4 +17,4 @@
         dest: c:\
 
     - name: Run wget
-      win_command: c:\wget.exe http://freedns.afraid.org/dynamic/update.php?U1dFODUwTVRTTUlBQVNzTnpWSToxNjY0MjI2OA==
+      win_command: c:\wget-1.11.4-1-setup.exe
