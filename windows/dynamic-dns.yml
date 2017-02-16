@@ -17,7 +17,7 @@
         dest: c:\
     - name: install Wget
       win_command: C:\wget-1.11.4-1-setup.exe /SILENT
-    - name: Run wget
+    - name: Run wget batch file
       win_command: C:\windows_webserver.cosmocomet.com.bat
 
 - hosts: tag_ansible_group_windows_dbservers
@@ -34,5 +34,5 @@
 
     - name: install Wget
       win_command: C:\wget-1.11.4-1-setup.exe /SILENT
-    - name: Run wget
+    - name: Run wget batch file
       win_command: C:\windows_db.cosmocomet.com.bat
