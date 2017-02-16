@@ -22,4 +22,4 @@
     - name: Add wget to Path
       win_path:
         elements:
-        - %PROGRAMFILES%\GnuWin32\bin
+        - %ProgramFiles%\GnuWin32\bin
