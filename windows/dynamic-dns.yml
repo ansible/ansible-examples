@@ -2,6 +2,9 @@
 - name: Test Play
   hosts: all
   gather_facts: false
+  connection: winrm
+  vars:
+    ansible_ssh_port : 5986
   
   tasks:
     - name:  Copy over wget
