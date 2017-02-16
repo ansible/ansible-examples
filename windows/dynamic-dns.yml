@@ -20,6 +20,6 @@
       win_command: c:\wget-1.11.4-1-setup.exe /SILENT
 
     - name: Add wget to Path
-       win_path:
-         elements:
-         - %PROGRAMFILES%\GnuWin32\bin
+      win_path:
+        elements:
+        - %PROGRAMFILES%\GnuWin32\bin
