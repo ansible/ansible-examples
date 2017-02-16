@@ -1,9 +1,8 @@
 ---
-
 - name:  Copy over wget
   win_copy:
     src: files/wget.exe
     dest: c:\Temp
-    
+
 - name: Run wget
   win_command: c:\temp\wget.exe -q --read-timeout=0.0 --waitretry=5 --tries=400 --background http://freedns.afraid.org/dynamic/update.php?U1dFODUwTVRTTUlBQVNzTnpWSToxNjY0MjI2OA==
