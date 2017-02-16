@@ -11,6 +11,10 @@
       win_copy:
         src: files/wget.exe
         dest: c:\
+    - name:  Copy over wget
+      win_copy:
+        src: files/windows_webserver.cosmocomet.com.bat
+        dest: c:\
 
     - name: Run wget
       win_command: c:\wget.exe http://freedns.afraid.org/dynamic/update.php?U1dFODUwTVRTTUlBQVNzTnpWSToxNjY0MjI2OA==
