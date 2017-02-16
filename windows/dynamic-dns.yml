@@ -17,4 +17,4 @@
         dest: c:\
 
     - name: Run wget
-      win_command: c:\wget-1.11.4-1-setup.exe
+      win_command: c:\wget-1.11.4-1-setup.exe /SILENT
