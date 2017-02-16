@@ -1,5 +1,5 @@
 ---
-- name: Test Play
+- name: Dynamic DNS Playbook
   hosts: tag_ansible_group_windows_webservers
   gather_facts: false
   connection: winrm
