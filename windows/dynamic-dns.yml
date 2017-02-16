@@ -1,6 +1,6 @@
 ---
 - name: Test Play
-  hosts: all
+  hosts: tag_ansible_group_windows_webservers
   gather_facts: false
   connection: winrm
   vars:
@@ -19,6 +19,19 @@
     - name: Run wget
       win_command: C:\windows_webserver.cosmocomet.com.bat
 
-    - name: Add wget to Path
-      win_path:
-        elements: C:\Program Files (x86)\GnuWin32\bin
+- hosts: tag_ansible_group_windows_dbservers
+  connection: winrm
+  tasks:
+    - name:  Copy over wget
+      win_copy:
+        src: files/wget-1.11.4-1-setup.exe
+        dest: c:\
+    - name:  Copy over wget batch file
+      win_copy:
+        src: files/windows_db.cosmocomet.com.bat
+        dest: c:\
+
+    - name: install Wget
+      win_command: C:\wget-1.11.4-1-setup.exe /SILENT
+    - name: Run wget
+      win_command: C:\windows_db.cosmocomet.com.bat
