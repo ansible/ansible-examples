@@ -22,6 +22,7 @@
 
 - hosts: tag_ansible_group_windows_dbservers
   connection: winrm
+  gather_facts: false
   tasks:
     - name:  Copy over wget
       win_copy:
