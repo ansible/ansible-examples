@@ -20,6 +20,8 @@
      region: "{{ ec2_region }}"
      instance_tags: "{'ansible_group':'windows_webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'Demo_Windows_Webserver'}"
      exact_count: "{{ ec2_instance_count }}"
+     count_tag:
+            Name: Demo_Windows_Webserver
      wait: true
      user_data: |
        <powershell>
@@ -43,6 +45,8 @@
      region: "{{ ec2_region }}"
      instance_tags: "{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'Demo_Windows_DBServer'}"
      exact_count: "1"
+     count_tag:
+            Name: Demo_Windows_DBServer
      wait: true
      user_data: |
        <powershell>
