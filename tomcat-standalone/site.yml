@@ -9,3 +9,27 @@
   roles:
     - selinux
     - tomcat
+  
+  tasks:
+    - name: Check if war already deployed
+      stat: path=/opt/apache-tomcat-7.0.61/webapps/phillyapp.war
+      register: phillyapp_stat
+
+    - name: Undeploy war file
+      command: mv /opt/apache-tomcat-7.0.61/webapps/phillyapp.war /tmp
+      when: phillyapp_stat.stat.exists
+    
+    - name: Pause to let the app undeploy
+      pause: seconds=10
+      when: phillyapp_stat.stat.exists
+    
+    - name: Deploy war file from Arty
+      get_url: url=http://toolchain.phillyair.com:8081/artifactory/libs-snapshot-local/com/phillyair/phillyapp/1.0-SNAPSHOT/phillyapp-1.0-SNAPSHOT.war dest=/opt/apache-tomcat-7.0.61/webapps/phillyapp.war  force=yes
+      register: war_downloaded
+
+    - name: Set correct permissions
+      file: 
+        path: "/opt/apache-tomcat-7.0.61/webapps/phillyapp.war"
+        owner: tomcat
+        group: tomcat
+      when: war_downloaded.changed

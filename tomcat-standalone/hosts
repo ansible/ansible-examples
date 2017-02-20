@@ -1,2 +1,2 @@
 [tomcat-servers]
-webserver1
+appsrv01 ansible_user=pcorneli ansible_password=Secur05ty
