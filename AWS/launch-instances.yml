@@ -21,7 +21,7 @@
          assign_public_ip: yes
          exact_count: "{{ ec2_instance_count }}"
          count_tag:
-            Name: demo_Webserver
+            Name: demo_Linux_Webserver
          instance_tags:
             ansible_group: webservers
             Name: demo_Webserver
@@ -48,7 +48,7 @@
          #assign_public_ip: yes
          exact_count: "{{ ec2_instance_count }}"
          count_tag:
-            Name: demo_Dbserver
+            Name: demo_Linux_Dbserver
          instance_tags:
             ansible_group: dbservers
             Name: demo_Dbserver
@@ -75,7 +75,7 @@
          #assign_public_ip: yes
          exact_count: "{{ ec2_instance_count }}"
          count_tag:
-            Name: demo_Jenkins
+            Name: demo_Linux_Jenkins
          instance_tags:
             ansible_group: jenkins
             Name: demo_Jenkins
