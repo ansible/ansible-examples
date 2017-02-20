@@ -24,7 +24,7 @@
             Name: demo_Linux_Webserver
          instance_tags:
             ansible_group: webservers
-            Name: demo_Webserver
+            Name: demo_Linux_Webserver
       tags:
          - webserver
       register: ec2
@@ -51,7 +51,7 @@
             Name: demo_Linux_Dbserver
          instance_tags:
             ansible_group: dbservers
-            Name: demo_Dbserver
+            Name: demo_Linux_Dbserver
       tags:
          - dbserver
       register: ec2
@@ -78,7 +78,7 @@
             Name: demo_Linux_Jenkins
          instance_tags:
             ansible_group: jenkins
-            Name: demo_Jenkins
+            Name: demo_Linux_Jenkins
       tags:
          - jenkins
       register: ec2
