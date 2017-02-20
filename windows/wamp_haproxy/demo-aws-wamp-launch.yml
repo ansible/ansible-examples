@@ -19,7 +19,7 @@
      image: "ami-86c12190"
      region: "{{ ec2_region }}"
      instance_tags: "{'ansible_group':'windows_webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'Demo_Windows_Webserver'}"
-     count: "{{ ec2_instance_count }}"
+     exact_count: "{{ ec2_instance_count }}"
      wait: true
      user_data: |
        <powershell>
@@ -42,7 +42,7 @@
      image: "ami-0720c011"
      region: "{{ ec2_region }}"
      instance_tags: "{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'Demo_Windows_DBServer'}"
-     count: "1"
+     exact_count: "1"
      wait: true
      user_data: |
        <powershell>
