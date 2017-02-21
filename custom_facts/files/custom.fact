@@ -1,11 +1,3 @@
-#!/bin/bash
-
-cat <<EOF
-
-{
-
-      "location" : " "Boston"
-      
-}
-
-EOF
+[general]
+city=boston
+state=massachusetts
