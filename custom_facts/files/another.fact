@@ -1,0 +1,6 @@
+#!/bin/bash
+cat <<EOF
+{
+    "company" : "Ansible"
+}
+EOF
