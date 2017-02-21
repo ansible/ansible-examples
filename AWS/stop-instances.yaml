@@ -1,0 +1,7 @@
+---
+- local_action
+    module: ec2
+    instance_tags:
+      Name: demo_Cisco_Router
+      Name: Demo_Windows_Webserver
+    state: stopped
