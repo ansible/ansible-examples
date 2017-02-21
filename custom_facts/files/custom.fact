@@ -1,3 +1,7 @@
-[general]
-city=boston
-state=massachusetts
+#!/bin/bash
+cat <<EOF
+{
+  "City" : "Boston"
+  "State" : "Massachusetts"
+}
+EOF
