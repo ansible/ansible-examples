@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cat <<EOF
+
+{
+
+      "location" : " "Boston"
+      
+}
+
+EOF
