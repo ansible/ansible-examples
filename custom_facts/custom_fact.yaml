@@ -3,10 +3,10 @@
 
 
 - name: ensure custom facts directory exists
-  file: >
-    path=/etc/ansible/facts.d
-    recurse=yes
-    state=directory
+  file:
+    path: /etc/ansible/facts.d
+    recurse: yes
+    state: directory
 
 - name: install custom fact module for IP address
   copy:
