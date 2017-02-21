@@ -1,7 +1,12 @@
 ---
-- local_action
-    module: ec2
-    instance_tags:
-      Name: demo_Cisco_Router
-      Name: Demo_Windows_Webserver
-    state: stopped
+- hosts: localhost
+  connection: local
+  gather_facts: False
+ 
+  tasks:
+    - name: Stop AWS Instances
+      ec2:
+        instance_tags:
+          Name: demo_Cisco_Router
+          Name: Demo_Windows_Webserver
+      state: stopped
