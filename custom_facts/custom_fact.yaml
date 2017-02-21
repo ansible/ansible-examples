@@ -17,8 +17,8 @@
         dest: /etc/ansible/facts.d/custom.fact
         mode: 0755
 
-     - name: install custom fact module for IP address
-      copy:
+     - name: install another fact module for IP address
+       copy:
         src: files/another.fact
         dest: /etc/ansible/facts.d/another.fact
         mode: 0755
