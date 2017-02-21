@@ -6,6 +6,7 @@
   tasks:
     - name: Stop AWS Instances
       ec2:
+        region: us-east
         instance_tags:
           Name: demo_Cisco_Router
           Name: Demo_Windows_Webserver
