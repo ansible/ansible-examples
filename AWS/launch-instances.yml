@@ -48,10 +48,10 @@
          #assign_public_ip: yes
          exact_count: "{{ ec2_instance_count }}"
          count_tag:
-            Name: Demo_Linux_Dbserver
+            Name: Demo_Linux_DBserver
          instance_tags:
             ansible_group: dbservers
-            Name: Demo_Linux_Dbserver
+            Name: Demo_Linux_DBserver
       tags:
          - dbserver
       register: ec2
