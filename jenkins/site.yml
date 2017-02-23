@@ -1,6 +1,6 @@
 
 - name: Configure Jenkins server
-  hosts: "{{ hosts_list }}"
+  hosts: all
   remote_user: ec2-user
   tasks:
     - name: install git only if it is not already installed
@@ -10,5 +10,3 @@
 
   roles:
     - geerlingguy.jenkins
-    
-  
