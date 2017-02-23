@@ -11,4 +11,4 @@
           Name: "{{ item }}"
         state: stopped
         with_items:
-        - Demo_Linux_Webserver
+          - Demo_Linux_Webserver
