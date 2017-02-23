@@ -11,5 +11,4 @@
           Name: "{{ item }}"
         state: stopped
         with_items:
-          - demo_Cisco_Router
-          - Demo_Windows_Webserver
+          - "{{ item_names }}"
