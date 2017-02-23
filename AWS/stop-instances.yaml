@@ -10,5 +10,4 @@
         instance_tags:
           Name: "{{ item }}"
         state: stopped
-        with_items:
-          - "{{ item_names }}"
+        with_items: "{{ item_names }}"
