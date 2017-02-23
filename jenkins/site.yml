@@ -1,6 +1,6 @@
 
 - name: Configure Jenkins server
-  hosts: all
+  hosts: "{{ hosts_list }}"
   remote_user: ec2-user
   tasks:
     - name: install git only if it is not already installed
