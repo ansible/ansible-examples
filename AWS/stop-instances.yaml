@@ -10,5 +10,5 @@
         instance_tags:
           Name: '{{ item }}'
         state: stopped
-        with_items:
-          - Demo_Linux_Webserver
+      with_items:
+        - Demo_Linux_Webserver
