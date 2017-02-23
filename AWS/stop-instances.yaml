@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   gather_facts: False
- 
+
   tasks:
     - name: Stop AWS Instances
       ec2:
