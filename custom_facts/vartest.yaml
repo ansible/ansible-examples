@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+    - name: Debug Variables
+      debug:  My Message is "{{ debug_msg }}"
+    
