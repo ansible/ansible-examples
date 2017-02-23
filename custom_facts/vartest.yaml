@@ -2,5 +2,5 @@
 - hosts: all
   tasks:
     - name: Debug Variables
-      debug:  My Message is "{{ debug_msg }}"
+      debug:  My Message is "{{ debug_me }}"
     
