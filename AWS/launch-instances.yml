@@ -28,10 +28,6 @@
       tags:
          - webserver
       register: ec2
-
-    - name: Add all instances public IPs to host group
-      add_host: hostname="{{ item.public_ip }}" groupname=webservers
-      with_items: "{{ ec2.instances }}"
       
     - name: Provision a DBServer Instance
       ec2:
