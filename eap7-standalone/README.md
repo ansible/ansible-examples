@@ -1,7 +1,8 @@
-## Standalone JBoss Deployment
+## JBoss EAP7 Deployment
 
 - Requires Ansible 1.2 or newer
 - Expects RHEL 6 or 7 hosts
+- Expects hosts to be subscribed via subscription_manager
 
 These playbooks deploy a very basic implementation of JBoss Enterprise Application 
 Platform (EAP) 7. To use them, first edit the "hosts" inventory file to contain the
