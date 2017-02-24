@@ -1,6 +1,6 @@
 ---
-- name: restart jboss
-  service: name=jboss state=restarted
+- name: restart eap
+  service: name=eap7-standalone state=restarted
 
 - name: restart iptables
   service: name=iptables state=restarted

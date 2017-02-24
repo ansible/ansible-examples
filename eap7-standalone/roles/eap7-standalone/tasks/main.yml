@@ -1,19 +1,16 @@
 ---
-- name: Enable EAP repo
-  rhn_channel:
-    name: "jb-eap-7-for-rhel-{{ ansible_distribution_major_version }}-server-rpms"
-    state: present
-
 - name: Group install of JBoss EAP7
   yum:
     name: "@jboss-eap7"
+    disablerepo: "*"
+    enablerepo: "{{ redhat_repos }}"
     state: installed
 
 - name: Copying standalone.xml configuration file
   template: 
     src: standalone.xml 
-    dest: /usr/share/jboss-as/standalone/configuration/
-  notify: restart jboss
+    dest: /opt/rh/eap7/root/usr/share/wildfly/standalone/configuration/
+  notify: restart eap
 
 - name: Enable JBoss to be started at boot on RHEL7
   systemd:

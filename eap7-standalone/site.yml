@@ -4,4 +4,4 @@
 - hosts: all
 
   roles:
-    - jboss-standalone
+    - eap7-standalone

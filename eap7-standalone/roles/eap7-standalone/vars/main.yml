@@ -1,0 +1,2 @@
+---
+redhat_repos: "jb-eap-7-for-rhel-{{ ansible_distribution_major_version }}-server-rpms, rhel-{{ ansible_distribution_major_version }}-server-aus-rpms"
