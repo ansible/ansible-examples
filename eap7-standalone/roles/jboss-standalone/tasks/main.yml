@@ -1,0 +1,62 @@
+---
+- name: Enable EAP repo
+  rhn_channel:
+    name: "jb-eap-7-for-rhel-{{ ansible_distribution_major_version }}-server-rpms"
+    state: present
+
+- name: Group install of JBoss EAP7
+  yum:
+    name: "@jboss-eap7"
+    state: installed
+
+- name: Copying standalone.xml configuration file
+  template: 
+    src: standalone.xml 
+    dest: /usr/share/jboss-as/standalone/configuration/
+  notify: restart jboss
+
+- name: Enable JBoss to be started at boot on RHEL7
+  systemd:
+    name: eap7-standalone
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  when: ansible_distribution_major_version == "7"
+
+- name: Enable JBoss to be started at boot on RHEL6
+  service:
+    name: eap7-standalone
+    state: started
+    enabled: yes
+  when: ansible_distribution_major_version != "7"
+
+- name: deploy iptables rules
+  template: 
+    src: iptables-save 
+    dest: /etc/sysconfig/iptables
+  when: ansible_distribution_major_version != "7" 
+  notify: restart iptables
+
+- name: Ensure that firewalld is installed
+  yum: 
+    name: firewalld 
+    state: present
+  when: ansible_distribution_major_version == "7" 
+
+- name: Ensure that firewalld is started
+  service: 
+    name: firewalld 
+    state: started
+  when: ansible_distribution_major_version == "7" 
+
+- name: deploy firewalld rules
+  firewalld: 
+    immediate: yes 
+    port: "{{ item }}" 
+    state: enabled 
+    permanent: yes
+  when: ansible_distribution_major_version == "7"
+  with_items:
+  - "{{ http_port }}/tcp"
+  - "{{ https_port }}/tcp"
+
