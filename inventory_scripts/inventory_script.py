@@ -25,6 +25,7 @@ from ansible.inventory import Group
 from ansible.inventory.ini import InventoryParser as InventoryINIParser
 from tower_cli import api
 
+print sys.getdefaultencoding()
 
 # Standard Tower project base path
 BASE_PATH="/var/lib/awx/projects"
@@ -52,7 +53,7 @@ def get_project_id(project):
 # If a project update is running, wait up two minutes for it to finish
 def wait_for_project_update(project_id):
     retries = 120
-    
+
     while retries > 0:
         result = rest_get("projects/%d" %(project_id,))
         if not result:
