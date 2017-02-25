@@ -107,11 +107,11 @@ def dump_json(inventory):
 try:
     project_name=os.environ.get("PROJECT_NAME")
 except:
-    project_name="Test project"
+    project_name="Ansible Examples (LR)"
 try:
     file_name=os.environ.get("INVENTORY_FILE")
 except:
-    file_name="inventory"
+    file_name="sample_inventory"
 
 
 if len(sys.argv) > 1 and sys.argv[1] == '--list':
