@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#!/usr/bin/python
 # -*- coding: utf8 -*-
 #
 # Ansible dynamic inventory script for reading from a Tower SCM project
