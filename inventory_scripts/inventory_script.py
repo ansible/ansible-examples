@@ -112,7 +112,7 @@ except:
 try:
     file_name=os.environ.get("INVENTORY_FILE")
 except:
-    file_name="sample_inventory"
+    file_name="inventory_scripts/sample_inventory"
 
 
 if len(sys.argv) > 1 and sys.argv[1] == '--list':
@@ -124,6 +124,7 @@ if len(sys.argv) > 1 and sys.argv[1] == '--list':
     #wait_for_project_update(project_id)
 
     #inv_contents = read_file(project_id, file_name)
+    file_name="inventory_scripts/sample_inventory"
     inv_contents = read_file(8, file_name)
     if not inv_contents:
         sys.stderr.write("Parse of inventory file '%s' in project '%s' failed\n" %(file_name, project_name))
