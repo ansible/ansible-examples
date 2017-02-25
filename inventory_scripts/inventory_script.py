@@ -116,14 +116,15 @@ except:
 
 
 if len(sys.argv) > 1 and sys.argv[1] == '--list':
-    project_id = get_project_id(project_name)
-    if not project_id:
-        sys.stderr.write("Could not find project '%s'\n" %(project_name,))
-        sys.exit(1)
+    #project_id = get_project_id(project_name)
+    #if not project_id:
+    #    sys.stderr.write("Could not find project '%s'\n" %(project_name,))
+    #    sys.exit(1)
 
-    wait_for_project_update(project_id)
+    #wait_for_project_update(project_id)
 
-    inv_contents = read_file(project_id, file_name)
+    #inv_contents = read_file(project_id, file_name)
+    inv_contents = read_file(8, file_name)
     if not inv_contents:
         sys.stderr.write("Parse of inventory file '%s' in project '%s' failed\n" %(file_name, project_name))
         sys.exit(1)
