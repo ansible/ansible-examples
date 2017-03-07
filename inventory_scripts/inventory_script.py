@@ -25,7 +25,7 @@ from ansible.inventory import Group
 from ansible.inventory.ini import InventoryParser as InventoryINIParser
 from tower_cli import api
 
-print sys.getdefaultencoding()
+#print sys.getdefaultencoding()
 
 # Standard Tower project base path
 BASE_PATH="/var/lib/awx/projects"
