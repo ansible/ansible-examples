@@ -1,0 +1,11 @@
+---
+- name: Install WordPress, MySQL, Nginx, PHP-FPM and netfilter rules
+  hosts: all
+  become: true
+
+  roles:
+    - common
+    - mysql
+    - nginx
+    - php-fpm
+    - wordpress

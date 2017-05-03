@@ -1,0 +1,17 @@
+---
+- name: Reload ansible_facts
+  setup:
+
+- name: Install iptables persistency
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - netfilter-persistent
+    - iptables-persistent
+
+- name: Set up iptables rules
+  copy:
+    src: iptables-save
+    dest: /etc/iptables/rules.v4
+  notify: start netfilter-persistent

@@ -1,0 +1,3 @@
+---
+- name: start netfilter-persistent
+  command: /usr/sbin/netfilter-persistent start

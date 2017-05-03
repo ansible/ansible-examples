@@ -1,0 +1,20 @@
+---
+- name: Install Mysql package
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: Create Mysql configuration file
+  template:
+    src: mysqld.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+  notify: restart mysql
+
+- name: Start Mysql Service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
