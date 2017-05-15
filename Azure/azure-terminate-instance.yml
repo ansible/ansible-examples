@@ -1,0 +1,28 @@
+- name: CREATE VM PLAYBOOK
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    vmname: ansiblevm
+    resgrp: lrich-RG
+  tasks:
+  
+  - name: Create VM
+    azure_rm_virtualmachine:
+      remove_on_absent: 'all'
+      state: absent
+      resource_group: '{{ resgrp }}'
+      name: '{{ vmname }}'
+      storage_account: '{{ vmname }}'
+      storage_container: '{{ vmname }}'
+      vm_size: Standard_A0
+      admin_username: lrich
+      ssh_password_enabled: False
+      ssh_public_keys: 
+        - path: /home/lrich/.ssh/authorized_keys
+          key_data: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwxwsGbmfMcDGJGPPJqJNxI+cuu4nKYjTHIVoMTMYyiDHh4aSm710nL0mHeWjAe8VF6Gzw8asF7t3HSTv7lQ8d6qDE9iKELHUO2ZCo6Aw8SLzdUmS4M8X4x69iOWGHhcDhVlWyrqypwyoS+EIq3ACx4d/lnRUdT/xEHRjVyf989W5AsBkH90BiJnpXz5LXVfcl9JAzY/GjINZc2BzpyrzbUI4cVwIfXiXTHNWwpyN+tb3UqHl0Y9ZtwIIB1KgroJP/C/li4YrNxBSassNFow0HAATAo2UwZeE8d0IWk5Pv9QOSYXKblLgLvbxQRnuNfH+pvcOA0HYC05dXh5AwcRnn lrich@lrich-OSX.local'
+      image:
+        offer: CentOS
+        publisher: OpenLogic
+        sku: '7.2'
+        version: latest
