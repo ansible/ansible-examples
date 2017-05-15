@@ -7,7 +7,7 @@
     resgrp: lrich-RG
   tasks:
   
-  - name: Create VM
+  - name: Terminating VM
     azure_rm_virtualmachine:
       remove_on_absent: 'all'
       state: absent
