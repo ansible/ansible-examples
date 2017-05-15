@@ -18,11 +18,11 @@
       storage_account: '{{ vmname }}'
       storage_container: '{{ vmname }}'
       vm_size: Standard_A0
- #     admin_username: jose
- #     ssh_password_enabled: False
- #     ssh_public_keys: 
- #       - path: /home/jose/.ssh/authorized_keys
- #         key_data: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn4i0NkH4uFL7B87MJBW0TyQcsk99vQNlHyZLJyRielhU2kxy73K4ecOEcYQPu0B58KbQfHM2EooaHbZIDAaZK8K62yaYz5eV7YBMr5TdN9Tw5u1GGT5LrWsOYoHcQtcSnTRbBSWZDFIx5eJWebBxdDh61LbEftyOLg16xsLRIqp6SeAtJANTWNSMCEH96qn4+12eoW8bYQ7flVyR7uyE+7NDKmMaHk0zWUQe0wluHyUnfj15g1tfRvwXyUEMLMagyFrhRh0n/wNBnV8XrX74OjqCseJfh3YnuLxhy4hAmw0di699Q3jTB3xJ8b7yg2NvoAF+lzSkQtiArTjEBVKuv jose@jose-centos-01 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn4i0NkH4uFL7B87MJBW0TyQcsk99vQNlHyZLJyRielhU2kxy73K4ecOEcYQPu0B58KbQfHM2EooaHbZIDAaZK8K62yaYz5eV7YBMr5TdN9Tw5u1GGT5LrWsOYoHcQtcSnTRbBSWZDFIx5eJWebBxdDh61LbEftyOLg16xsLRIqp6SeAtJANTWNSMCEH96qn4+12eoW8bYQ7flVyR7uyE+7NDKmMaHk0zWUQe0wluHyUnfj15g1tfRvwXyUEMLMagyFrhRh0n/wNBnV8XrX74OjqCseJfh3YnuLxhy4hAmw0di699Q3jTB3xJ8b7yg2NvoAF+lzSkQtiArTjEBVKuv jose@10.0.0.4'
+      admin_username: lrich
+      ssh_password_enabled: False
+      ssh_public_keys: 
+        - path: /root/.ssh/authorized_keys
+          key_data: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwxwsGbmfMcDGJGPPJqJNxI+cuu4nKYjTHIVoMTMYyiDHh4aSm710nL0mHeWjAe8VF6Gzw8asF7t3HSTv7lQ8d6qDE9iKELHUO2ZCo6Aw8SLzdUmS4M8X4x69iOWGHhcDhVlWyrqypwyoS+EIq3ACx4d/lnRUdT/xEHRjVyf989W5AsBkH90BiJnpXz5LXVfcl9JAzY/GjINZc2BzpyrzbUI4cVwIfXiXTHNWwpyN+tb3UqHl0Y9ZtwIIB1KgroJP/C/li4YrNxBSassNFow0HAATAo2UwZeE8d0IWk5Pv9QOSYXKblLgLvbxQRnuNfH+pvcOA0HYC05dXh5AwcRnn lrich@lrich-OSX.local'
       image:
         offer: CentOS
         publisher: OpenLogic
