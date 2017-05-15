@@ -11,6 +11,47 @@
       resource_group: '{{ resgrp }}'
       name: '{{ vmname }}'
       account_type: Standard_LRS
+      
+  - name: Create virtual network
+  azure_rm_virtualnetwork:
+    resource_group: '{{ resgrp }}'
+    name: '{{ vmname }}'
+    address_prefixes: "10.10.0.0/16"
+
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: '{{ resgrp }}'
+      name: '{{ vmname }}'
+      address_prefix: "10.10.0.0/24"
+      virtual_network: '{{ vmname }}'
+
+  - name: Create public ip
+    azure_rm_publicipaddress:
+      resource_group: '{{ resgrp }}'
+      allocation_method: Static
+      name: '{{ vmname }}'
+      
+  - name: Create security group that allows SSH
+      azure_rm_securitygroup:
+      resource_group: '{{ resgrp }}'
+      name: '{{ vmname }}'
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 101
+          direction: Inbound
+
+  - name: Create NIC
+    azure_rm_networkinterface:
+      resource_group: '{{ resgrp }}'
+      name: '{{ vmname }}'
+      virtual_network: '{{ vmname }}'
+      subnet: '{{ vmname }}'
+      public_ip_name: '{{ vmname }}'
+      security_group: '{{ vmname }}'
+
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: '{{ resgrp }}'
