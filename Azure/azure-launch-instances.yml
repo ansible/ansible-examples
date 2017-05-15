@@ -13,10 +13,10 @@
       account_type: Standard_LRS
       
   - name: Create virtual network
-  azure_rm_virtualnetwork:
-    resource_group: '{{ resgrp }}'
-    name: '{{ vmname }}'
-    address_prefixes: "10.10.0.0/16"
+    azure_rm_virtualnetwork:
+      resource_group: '{{ resgrp }}'
+      name: '{{ vmname }}'
+      address_prefixes: "10.10.0.0/16"
 
   - name: Add subnet
     azure_rm_subnet:
@@ -32,7 +32,7 @@
       name: '{{ vmname }}'
       
   - name: Create security group that allows SSH
-      azure_rm_securitygroup:
+    azure_rm_securitygroup:
       resource_group: '{{ resgrp }}'
       name: '{{ vmname }}'
       rules:
