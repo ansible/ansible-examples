@@ -6,11 +6,11 @@
     vmname: web01
     resgrp: lrich-RG
   tasks:
-#  - name: Create storage account
-#    azure_rm_storageaccount:
-#      resource_group: '{{ resgrp }}'
-#      name: '{{ vmname }}'
-#      account_type: Standard_LRS
+  - name: Create storage account
+    azure_rm_storageaccount:
+      resource_group: '{{ resgrp }}'
+      name: '{{ vmname }}'
+      account_type: Standard_LRS
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: '{{ resgrp }}'
