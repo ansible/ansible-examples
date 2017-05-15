@@ -3,7 +3,7 @@
   connection: local
   gather_facts: False
   vars:
-    vmname: ansible-vm
+    vmname: ansiblevm
     resgrp: lrich-RG
   tasks:
   - name: Create storage account
