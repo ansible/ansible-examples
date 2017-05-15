@@ -4,13 +4,13 @@
   gather_facts: False
   vars:
     vmname: web01
-    resgrp: ansiblelabVMs
+    resgrp: lrich-RG
   tasks:
-  - name: Create storage account
-    azure_rm_storageaccount:
-      resource_group: '{{ resgrp }}'
-      name: '{{ vmname }}'
-      account_type: Standard_LRS
+#  - name: Create storage account
+#    azure_rm_storageaccount:
+#      resource_group: '{{ resgrp }}'
+#      name: '{{ vmname }}'
+#      account_type: Standard_LRS
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: '{{ resgrp }}'
@@ -18,11 +18,11 @@
       storage_account: '{{ vmname }}'
       storage_container: '{{ vmname }}'
       vm_size: Standard_A0
-      admin_username: jose
-      ssh_password_enabled: False
-      ssh_public_keys: 
-        - path: /home/jose/.ssh/authorized_keys
-          key_data: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn4i0NkH4uFL7B87MJBW0TyQcsk99vQNlHyZLJyRielhU2kxy73K4ecOEcYQPu0B58KbQfHM2EooaHbZIDAaZK8K62yaYz5eV7YBMr5TdN9Tw5u1GGT5LrWsOYoHcQtcSnTRbBSWZDFIx5eJWebBxdDh61LbEftyOLg16xsLRIqp6SeAtJANTWNSMCEH96qn4+12eoW8bYQ7flVyR7uyE+7NDKmMaHk0zWUQe0wluHyUnfj15g1tfRvwXyUEMLMagyFrhRh0n/wNBnV8XrX74OjqCseJfh3YnuLxhy4hAmw0di699Q3jTB3xJ8b7yg2NvoAF+lzSkQtiArTjEBVKuv jose@jose-centos-01 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn4i0NkH4uFL7B87MJBW0TyQcsk99vQNlHyZLJyRielhU2kxy73K4ecOEcYQPu0B58KbQfHM2EooaHbZIDAaZK8K62yaYz5eV7YBMr5TdN9Tw5u1GGT5LrWsOYoHcQtcSnTRbBSWZDFIx5eJWebBxdDh61LbEftyOLg16xsLRIqp6SeAtJANTWNSMCEH96qn4+12eoW8bYQ7flVyR7uyE+7NDKmMaHk0zWUQe0wluHyUnfj15g1tfRvwXyUEMLMagyFrhRh0n/wNBnV8XrX74OjqCseJfh3YnuLxhy4hAmw0di699Q3jTB3xJ8b7yg2NvoAF+lzSkQtiArTjEBVKuv jose@10.0.0.4'
+ #     admin_username: jose
+ #     ssh_password_enabled: False
+ #     ssh_public_keys: 
+ #       - path: /home/jose/.ssh/authorized_keys
+ #         key_data: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn4i0NkH4uFL7B87MJBW0TyQcsk99vQNlHyZLJyRielhU2kxy73K4ecOEcYQPu0B58KbQfHM2EooaHbZIDAaZK8K62yaYz5eV7YBMr5TdN9Tw5u1GGT5LrWsOYoHcQtcSnTRbBSWZDFIx5eJWebBxdDh61LbEftyOLg16xsLRIqp6SeAtJANTWNSMCEH96qn4+12eoW8bYQ7flVyR7uyE+7NDKmMaHk0zWUQe0wluHyUnfj15g1tfRvwXyUEMLMagyFrhRh0n/wNBnV8XrX74OjqCseJfh3YnuLxhy4hAmw0di699Q3jTB3xJ8b7yg2NvoAF+lzSkQtiArTjEBVKuv jose@jose-centos-01 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn4i0NkH4uFL7B87MJBW0TyQcsk99vQNlHyZLJyRielhU2kxy73K4ecOEcYQPu0B58KbQfHM2EooaHbZIDAaZK8K62yaYz5eV7YBMr5TdN9Tw5u1GGT5LrWsOYoHcQtcSnTRbBSWZDFIx5eJWebBxdDh61LbEftyOLg16xsLRIqp6SeAtJANTWNSMCEH96qn4+12eoW8bYQ7flVyR7uyE+7NDKmMaHk0zWUQe0wluHyUnfj15g1tfRvwXyUEMLMagyFrhRh0n/wNBnV8XrX74OjqCseJfh3YnuLxhy4hAmw0di699Q3jTB3xJ8b7yg2NvoAF+lzSkQtiArTjEBVKuv jose@10.0.0.4'
       image:
         offer: CentOS
         publisher: OpenLogic
