@@ -41,7 +41,7 @@
      keypair: "{{ ec2_keypair }}"
      group: "{{ ec2_security_group }}"
      type: "{{ ec2_instance_type }}"
-     image: "{{ ec2_image }}"
+     image: "{{ ec2_db_image }}"
      region: "{{ ec2_region }}"
      instance_tags: "{'ansible_group':'windows_dbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'Demo_Windows_DBServer'}"
      exact_count: "1"
