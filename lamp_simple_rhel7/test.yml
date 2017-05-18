@@ -1,0 +1,4 @@
+- name: command to create ocp cluster
+  command: /root/svt/openshift_scalibility/cluster-loader.py arg1
+  args:
+   pyconfig.yaml
