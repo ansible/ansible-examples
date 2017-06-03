@@ -1,0 +1,6 @@
+---
+- hosts: riak_cluster
+  sudo: True
+  roles:
+  - role: bootstrap
+  - role: riak

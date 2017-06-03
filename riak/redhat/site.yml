@@ -1,0 +1,3 @@
+---
+- include: setup_riak.yml
+- include: form_cluster.yml
