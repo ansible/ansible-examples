@@ -1,0 +1,53 @@
+---
+- hosts: webserver
+  sudo: yes
+  tasks:
+    - name: Updates apt cache
+      action: apt update_cache=true
+
+    - name: Installs necessary packages
+      action: apt pkg=$item state=latest 
+      with_items:
+        - apache2
+        - libapache2-mod-php5
+        - git
+
+    - name: Push future default virtual host configuration
+      action: copy src=files/website-name dest=/etc/apache2/sites-available/ mode=0640
+
+    - name: Activates our virtualhost
+      action: command a2ensite website-name
+
+    - name: Check that our config is valid
+      action: command apache2ctl configtest
+      register: result
+      ignore_errors: True
+
+    - name: Rolling back - Restoring old default virtualhost
+      action: command a2ensite default
+      when: result|failed
+
+    - name: Rolling back - Removing out virtualhost
+      action: command a2dissite website-name
+      when: result|failed
+
+    - name: Rolling back - Ending playbook
+      action: fail msg="Configuration file is not valid. Please check that before re-running the playbook."
+      when: result|failed
+
+    - name: Deploy our application
+      action: git repo=https://github.com/leucos/ansible-tuto-demosite.git dest=/var/www/website-name
+      tags: deploy
+
+    - name: Deactivates the default virtualhost
+      action: command a2dissite default
+
+    - name: Deactivates the default ssl virtualhost
+      action: command a2dissite default-ssl
+      notify:
+        - restart apache
+
+  handlers:
+    - name: restart apache
+      action: service name=apache2 state=restarted
+

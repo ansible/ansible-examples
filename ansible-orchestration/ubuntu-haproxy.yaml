@@ -1,0 +1,21 @@
+---
+- hosts: proxy
+  sudo: yes
+  tasks:
+    - name: Installs haproxy load balancer
+      action: apt pkg=haproxy state=installed update_cache=yes
+
+    - name: Pushes configuration
+      action: template src=templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root
+      notify:
+        - restart haproxy
+
+    - name: Sets default starting flag to 1
+      action: lineinfile dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
+      notify:
+        - restart haproxy 
+
+  handlers:
+    - name: restart haproxy
+      action: service name=haproxy state=restarted
+
