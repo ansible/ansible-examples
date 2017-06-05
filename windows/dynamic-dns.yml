@@ -10,11 +10,11 @@
     - name:  Copy over wget
       win_copy:
         src: files/wget-1.11.4-1-setup.exe
-        dest: c:\
+        dest: c:\wget-1.11.4-1-setup.exe
     - name:  Copy over wget batch file
       win_copy:
         src: files/windows_webserver.cosmocomet.com.bat
-        dest: c:\
+        dest: c:\windows_webserver.cosmocomet.com.bat
     - name: install Wget
       win_command: C:\wget-1.11.4-1-setup.exe /SILENT
     - name: Run wget batch file
@@ -27,11 +27,11 @@
     - name:  Copy over wget
       win_copy:
         src: files/wget-1.11.4-1-setup.exe
-        dest: c:\
+        dest: c:\wget-1.11.4-1-setup.exe
     - name:  Copy over wget batch file
       win_copy:
         src: files/windows_db.cosmocomet.com.bat
-        dest: c:\
+        dest: c:\windows_db.cosmocomet.com.bat
 
     - name: install Wget
       win_command: C:\wget-1.11.4-1-setup.exe /SILENT
