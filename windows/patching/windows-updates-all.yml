@@ -1,7 +1,7 @@
 # windows-updates-all.yml
 
  
-– hosts: domain_controllers
+– hosts: all
   serial: 1
   remote_user: administrator@SKUNKWORKS.LOCAL
  
