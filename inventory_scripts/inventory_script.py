@@ -112,7 +112,7 @@ except:
 try:
     file_name=os.environ.get("INVENTORY_FILE")
 except:
-    file_name="inventory_scripts/sample_inventory"
+    file_name="sample_inventory"
 
 
 if len(sys.argv) > 1 and sys.argv[1] == '--list':
