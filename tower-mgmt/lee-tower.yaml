@@ -1,9 +1,9 @@
 - hosts: localhost
   gather_facts: no
   vars_files:
-    - roles/lee-tower/group_vars/vault.yaml
+    - roles/tower-mgmt/group_vars/vault.yaml
   #become: yes
   #become_user: root
   roles:
-  - lee-tower
+  - tower-mgmt
   
