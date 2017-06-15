@@ -1,0 +1,29 @@
+---
+- name: create all sales demo job templates
+  shell: >
+    tower-cli job_template create
+    --name "{{ item.name }}"
+    --description "{{ item.description }}"
+    --job-type "{{ item.job_type }}"
+    --inventory "{{ item.inventory }}"
+    --project "{{ item.project }}"
+    --playbook "{{ item.playbook }}"
+    --machine-credential "{{ item.machine_credential }}"
+    --cloud-credential "{{ item.cloud_credential | default('no') }}"
+    --become-enabled "{{ item.become_enabled | default('no') }}"
+    --limit "{{ item.limit | default('') }}"
+    --extra-vars "{{ item.extra_vars | default('') | from_yaml | to_yaml }}"
+    --ask-inventory-on-launch "{{ item.ask_inventory_on_launch | default('no') | bool }}"
+    --ask-job-type-on-launch "{{ item.ask_job_type_on_launch | default('no') | bool }}"
+  with_items: "{{ sales_demo_job_templates }}"
+
+- name: ensure all job template roles are granted
+  tower_role:
+    config_file: ~/tower_cli.cfg
+    job_template: "{{ item.0.name }}"
+    team: "{{ item.1.name }}"
+    role: "{{ item.1.type }}"
+    state: present
+  with_subelements:
+    - "{{ sales_demo_job_templates }}"
+    - team_roles

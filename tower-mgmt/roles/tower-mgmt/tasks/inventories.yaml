@@ -1,0 +1,87 @@
+---
+- name: create a local inventory for admin usage
+  tower_inventory:
+    #config_file: ~/tower_cli.cfg
+    name: Demo Inventory
+    description: Default Inventory
+    organization: Default
+    state: present
+
+- name: ensure the demo admin team has access to the local inventory
+  tower_role:
+    #config_file: ~/tower_cli.cfg
+    inventory: Demo Inventory
+    team: Operations
+    role: admin
+    state: present
+
+- name: create a local inventory for admin usage
+  tower_inventory:
+    #config_file: ~/tower_cli.cfg
+    name: Tower
+    description: Inventory that just contains localhost
+    organization: Default
+    state: present
+
+- name: ensure the demo admin team has access to the local inventory
+  tower_role:
+    #config_file: ~/tower_cli.cfg
+    inventory: Tower
+    team: Operations
+    role: admin
+    state: present
+
+- name: add the Tower server to local inventory
+  tower_host:
+    #config_file: ~/tower_cli.cfg
+    name: "{{ ansible_host }}"
+    inventory: Tower
+    state: present
+
+- name: create a Network Devices inventory
+  tower_inventory:
+    #config_file: ~/tower_cli.cfg
+    name: Network Devices
+    description: Inventory that just contains network devices
+    organization: Default
+    state: present
+
+- name: ensure the demo admin team has access to the local inventory
+  tower_role:
+    #config_file: ~/tower_cli.cfg
+    inventory: Network Devices
+    team: Operations
+    role: admin
+    state: present
+
+- name: create a Production inventory
+  tower_inventory:
+    #config_file: ~/tower_cli.cfg
+    name: Production
+    description: Inventory that just contains production devices
+    organization: Default
+    state: present
+
+- name: ensure the demo admin team has access to the local inventory
+  tower_role:
+    #config_file: ~/tower_cli.cfg
+    inventory: Production
+    team: Operations
+    role: admin
+    state: present
+
+- name: create a Development inventory
+  tower_inventory:
+    #config_file: ~/tower_cli.cfg
+    name: Development
+    description: Inventory that just contains development devices
+    organization: Default
+    state: present
+
+- name: ensure the demo admin team has access to the local inventory
+  tower_role:
+    #config_file: ~/tower_cli.cfg
+    inventory: Development
+    team: Operations
+    role: admin
+    state: present

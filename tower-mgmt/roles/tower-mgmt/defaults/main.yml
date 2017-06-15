@@ -1,0 +1,90 @@
+---
+sales_demo_teams:
+  - name: Sales
+  - name: Engineering
+  - name: QA
+  - name: DevOps
+  - name: Operations
+  - name: Production
+    description: Team with permissions to run all demos.
+  #- name: Sales Demo Admin
+  #  description: Team with permissions to onboard new demo users.
+
+sales_demo_job_templates:
+  - name: Add Project
+    description: User added projects
+    job_type: run
+    inventory: Tower
+    project: Tower Operations
+    playbook: add-project.yaml
+    ask_inventory_on_launch: no
+    machine_credential: "Tower Password"
+    cloud_credential: "AWS Sales API Key"
+    become_enabled: yes
+    ask_credential: yes
+    extra_vars:
+      project_name: "sales demo"
+      #project_description: Example of user initiated added project
+    team_roles:
+      - name: Operations
+        type: execute
+      - name: Operations
+        type: admin
+
+  - name: Backup Network Configs
+    description: Backup Network Configs
+    job_type: run
+    inventory: Network Devices
+    project: Network Demo
+    playbook: backup_configs.yaml
+    ask_inventory_on_launch: no
+    machine_credential: AWS SSH Key
+    cloud_credential: AWS Sales API Key
+    become_enabled: no
+    #extra_vars:
+      #project_name: sales demo
+      #project_description: Example of user initiated added project
+    team_roles:
+      - name: Operations
+        type: execute
+      - name: Operations
+        type: admin
+
+  - name: Deploy Linux Lamp Stack Demo
+    description: Deploy Linux Lamp Stack Demo
+    job_type: run
+    inventory: Production
+    project: Ansible Examples (LR)
+    playbook: lamp_simple_rhel7/site.yml
+    ask_inventory_on_launch: no
+    machine_credential: AWS SSH Key
+    cloud_credential: AWS Sales API Key
+    become_enabled: yes
+    #extra_vars:
+      #project_name: sales demo
+      #project_description: Example of user initiated added project
+    team_roles:
+      - name: Operations
+        type: execute
+      - name: Operations
+        type: admin
+
+
+  - name: Launch AWS Linux Demo Instances
+    description: Launch AWS Linux Demo Instances
+    job_type: run
+    inventory: Demo Inventory
+    project: Ansible Examples (LR)
+    playbook: AWS/launch-instances.yml
+    ask_inventory_on_launch: no
+    machine_credential: "AWS SSH Key"
+    cloud_credential: AWS Sales API Key
+    become_enabled: no
+    #extra_vars:
+      #project_name: sales demo
+      #project_description: Example of user initiated added project
+    team_roles:
+      - name: Operations
+        type: execute
+      - name: Operations
+        type: admin
