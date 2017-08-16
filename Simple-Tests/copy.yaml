@@ -8,6 +8,7 @@
       dest: /tmp/ServerA/anaconda-ks.cfg
 
 - hosts: tag_Name_Demo_Linux_WebServer
+  gather_facts: false
   tasks:
   - name: Copy file to Destination
     copy:
