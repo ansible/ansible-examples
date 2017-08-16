@@ -7,7 +7,7 @@
       src: "/root/anaconda-ks.cfg"
       dest: /tmp/ServerA/anaconda-ks.cfg
 
-- hosts: tag_Name_Demo_Linux_WebServer
+- hosts: tag_Name_Demo_Linux_Webserver
   gather_facts: false
   tasks:
   - name: Copy file to Destination
