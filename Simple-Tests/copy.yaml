@@ -1,5 +1,5 @@
 ---
-- hosts: ec2-52-206-59-99.compute-1.amazonaws.com
+- hosts: tag_Name_Demo_Linux_DBserver
 
   tasks:
   - name: Copy Remote-To-Remote from ServerB to ServerC
