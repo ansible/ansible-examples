@@ -1,10 +1,11 @@
 ---
 - hosts: tag_Name_Demo_Linux_DBserver
+  gather_facts: false
 
   tasks:
   - name: Copy Remote-To-Remote from ServerB to ServerC
     fetch: 
-      src: "/tmp/ec2-184-73-140-118.compute-1.amazonaws.com/root/anaconda-ks.cfg"
+      src: "/tmp/tag_Name_Demo_Linux_Webserver/root/anaconda-ks.cfg"
       dest: /home/ec2-user
       verify_host: no
       flat: yes
