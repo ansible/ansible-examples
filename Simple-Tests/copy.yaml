@@ -11,4 +11,3 @@
   copy:
     src: /tmp/ServerA/anaconda-ks.cfg
     dest: /home/ec2-user/anaconda-ks.cfg
-    
