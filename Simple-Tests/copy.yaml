@@ -1,12 +1,17 @@
 ---
 - hosts: tag_Name_Demo_Linux_DBserver
   gather_facts: false
-
-  tasks:
-  - name: Copy Remote-To-Remote from ServerB to ServerC
-    synchronize: 
-      src: "rsync://tag_Name_Demo_Linux_Webserver:/root/anaconda-ks.cfg"
-      dest: /home/ec2-user
-      verify_host: no
-      flat: yes
+  name: Copy Remote-To-Remote from ServerB to ServerC
+  fetch: 
+    src: "/root/anaconda-ks.cfg"
+    dest: /tmp/ServerA/anaconda-ks.cfg
+    
+      #flat: yes
       #delegate_to: ServerB
+      
+- name: Copy file to Destination
+  hosts: tag_Name_Demo_Linux_DBServer
+  copy:
+    src: /tmp/ServerA/anaconda-ks.cfg
+    dest: /home/ec2-user/anaconda-ks.cfg
+    
