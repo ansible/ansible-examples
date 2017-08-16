@@ -4,8 +4,8 @@
   tasks:
   - name: Copy Remote-To-Remote from ServerB to ServerC
     fetch: 
-    src: ec2-184-73-140-118.compute-1.amazonaws.com:/root/anaconda-ks.cfg
-    dest: /home/ec2-user
-    verify_host: no
-    flat: yes
-    #delegate_to: ServerB
+      src: ec2-184-73-140-118.compute-1.amazonaws.com:/root/anaconda-ks.cfg
+      dest: /home/ec2-user
+      verify_host: no
+      flat: yes
+      #delegate_to: ServerB
