@@ -1,7 +1,7 @@
 ---
-- name: Copy Remote-To-Remote from ServerB to ServerC
-  hosts: tag_Name_Demo_Linux_DBserver
+- hosts: tag_Name_Demo_Linux_DBserver
   gather_facts: false
+  name: Copy Remote-To-Remote from ServerB to ServerC
   fetch:
     src: "/root/anaconda-ks.cfg"
     dest: /tmp/ServerA/anaconda-ks.cfg
