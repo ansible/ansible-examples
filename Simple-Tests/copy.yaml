@@ -1,7 +1,7 @@
 ---
 - hosts: ec2-52-206-59-99.compute-1.amazonaws.com
 
-tasks:
+  tasks:
   - name: Copy Remote-To-Remote from ServerB to ServerC
     fetch: 
     src: ec2-184-73-140-118.compute-1.amazonaws.com:/root/anaconda-ks.cfg
