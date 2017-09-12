@@ -3,7 +3,7 @@
   become: true
   become_method: sudo
   vars:
-    rabbitmq_version: 3.0.2-1
+    rabbitmq_version: 3.6.12
 
   tasks:
   - name: ensure python-software-properties is installed
@@ -13,7 +13,7 @@
     apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
 
   - name: add trusted key
-    apt_key: url=https://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
+    apt_key: url=https://www.rabbitmq.com/rabbitmq-release-signing-key.asc state=present
 
   - name: install package
     apt: name={{ item }} update_cache=yes state=installed
