@@ -30,13 +30,13 @@
         memory_mb: 1024
         num_cpus: 1
         scsi: paravirtual
-      nic:
-        - type: vmxnet3
-          network: "VM Network"
-      #networks:
-      #- name: "VM Network"
-      #  device_type: vmxnet3
-      #  type: dhcp
+      #nic:
+      #  - type: vmxnet3
+      #    network: "VM Network"
+      networks:
+      - name: "VM Network"
+        device_type: vmxnet3
+        type: dhcp
         #ip: ""
         #netmask: "255.255.0.0"
         #mac: aa:bb:dd:aa:00:14
