@@ -17,7 +17,7 @@
       #password: vmware
       validate_certs: no
       #folder: /testvms
-      name: testvm_2
+      name: "{{ vm_name }}"
       state: poweredon
       template: "RHEL 7.3 Template"
       datacenter: Datacenter
