@@ -37,8 +37,8 @@
       - name: "VM Network"
         device_type: vmxnet3
         type: dhcp
-        #ip: ""
-        #netmask: "255.255.0.0"
+        ip: "192.168.2.224"
+        netmask: "255.255.0.0"
         #mac: aa:bb:dd:aa:00:14
       wait_for_ip_address: yes
     delegate_to: localhost
