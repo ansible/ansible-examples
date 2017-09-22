@@ -24,7 +24,7 @@
       datacenter: Datacenter
       disk:
       - size_gb: 16
-        #type: thin
+        type: thin
         datastore: datastore1
       hardware:
         memory_mb: 1024
@@ -33,6 +33,8 @@
       networks:
       - name: "VM Network"
         device_type: vmxnet3
+        ip: ""
+        netmask: ""
         #mac: aa:bb:dd:aa:00:14
       wait_for_ip_address: yes
     delegate_to: localhost
