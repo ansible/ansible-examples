@@ -19,6 +19,7 @@
       #folder: /testvms
       name: "{{ vm_name }}"
       state: poweredon
+      cluster: Cluster
       #template: "New RHEL 7.3"
       template: "RHEL 7.3 Template"
       datacenter: Datacenter
