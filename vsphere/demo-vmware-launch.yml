@@ -32,6 +32,7 @@
         scsi: paravirtual
       networks:
       - name: VM Network
+        device_type: vmxnet3
         #mac: aa:bb:dd:aa:00:14
       wait_for_ip_address: yes
     delegate_to: localhost
