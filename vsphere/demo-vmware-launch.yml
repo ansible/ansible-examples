@@ -24,7 +24,7 @@
       datacenter: Datacenter
       disk:
       - size_gb: 16
-        type: thin
+        #type: thin
         datastore: datastore1
       hardware:
         memory_mb: 1024
