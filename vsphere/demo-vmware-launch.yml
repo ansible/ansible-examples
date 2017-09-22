@@ -20,6 +20,7 @@
       name: testvm_2
       state: poweredon
       template: RHEL_7.3_Template
+      datacenter: Datacenter
       disk:
       - size_gb: 10
         type: thin
