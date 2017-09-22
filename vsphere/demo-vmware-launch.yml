@@ -26,6 +26,9 @@
       - size_gb: 16
         type: thin
         datastore: datastore1
+      customization:
+        name: "testvm"
+        domain: mod.local
       hardware:
         memory_mb: 1024
         num_cpus: 1
