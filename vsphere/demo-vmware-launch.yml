@@ -19,7 +19,7 @@
       #folder: /testvms
       name: testvm_2
       state: poweredon
-      template: RHEL_7.3_Template
+      template: "RHEL 7.3 Template"
       datacenter: Datacenter
       disk:
       - size_gb: 10
