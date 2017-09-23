@@ -17,9 +17,10 @@
       #password: vmware
       validate_certs: no
       #folder: /testvms
-      name: "{{ vm_name }}{{ 100 |random(start=1, step=1) }}"
+      #name: "{{ vm_name }}{{ 100 |random(start=1, step=1) }}"
+      name: myhost
       state: poweredon
-      #cluster: Cluster
+      cluster: Cluster
       #template: "New RHEL 7.3"
       template: "CentOS 7 Template"
       datacenter: Datacenter
