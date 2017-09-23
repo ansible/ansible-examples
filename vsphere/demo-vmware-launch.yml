@@ -12,7 +12,7 @@
   tasks:
   - name: Create a VM from a template
     vmware_guest:
-      #hostname: "{{ vsphere_host }}"
+      hostname: "{{ vsphere_host }}"
       #username: administrator@vsphere.local
       #password: vmware
       validate_certs: no
