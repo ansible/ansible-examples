@@ -24,7 +24,7 @@
       template: "RHEL 7.3 Template"
       datacenter: Datacenter
       disk:
-      - size_gb: 16
+      - size_gb: 20
         type: thin
         datastore: datastore1
       customization:
