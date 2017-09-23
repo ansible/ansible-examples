@@ -20,8 +20,8 @@
       name: "{{ vm_name }}-{{ 100 |random(start=1, step=1) }}"
       state: poweredon
       cluster: Cluster
-      #template: "New RHEL 7.3"
-      template: "RHEL 7.3 Template"
+      template: "New RHEL 7.3"
+      #template: "RHEL 7.3 Template"
       datacenter: Datacenter
       disk:
       - size_gb: 20
