@@ -17,7 +17,7 @@
       #password: vmware
       validate_certs: no
       #folder: /testvms
-      name: "{{ vm_name }}-{{ 100 |random(start=1, step=1) }}"
+      name: "{{ vm_name }}{{ 100 |random(start=1, step=1) }}"
       state: poweredon
       cluster: Cluster
       template: "New RHEL 7.3"
@@ -42,7 +42,7 @@
         device_type: vmxnet3
         type: dhcp
         #ip: "192.168.2.225"
-        #netmask: "255.255.0.0"
+        netmask: "255.255.0.0"
         #gateway: "192.168.1.254"
         #mac: aa:bb:dd:aa:00:14
       wait_for_ip_address: yes
