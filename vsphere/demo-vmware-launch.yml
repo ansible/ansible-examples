@@ -26,7 +26,7 @@
       disk:
       - size_gb: 20
         type: thin
-        datastore: datastore2
+        datastore: datastore1
       customization:
         name: "testvm"
         domain: "mod.local"
