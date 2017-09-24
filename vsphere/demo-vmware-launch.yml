@@ -58,7 +58,7 @@
 
   - name: show info
     debug:
-      msg: "{{ deploy }}"
+      msg: "{{ inventory_hostname }}"
       
   #- name: Add hosts to new group
   #  add_host: hostname="{{ item.name }}" groupname=dbservers
