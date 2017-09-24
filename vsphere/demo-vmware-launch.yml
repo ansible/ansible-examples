@@ -55,3 +55,7 @@
     delegate_to: localhost
     register: deploy
     with_sequence: count="{{ instance_count }}"
+
+  - name: Add hosts to new group
+    add_host: hostname="{{ item.name }}" groupname=dbservers
+      with_items: "{{ deploy.instances }}"
