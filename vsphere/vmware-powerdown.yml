@@ -21,5 +21,6 @@
       #name: myhost
       state: poweredoff
       cluster: Cluster
+      datacenter: Datacenter
       #template: "New RHEL 7.3"
     delegate_to: localhost
