@@ -10,19 +10,8 @@
   gather_facts: False
  
   tasks:
-  - name: Create a VM from a template
-    vmware_guest:
-      #hostname: "{{ vsphere_host }}"
-      #username: administrator@vsphere.local
-      #password: vmware
-      validate_certs: no
-      #folder: /testvms
-      name: "CentOS-7-host*"
-      #name: myhost
-      state: poweredoff
-      cluster: Cluster
-      datacenter: Datacenter
-      #template: "New RHEL 7.3"
-      disk:
-      - datastore: datastore2
-    delegate_to: localhost
+  - name: Power off guest
+    vsphere_guest:
+      guest: CentOS-7-host45
+      state: powered_off
+      force: yes
