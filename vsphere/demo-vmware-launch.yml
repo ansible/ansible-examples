@@ -60,6 +60,6 @@
     debug:
       msg: "{{ deploy.instance.hw_name }}"
       
-  - name: Add hosts to new group
-    add_host: hostname="{{ item.name }}" groupname=dbservers
-    with_items: "{{ deploy.instance }}"
+  #- name: Add hosts to new group
+  #  add_host: hostname="{{ item.name }}" groupname=dbservers
+  #  with_items: "{{ deploy.instance }}"
