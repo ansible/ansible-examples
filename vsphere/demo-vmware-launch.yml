@@ -58,7 +58,7 @@
 
   - name: show info
     debug:
-      msg: "{{ deploy.instance }}"
+      msg: "{{ deploy.instance.ipv4 }} {{ name }}"
       
   - name: Add hosts to new group
     add_host: hostname="{{ item.name }}" groupname=dbservers
