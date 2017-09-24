@@ -25,7 +25,7 @@
       template: "CentOS 7 Template"
       datacenter: Datacenter
       annotation: "webserver"
-      customvalues: [key: vmtype, value: webserver]
+      #customvalues: [key: vmtype, value: webserver]
       #customvalues:
       #- vmtype: webserver
       
