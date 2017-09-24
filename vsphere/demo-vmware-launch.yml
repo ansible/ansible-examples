@@ -17,7 +17,7 @@
       #password: vmware
       validate_certs: no
       #folder: /testvms
-      name: "CentOS7Host{{ 100 |random(start=1, step=1) }}"
+      name: "CentOS7host{{ 100 |random(start=1, step=1) }}"
       #name: myhost
       state: poweredon
       cluster: Cluster
