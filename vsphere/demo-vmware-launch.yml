@@ -58,4 +58,4 @@
 
   - name: Add hosts to new group
     add_host: hostname="{{ item.name }}" groupname=dbservers
-    with_items: "{{ deploy.instance }}"
+    with_items: "{{ deploy.name }}"
