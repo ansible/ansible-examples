@@ -17,7 +17,7 @@
       #password: vmware
       validate_certs: no
       #folder: /testvms
-      name: "myhost{{ 100 |random(start=1, step=1) }}"
+      name: CentOS_7_{{ 100 |random(start=1, step=1) }}"
       #name: myhost
       state: poweredon
       cluster: Cluster
@@ -25,7 +25,7 @@
       template: "CentOS 7 Template"
       datacenter: Datacenter
       disk:
-      - size_gb: 20
+      - size_gb: 10
         type: thin
         datastore: datastore1
       #customization:
