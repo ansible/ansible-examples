@@ -23,4 +23,6 @@
       cluster: Cluster
       datacenter: Datacenter
       #template: "New RHEL 7.3"
+      disk:
+      - datastore: datastore2
     delegate_to: localhost
