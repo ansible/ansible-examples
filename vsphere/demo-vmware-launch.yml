@@ -49,4 +49,4 @@
       wait_for_ip_address: no
     delegate_to: localhost
     register: deploy
-    with_sequence: count=4
+    with_sequence: count="{{ instance_count }}"
