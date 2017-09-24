@@ -12,7 +12,10 @@
   tasks:
   - name: Power off guest
     vsphere_guest:
-      guest: CentOS-7-host*
+      #guest: CentOS-7-host*
+      guest: "{{ item }}"
       state: powered_off
       force: yes
       validate_certs: no
+    with_items:
+      - "{{ groups['VCenter Instances'] }}"
