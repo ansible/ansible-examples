@@ -12,7 +12,7 @@
   tasks:
   - name: Power off guest
     vsphere_guest:
-      guest: CentOS-7-host45
+      guest: CentOS-7-host*
       state: powered_off
       force: yes
       validate_certs: no
