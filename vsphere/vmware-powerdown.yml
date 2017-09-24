@@ -1,0 +1,25 @@
+---
+# Create a new VM on an ESX server
+# Returns changed = False when the VM already exists
+# Returns changed = True and a adds ansible_facts from the new VM
+# State will set the power status of a guest upon creation. Use powered_on to create and boot.
+# Options ['state', 'vm_extra_config', 'vm_disk', 'vm_nic', 'vm_hardware', 'esxi'] are required together
+- name: launch instances
+  hosts: localhost
+  connection: local
+  gather_facts: False
+ 
+  tasks:
+  - name: Create a VM from a template
+    vmware_guest:
+      #hostname: "{{ vsphere_host }}"
+      #username: administrator@vsphere.local
+      #password: vmware
+      validate_certs: no
+      #folder: /testvms
+      name: "CentOS-7-host*"
+      #name: myhost
+      state: poweredoff
+      cluster: Cluster
+      #template: "New RHEL 7.3"
+    delegate_to: localhost
