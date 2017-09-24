@@ -19,3 +19,12 @@
       validate_certs: no
     with_items:
       - "{{ groups['VCenter Instances'] }}"
+      
+  - name: Delete guest
+    vsphere_guest:
+      guest: "{{ item }}"
+      state: absent
+      force: yes
+      validate_certs: no
+    with_items:
+      - "{{ groups['VCenter Instances'] }}"
