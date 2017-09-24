@@ -46,6 +46,6 @@
         netmask: "255.255.0.0"
         gateway: "192.168.1.254"
         #mac: aa:bb:dd:aa:00:14
-      wait_for_ip_address: yes
+      wait_for_ip_address: no
     delegate_to: localhost
     register: deploy
