@@ -25,8 +25,8 @@
       template: "CentOS 7 Template"
       datacenter: Datacenter
       customvalues:
-      - "key":"vmtype"
-        "value":"webserver"
+      - key:"vmtype"
+        value:"webserver"
       disk:
       - size_gb: 4
         type: thin
