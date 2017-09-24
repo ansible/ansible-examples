@@ -27,7 +27,7 @@
       disk:
       - size_gb: 4
         type: thin
-        datastore: datastore2
+        datastore: "{{ datastore }}"
       #customization:
       #  name: "testvm"
       #  domain: "mod.local"
