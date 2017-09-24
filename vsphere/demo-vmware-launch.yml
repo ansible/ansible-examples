@@ -24,9 +24,7 @@
       #template: "New RHEL 7.3"
       template: "CentOS 7 Template"
       datacenter: Datacenter
-      customvalues:
-      - key:"vmtype"
-        value:"webserver"
+      customvalues: ["key":"vmtype","value":"webserver"]
       disk:
       - size_gb: 4
         type: thin
