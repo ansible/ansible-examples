@@ -20,7 +20,7 @@
 # don't recurse infinitely or anything.  Note you can't use
 # any variables in the include path here.
 
-- include: intro_example.yml
+- import_playbook: intro_example.yml
 
 # and if we wanted, we can continue with more includes here,
 # or more plays inline in this file
