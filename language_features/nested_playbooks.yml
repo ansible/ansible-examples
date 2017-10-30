@@ -1,6 +1,6 @@
 ---
 # it is possible to have top level playbook files import other playbook
-# files.  For example, a playbook called could include three
+# files.  For example, a playbook called could import three
 # different playbooks, such as webservers, workers, dbservers, etc.
 #
 # Running the site playbook would run all playbooks, while individual
@@ -16,11 +16,11 @@
     tags: foo
     shell: echo "hi..."
 
-# and this is how we include another playbook, be careful and
+# and this is how we import another playbook, be careful and
 # don't recurse infinitely or anything.  Note you can't use
-# any variables in the include path here.
+# any variables in the import path here.
 
 - import_playbook: intro_example.yml
 
-# and if we wanted, we can continue with more includes here,
+# and if we wanted, we can continue with more imports here,
 # or more plays inline in this file
