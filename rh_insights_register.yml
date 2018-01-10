@@ -1,0 +1,5 @@
+---
+
+- hosts: all
+  roles:
+    - redhataccess.redhat-access-insights-client
