@@ -1,5 +1,5 @@
 ---
 
 - hosts: all
-  roles:
+  dependencies:
     - josh-springer.rhn_registration
