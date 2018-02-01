@@ -1,7 +1,7 @@
 # windows-updates-all.yml
 
  
-– hosts: "{{ hosts_to_be_patched }}"
+– hosts: all
   serial: 1
   remote_user: administrator@SKUNKWORKS.LOCAL
  
