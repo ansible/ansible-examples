@@ -6,6 +6,11 @@
     vmname: ansiblevm
     resgrp: lrich-RG
   tasks:
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: "{{ resgrp }}"
+      state: present
+      
   - name: Create storage account
     azure_rm_storageaccount:
       resource_group: '{{ resgrp }}'
