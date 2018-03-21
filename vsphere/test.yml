@@ -12,6 +12,9 @@
   tasks:
   - name: Create a VM from a template
     vmware_guest:
+      hostname: "{{ vsphere_host }}"
+      username: "{{ vsphere_username }}"
+      password: "{{ vsphere_password }}"
       validate_certs: no
       #folder: /testvms
       name: "{{ vm_name }}{{ 100 |random(start=1, step=1) }}"
