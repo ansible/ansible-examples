@@ -12,9 +12,9 @@
   tasks:
   - name: Create a VM from a template
     vmware_guest:
-      #hostname: "{{ vsphere_host }}"
-      #username: administrator@vsphere.local
-      #password: vmware
+      hostname: "{{ vsphere_host }}"
+      username: "{{ vsphere_username }}"
+      password: "{{ vsphere_password }}"
       validate_certs: no
       #folder: /testvms
       name: "CentOS-7-host{{ 100 |random(start=1, step=1) }}"
