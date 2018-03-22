@@ -47,9 +47,9 @@
       - name: "VM Network"
         device_type: vmxnet3
         type: dhcp
-        ip: "192.168.2.225"
-        netmask: "255.255.0.0"
-        gateway: "192.168.1.254"
+        #ip: "192.168.2.225"
+        #netmask: "255.255.0.0"
+        #gateway: "192.168.1.254"
         #mac: aa:bb:dd:aa:00:14
       wait_for_ip_address: no
     delegate_to: localhost
