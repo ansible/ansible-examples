@@ -21,7 +21,7 @@
       state: poweredon
       #cluster: Cluster
       #template: "New RHEL 7.3"
-      template: "CentOS 7 Template"
+      template: "CentOS 7"
       datacenter: Datacenter
       disk:
       - size_gb: 20
