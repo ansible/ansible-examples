@@ -1,5 +1,8 @@
 - hosts: all
 
   tasks:
-    - debug: msg="{{ facter_Datacenter }}"
-    - debug: msg="{{ facter_Role }}"
+    - name: first fact
+      debug: msg="{{ facter_Datacenter }}"
+      
+    - name: second fact
+      debug: msg="{{ facter_Role }}"
