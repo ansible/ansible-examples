@@ -2,7 +2,7 @@
 
   tasks:
     - name: first fact
-      debug: msg="{{ facter_Datacenter }}"
+      debug: msg="{{ facter_datacenter }}"
       
     - name: second fact
-      debug: msg="{{ facter_Role }}"
+      debug: msg="{{ facter_role }}"
