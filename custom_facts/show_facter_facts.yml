@@ -5,7 +5,7 @@
       debug: msg="{{ ansible_uptime_seconds }}"
       
     - name: first fact
-      debug: msg="{{ ansible_facts.facter_datacenter }}"
+      debug: msg="{{ puppet_datacenter }}"
       
     - name: second fact
       debug: msg="{{ facter_role }}"
