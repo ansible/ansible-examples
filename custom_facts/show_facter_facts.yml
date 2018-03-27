@@ -5,7 +5,7 @@
       debug: msg="{{ ansible_uptime_seconds }}"
       
     - name: first fact
-      debug: msg="{{ puppet_datacenter }}"
+      debug: msg="{{ hostvars[inventory_hostname] }}" and copy/paste/grep the log
       
     - name: second fact
       debug: msg="{{ facter_role }}"
