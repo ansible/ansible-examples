@@ -1,8 +1,8 @@
 - hosts: all
 
   tasks:
-    - name: Ansible fact
-      debug: msg="{{ ansible_uptime_seconds }}"
+#    - name: Ansible fact
+#      debug: msg="{{ ansible_uptime_seconds }}"
       
     - name: first fact
       debug: msg='Datacenter - {{ ansible_facts.facter_datacenter }}'
