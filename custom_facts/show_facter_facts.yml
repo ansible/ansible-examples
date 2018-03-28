@@ -5,8 +5,8 @@
       debug: msg="{{ ansible_uptime_seconds }}"
       
     - name: first fact
-      debug: msg='Datacenter - "{{ ansible_facts.facter_datacenter }}"'
+      debug: msg='Datacenter - {{ ansible_facts.facter_datacenter }}'
       
     - name: second fact
-      debug: msg='Role - "{{ ansible_facts.facter_role }}"'
+      debug: msg='Role - {{ ansible_facts.facter_role }}'
      
