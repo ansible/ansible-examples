@@ -9,3 +9,4 @@
       
     - name: second fact
       debug: msg="{{ ansible_facts.facter_role }}"
+     
