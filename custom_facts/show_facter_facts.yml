@@ -5,7 +5,7 @@
       debug: msg="{{ ansible_uptime_seconds }}"
       
     - name: first fact
-      debug: msg="{{ hostvars[inventory_hostname] }}"
+      debug: msg="{{ ansible_facts.facter_datacenter }}"
       
     - name: second fact
-      debug: msg="{{ facter_role }}"
+      debug: msg="{{ ansible_facts.facter_role }}"
