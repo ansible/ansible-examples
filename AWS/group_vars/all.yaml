@@ -1,5 +1,5 @@
 ---
-ec2_image: ami-2051294a
+ec2_image: ami-6871a115
 ec2_instance_count: 1
 ec2_instance_type: t2.micro
 ec2_keypair: lrich-key
