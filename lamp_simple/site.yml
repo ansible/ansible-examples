@@ -16,7 +16,7 @@
     - web
 
 - name: deploy MySQL and configure the databases
-  hosts: tag_Name_Demo_linux_DBserver
+  hosts: tag_Name_Demo_Linux_DBserver
   remote_user: root
 
   roles:
