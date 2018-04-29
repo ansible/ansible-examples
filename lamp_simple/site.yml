@@ -10,14 +10,14 @@
 
 - name: configure and deploy the webservers and application code
   hosts: tag_Name_Demo_Linux_Webserver
-  remote_user: root
+  #remote_user: root
 
   roles:
     - web
 
 - name: deploy MySQL and configure the databases
   hosts: tag_Name_Demo_Linux_DBserver
-  remote_user: root
+  #remote_user: root
 
   roles:
     - db
