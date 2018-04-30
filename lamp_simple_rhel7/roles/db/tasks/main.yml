@@ -7,8 +7,20 @@
    - mariadb-server
    - MySQL-python
 
-- name: Configure SELinux to start mysql on any port
-  seboolean: name=mysql_connect_any state=true persistent=yes
+#- name: Configure SELinux to start mysql on any port
+#  seboolean: name=mysql_connect_any state=true persistent=yes
+#  ignore_errors: yes
+
+- name: RHEL | Disable SELinux
+  selinux:
+    state: permissive
+    policy: targeted
+  register: selinux_disable
+  notify:
+    - reboot
+    - wait for instance
+  tags:
+    - common
   ignore_errors: yes
 
 - name: Create Mysql configuration file
