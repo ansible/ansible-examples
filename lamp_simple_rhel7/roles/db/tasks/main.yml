@@ -16,9 +16,9 @@
     state: permissive
     policy: targeted
   register: selinux_disable
-  notify:
-    - reboot
-    - wait for instance
+  #notify:
+  #  - reboot
+  #  - wait for instance
   tags:
     - common
   ignore_errors: yes
