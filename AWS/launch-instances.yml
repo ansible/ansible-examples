@@ -46,7 +46,7 @@
          count_tag:
             Name: Demo_Linux_DBserver
          instance_tags:
-            ansible_group: dbservers
+            ansible_group: Dbserver
             Name: Demo_Linux_DBserver
       tags:
          - dbserver
