@@ -18,7 +18,7 @@
     - web
 
 - name: deploy MySQL and configure the databases
-  hosts: tag_Name_Demo_Linux_DBserver
+  hosts: tag_Name_Demo_Linux_Dbserver
   gather_facts: false
   #remote_user: ec2-user
  
