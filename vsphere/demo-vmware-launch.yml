@@ -45,7 +45,7 @@
       #    network: "VM Network"
       networks:
       - name: "VM Network"
-        device_type: vmxnet3
+        #device_type: vmxnet3
         type: dhcp
         #ip: "192.168.2.225"
         #netmask: "255.255.0.0"
