@@ -18,7 +18,7 @@
       force: yes
       validate_certs: no
     with_items:
-      - "{{ groups['VCenter Instances'] }}"
+      - "{{ groups['CentOS-7-host'] }}"
       
   - name: Delete guest
     vsphere_guest:
@@ -27,4 +27,4 @@
       force: yes
       validate_certs: no
     with_items:
-      - "{{ groups['VCenter Instances'] }}"
+      - "{{ groups['CentOS-7-host'] }}"
