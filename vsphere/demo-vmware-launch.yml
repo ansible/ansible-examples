@@ -17,7 +17,7 @@
       password: "{{ vsphere_password }}"
       validate_certs: no
       folder: "{{ vm_folder }}"
-      name: "CentOS-7-host{{ 100 |random(start=1, step=1) }}"
+      name: "CentOS-7-host{{ 100 |random(start=10, step=1) }}"
       #name: myhost
       state: poweredon
       cluster: Cluster
