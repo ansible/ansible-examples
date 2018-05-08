@@ -3,7 +3,7 @@
   connection: local
   gather_facts: False
   vars:
-    vmname: ansiblevm
+    vmname: newansiblevm
     resgrp: lrich-RG
     
   tasks:
