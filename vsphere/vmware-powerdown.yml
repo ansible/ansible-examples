@@ -11,7 +11,7 @@
  
   tasks:
   - name: Power off guest
-    vsphere_guest:
+    vmware_guest:
       #guest: CentOS-7-host*
       guest: "{{ item }}"
       state: powered_off
@@ -21,7 +21,7 @@
       - "{{ groups['CentOS-7-host'] }}"
       
   - name: Delete guest
-    vsphere_guest:
+    vmware_guest:
       guest: "{{ item }}"
       state: absent
       force: yes
