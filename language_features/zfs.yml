@@ -19,7 +19,7 @@
   - name: Create a zfs file system with quota of 10GiB and visible snapdir
     zfs: name={{pool}}/ansible quota='10G' snapdir=visible state=present
 
-  - name: Crate zfs snapshot of the above file system
+  - name: Create zfs snapshot of the above file system
     zfs: name={{pool}}/ansible@mysnapshot state=present
 
   - name: Create zfs volume named smallvol with a size of 10MiB
