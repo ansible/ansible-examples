@@ -1,3 +1,3 @@
 ---
-- src: josh-springer.rhn_registration
+- src: https://github.com/leerich/rhn_registration
 - src: redhataccess.redhat-access-insights-client
