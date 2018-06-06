@@ -1,3 +1,3 @@
 ---
 - src: https://github.com/leerich/rhn_registration
-- src: redhataccess.redhat-access-insights-client
+- src: https://github.com/leerich/ansible-redhat-access-insights-client
