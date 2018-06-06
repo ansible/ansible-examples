@@ -2,4 +2,4 @@
 
 - hosts: all
   roles:
-    - josh-springer.rhn_registration
+    - rhn_registration
