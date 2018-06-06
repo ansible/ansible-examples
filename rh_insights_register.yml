@@ -2,4 +2,4 @@
 
 - hosts: all
   roles:
-    - redhataccess.redhat-access-insights-client
+    - ansible-redhat-access-insights-client
