@@ -27,9 +27,10 @@
     with_items: groups.tag_ansible_group_lbservers
 
   roles:
-  - common
-  - base-apache
   - web
+  ## Optionally, re-run the common and base-apache roles
+  #- common
+  #- base-apache
 
   # These tasks run after the roles:
   post_tasks:
