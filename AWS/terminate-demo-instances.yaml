@@ -12,5 +12,5 @@
         state: 'absent'
       #with_items:
       #  - "{{ item_names }}"
-        instance_ids: "{{ ec2_id }}"
+        instance_ids: "{{ ec2.instance_id }}"
       delegate_to: localhost
