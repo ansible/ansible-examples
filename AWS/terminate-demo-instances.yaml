@@ -4,6 +4,9 @@
   gather_facts: False
 
   tasks:
+    - name: Debug variables
+      msg: Variable is "{{ ec2_id }}"
+      
     - name: Stop AWS Instances
       ec2:
         region: us-east-1
