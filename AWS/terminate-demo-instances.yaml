@@ -5,7 +5,8 @@
 
   tasks:
     - name: Debug variables
-      msg: Variable is "{{ ec2_id }}"
+      debug: 
+        msg: Variable is "{{ ec2_id }}"
       
     - name: Stop AWS Instances
       ec2:
