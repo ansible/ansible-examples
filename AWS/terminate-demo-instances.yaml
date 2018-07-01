@@ -1,14 +1,16 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: all
+  #connection: local
   gather_facts: False
 
   tasks:
     - name: Stop AWS Instances
       ec2:
         region: us-east-1
-        instance_tags:
-          Name: '{{ item }}'
+        #instance_tags:
+        #  Name: '{{ item }}'
         state: 'absent'
-      with_items:
-        - "{{ item_names }}"
+      #with_items:
+      #  - "{{ item_names }}"
+        instance_ids: "{{ ansible_ec2_instance_id }}"
+      delegate_to: localhost
