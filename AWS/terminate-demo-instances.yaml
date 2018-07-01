@@ -10,7 +10,7 @@
       
     - name: Stop AWS Instances
       ec2:
-        region: us-east-1
+        #region: us-east-1
         #instance_tags:
         #  Name: '{{ item }}'
         state: 'absent'
