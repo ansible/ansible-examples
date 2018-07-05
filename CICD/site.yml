@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - deploy_instance
+    
+   
