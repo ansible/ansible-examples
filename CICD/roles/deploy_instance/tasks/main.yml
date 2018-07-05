@@ -24,7 +24,7 @@
      - jenkins
   register: ec2
 
-    - name: Add all instances public IPs to host group
+- name: Add all instances public IPs to host group
       add_host: hostname="{{ item.public_ip }}" groupname=dbservers
       with_items: "{{ ec2.instances }}"
       #with_items: "{{ tag_Name_Dbserver }}"
