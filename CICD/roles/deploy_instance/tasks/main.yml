@@ -16,7 +16,7 @@
      assign_public_ip: yes
      exact_count: "{{ ec2_instance_count }}"
      count_tag:
-        Name: Demo_Linux_Jenkins
+        Name: CICD_Linux_Jenkins
      instance_tags:
         ansible_group: jenkins
         Name: Demo_Linux_Jenkins
