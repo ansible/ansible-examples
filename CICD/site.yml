@@ -1,6 +1,6 @@
 ---
 - name: Start of CIDC Workflow
-  hosts: all
+  hosts: localhost
   gather_facts: false
   
   roles:
