@@ -1,4 +1,4 @@
 pipeline:
   build:
     image: node:latest
-    commands: npm install
+    commands: npm instal
