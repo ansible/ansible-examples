@@ -2,3 +2,8 @@ pipeline:
   build:
     image: node:latest
     commands: npm install
+  services:
+  postgres:
+    image: postgres:9.4.5
+    environment:
+      - POSTGRES_USER=myapp
