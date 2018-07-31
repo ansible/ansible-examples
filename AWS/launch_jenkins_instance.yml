@@ -17,7 +17,7 @@
          region: "{{ ec2_region }}"
          vpc_subnet_id: "{{ ec2_vpc_subnet }}"
          #count: "{{ ec2_instance_count }}"
-         wait: false
+         wait: true
          assign_public_ip: yes
          exact_count: "{{ ec2_instance_count }}"
          count_tag:
