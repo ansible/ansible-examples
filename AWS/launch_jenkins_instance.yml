@@ -2,7 +2,7 @@
 
 - hosts: localhost
   connection: local
-  gather_facts: True
+  gather_facts: False
  
   tasks:
 
