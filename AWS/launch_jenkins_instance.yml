@@ -35,7 +35,7 @@
       #with_items: "{{ tag_Name_Dbserver }}"
 
     - name: Wait for system to become reachable before continuing.
-      delegate_to: "{{ item.public_dns_name }}"
+      delegate_to: "{{ item.public_ip }}"
       wait_for_connection:
         timeout: 900
         delay: 30
