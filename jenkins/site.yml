@@ -5,7 +5,9 @@
   tasks:
     - name: install git only if it is not already installed
       yum:
-        name=git
+        name:
+          - git
+          - java-1.8.0-openjdk.x86_64
         state=present
 
   roles:
