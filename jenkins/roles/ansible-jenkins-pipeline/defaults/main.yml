@@ -1,0 +1,22 @@
+---
+jenkins_java_args: -Djava.awt.headless=true -Djenkins.install.runSetupWizard=false
+jenkins_java_extra_args: ""
+jenkins_defaults_file: /etc/default/jenkins
+jenkins_plugins:
+- git
+- job-dsl
+- workflow-aggregator
+- workflow-cps
+jenkins_seed_name: pipeline-seed
+jenkins_seed_template: seed-config.xml.j2
+jenkins_job_template: jobs.groovy.j2
+jenkins_version: "2.107.1"
+jenkins_approved_signatures:
+- method hudson.plugins.git.GitSCM getBranches
+- method hudson.plugins.git.GitSCM getUserRemoteConfigs
+- method hudson.plugins.git.GitSCMBackwardCompatibility getExtensions
+jenkins_acl_approved_signatures: []
+jenkins_slave_agent_port: 0
+jenkins_cloud_configs: ""
+jenkins_admin_address: nobody@example.com
+#jenkins_url:
