@@ -1,0 +1,72 @@
+---
+- name: Create Jenkins Pipeline Job
+  hosts: all
+  gather_facts: false
+
+  tasks:
+
+    - name: Get list of jobs
+      uri:
+        user: admin
+        password: "{{ jenkins_admin_password }}"
+        force_basic_auth: yes
+        url: "http://127.0.0.1:8080/api/json?tree=jobs[name]"
+        return_content: yes
+      register: jenkins_jobs
+      until: jenkins_jobs.content.find('Please wait while Jenkins is getting ready to work') == -1
+      retries: 10
+      delay: 5
+
+    - name: Check if seed job exists
+      set_fact:
+        jenkins_seed_job_exists: "{{ jenkins_seed_name in (jenkins_jobs.content|from_json).jobs|map(attribute='name')|list }}"
+
+    - name: Create seed job
+      uri:
+        user: admin
+        password: "{{ jenkins_admin_password }}"
+        force_basic_auth: yes
+        url: "http://127.0.0.1:8080/createItem?name={{ jenkins_seed_name }}&{{ jenkins_crumb_token }}"
+        method: POST
+        headers:
+          Content-Type: "application/xml"
+        body: "{{ lookup('template', jenkins_seed_template) }}"
+      register: jenkins_seed_job_created
+      when: not jenkins_seed_job_exists
+
+    - name: Update seed job
+      uri:
+        user: admin
+        password: "{{ jenkins_admin_password }}"
+        force_basic_auth: yes
+        url: "http://127.0.0.1:8080/job/{{ jenkins_seed_name }}/config.xml?{{ jenkins_crumb_token }}"
+        method: POST
+        headers:
+          Content-Type: "application/xml"
+        body: "{{ lookup('template', jenkins_seed_template) }}"
+      register: jenkins_seed_job_updated
+      when: jenkins_seed_job_exists
+
+    - name: Run seed job
+      uri:
+        user: admin
+        password: "{{ jenkins_admin_password }}"
+        force_basic_auth: yes
+        url: "http://127.0.0.1:8080/job/{{ jenkins_seed_name }}/build?{{ jenkins_crumb_token }}"
+        method: POST
+        status_code: 201
+      register: jenkins_seed_job_started
+      when: jenkins_seed_job_created|success or jenkins_seed_job_updated|success
+
+    - name: Wait for seed job
+      uri:
+        user: admin
+        password: "{{ jenkins_admin_password }}"
+        force_basic_auth: yes
+        url: "http://127.0.0.1:8080/job/{{ jenkins_seed_name }}/lastBuild/buildNumber?{{ jenkins_crumb_token }}"
+        method: GET
+        status_code: 200
+      register: jenkins_seed
+      until: jenkins_seed['status']|default(0) == 200
+      retries: 10
+      delay: 5
