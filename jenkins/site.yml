@@ -8,7 +8,7 @@
         name:
           - git
           - java-1.8.0-openjdk.x86_64
-        state=present
+        state: present
 
   roles:
     - geerlingguy.jenkins
