@@ -18,7 +18,7 @@
   delay:
 - name: Check if seed job exists
   set_fact:
-    jenkins_seed_job_exists: "{{ jenkins_seed_name in (jenkins_jobs.content|from_json).jobs|map(attribute='name')|list }}
+    jenkins_seed_job_exists: "{{ jenkins_seed_name in (jenkins_jobs.content|from_json).jobs|map(attribute='name')|list }}"
 - name: Create seed job
   uri:
     user: admin
