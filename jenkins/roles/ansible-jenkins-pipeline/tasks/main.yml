@@ -1,76 +1,163 @@
----
-#- name: Create Jenkins Pipeline Job
-#  hosts: all
-#  gather_facts: false
-#
-#  tasks:
+- name: Set Jenkins JAVA_ARGS
+  lineinfile:
+    dest: "{{ jenkins_defaults_file }}"
+    insertbefore: "^JENKINS_ARGS.*"
+    line: "JAVA_ARGS=\"{{ jenkins_java_args }} {{ jenkins_java_extra_args }}\""
+  register: jenkins_defaults
 
-- name: Get list of jobs
+- name: Allow logins with Jenkins SSH key
+  authorized_key: user=jenkins key="{{ lookup('file', jenkins_ssh_public_key) }}"
+  when: "jenkins_ssh_public_key is defined and jenkins_ssh_public_key is not none"
+
+- name: Ensure Jenkins SSH directory exists
+  file: path="~jenkins/.ssh" owner=jenkins group=jenkins mode=0755 state=directory
+
+- name: Install Jenkins SSH key
+  copy: src="{{ jenkins_ssh_private_key }}" dest="~jenkins/.ssh/id_rsa" owner=jenkins group=jenkins mode=0600
+  when: "jenkins_ssh_private_key is defined and jenkins_ssh_private_key is not none"
+
+- name: Remove initial Jenkins password
+  file: name=/var/lib/jenkins/secrets/initialAdminPassword state=absent
+
+- name: Create Jenkins admin password hash
+  shell: echo -n "{{ jenkins_admin_password }}{ansible_jenkins}" | sha256sum - | awk '{ print $1; }'
+  register: jenkins_password_hash
+
+- name: Create admin user directory
+  file: path="~jenkins/users/admin" owner=jenkins group=jenkins mode=0755 state=directory recurse=yes
+
+- name: Create admin
+  template: src=admin-config.xml.j2 dest="~jenkins/users/admin/config.xml" force=no
+  register: jenkins_admin_config
+
+- name: Create config
+  template: src=config.xml.j2 dest="~jenkins/config.xml"
+  register: jenkins_config_change
+
+- name: Create scriptApproval
+  template: src=scriptApproval.xml.j2 dest="~jenkins/scriptApproval.xml"
+  register: jenkins_config_change
+
+- name: Create Jenkins location configuration
+  template:
+    src: jenkins.model.JenkinsLocationConfiguration.xml.j2
+    dest: "~jenkins/jenkins.model.JenkinsLocationConfiguration.xml"
+  when: jenkins_url is defined and jenkins_url != ""
+  register: jenkins_config_change
+
+- name: Create CLI config (disable CLI)
+  copy: src=jenkins.CLI.xml dest="~jenkins/jenkins.CLI.xml"
+
+- name: Create queue item authenticator configuration
+  copy:
+    src: jenkins.security.QueueItemAuthenticatorConfiguration.xml
+    dest: "~jenkins/jenkins.security.QueueItemAuthenticatorConfiguration.xml"
+
+- name: Create job-dsl security configuration
+  copy:
+    src: javaposse.jobdsl.plugin.GlobalJobDslSecurityConfiguration.xml
+    dest: "~jenkins/javaposse.jobdsl.plugin.GlobalJobDslSecurityConfiguration.xml"
+
+- name: Create credentials configuration
+  template:
+    src: credentials.xml.j2
+    dest: "~jenkins/credentials.xml"
+
+- name: Create download settings configuration
+  copy:
+    src: jenkins.model.DownloadSettings.xml
+    dest: "~jenkins/jenkins.model.DownloadSettings.xml"
+
+- name: Create /var/lib/jenkins/secrets
+  file: path="/var/lib/jenkins/secrets" owner=jenkins group=jenkins mode=0700 state=directory recurse=yes
+
+- name: Enable master to slave access control
+  copy:
+    content: "false"
+    dest: "/var/lib/jenkins/secrets/slave-to-master-security-kill-switch"
+
+# Restart with a task instead of a handler, since we need those changes to
+# be applied right away so that we can use the admin password in API calls.
+- name: Restart Jenkins if necessary
+  service: name=jenkins state=restarted
+  when: jenkins_defaults|changed or jenkins_admin_config|changed or jenkins_config|changed
+
+- name: Wait for Jenkins to become available
+  wait_for: port=8080
+
+- name: Get Jenkins crumb
   uri:
     user: admin
     password: "{{ jenkins_admin_password }}"
     force_basic_auth: yes
-    url: "http://127.0.0.1:8080/api/json?tree=jobs[name]"
+    url: "http://127.0.0.1:8080/crumbIssuer/api/json"
     return_content: yes
-  register: jenkins_jobs
-  until: jenkins_jobs.content.find('Please wait while Jenkins is getting ready to work') == -1
-  retries: 10
-  delay:
-
-- name: Check if seed job exists
-  set_fact:
-    jenkins_seed_job_exists: "{{ jenkins_seed_name in (jenkins_jobs.content|from_json).jobs|map(attribute='name')|list }}"
-
-- name: Print previous variable
-  debug:
-    msg: "{{ jenkins_seed_job_exists }}"
-
-- name: Create seed job
-  uri:
-    user: admin
-    password: "{{ jenkins_admin_password }}"
-    force_basic_auth: yes
-    url: "http://127.0.0.1:8080/createItem?name={{ jenkins_seed_name }}&{{ jenkins_crumb_token }}"
-    method: POST
-    headers:
-      Content-Type: "application/xml"
-    body: "{{ lookup('template', jenkins_seed_template) }}"
-  register: jenkins_seed_job_created
-  when: not jenkins_seed_job_exists
-
-- name: Update seed job
-  uri:
-    user: admin
-    password: "{{ jenkins_admin_password }}"
-    force_basic_auth: yes
-    url: "http://127.0.0.1:8080/job/{{ jenkins_seed_name }}/config.xml?{{ jenkins_crumb_token }}"
-    method: POST
-    headers:
-      Content-Type: "application/xml"
-    body: "{{ lookup('template', jenkins_seed_template) }}"
-  register: jenkins_seed_job_updated
-  when: jenkins_seed_job_exists
-
-- name: Run seed job
-  uri:
-    user: admin
-    password: "{{ jenkins_admin_password }}"
-    force_basic_auth: yes
-    url: "http://127.0.0.1:8080/job/{{ jenkins_seed_name }}/build?{{ jenkins_crumb_token }}"
-    method: POST
-    status_code: 201
-  register: jenkins_seed_job_started
-  when: jenkins_seed_job_created|success or jenkins_seed_job_updated|succes
-
-- name: Wait for seed job
-  uri:
-    user: admin
-    password: "{{ jenkins_admin_password }}"
-    force_basic_auth: yes
-    url: "http://127.0.0.1:8080/job/{{ jenkins_seed_name }}/lastBuild/buildNumber?{{ jenkins_crumb_token }}"
-    method: GET
-    status_code: 200
-  register: jenkins_seed
-  until: jenkins_seed['status']|default(0) == 200
+    status_code: 200, 404
+  register: jenkins_crumb
+  until: jenkins_crumb.status == 200 and jenkins_crumb.content.find('Please wait while Jenkins is getting ready to work') == -1
   retries: 10
   delay: 5
+
+- name: Set crumb token
+  set_fact:
+    jenkins_crumb_token: "{{ jenkins_crumb.json.crumbRequestField }}={{ jenkins_crumb.json.crumb }}"
+
+- name: Get installed plugins
+  uri:
+    user: admin
+    password: "{{ jenkins_admin_password }}"
+    force_basic_auth: yes
+    url: "http://127.0.0.1:8080/pluginManager/api/json?tree=plugins[shortName]&{{ jenkins_crumb_token }}"
+    return_content: yes
+  register: jenkins_installed_plugins
+
+- name: Install plugins
+  uri:
+    user: admin
+    password: "{{ jenkins_admin_password }}"
+    force_basic_auth: yes
+    url: "http://127.0.0.1:8080/pluginManager/install?plugin.{{ item }}.default=on&{{ jenkins_crumb_token }}"
+    method: POST
+    status_code: [200, 302]
+  when: item not in jenkins_installed_plugins.json.plugins|map(attribute='shortName')|list
+  with_items: "{{ jenkins_plugins }}"
+
+- name: Wait for plugins to be installed
+  uri:
+    user: admin
+    password: "{{ jenkins_admin_password }}"
+    force_basic_auth: yes
+    url: "http://127.0.0.1:8080/updateCenter/installStatus?{{ jenkins_crumb_token }}"
+    return_content: yes
+  register: jenkins_plugin_status
+  until: "'Pending' not in jenkins_plugin_status.json.data.jobs|map(attribute='installStatus')"
+  retries: 60
+  delay: 10
+
+- name: Add cloud configs to config.xml
+  replace:
+    dest: "~jenkins/config.xml"
+    regexp: "<clouds/>"
+    replace: |
+      <clouds>
+        {{ jenkins_cloud_configs }}
+      </clouds>
+
+- name: Check if we need to restart Jenkins to activate plugins
+  uri:
+    user: admin
+    password: "{{ jenkins_admin_password }}"
+    force_basic_auth: yes
+    url: "http://127.0.0.1:8080/updateCenter/api/json\
+    ?tree=restartRequiredForCompletion&{{ jenkins_crumb_token }}"
+    return_content: yes
+  register: jenkins_restart_required
+
+- name: Restart Jenkins to activate new plugins
+  service: name=jenkins state=restarted
+  when: jenkins_restart_required.json.restartRequiredForCompletion|bool
+
+- name: Wait for Jenkins to become available
+  wait_for: port=8080
+
+- include_tasks: seed-job.yml
