@@ -80,7 +80,7 @@
 # be applied right away so that we can use the admin password in API calls.
 - name: Restart Jenkins if necessary
   service: name=jenkins state=restarted
-  when: jenkins_defaults|changed or jenkins_admin_config|changed or jenkins_config|changed
+  #when: jenkins_defaults|changed or jenkins_admin_config|changed or jenkins_config|changed
 
 - name: Wait for Jenkins to become available
   wait_for: port=8080
