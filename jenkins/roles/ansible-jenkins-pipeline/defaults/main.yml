@@ -25,3 +25,5 @@ jenkins_admin_address: nobody@example.com
 jenkins_git_user: git
 jenkins_git_host: git.example.com
 jenkins_git_path: git
+jenkins_git_repositories:
+    - wjoel.com
