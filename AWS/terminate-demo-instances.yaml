@@ -1,0 +1,20 @@
+---
+- hosts: all
+  #connection: local
+  gather_facts: False
+
+  tasks:
+    - name: Debug variables
+      debug: 
+        msg: Variable is "{{ ec2_id }}"
+      
+    - name: Stop AWS Instances
+      ec2:
+        region: us-east-1
+        #instance_tags:
+        #  Name: '{{ item }}'
+        state: 'absent'
+      #with_items:
+      #  - "{{ item_names }}"
+        instance_ids: "{{ ec2_id }}"
+      delegate_to: localhost

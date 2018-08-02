@@ -1,0 +1,15 @@
+
+- name: Configure Jenkins server
+  hosts: all
+  remote_user: ec2-user
+  tasks:
+    - name: install git only if it is not already installed
+      yum:
+        name:
+          - git
+          - java-1.8.0-openjdk.x86_64
+        state: present
+
+  roles:
+    - { role: geerlingguy.jenkins, java_packages: java-1.8.0-openjdk.x86_64 }
+    #- ansible-jenkins-pipeline

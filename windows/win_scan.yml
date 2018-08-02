@@ -1,0 +1,47 @@
+- hosts: all
+
+  gather_facts: false
+
+  roles:
+
+    - scan
+
+ 
+
+- name: Ensuring ansible directory Exists
+
+  win_file: path=C:\ProgramData\Ansible state=directory
+
+  tags:
+
+    - vguest_facts
+
+ 
+
+- name: Copying facts scripts to relevant place
+
+  win_template: src="{{ item }}.j2" dest="C:\ProgramData\Ansible\{{ item }}.ps1"
+
+  with_items:
+
+    - InstalledPrograms
+
+#    - configs
+
+    - Services
+
+    - DllVersions
+
+  tags:
+
+    - vguest_facts
+
+ 
+
+- setup: fact_path='C:\\ProgramData\\Ansible'
+
+  tags:
+
+    - vguest_facts
+
+ 

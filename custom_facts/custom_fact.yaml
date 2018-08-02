@@ -1,0 +1,24 @@
+---
+- hosts: all
+  gather_facts: False
+  
+  tasks:
+
+
+    - name: ensure custom facts directory exists
+      file:
+        path: /etc/ansible/facts.d
+        recurse: yes
+        state: directory
+
+    - name: install custom fact module for IP address
+      copy:
+        src: files/custom.fact
+        dest: /etc/ansible/facts.d/custom.fact
+        mode: 0755
+
+    - name: install another fact module 
+      copy:
+        src: files/another.fact
+        dest: /etc/ansible/facts.d/another.fact
+        mode: 0755

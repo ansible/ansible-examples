@@ -1,0 +1,7 @@
+#!/bin/bash
+cat <<EOF
+{
+  "City" : "Boston"
+  "State" : "Massachusetts"
+}
+EOF

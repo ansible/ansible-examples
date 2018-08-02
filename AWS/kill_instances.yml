@@ -1,0 +1,78 @@
+# demo_setup.yml
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+ 
+  tasks:
+
+    - name: Terminate a Webserver Instance
+      ec2:
+         key_name: lrich-key
+         region: us-east-1
+         group_id: sg-ec606896
+         instance_type: t2.micro
+         image: ami-2051294a
+         vpc_subnet_id: subnet-f0ab60a8
+         assign_public_ip: yes
+         exact_count: 0
+         count_tag:
+            Name: demo_Webserver
+         wait: true
+         instance_tags:
+            ansible_group: webservers
+            Name: demo_Webserver
+      tags:
+         - webserver
+      register: ec2
+
+    #- name: Add all instances public IPs to host group
+    #  add_host: hostname="{{ item.public_ip }}" groupname=webservers
+    #  with_items: "{{ ec2.instances }}"
+      
+    - name: Terminate a DBServer Instance
+      ec2:
+         key_name: lrich-key
+         region: us-east-1
+         group_id: sg-ec606896
+         instance_type: t2.micro
+         image: ami-2051294a
+         vpc_subnet_id: subnet-f0ab60a8
+         assign_public_ip: yes
+         exact_count: 0
+         count_tag:
+            Name: demo_Dbserver
+         wait: true
+         instance_tags:
+            ansible_group: dbservers
+            Name: demo_Dbserver
+      tags:
+         - dbserver
+      register: ec2
+    #- name: Add all instances public IPs to host group
+    #  add_host: hostname="{{ item.public_ip }}" groupname=dbservers
+    #  with_items: "{{ ec2.instances }}"
+      #with_items: "{{ tag_Name_Dbserver }}"
+
+    - name: Terminate a Jenkins Instance
+      ec2:
+         key_name: lrich-key
+         region: us-east-1
+         group_id: sg-ec606896
+         instance_type: t2.micro
+         image: ami-2051294a
+         vpc_subnet_id: subnet-f0ab60a8
+         assign_public_ip: yes
+         exact_count: 0
+         count_tag:
+            Name: demo_Jenkins
+         wait: true
+         instance_tags:
+            ansible_group: jenkins
+            Name: demo_Jenkins
+      tags:
+         - jenkins
+      register: ec2
+
+   
+     

@@ -1,0 +1,68 @@
+---
+# Create a new VM on an ESX server
+# Returns changed = False when the VM already exists
+# Returns changed = True and a adds ansible_facts from the new VM
+# State will set the power status of a guest upon creation. Use powered_on to create and boot.
+# Options ['state', 'vm_extra_config', 'vm_disk', 'vm_nic', 'vm_hardware', 'esxi'] are required together
+- name: launch instances
+  hosts: localhost
+  connection: local
+  gather_facts: False
+ 
+  tasks:
+  - name: Create a VM from a template
+    vmware_guest:
+      hostname: "{{ vsphere_host }}"
+      username: "{{ vsphere_username }}"
+      password: "{{ vsphere_password }}"
+      validate_certs: no
+      folder: "{{ vm_folder }}"
+      name: "CentOS-7-host{{ 100 |random(start=10, step=1) }}"
+      #name: myhost
+      state: poweredon
+      cluster: Cluster
+      #template: "New RHEL 7.3"
+      template: "CentOS 7"
+      datacenter: Datacenter
+      annotation: "webserver"
+      #customvalues: [key: vmtype, value: webserver]
+      #customvalues:
+      #- vmtype: webserver
+      
+      disk:
+      - size_gb: 4
+        type: thin
+        datastore: "{{ datastore }}"
+      #customization:
+      #  name: "testvm"
+      #  domain: "mod.local"
+      hardware:
+        memory_mb: 1024
+        num_cpus: 1
+        scsi: paravirtual
+      #nic:
+      #  - type: vmxnet3
+      #    network: "VM Network"
+      networks:
+      - name: "VM Network"
+        #device_type: vmxnet3
+        type: dhcp
+        #ip: "192.168.2.226"
+        #netmask: "255.255.0.0"
+        #gateway: "192.168.1.254"
+        #dns_servers:
+        #- 8.8.8.8
+        #- 8.8.4.4
+        #mac: aa:bb:dd:aa:00:14
+      wait_for_ip_address: no
+    delegate_to: localhost
+    register: deploy
+    with_sequence: count="{{ instance_count }}"
+
+  - name: show info
+    debug:
+      msg: "{{ deploy }}"
+      
+  #- name: Add hosts to new group
+  #  add_host: hostname="{{ item.name }}" groupname=dbservers
+  #  with_items: "{{ deploy.instance }}"

@@ -1,0 +1,39 @@
+---
+- name: Dynamic DNS Playbook
+  hosts: tag_ansible_group_windows_webservers
+  gather_facts: false
+  connection: winrm
+  vars:
+    ansible_ssh_port : 5986
+
+  tasks:
+    - name:  Copy over wget
+      win_copy:
+        src: files/wget-1.11.4-1-setup.exe
+        dest: c:\wget-1.11.4-1-setup.exe
+    - name:  Copy over wget batch file
+      win_copy:
+        src: files/windows_webserver.cosmocomet.com.bat
+        dest: c:\windows_webserver.cosmocomet.com.bat
+    - name: install Wget
+      win_command: C:\wget-1.11.4-1-setup.exe /SILENT
+    - name: Run wget batch file
+      win_command: C:\windows_webserver.cosmocomet.com.bat
+
+- hosts: tag_ansible_group_windows_dbservers
+  connection: winrm
+  gather_facts: false
+  tasks:
+    - name:  Copy over wget
+      win_copy:
+        src: files/wget-1.11.4-1-setup.exe
+        dest: c:\wget-1.11.4-1-setup.exe
+    - name:  Copy over wget batch file
+      win_copy:
+        src: files/windows_db.cosmocomet.com.bat
+        dest: c:\windows_db.cosmocomet.com.bat
+
+    - name: install Wget
+      win_command: C:\wget-1.11.4-1-setup.exe /SILENT
+    - name: Run wget batch file
+      win_command: C:\windows_db.cosmocomet.com.bat

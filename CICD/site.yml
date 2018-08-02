@@ -1,0 +1,9 @@
+---
+- name: Start of CIDC Workflow
+  hosts: localhost
+  gather_facts: false
+  
+  roles:
+    - deploy_instance
+    
+   

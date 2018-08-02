@@ -24,7 +24,7 @@
       state: 'absent'
 
   roles:
-#  - iis 
+  - iis 
   - web
 
   # These tasks run after the roles:

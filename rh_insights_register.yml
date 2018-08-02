@@ -1,0 +1,5 @@
+---
+
+- hosts: all
+  roles:
+    - ansible-redhat-access-insights-client

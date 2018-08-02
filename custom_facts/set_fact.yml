@@ -1,0 +1,8 @@
+- hosts: all
+  gather_facts: True
+  
+  tasks:
+  - name: set fact
+    set_fact:
+      AAA_fact: AAABBBCCC
+      cacheable: true

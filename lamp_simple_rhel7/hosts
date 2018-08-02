@@ -1,7 +1,8 @@
 [webservers]
-webserver.local
+#webserver.local
 
 [dbservers]
-dbserver.local
+54.208.96.160
+#dbserver.local
 
 

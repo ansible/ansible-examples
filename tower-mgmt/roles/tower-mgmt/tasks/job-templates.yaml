@@ -1,0 +1,143 @@
+---
+- name: Deploy ACLs on Network Devices
+  shell: >
+    tower-cli job_template create
+    --name "Deploy ACLs on Network Devices"
+    --description "Deploy ACLs on Network Devices"
+    --job-type "run"
+    --inventory "Network Devices"
+    --project "Network Demo"
+    --playbook "deploy_acl.yaml"
+    --machine-credential "AWS SSH Key"
+    --network-credential "Network Credentials"
+    --become-enabled "no"
+  tags: skip
+
+- name: create job template Deploy ACLs on Network Devices
+  tower_job_template:
+    #config_file: ~/tower_cli.cfg
+    name: "Deploy ACLs on Network Devices"
+    description: "Deploy ACLs on Network Devices"
+    job_type: run
+    project: Network Demo
+    playbook: deploy_acl.yaml
+    inventory: Network Devices
+    machine_credential: "AWS SSH Key"
+    network_credential: "Network Credentials"
+    cloud_credential: "AWS Sales API Key"
+    ask_credential: yes
+    become_enabled: no
+    state: present
+#- name: create job template Configure NTP on Network Devices
+#  tower_job_template:
+#    #config_file: ~/tower_cli.cfg
+#    name: Configure NTP on Network Devices
+#    description: Configure NTP on Network Devices
+#    job_type: run
+#    project: Network Demo
+#    playbook: deploy_ntp.yaml
+#    inventory: Network Devices
+#    machine_credential:
+#    network_credential: Network Credentials
+#    cloud_credential:
+#    ask_credential: no
+#    become_enabled: no
+#    state: present
+- name: create job template Scan Windows Hosts
+  tower_job_template:
+    #config_file: ~/tower_cli.cfg
+    name: Scan Windows Hosts
+    description: Scan AWS Windows Hosts
+    job_type: scan
+    project: Ansible Examples (LR)
+    playbook: AWS/launch-instances.yml
+    inventory: Production
+    machine_credential: "AWS Windows Password"
+    network_credential:
+    cloud_credential:
+    ask_credential: no
+    become_enabled: no
+    state: present
+
+- name: create job template Scan AWS Linux Hosts
+  tower_job_template:
+    #config_file: ~/tower_cli.cfg
+    name: Scan AWS Linux Hosts
+    description: Scan AWS Linux Hosts
+    job_type: scan
+    project: Ansible Examples (LR)
+    playbook: AWS/launch-instances.yml
+    inventory: Production
+    machine_credential: "AWS SSH Key"
+    network_credential:
+    cloud_credential:
+    ask_credential: no
+    become_enabled: yes
+    state: present
+
+- name: create job template Launching AWS Linux Instances
+  tower_job_template:
+    #config_file: ~/tower_cli.cfg
+    name: Launch AWS Linux Demo Instances
+    description: Launch a set of linux instances for Demo
+    job_type: run
+    project: Ansible Examples (LR)
+    playbook: AWS/launch-instances.yml
+    inventory: Production
+    machine_credential: "AWS SSH Key"
+    network_credential:
+    cloud_credential: "AWS Sales API Key"
+    ask_credential: no
+    become_enabled: no
+    state: present
+  tags: skip
+
+- name: Create Lee's job templates
+  tower_job_template:
+    #config_file: ~/tower_cli.cfg
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    job_type: "{{ item.job_type }}"
+    inventory: "{{ item.inventory | default('Demo') }}"
+    #inventory: Demo
+    project: "{{ item.project }}"
+    playbook: "{{ item.playbook }}"
+    machine_credential: "{{ item.machine_credential }}"
+    cloud_credential: "{{ item.cloud_credential | default('') }}"
+    limit: "{{ item.limit | default('') }}"
+    #extra_vars: "{{ item.extra_vars | default('sales: demo') | from_yaml | to_yaml }}"
+    ask_inventory: "{{ item.ask_inventory_on_launch | default('no') | bool }}"
+    ask_job_type: "{{ item.ask_job_type_on_launch | default('no') | bool }}"
+    become_enabled: "{{ item.become_enabled | default('no') | bool }}"
+    state: present
+    ask_credential: no
+  with_items: "{{ sales_demo_job_templates }}"
+
+- name: ensure all job template roles are granted
+  tower_role:
+    #config_file: ~/tower_cli.cfg
+    job_template: "{{ item.0.name }}"
+    team: "{{ item.1.name }}"
+    role: "{{ item.1.type }}"
+    state: present
+  with_subelements:
+    - "{{ sales_demo_job_templates }}"
+    - team_roles
+
+#- name: create all sales demo job templates
+#  shell: >
+#    tower-cli job_template create
+#    --name "{{ item.name }}"
+#    --description "{{ item.description }}"
+#    --job-type "{{ item.job_type }}"
+#    --inventory "{{ item.inventory | default('Demo') }}"
+#    --project "{{ item.project }}"
+#    --playbook "{{ item.playbook }}"
+#    --machine-credential "{{ item.machine_credential }}"
+#    --cloud-credential "{{ item.cloud_credential | default('') }}"
+    #--limit "{{ item.limit | default('') }}"
+#    --extra-vars "{{ item.extra_vars | default('foo: bar') | from_yaml | to_yaml }}"
+#    --ask-inventory-on-launch "{{ item.ask_inventory_on_launch | default('no') | bool }}"
+    #--ask-job-type-on-launch "{{ item.ask_job_type_on_launch | default('no') | bool }}"
+#    --become-enabled "{{ item.become_enabled | default('no') | bool }}"
+#  with_items: "{{ sales_demo_job_templates }}"

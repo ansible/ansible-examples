@@ -1,7 +1,7 @@
 [webservers]
-web3
+tag_Name_Demo_Linux_Webserver
 
 [dbservers]
-web2
+tag_Name_Demo_Linux_DBserver
 
 

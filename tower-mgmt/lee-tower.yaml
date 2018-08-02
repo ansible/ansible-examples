@@ -1,0 +1,9 @@
+- hosts: localhost
+  gather_facts: no
+  vars_files:
+    - roles/tower-mgmt/group_vars/vault.yaml
+  #become: yes
+  #become_user: root
+  roles:
+  - tower-mgmt
+  

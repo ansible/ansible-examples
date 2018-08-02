@@ -1,0 +1,26 @@
+---
+  
+- name: Add Ansible Teams
+  include: teams.yaml
+  tags:
+  - teams
+
+- name: Add Credentials to Tower
+  include: credentials.yaml
+  tags: credentials
+
+- name: Add Projects to Tower
+  include: projects.yaml
+  tags: projects
+
+- name: Add Inventories to Tower
+  include: inventories.yaml
+  tags: inventories
+  
+- name: Add Ansible Groups
+  include: groups.yaml
+  tags: groups
+  
+- name: Add Job-Templates to Tower
+  include: job-templates.yaml
+  tags: templates

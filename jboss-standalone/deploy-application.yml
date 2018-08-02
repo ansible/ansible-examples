@@ -5,5 +5,5 @@
 
   roles:
 # Optionally, (re)deploy JBoss here	  
-#    - jboss-standalone
+    - jboss-standalone
     - java-app

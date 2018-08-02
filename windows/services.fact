@@ -1,0 +1,8 @@
+"ansible_local": {
+        "windows": {
+            "services": {
+                "asdf" : "Windows Time",
+                "bar"  : "DNS Client"
+            }
+        }
+ }

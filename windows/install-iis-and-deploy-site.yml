@@ -1,0 +1,24 @@
+---
+# This playbook combines playbooks to install and enable IIS on Windows hosts and deploy an example site
+
+- name: Install IIS
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install IIS
+      win_feature:
+        name: "Web-Server"
+        state: present
+        restart: yes
+        include_sub_features: yes
+        include_management_tools: yes
+        
+- name: Download simple web site 
+  hosts: all 
+
+  gather_facts: false
+  tasks:
+    - name: Download simple web site to 'C:\inetpub\wwwroot\ansible.html'
+      win_get_url:
+        url: 'https://raw.githubusercontent.com/thisdavejohnson/mywebapp/master/index.html'
+        dest: 'C:\inetpub\wwwroot\ansible.html'

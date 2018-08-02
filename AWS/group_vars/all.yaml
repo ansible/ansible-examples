@@ -1,0 +1,8 @@
+---
+ec2_image: ami-2051294a
+ec2_instance_count: 1
+ec2_instance_type: t2.micro
+ec2_keypair: lrich-key
+ec2_region: us-east-1
+ec2_security_group: sg-b719f0c2
+ec2_vpc_subnet: subnet-7e169435
