@@ -261,7 +261,7 @@ execute the following command:
 
 		ansible-playbook -i hosts site.yml
 
-###Verification.
+### Verification
 -----------------------------
 
 The newly added node can be easily verified by checking the sharding status and
