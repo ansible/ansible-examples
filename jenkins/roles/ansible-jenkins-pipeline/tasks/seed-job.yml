@@ -60,7 +60,7 @@
     method: POST
     status_code: 201
   register: jenkins_seed_job_started
-  when: jenkins_seed_job_created|success or jenkins_seed_job_updated|succes
+  when: jenkins_seed_job_created|success or jenkins_seed_job_updated|success
 
 - name: Wait for seed job
   uri:
