@@ -20,3 +20,8 @@ jenkins_slave_agent_port: 0
 jenkins_cloud_configs: ""
 jenkins_admin_address: nobody@example.com
 #jenkins_url:
+jenkins_ssh_private_key: jenkins-id_rsa
+jenkins_ssh_public_key: jenkins-id_rsa.pub
+jenkins_git_user: git
+jenkins_git_host: git.example.com
+jenkins_git_path: git
