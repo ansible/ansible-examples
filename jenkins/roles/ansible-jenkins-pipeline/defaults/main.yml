@@ -1,7 +1,7 @@
 ---
 jenkins_java_args: -Djava.awt.headless=true -Djenkins.install.runSetupWizard=false
 jenkins_java_extra_args: ""
-jenkins_defaults_file: /etc/default/jenkins
+jenkins_defaults_file: /etc/sysconfig/jenkins
 jenkins_plugins:
 - git
 - job-dsl
