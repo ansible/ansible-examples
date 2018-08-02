@@ -16,9 +16,15 @@
   until: jenkins_jobs.content.find('Please wait while Jenkins is getting ready to work') == -1
   retries: 10
   delay:
+
 - name: Check if seed job exists
   set_fact:
     jenkins_seed_job_exists: "{{ jenkins_seed_name in (jenkins_jobs.content|from_json).jobs|map(attribute='name')|list }}"
+
+- name: Print previous variable
+  debug:
+    msg: "{{ jenkins_seed_job_exists }}"
+    
 - name: Create seed job
   uri:
     user: admin
@@ -30,7 +36,8 @@
       Content-Type: "application/xml"
     body: "{{ lookup('template', jenkins_seed_template) }}"
   register: jenkins_seed_job_created
-  when: not jenkins_seed_job_exist
+  when: not jenkins_seed_job_exists
+
 - name: Update seed job
   uri:
     user: admin
@@ -43,6 +50,7 @@
     body: "{{ lookup('template', jenkins_seed_template) }}"
   register: jenkins_seed_job_updated
   when: jenkins_seed_job_exist
+
 - name: Run seed job
   uri:
     user: admin
@@ -53,6 +61,7 @@
     status_code: 201
   register: jenkins_seed_job_started
   when: jenkins_seed_job_created|success or jenkins_seed_job_updated|succes
+
 - name: Wait for seed job
   uri:
     user: admin
