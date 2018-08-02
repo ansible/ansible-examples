@@ -24,7 +24,7 @@
 - name: Print previous variable
   debug:
     msg: "{{ jenkins_seed_job_exists }}"
-    
+
 - name: Create seed job
   uri:
     user: admin
@@ -49,7 +49,7 @@
       Content-Type: "application/xml"
     body: "{{ lookup('template', jenkins_seed_template) }}"
   register: jenkins_seed_job_updated
-  when: jenkins_seed_job_exist
+  when: jenkins_seed_job_exists
 
 - name: Run seed job
   uri:
