@@ -6,4 +6,4 @@ https_port: 8443
 # This will configure a default manager-gui user:
 
 admin_username: admin
-admin_password: adminsecret
+admin_password: password
