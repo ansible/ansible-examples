@@ -1,9 +1,9 @@
 ---
-## This playbook deploys the whole application stack in this site.  
+## This playbook deploys the whole application stack in this site.
 
 # Apply common configuration to all hosts
 - hosts: all
-  
+
   roles:
   - common
 
@@ -24,7 +24,7 @@
   roles:
   - base-apache
   - web
-  
+
   tags:
   - web
 
@@ -33,16 +33,16 @@
 
   roles:
   - haproxy
-  
+
   tags:
   - lb
 
 # Configure and deploy the Nagios monitoring node(s).
 - hosts: tag_ansible_group_monitoring
-  
+
   roles:
   - base-apache
   - nagios
-  
+
   tags:
   - monitoring

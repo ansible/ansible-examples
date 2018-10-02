@@ -19,12 +19,12 @@
   - name: disable nagios alerts for this host webserver service
     nagios: 'action=disable_alerts host={{ inventory_hostname }} services=webserver'
     delegate_to: "{{ item }}"
-    with_items: groups.monitoring
+    with_items: "{{ groups.monitoring }}"
 
   - name: disable the server in haproxy
     haproxy: 'state=disabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats'
     delegate_to: "{{ item }}"
-    with_items: groups.lbservers
+    with_items: "{{ groups.lbservers }}"
 
   roles:
   - common
@@ -39,9 +39,9 @@
   - name: enable the server in haproxy
     haproxy: 'state=enabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats'
     delegate_to: "{{ item }}"
-    with_items: groups.lbservers
+    with_items: "{{ groups.lbservers }}"
 
   - name: re-enable nagios alerts
     nagios: 'action=enable_alerts host={{ inventory_hostname }} services=webserver'
     delegate_to: "{{ item }}"
-    with_items: groups.monitoring
+    with_items: "{{ groups.monitoring }}"
