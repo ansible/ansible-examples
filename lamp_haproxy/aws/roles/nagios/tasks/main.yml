@@ -40,7 +40,7 @@
 
 - name: create the nagios object files
   template:
-    src: "{{ item + .j2 }}"
+    src: "{{ item + '.j2' }}"
     dest: "/etc/nagios/ansible-managed/{{ item }}"
   with_items:
     - webservers.cfg
