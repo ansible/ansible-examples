@@ -1,0 +1,11 @@
+---
+- name: Install all Windows Security Updates 
+  hosts: all 
+ 
+  tasks:
+    - name: Download and Install Security Updates and Reboot
+      win_updates:
+        category_names:
+          - SecurityUpdates
+        reboot: yes
+
