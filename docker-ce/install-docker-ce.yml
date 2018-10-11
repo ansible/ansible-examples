@@ -1,0 +1,185 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    
+    - name: Remove conflicts on Fedora
+      dnf:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - docker
+        - docker-engine
+        - docker-common
+        - docker-engine-selinux
+        - docker-selinux
+      when:
+        ansible_distribution == 'Fedora'
+    
+    - name: Remove conflicts on Debian/Ubuntu
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - docker
+        - docker-engine
+        - docker.io
+      when:
+        ansible_distribution == 'Debian'
+        or
+        ansible_distribution == 'Ubuntu'
+    
+    - name: Remove conflicts on CentOS/RHEL
+      yum:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - docker
+        - docker-engine
+        - docker-common
+        - docker-selinux
+      when:
+        ansible_distribution == 'RedHat'
+        or
+        ansible_distribution == 'CentOS'
+    
+    - name: Install Dependencies on Fedora
+      dnf:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - dnf-plugins-core
+      when:
+        ansible_distribution == 'Fedora'
+    
+    - name: Install Dependencies on CentOS/RHEL
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+      when:
+        ansible_distribution == 'RedHat'
+        or
+        ansible_distribution == 'CentOS'
+    
+    - name: Install Dependencies on Debian
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg2
+        - software-properties-common
+      when:
+        ansible_distribution == 'Debian'
+    
+    - name: Install Dependencies on Ubuntu'
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+      when:
+        ansible_distribution == 'Ubuntu'
+    
+    - name: Install Repos on Fedora
+      yum_repository:
+        name: Docker-CE
+        description: Docker CE Repo
+        baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable
+        gpgkey: https://download.docker.com/linux/fedora/gpg
+      when:
+        ansible_distribution == 'Fedora'
+    
+    - name: Install Repos on CentOS
+      yum_repository:
+        name: Docker-CE
+        description: Docker CE Repo
+        baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
+        gpgkey: https://download.docker.com/linux/centos/gpg
+      when:
+        ansible_distribution == 'CentOS'
+        or
+        ansible_distribution == 'RedHat'
+    
+    - name: Install Repo Key on Debian
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+      when:
+        ansible_distribution == 'Debian'
+    
+    - name: Install Repo Key on Ubuntu
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when:
+        ansible_distribution == 'Ubuntu'
+    
+    - name: Create repo line in Debian
+      command: bash -c "echo \"deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable\" "
+      register: docker_repo_line
+      when:
+        ansible_distribution == 'Debian'
+    
+    - name: Create repo line in Ubuntu
+      command: bash -c "echo \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" "
+      register: docker_repo_line
+      when:
+        ansible_distribution == 'Ubuntu'
+    - debug:
+        msg: "{{ docker_repo_line.stdout }}"
+      when:
+        ansible_distribution == 'Debian'
+        or
+        ansible_distribution == 'Ubuntu'
+    
+    - name: Add Docker Repo on Ubuntu/Debian
+      apt_repository:
+        repo: "{{ docker_repo_line.stdout }}"
+        state: present
+      when:
+        ansible_distribution == 'Debian'
+        or
+        ansible_distribution == 'Ubuntu'
+    
+    - name: Install docker ce on Ubuntu/Debian
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+      when:
+        ansible_distribution == 'Debian'
+        or
+        ansible_distribution == 'Ubuntu'
+    
+    - name: Install docker ce on Fedora
+      dnf:
+        name: docker-ce
+        state: present
+      when:
+        ansible_distribution == 'Fedora'
+    
+    - name: Install docker ce on CentOS/RHEL
+      yum:
+        name: docker-ce
+        state: present
+        update_cache: yes
+      when:
+        ansible_distribution == 'RedHat'
+        or
+        ansible_distribution == 'CentOS'
+    
+    - name: Enable and start the Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: True
