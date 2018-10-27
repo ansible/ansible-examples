@@ -1,0 +1,25 @@
+---
+#The playbook creates Virtualenv and install the requirements to Virtualenv.
+- name: Create Environment
+  hosts: 127.0.0.1
+  
+  tasks:  
+  - name: Manually create the initial virtualenv
+    command: virtualenv -p python3 venv
+  
+  - name: Activate Virtualenv
+    shell: source "./venv"
+           creates="./venv/bin/activate"
+
+  - name: Check that the requirements.txt exists
+    stat:
+      path: "./requirements.txt"
+    register: stat_result 
+  
+  - name: Give permission to run install_requirements.sh
+    command: Chmod u+x install_requirements.sh  
+    when: stat_result.stat.exists == True
+ 
+  - name: Run the install_requirements.sh to install requirements
+    shell: bash ./install_requirements.sh
+    when: stat_result.stat.exists == True
