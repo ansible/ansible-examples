@@ -9,7 +9,7 @@
         dest: 'C:\Users\Administrator\Downloads\httpd-2.2.25-win32-x86-no_ssl.msi'
 
     - name: Install MSI
-      win_msi: 
+      win_package: 
         path: 'C:\Users\Administrator\Downloads\httpd-2.2.25-win32-x86-no_ssl.msi'
         state: present
         

@@ -1,3 +1,6 @@
 ---
 - name: Copy the code from repository
-  git: repo={{ repository }} version={{ webapp_version }} dest=/var/www/html/
+  git:
+    repo: "{{ repository }}"
+    version: "{{ webapp_version }}"
+    dest: /var/www/html/
