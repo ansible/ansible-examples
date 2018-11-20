@@ -3,7 +3,7 @@
 
 - name: Download and install haproxy
   yum:
-    nameL: haproxy
+    name: haproxy
     state: present
 
 - name: Configure the haproxy cnf file with hosts
