@@ -2,14 +2,7 @@
 # This playbook will install mysql and create db user and give permissions.
 
 - name: Install Mysql package
-  yum:
-    name: "{{ item }}"
-    state: installed
-  with_items:
-   - mysql-server
-   - MySQL-python
-   - libselinux-python
-   - libsemanage-python
+  yum: name={{ db_packages }} state=installed
 
 - name: Configure SELinux to start mysql on any port
   seboolean:
