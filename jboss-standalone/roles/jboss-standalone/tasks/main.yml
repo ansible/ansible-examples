@@ -1,13 +1,8 @@
 ---
 - name: Install Java 1.7 and some basic dependencies
   yum:
-    name: "{{ item }}"
+    name: "{{ java_packages }}"
     state: present
-  with_items:
-   - unzip
-   - java-1.7.0-openjdk
-   - libselinux-python
-   - libsemanage-python
 
 - name: Download JBoss from jboss.org
   get_url:
