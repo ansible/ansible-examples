@@ -32,7 +32,7 @@ cached_server2
 Edit inventory file `hosts` to suit your requirements and run playbook:
 
 ```
-    $ ansible-playbook -i host site.yml
+    $ ansible-playbook -i hosts site.yml
 ```
 
 When finished, open web browser and access to http://nginx_ip/ to start testing.
