@@ -25,9 +25,7 @@
       environment:
          HI: test1
 
-    # here we are using the $env variable above
+    # here we are using the "env" map variable above
 
     - shell: echo $HI
-      environment: env
-
-
+      environment: "{{ env }}"
