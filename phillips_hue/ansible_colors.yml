@@ -1,0 +1,51 @@
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    ansible_mango:
+      "on": true
+      "bri": 254
+      "xy": [0.5701, 0.313]
+    ansible_pool:
+      "on": true
+      "bri": 254
+      "xy": [0.1593, 0.2522]
+  tasks:
+  - name: INCLUDE UNIQUE USERNAME FROM REGISTER.YML
+    include_vars:
+      file: username_info.yml
+
+  - name: GRAB HUE LIGHT INFORMATION
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}"
+      method: GET
+      body: '{{body_info|to_json}}'
+    register: light_info
+
+  - name: TURN LIGHTS TO MANGO
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
+      method: PUT
+      body: '{{ansible_mango|to_json}}'
+    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
+
+  - name: TURN LIGHTS TO POOL
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
+      method: PUT
+      body: '{{ansible_pool|to_json}}'
+    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
+
+  - name: TURN LIGHTS TO MANGO
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
+      method: PUT
+      body: '{{ansible_mango|to_json}}'
+    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
+
+  - name: TURN LIGHTS TO POOL
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
+      method: PUT
+      body: '{{ansible_pool|to_json}}'
+    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
