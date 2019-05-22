@@ -1,0 +1,29 @@
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+
+  - name: PROMPT USER TO PRESS PHYSICAL BUTTON HUE HUB
+    pause:
+      prompt: "Press the button on the hub now..."
+
+  - name: INCLUDE IP ADDRESS FROM username_info.yml
+    include_vars:
+      file: username_info.yml
+
+  - name: GRAB UNIQUE USERNAME
+    uri:
+      url: "http://{{ip_address}}/api"
+      method: POST
+      body: '{{body_info|to_json}}'
+    register: username_info
+
+  - name: PRINT DATA TO TERMINAL WINDOW
+    debug:
+      var: username_info.json
+  - lineinfile:
+      path: "./username_info.yml"
+      regexp: '^username'
+      insertafter: EOF
+      line: 'username: {{username_info.json[0]["success"]["username"]}}'

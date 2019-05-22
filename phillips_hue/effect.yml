@@ -1,0 +1,39 @@
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    ansible_effect:
+      "on": true
+      "effect": "colorloop"
+    ansible_none:
+      "on": true
+      "effect": "none"
+  tasks:
+  - name: INCLUDE UNIQUE USERNAME FROM REGISTER.YML
+    include_vars:
+      file: username_info.yml
+
+  - name: GRAB HUE LIGHT INFORMATION
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}"
+      method: GET
+      body: '{{body_info|to_json}}'
+    register: light_info
+
+  - name: TURN LIGHTS INTO COLORLOOP EFFECT
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
+      method: PUT
+      body: '{{ansible_effect|to_json}}'
+    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
+
+  # Pause for 10 seconds
+  - pause:
+      seconds: 5
+
+  - name: TURN LIGHTS INTO COLORLOOP EFFECT
+    uri:
+      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
+      method: PUT
+      body: '{{ansible_none|to_json}}'
+    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
