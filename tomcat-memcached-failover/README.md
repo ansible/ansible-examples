@@ -1,7 +1,7 @@
 ## Tomcat failover with Memcached + Memcached Session Manager + Nginx (load blancer)
 
-- Tested on Ansible 1.9.3 for Debian
-- Expects hosts: Centos 6.x
+- Tested on Ansible 1.9.3 but should work with other 1.9.x
+- Remote hosts: Centos 6.x
 
 This playbook deploys a failover solution for clustered Tomcat using Nginx as load balancer and Memcached + MSM as session manager.
 
