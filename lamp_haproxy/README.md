@@ -11,7 +11,7 @@ capability to dynamically add and remove web server nodes from the deployment.
 It also includes examples to do a rolling update of a stack without affecting
 the service.
 
-(To use this demonstration with Amazon Web Services, please use the "aws" sub-directory.)
+(To use this demonstration with Amazon Web Services, please use the `aws` sub-directory.)
 
 You can also optionally configure a Nagios monitoring node.
 
@@ -43,7 +43,7 @@ should have you hit different webservers.
 
 The Nagios web interface can be reached at http://<ip-of-nagios>/nagios/
 
-The default username and password are "nagiosadmin" / "nagiosadmin".
+The default username and password are `nagiosadmin` / `nagiosadmin`.
 
 ### Removing and Adding a Node
 
@@ -61,8 +61,8 @@ running on other servers so that the users are not interrupted.
 
 In this example the hosts are updated in serial fashion, which means that
 only one server will be updated at one time. If you have a lot of web server
-hosts, this behaviour can be changed by setting the 'serial' keyword in
-webservers.yml file.
+hosts, this behaviour can be changed by setting the `serial` keyword in
+`webservers.yml` file.
 
 Once the code has been updated in the source repository for your application
 which can be defined in the group_vars/all file, execute the following
@@ -70,5 +70,5 @@ command:
 
 	 ansible-playbook -i hosts rolling_update.yml
 
-You can optionally pass: -e webapp_version=xxx to the rolling_update
+You can optionally pass: `-e webapp_version=xxx` to the `rolling_update`
 playbook to specify a specific version of the example webapp to deploy.
