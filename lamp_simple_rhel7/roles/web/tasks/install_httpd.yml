@@ -9,7 +9,7 @@
    - php-mysql
 
 - name: Install web role specific dependencies
-  yum: name={{ item }} state=installed
+  yum: name={{ item }} state=present
   with_items:
    - git
 

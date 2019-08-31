@@ -16,7 +16,7 @@
     apt_key: url=https://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
 
   - name: install package
-    apt: name={{ item }} update_cache=yes state=installed
+    apt: name={{ item }} update_cache=yes state=present
     with_items:
       - rabbitmq-server
 

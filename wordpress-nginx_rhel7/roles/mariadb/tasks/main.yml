@@ -2,7 +2,7 @@
 # This playbook will install MariaDB and create db user and give permissions.
 
 - name: Install MariaDB package
-  yum: name={{ item }} state=installed
+  yum: name={{ item }} state=present
   with_items:
    - mariadb-server
    - MySQL-python
