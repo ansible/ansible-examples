@@ -18,7 +18,7 @@ in BJSON format.
 
 Another thing to notice is that NoSQL-style databases have a looser consistency
 model. As an example, the second document in the users collection has an
-additonal field of 'last name'.
+additional field of 'last name'.
  
 ### Data Replication
 ------------------------------------
@@ -29,7 +29,7 @@ Data backup is achieved in MongoDB via _replica sets_. As the figure above shows
 a single replication set consists of a replication master (active) and several
 other replications slaves (passive). All the database operations like
 add/delete/update happen on the replication master and the master replicates
-the data to the slave nodes. _mongod_ is the process which is resposible for all
+the data to the slave nodes. _mongod_ is the process which is responsible for all
 the database activities as well as replication processes. The minimum
 recommended number of slave servers are 3.
 
@@ -38,8 +38,8 @@ recommended number of slave servers are 3.
 
 ![Alt text](images/sharding.png "Sharding")
 
-Sharding works by partitioning the data into seperate chunks and allocating
-diffent ranges of chunks to diffrent shard servers. The figure above shows a
+Sharding works by partitioning the data into separate chunks and allocating
+different ranges of chunks to different shard servers. The figure above shows a
 collection which has 90 documents which have been sharded across the three
 servers: the first shard getting ranges from 1-29, and so on. When a client wants
 to access a certain document, it contacts the query router (mongos process),
@@ -75,7 +75,7 @@ The diagram above illustrates the deployment model for a MongoDB cluster deploye
 Ansible. This deployment model focuses on deploying three shard servers,
 each having a replica set, with the backup replica servers serving as the other two shard
 primaries. The configuration servers are co-located with the shards. The _mongos_
-servers are best deployed on seperate servers. This is the minimum recomended
+servers are best deployed on separate servers. This is the minimum recommended
 configuration for a production-grade MongoDB deployment. Please note that the
 playbooks are capable of deploying N node clusters, not limited to three. Also,
 all the processes are secured using keyfiles.
