@@ -15,7 +15,7 @@ You can also optionally configure a Nagios monitoring node.
 
 ### Initial Site Setup
 
-First, we provision the hosts neccessary for this demonstration using the included playbook, "demo-aws-launch.yml". This will provision the following instances, with the group structure specified below. The hosts are tagged via AWS EC2 tagging and the Ansible inventory sync script (or Tower) will create the appropriate groups from these tags.
+First, we provision the hosts necessary for this demonstration using the included playbook, "demo-aws-launch.yml". This will provision the following instances, with the group structure specified below. The hosts are tagged via AWS EC2 tagging and the Ansible inventory sync script (or Tower) will create the appropriate groups from these tags.
 
 		[tag_ansible_group_webservers]
 		webserver1
