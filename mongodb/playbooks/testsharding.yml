@@ -15,3 +15,4 @@
 
    - name: Enable sharding on the database and collection
      command: /usr/bin/mongo localhost:${mongos_port}/admin -u admin -p ${mongo_admin_pass} /tmp/enablesharding.js
+just testing
