@@ -1,0 +1,68 @@
+# ansible-pull setup
+#
+# on remote hosts, set up ansible to run periodically using the latest code
+# from a particular checkout, in pull based fashion, inverting Ansible's
+# usual push-based operating mode.
+#
+# This particular pull based mode is ideal for:
+#
+# (A) massive scale out
+# (B) continual system remediation
+#
+# DO NOT RUN THIS AGAINST YOUR HOSTS WITHOUT CHANGING THE repo_url
+# TO SOMETHING YOU HAVE PERSONALLY VERIFIED
+#
+#
+---
+
+- hosts: pull_mode_hosts
+  remote_user: root
+
+  vars:
+    # This becomes part of the systemd timer unit.
+    # We want to start soon after the machine boots, and repeat every half an hour.
+    # The service has 30s randomized delay to avoid a stampede if many machines boot
+    # at once.
+    schedule: |
+      OnBootSec=30 s
+      OnUnitInactiveSec=30 min
+      RandomizedDelaySec=30 s
+
+    # Repository to check out -- YOU MUST CHANGE THIS
+    # repo must contain a local.yml file at top level
+    repo_url: SUPPLY_YOUR_OWN_GIT_URL_HERE
+
+  tasks:
+
+    - name: Install ansible
+      yum: pkg=ansible state=installed
+
+    - name: Create unit directory
+      file:
+        path: /usr/local/lib/systemd/system/
+        state: directory
+
+    - name: Install timer file
+      copy:
+        dest: /usr/local/lib/systemd/system/ansible-pull.timer
+        content: |
+          [Timer]
+          {{ schedule }}
+
+          [Install]
+          WantedBy=default.target
+
+    - name: Install service file
+      copy:
+        dest: /usr/local/lib/systemd/system/ansible-pull.service
+        content: |
+          [Service]
+          Type=oneshot
+          ExecStart=ansible-pull -i localhost, -U {{ repo_url }} --only-if-changed local.yml
+
+    - name: Enable timer
+      systemd:
+        name: ansible-pull.timer
+        enabled: true
+        state: started
+        daemon_reload: yes
