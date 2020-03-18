@@ -11,7 +11,7 @@
     ping:
   
   - name: Hello, World!
-    action: rust_helloworld
+    rust_helloworld:
     register: hello_world
   
   - assert:
@@ -20,8 +20,7 @@
           hello_world.msg == "Hello, World!"
   
   - name: Hello, Ansible!
-    action: rust_helloworld
-    args:
+    rust_helloworld:
       name: Ansible
     register: hello_ansible
   
@@ -31,7 +30,7 @@
           hello_ansible.msg == "Hello, Ansible!"
   
   - name: Async Hello, World!
-    action: rust_helloworld
+    rust_helloworld:
     async: 10
     poll: 1
     register: async_hello_world
@@ -42,8 +41,7 @@
           async_hello_world.msg == "Hello, World!"
   
   - name: Async Hello, Ansible!
-    action: rust_helloworld
-    args:
+    rust_helloworld:
       name: Ansible
     async: 10
     poll: 1
