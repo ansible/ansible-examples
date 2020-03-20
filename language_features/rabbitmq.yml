@@ -26,10 +26,10 @@
     - restart rabbitmq
 
   - name: add users
-    rabbitmq_user: user={{item}} password=changeme tags=administrator,{{item}} vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present
+    rabbitmq_user: user={{item.username}} password={{item.password}} tags=administrator,{{item.username}} vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present
     with_items:
-    - user1
-    - user2
+    - { username: user1, password: changeme }
+    - { username: user2, password: changeme }
 
   - name: remove default guest user
     rabbitmq_user: user=guest state=absent
