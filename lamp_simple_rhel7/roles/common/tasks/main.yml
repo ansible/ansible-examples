@@ -6,7 +6,7 @@
   tags: ntp
 
 - name: Install common dependencies
-  yum: name={{ item }} state=installed
+  yum: name={{ item }} state=present
   with_items:
    - libselinux-python
    - libsemanage-python
