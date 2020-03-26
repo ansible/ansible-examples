@@ -84,12 +84,12 @@ all the processes are secured using keyfiles.
 
 Edit the group_vars/all file to reflect the below variables.
 
-1) iface: 'eth1'     # the interface to be used for all communication.
+1) `iface: 'eth1'     # the interface to be used for all communication`.
 		
-2) Set a unique mongod_port variable in the inventory file for each MongoDB
+2) Set a unique `mongod_port` variable in the inventory file for each MongoDB
 server.
 
-3) The default directory for storing data is /data, please do change it if
+3) The default directory for storing data is `/data`, please do change it if
 required. Make sure it has sufficient space: 10G is recommended.
 
 ### Deployment Example
@@ -168,7 +168,7 @@ replication set, we should get a similar output.
 
 
 We can check the status of the shards as follows: connect to the mongos service
-'mongo localhost:8888/admin -u admin -p 123456' and issue the following command to get
+`mongo localhost:8888/admin -u admin -p 123456` and issue the following command to get
 the status of the Shards:
 
 

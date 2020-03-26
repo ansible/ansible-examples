@@ -17,7 +17,7 @@ Also make sure that you can control the lights normally from the free iPhone or 
 
 ### Step 1
 
-Open up the username_info.yml file and change the IP Address to the IP address of your Hue bridge.
+Open up the [username_info.yml](username_info.yml) file and change the IP Address to the IP address of your Hue bridge.
 
 ```nano username_info.yml```
 
@@ -33,11 +33,12 @@ Ignore the `username` and `body_info` fields.  The `username` is automatically g
 
 ### Step 2
 
-For the Playbooks to work correctly you must run the `register.yml` playbook first->
+For the Playbooks to work correctly you must run the `register.yml` playbook first:
 
 ```ansible-playbook register.yml```
 
-The playbook will run and then prompt you on the terminal window->
+The playbook will run and then prompt you on the terminal window:
+
 ```
 [PROMPT USER TO PRESS PHYSICAL BUTTON HUE HUB]
 Press the button on the hub now...:
