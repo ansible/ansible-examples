@@ -23,4 +23,4 @@ jobs:
         # targets: |
         #   playbook_1.yml
         #   playbook_2.yml
-        targets: "wordpress-nginx/site.yml"
+        targets: wordpress-nginx/site.yml
