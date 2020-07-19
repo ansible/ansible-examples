@@ -21,7 +21,7 @@
   register: "wp_salt"
   become: no
   become_method: sudo
-  changed_when: false
+  changed_when: true
 
 - name: Create WordPress database
   mysql_db: name={{ wp_db_name }} state=present
