@@ -16,7 +16,8 @@
   user: name=wordpress group=wordpress home=/srv/wordpress/
 
 - name: Fetch random salts for WordPress config
-  local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+  get_url:
+    url: https://api.wordpress.org/secret-key/1.1/salt/
   register: "wp_salt"
   become: no
   become_method: sudo
