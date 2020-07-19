@@ -4,7 +4,10 @@
            sha256sum="{{ wp_sha256sum }}"
 
 - name: Extract archive
-  command: chdir=/srv/ /bin/tar xvf wordpress-{{ wp_version }}.tar.gz creates=/srv/wordpress
+  unarchive:
+    creates: /srv/wordpress
+    src: /srv/wordpress-{{ wp_version }}.tar.gz
+    dest: /srv/wordpress
 
 - name: Add group "wordpress"
   group: name=wordpress
