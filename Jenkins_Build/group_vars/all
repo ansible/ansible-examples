@@ -1,0 +1,13 @@
+# AWS specific variables
+ec2_access_key: 
+ec2_secret_key:
+ec2_region: eu-west-1
+ec2_image: ami-04facb3ed127a2eb6
+ec2_instance_type: t2.micro
+ec2_instance_count: 1
+ec2_key_name: 
+ec2_group_id: 
+ec2_vpc_subnet_id: 
+ec2_instance_name: jenkins-instance
+ec2_tag: demo
+#wait_for_port: 22

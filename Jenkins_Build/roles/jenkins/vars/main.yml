@@ -1,0 +1,4 @@
+---
+# vars file for apache
+ansible_user: "ec2-user"
+ansible_port: "22"

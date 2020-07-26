@@ -1,0 +1,26 @@
+---
+- name: Wait for connection  
+  wait_for_connection:  
+    delay: 10  
+    timeout: 600
+- name: Install Java 1.8 and some basic dependencies   
+  yum:  
+    name: ['wget', 'zip', 'java-1.8.0-openjdk', 'firewalld']  
+    state: present 
+- name: Download jenkins.repo
+  get_url:
+    url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+- name: Import Jenkins Key
+  rpm_key:
+    state: present
+    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+- name: Install Jenkins
+  yum:
+    name: jenkins
+    state: present
+- name: Start & Enable Jenkins
+  systemd:
+    name: jenkins
+    state: started
+    enabled: true
