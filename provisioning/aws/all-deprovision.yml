@@ -1,0 +1,12 @@
+---
+- name: Deprovision demo EC2 instances for the current user
+  hosts: tag_AnsibleDemo_True
+  gather_facts: no
+  become: no
+  tasks:
+    - name: Ensure demo EC2 instances are terminated
+      ec2:
+        region: "{{ aws_region }}"
+        instance_ids: "{{ ec2_id }}"
+        state: absent
+      delegate_to: localhost

@@ -1,0 +1,92 @@
+---
+- name: Pre-Provisioning Setup
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  become: no
+  tasks:
+    - name: Check for required variables
+      fail:
+        msg: "Required variable not defined: {{ var_name }}"
+      when: item not in vars
+      with_items:
+        - aws_region
+        - vpc_name
+
+    - shell: whoami
+      register: whoami
+
+    - set_fact:
+        demo_user: "{{ whoami.stdout }}"
+
+    - set_fact:
+        demo_user: "{{ tower_user_name}}"
+      when: "{{ whoami.stdout == 'awx' }}"
+
+    - set_fact:
+        demo_tags:
+          Name: ansible-demo-{{ demo_user }}
+          AnsibleDemo: True
+          DemoUser: "{{ demo_user }}"
+
+    - name: Gather facts about the target VPC
+      ec2_vpc_net_facts:
+        aws_region: "{{ aws_region }}"
+        filters:
+          "tag:Name": "{{ vpc_name }}"
+      register: vpc_facts
+
+    - set_fact:
+        vpc_id: "{{ vpc_facts.vpcs[0].id }}"
+
+    - name: Create an inventory for provisioning purposes
+      add_host:
+        name: instance-{{ item.0 }}
+        aws_region: "{{ aws_region }}"
+        vpc_id: "{{ vpc_id }}"
+        subnet_name: "{{ item.1.subnet_name }}"
+        keypair_name: "{{ item.1.keypair_name }}"
+        tags: "{{ item.1.tags | combine(demo_tags) }}"
+        ami_id: "{{ item.1.ami_id }}"
+        type: "{{ item.1.instance_type | default('t2.micro')}}"
+      with_indexed_items: "{{ aws_instances | default([]) }}"
+
+- name: Provision EC2 instance
+  hosts: all
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: Gather facts about the target subnet
+      ec2_vpc_subnet_facts:
+        aws_region: "{{ aws_region }}"
+        filters:
+          vpc-id: "{{ vpc_id }}"
+          "tag:Name": "{{ subnet_name }}"
+      register: target_subnet_facts
+
+    - set_fact:
+        subnet_id: "{{ target_subnet_facts.subnets[0].id }}"
+
+    - name: Create the EC2 instance
+      ec2:
+        aws_region: "{{ aws_region }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        key_name: "{{ keypair_name }}"
+        image: "{{ ami_id }}"
+        instance_type: "{{ type }}"
+        group: ansible-demo
+        assign_public_ip: yes
+        exact_count: 1
+        instance_tags: "{{ tags }}"
+        count_tag: "{{ tags }}"
+        wait: yes
+      async: 180
+      poll: 0
+      register: provisioning
+
+    - name: Check on provisioning
+      async_status:
+        jid: "{{ provisioning.ansible_job_id }}"
+      register: provisioning_result
+      until: "{{ provisioning_result.finished }}"
+      retries: 30
