@@ -1,0 +1,8 @@
+---
+- name: Install nginx
+  apt: name=nginx state=present
+  notify: restart nginx
+
+- name: Copy nginx configuration for WordPress
+  template: src=default dest=/etc/nginx/sites-available/default
+  notify: restart nginx

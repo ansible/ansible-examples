@@ -1,0 +1,35 @@
+---
+- name: Add group "wordpress"
+  group: name=wordpress
+
+- name: Add user "wordpress"
+  user: name=wordpress group=wordpress home=/var/www/wordpress/
+
+- name: Download WordPress
+  get_url: url=http://66.155.40.250/wordpress-{{ wp_version }}.tar.gz dest=/var/www/wordpress-{{ wp_version }}.tar.gz
+           sha256sum="{{ wp_sha256sum }}"
+
+- name: Extract WordPress
+  unarchive: src=/var/www/wordpress-{{ wp_version }}.tar.gz remote_src=True
+             dest=/var/www owner=wordpress group=wordpress
+
+- name: Create WordPress database
+  mysql_db: name={{ wp_db_name }} state=present
+
+- name: Create WordPress database user
+  mysql_user: name={{ wp_db_user }} password={{ wp_db_password }} priv={{ wp_db_name }}.*:ALL host='localhost' state=present
+
+- name: Fetch random salts for WordPress config
+  local_action: uri url=https://api.wordpress.org/secret-key/1.1/salt/ return_content=yes
+  register: "wp_salt"
+  become: no
+
+- name: Copy WordPress config file
+  template: src=wp-config.php dest=/var/www/wordpress/
+            owner=wordpress group=wordpress
+
+- name: Change ownership of WordPress installation
+  file: path=/var/www/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes
+
+- name: Start php-fpm Service
+  service: name=php7.0-fpm state=started enabled=yes

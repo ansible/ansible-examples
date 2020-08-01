@@ -1,0 +1,22 @@
+server {
+        listen       80 default_server;
+        server_name  {{ server_hostname }};
+        root /var/www/wordpress/ ;
+
+	client_max_body_size 64M;
+
+	# Deny access to any files with a .php extension in the uploads directory
+        location ~* /(?:uploads|files)/.*\.php$ {
+                deny all;
+        }
+
+        location / {
+                index index.php;
+                try_files $uri $uri/ /index.php?$args;
+        }
+
+        location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass  unix:/run/php/php7.0-fpm.sock;
+        }
+}

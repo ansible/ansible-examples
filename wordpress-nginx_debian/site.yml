@@ -1,0 +1,12 @@
+---
+- name: Install WordPress, a database, nginx, and PHP-FPM
+  hosts: all
+  # remote_user: user
+  become: yes
+
+  roles:
+    - common
+    - mysql
+    - nginx
+    - php-fpm
+    - wordpress

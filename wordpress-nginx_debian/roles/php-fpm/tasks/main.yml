@@ -1,0 +1,15 @@
+---
+- name: Install PHP dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - libphp-phpmailer
+    - php-bz2
+    - php-curl
+    - php-fpm
+    - php-getid3
+    - php-mbstring
+    - php-mysql
+    - php-xml
+    - php-zip
+    - unzip
+  notify: restart php-fpm

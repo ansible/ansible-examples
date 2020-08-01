@@ -1,0 +1,10 @@
+---
+- name: Install {{ mysql_provider }}
+  apt: name={{ item }} state=present
+  with_items:
+   - "{{ mysql_provider }}-server"
+   - "{{ mysql_provider }}-client"
+   - python-mysqldb
+
+- name: Start {{ mysql_provider }}
+  service: name=mysql state=started enabled=yes
