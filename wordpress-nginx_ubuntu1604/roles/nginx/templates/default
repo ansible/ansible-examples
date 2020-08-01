@@ -1,0 +1,40 @@
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root {{ wp_root_dir }};
+
+        client_max_body_size 64M;
+	
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name {{ server_hostname }};
+
+        # Deny access to any files with a .php extension in the uploads directory
+        location ~* /(?:uploads|files)/.*\.php$ {
+                deny all;
+        }
+
+        location / {
+                index index.php index.html index.htm;
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php?$args =404;
+        }
+
+        location ~* \.(gif|jpg|jpeg|png|css|js)$ {
+                expires max;
+        }
+
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_index index.php;
+                fastcgi_pass  unix:{{ fpm_socket }};
+                fastcgi_param   SCRIPT_FILENAME
+                                $document_root$fastcgi_script_name;
+                include       fastcgi_params;
+        }
+}

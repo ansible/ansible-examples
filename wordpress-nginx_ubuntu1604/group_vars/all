@@ -1,0 +1,34 @@
+---
+# Which version of WordPress to deploy
+wp_version: 4.7.4
+wp_sha256sum: c11ce7580f21dfbca70dd6f817d3376385be6d34cf4d86f233eae3acb5fd87fd
+
+# Directory for extracting WordPress
+wp_extract_dir: /var/www
+# WordPress root directory
+wp_root_dir: "{{ wp_extract_dir }}/wordpress/"
+
+# These are the WordPress database settings
+wp_db_name: wordpress 
+wp_db_user: wordpress
+wp_db_password: secret
+
+# You shouldn't need to change this.
+mysql_port: 3306
+
+# This is used for the nginx server configuration, but access to the
+# WordPress site is not restricted by a named host.
+server_hostname: www.example.com
+
+# Path to FPM socket. Also used by nginx.
+fpm_socket: /run/php/wordpress.sock
+
+# Disable All Updates
+# By default automatic updates are enabled, set this value to true to disable all automatic updates
+auto_up_disable: false
+
+# Define Core Update Level
+#true  = Development, minor, and major updates are all enabled
+#false = Development, minor, and major updates are all disabled
+#minor = Minor updates are enabled, development, and major updates are disabled
+core_update_level: true
