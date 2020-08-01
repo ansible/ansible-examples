@@ -12,7 +12,10 @@
    - git
    - libsemanage-python
    - libselinux-python
-
+   
+- name: firewalld service state
+  service: name=firewalld state=started enabled=yes
+  
 - name: insert iptables rule for httpd
   lineinfile:
     dest: /etc/sysconfig/iptables
