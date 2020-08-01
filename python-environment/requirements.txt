@@ -1,0 +1,7 @@
+#This section should include the requirements you need as follows.
+#six==1.11.0
+#requests==2.19.1
+#decorator==4.3.0
+#validators==0.12.2
+#PyYAML==4.2b4
+#dict2xml==1.6
