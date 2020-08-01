@@ -23,3 +23,11 @@ iface: '{{ ansible_default_ipv4.interface }}'
 
 # The password for admin user
 mongo_admin_pass: 123456
+
+mongodb_packages:
+   - libselinux-python
+   - mongo-10gen
+   - mongo-10gen-server
+   - bc
+   - python-pip
+

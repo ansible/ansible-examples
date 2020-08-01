@@ -26,3 +26,21 @@ auto_up_disable: false
 # false = Development, minor, and major updates are all disabled
 # minor = Minor updates are enabled, development, and major updates are disabled
 core_update_level: true
+
+mariadb_packages:
+   - mariadb-server
+   - MySQL-python
+   - libselinux-python
+   - libsemanage-python
+
+php_packages:
+    - php
+    - php-fpm
+    - php-enchant
+    - php-IDNA_Convert
+    - php-mbstring
+    - php-mysql
+    - php-PHPMailer
+    - php-process
+    - php-simplepie
+    - php-xml

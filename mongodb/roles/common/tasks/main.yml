@@ -20,13 +20,7 @@
   file: path={{ mongodb_datadir_prefix }} owner=mongod group=mongod state=directory
 
 - name: Install the mongodb package
-  yum: name={{ item }} state=installed
-  with_items:
-   - libselinux-python
-   - mongo-10gen
-   - mongo-10gen-server
-   - bc
-   - python-pip
+  yum: name={{ mongodb_packages }} state=installed
 
 - name: Install the latest pymongo package
   pip: name=pymongo state=latest use_mirrors=no

@@ -3,13 +3,8 @@
 
 - name: Install http
   yum:
-    name: "{{ item }}"
+    name: "{{ base_packages }}"
     state: present
-  with_items:
-   - httpd
-   - php
-   - php-mysql
-   - git
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean:

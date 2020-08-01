@@ -4,3 +4,17 @@
 httpd_port: 80
 ntpserver: 192.168.1.2
 repository: https://github.com/bennojoy/mywebapp.git
+
+db_packages:
+   - mysql-server
+   - MySQL-python
+   - libselinux-python
+   - libsemanage-python
+
+web_packages:
+   - httpd
+   - php
+   - php-mysql
+   - git
+   - libsemanage-python
+   - libselinux-python

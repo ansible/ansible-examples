@@ -3,3 +3,35 @@
 
 httpd_port: 80
 ntpserver: 192.168.1.2
+
+base_packages:
+   - httpd
+   - php
+   - php-mysql
+   - git
+
+python_selinux_packages:
+   - libselinux-python
+   - libsemanage-python
+
+nagios_packages:
+   - nagios
+   - nagios-plugins
+   - nagios-plugins-nrpe
+   - nagios-plugins-ping
+   - nagios-plugins-ssh
+   - nagios-plugins-http
+   - nagios-plugins-mysql
+   - nagios-devel
+
+nagios_plugins_packages:
+   - nagios-nrpe
+   - nagios-plugins-swap
+   - nagios-plugins-users
+   - nagios-plugins-procs
+   - nagios-plugins-load
+   - nagios-plugins-disk
+
+db_packages:
+   - mysql-server
+   - MySQL-python
