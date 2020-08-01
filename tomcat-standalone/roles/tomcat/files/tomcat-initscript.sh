@@ -12,6 +12,9 @@
 # Added usage of CATALINA_BASE
 # Added coloring and additional status
 # Added check for existence of the tomcat user
+
+# Waynec updates (12, Sep.,2016):
+# Modify line break character from MS-DOS type into Linux type
 #
  
 #Location of JAVA_HOME (bin files)
