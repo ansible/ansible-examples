@@ -1,0 +1,9 @@
+---
+- name: Install Google Chrome from https://chocolatey.org/
+  hosts: all
+
+  tasks:
+    - name: Install Google Chrome
+      win_chocolatey:
+        name: googlechrome
+        state: latest
