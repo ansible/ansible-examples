@@ -19,22 +19,17 @@
   remote_user: root
 
   vars:
-
-    # schedule is fed directly to cron
-    schedule: '*/15 * * * *'
-
-    # User to run ansible-pull as from cron
-    cron_user: root
-
-    # File that ansible will use for logs
-    logfile: /var/log/ansible-pull.log
-
-    # Directory to where repository will be cloned
-    workdir: /var/lib/ansible/local
+    # This becomes part of the systemd timer unit.
+    # We want to start soon after the machine boots, and repeat every half an hour.
+    # The service has 30s randomized delay to avoid a stampede if many machines boot
+    # at once.
+    schedule: |
+      OnBootSec=30 s
+      OnUnitInactiveSec=30 min
+      RandomizedDelaySec=30 s
 
     # Repository to check out -- YOU MUST CHANGE THIS
     # repo must contain a local.yml file at top level
-    #repo_url: git://github.com/sfromm/ansible-playbooks.git
     repo_url: SUPPLY_YOUR_OWN_GIT_URL_HERE
 
   tasks:
@@ -42,15 +37,32 @@
     - name: Install ansible
       yum: pkg=ansible state=installed
 
-    - name: Create local directory to work from
-      file: path={{workdir}} state=directory owner=root group=root mode=0751
+    - name: Create unit directory
+      file:
+        path: /usr/local/lib/systemd/system/
+        state: directory
 
-    - name: Copy ansible inventory file to client
-      copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
-              owner=root group=root mode=0644
+    - name: Install timer file
+      copy:
+        dest: /usr/local/lib/systemd/system/ansible-pull.timer
+        content: |
+          [Timer]
+          {{ schedule }}
 
-    - name: Create crontab entry to clone/pull git repository
-      template: src=templates/etc_cron.d_ansible-pull.j2 dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
+          [Install]
+          WantedBy=default.target
 
-    - name: Create logrotate entry for ansible-pull.log
-      template: src=templates/etc_logrotate.d_ansible-pull.j2 dest=/etc/logrotate.d/ansible-pull owner=root group=root mode=0644
+    - name: Install service file
+      copy:
+        dest: /usr/local/lib/systemd/system/ansible-pull.service
+        content: |
+          [Service]
+          Type=oneshot
+          ExecStart=ansible-pull -i localhost, -U {{ repo_url }} --only-if-changed local.yml
+
+    - name: Enable timer
+      systemd:
+        name: ansible-pull.timer
+        enabled: true
+        state: started
+        daemon_reload: yes
