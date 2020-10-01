@@ -1,0 +1,10 @@
+#this ansible playbook will create groups and user with password using sha256 using ansible playbook
+- hosts: all 
+  tasks:
+   - user:
+        name: "name_of_user"
+        uid: "uid"
+        groups: "optional"
+        password: "{{ p | password_hash('sha256') }}"
+   - groups:
+        name: "name of the group"
