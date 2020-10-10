@@ -9,5 +9,5 @@
     - common
     - mariadb
     - nginx
-    - php-fpm
+    - {role: php-fpm, tags: php-fpm}
     - wordpress
