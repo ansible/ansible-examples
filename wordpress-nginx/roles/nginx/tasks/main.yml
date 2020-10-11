@@ -3,5 +3,5 @@
   yum: name=nginx state=present
 
 - name: Copy nginx configuration for wordpress
-  template: src=default.conf dest=/etc/nginx/conf.d/default.conf
+  template: src=default.conf dest=/etc/nginx/conf.d/default.conf mode='0644'
   notify: restart nginx

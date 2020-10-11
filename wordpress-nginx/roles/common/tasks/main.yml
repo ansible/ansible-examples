@@ -6,11 +6,11 @@
   setup:
 
 - name: Copy the EPEL repository definition
-  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
+  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo mode='0644'
 
 - name: Create the GPG key for EPEL
-  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg mode='0644'
 
 - name: Set up iptables rules
-  copy: src=iptables-save dest=/etc/sysconfig/iptables
+  copy: src=iptables-save dest=/etc/sysconfig/iptables mode='0644'
   notify: restart iptables

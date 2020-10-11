@@ -8,6 +8,7 @@
     creates: /srv/wordpress
     src: /srv/wordpress-{{ wp_version }}.tar.gz
     dest: /srv/wordpress
+    mode: 0644
 
 - name: Add group "wordpress"
   group: name=wordpress
@@ -31,10 +32,10 @@
   mysql_user: name={{ wp_db_user }} password={{ wp_db_password }} priv={{ wp_db_name }}.*:ALL host='localhost' state=present
 
 - name: Copy WordPress config file
-  template: src=wp-config.php dest=/srv/wordpress/
+  template: src=wp-config.php dest=/srv/wordpress/ mode='0644'
 
 - name: Change ownership of WordPress installation
-  file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes setype=httpd_sys_content_t
+  file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes setype=httpd_sys_content_t mode='0644'
 
 - name: Start php-fpm Service
   service: name=php-fpm state=started enabled=yes

@@ -10,5 +10,5 @@
     - common
     - mysql
     - nginx
-    - php-fpm
+    - phpfpm
     - wordpress
