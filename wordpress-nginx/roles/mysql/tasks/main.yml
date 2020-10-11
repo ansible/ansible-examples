@@ -12,7 +12,7 @@
   when: ansible_selinux.status == "enabled"
 
 - name: Create Mysql configuration file
-  template: src=my.cnf.j2 dest=/etc/my.cnf
+  template: src=my.cnf.j2 dest=/etc/my.cnf mode='0644'
   notify:
   - restart mysql
 

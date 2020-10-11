@@ -18,5 +18,5 @@
   notify: restart php-fpm
 
 - name: Copy php-fpm configuration
-  template: src=wordpress.conf dest=/etc/php-fpm.d/
+  template: src=wordpress.conf dest=/etc/php-fpm.d/ mode='0644'
   notify: restart php-fpm
