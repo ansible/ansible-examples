@@ -22,7 +22,7 @@
       - debug: msg="{{ ansible_os_family }}"
 
       - shell: echo {{ item }}
-        with_items: a_list
+        with_items: "{{ a_list }}"
 
       - shell: echo 'RedHat'
         when: ansible_os_family == 'RedHat'
