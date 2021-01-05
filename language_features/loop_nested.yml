@@ -20,5 +20,5 @@
   tasks:
     - shell: echo "nested test a={{ item[0] }} b={{ item[1] }}"
       with_nested:
-        - listvar1
+        - "{{ listvar1 }}"
         - [ 1, 2, 3 ]
