@@ -1,22 +1,22 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
-- name: Install ntp
+- name: Install chrony
   yum:
-    name: ntp
+    name: chrony
     state: present
   tags: ntp
 
-- name: Configure ntp file
+- name: Configure chrony file
   template:
-    src: ntp.conf.j2
-    dest: /etc/ntp.conf
+    src: chrony.conf.j2
+    dest: /etc/chrony.conf
   tags: ntp
   notify: restart ntp
 
 - name: Start the ntp service
   service:
-    name: ntpd
+    name: chronyd
     state: started
     enabled: yes
   tags: ntp

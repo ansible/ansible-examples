@@ -4,5 +4,5 @@
 
 - name: restart ntp
   service:
-    name: ntpd
+    name: chronyd
     state: restarted
