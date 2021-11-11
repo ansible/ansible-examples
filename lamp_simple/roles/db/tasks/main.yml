@@ -6,10 +6,10 @@
     name: "{{ item }}"
     state: installed
   with_items:
-   - mysql-server
-   - MySQL-python
-   - libselinux-python
-   - libsemanage-python
+    - mysql-server
+    - python3-mysql
+    - python3-libselinux
+    - python3-libsemanage
 
 - name: Configure SELinux to start mysql on any port
   seboolean:
