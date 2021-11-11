@@ -6,7 +6,7 @@
     name: mysqld
     state: restarted
 
-- name: restart iptables
+- name: restart firewalld
   service:
-    name: iptables
+    name: firewalld
     state: restarted

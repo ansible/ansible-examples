@@ -2,5 +2,5 @@
 # Variables listed here are applicable to all host groups
 
 httpd_port: 80
-ntpserver: 192.168.1.2
+chronypool: 2.fedora.pool.ntp.org
 repository: https://github.com/bennojoy/mywebapp.git

@@ -6,10 +6,10 @@
     name: "{{ item }}"
     state: installed
   with_items:
-   - mysql-server
-   - MySQL-python
-   - libselinux-python
-   - libsemanage-python
+    - mysql-server
+    - python3-mysql
+    - python3-libselinux
+    - python3-libsemanage
 
 - name: Configure SELinux to start mysql on any port
   seboolean:
@@ -33,12 +33,12 @@
 
 - name: insert iptables rule
   lineinfile:
-    dest: /etc/sysconfig/iptables
+    dest: /etc/firewalld/zones/public.xml
     state: present
-    regexp: "{{ mysql_port }}"
-    insertafter: "^:OUTPUT "
-    line: "-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
-  notify: restart iptables
+    regexp: 'port="{{ mysql_port }}".*protocol="tcp"'
+    insertbefore: "^</zone>"
+    line: '  <port port="{{ mysql_port }}" protocol="tcp"/>'
+  notify: restart firewalld
 
 - name: Create Application Database
   mysql_db:
