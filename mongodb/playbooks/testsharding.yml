@@ -1,7 +1,8 @@
 ---
 # The playbook creates a new database test and populates data in the database to test the sharding.
 
-- hosts: $servername
+- hosts: localhost
+ 
   remote_user: root
   tasks:
    - name: Create a new database and user
