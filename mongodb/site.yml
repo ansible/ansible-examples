@@ -1,5 +1,6 @@
 ---
 # This Playbook would deploy the whole mongodb cluster with replication and sharding.
+This playbook will not work as we are expecting therefore we need to change in the task section
 
 - hosts: all
   roles:
