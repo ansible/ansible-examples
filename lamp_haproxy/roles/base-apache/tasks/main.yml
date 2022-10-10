@@ -18,7 +18,7 @@
     persistent: yes
   when: sestatus.rc != 0
 
-- name: http service state
+- name: http service state2
   service:
     name: httpd
     state: started
