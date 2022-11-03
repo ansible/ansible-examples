@@ -14,7 +14,10 @@
     - php-xml
 
 - name: Disable default pool
-  command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.disabled creates=/etc/php-fpm.d/www.disabled
+  copy:
+    src: /etc/php-fpm.d/www.conf 
+    dest: /etc/php-fpm.d/www.disabled 
+    creates: /etc/php-fpm.d/www.disabled
   notify: restart php-fpm
 
 - name: Copy php-fpm configuration
