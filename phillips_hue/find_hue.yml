@@ -1,0 +1,28 @@
+---
+# Find the HUE Device Registered to your network
+#
+# Usage:
+#   ansible-playbook fin_hue.yml
+#
+# Ref:
+#  - https://developers.meethue.com/develop/get-started-2/
+#
+
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+  - name: INCLUDE IP ADDRESS FROM username_info.yml
+    include_vars:
+      file: username_info.yml
+
+  - name: Get Hue Information from MeetHue
+    uri:
+      url: "https://discovery.meethue.com/"
+      method: GET
+    register: discovery
+
+  - name: Information from MeetHue
+    debug:
+      var: discovery.json
