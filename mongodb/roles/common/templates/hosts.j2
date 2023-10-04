@@ -1,4 +1,0 @@
-127.0.0.1 localhost
-{% for host in groups['all'] %}
-{{ hostvars[host]['ansible_' + iface].ipv4.address }}  {{ host }}
-{% endfor %}

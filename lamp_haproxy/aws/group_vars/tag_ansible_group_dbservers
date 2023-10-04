@@ -1,9 +1,0 @@
----
-# The variables file used by the playbooks in the dbservers group.
-# These don't have to be explicitly imported by vars_files: they are autopopulated.
-
-mysqlservice: mysqld
-mysql_port: 3306
-dbuser: root
-dbname: foodb
-upassword: abc
