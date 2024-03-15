@@ -4,7 +4,7 @@
 # often you just want to run a command and then decide whether to run some steps or not.  That's
 # easy to do, and here we'll show you how.
 
-- name: test playbook
+- name: Test playbook
   remote_user: root
   hosts: all
 
@@ -12,7 +12,7 @@
     # it is possible to save the result of any command in a named register.  This variable will be made
     # available to tasks and templates made further down in the execution flow.
 
-    - shell: grep hi /etc/motd
+    - ansible.builtin.shell: grep hi /etc/motd
       ignore_errors: true
       register: motd_result
 
@@ -22,25 +22,25 @@
 
     # here we run the next action only if the previous grep returned true
 
-    - shell: echo "motd contains the word hi"
+    - ansible.builtin.shell: echo "motd contains the word hi"
       when: motd_result.rc == 0
 
     # alternatively:
 
-    - shell: echo "motd contains the word hi"
+    - ansible.builtin.shell: echo "motd contains the word hi"
       when: motd_result.stdout.find('hi') != -1
 
     # or also:
 
-    - shell: echo "motd contains word hi"
+    - ansible.builtin.shell: echo "motd contains word hi"
       when: "'hi' in motd_result.stdout"
 
     # you can use 'stdout_lines' to loop over the registered output lines
     - name: motd lines matching 'hi'
-      shell: echo "{{ item  }}"
+      ansible.builtin.shell: echo "{{ item  }}"
       with_items: motd_result.stdout_lines
 
     # you can also split 'stdout' yourself
     - name: motd lines matching 'hi'
-      shell: echo "{{ item  }}"
+      ansible.builtin.shell: echo "{{ item  }}"
       with_items: motd_result.stdout.split('\n')

@@ -31,7 +31,7 @@
   tasks:
     - name: Launch ansible cloudformation example
       amazon.aws.cloudformation:
-        stack_name: "ansible-cloudformation"
+        stack_name: ansible-cloudformation
         state: present
         region: us-east-1
         disable_rollback: true
@@ -46,4 +46,4 @@
 
     - name: Show stack outputs
       ansible.builtin.debug:
-        msg: "My stack outputs are {{ stack.stack_outputs }}"
+        msg: My stack outputs are {{ stack.stack_outputs }}

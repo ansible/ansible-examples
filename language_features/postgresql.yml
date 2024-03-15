@@ -12,9 +12,13 @@
 
   tasks:
     - name: ensure apt cache is up to date
-      apt: update_cache=yes
+      ansible.builtin.apt:
+        update_cache: true
+
     - name: ensure packages are installed
-      apt: name={{item}}
+      ansible.builtin.apt:
+        name: "{{ item }}"
+
       with_items:
         - postgresql
         - libpq-dev
@@ -32,13 +36,26 @@
 
   tasks:
     - name: ensure database is created
-      postgresql_db: name={{dbname}}
+      community.postgresql.postgresql_db:
+        name: "{{ dbname }}"
 
     - name: ensure user has access to database
-      postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
+      community.postgresql.postgresql_user:
+        name: "{{ dbuser }}"
+        db: "{{ dbname }}"
+        password: "{{ dbpassword }}"
+        priv: ALL
 
     - name: ensure user does not have unnecessary privilege
-      postgresql_user: name={{dbuser}} role_attr_flags=NOSUPERUSER,NOCREATEDB
+      community.postgresql.postgresql_user:
+        name: "{{ dbuser }}"
+        role_attr_flags: NOSUPERUSER,NOCREATEDB
 
     - name: ensure no other user can access the database
-      postgresql_privs: db={{dbname}} role=PUBLIC type=database priv=ALL state=absent
+      community.postgresql.postgresql_privs:
+        db: "{{ dbname }}"
+        role: PUBLIC
+        type: database
+        priv: ALL
+        state: absent
+
