@@ -5,7 +5,4 @@
 #  win_copy: src=create-db.ps1 dest=c:\create-db.ps1
 
 - name: Create Application Database
-  script: "create-db.ps1"
-
-
- 
+  ansible.builtin.script: create-db.ps1

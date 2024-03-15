@@ -2,19 +2,19 @@
 - hosts: all
   remote_user: root
   roles:
-  - common
+    - common
 
 - hosts: lb_servers
   remote_user: root
   roles:
-  - lb-nginx
+    - lb-nginx
 
 - hosts: backend_servers
   remote_user: root
   roles:
-  - tomcat
+    - tomcat
 
 - hosts: memcached_servers
   remote_user: root
   roles:
-  - memcached
+    - memcached
