@@ -4,6 +4,6 @@
 - hosts: all
 
   roles:
-# Optionally, (re)deploy JBoss here.
-#    - jboss-standalone
+    # Optionally, (re)deploy JBoss here.
+    #    - jboss-standalone
     - java-app

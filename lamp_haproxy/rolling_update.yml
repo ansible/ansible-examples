@@ -17,12 +17,19 @@
   # These are the tasks to run before applying updates:
   pre_tasks:
     - name: Disable nagios alerts for this host webserver service
-      community.general.monitoring.nagios: action=disable_alerts host={{ inventory_hostname }} services=webserver
+      community.general.nagios:
+        action: disable_alerts
+        host: "{{ inventory_hostname }}"
+        services: webserver
       delegate_to: "{{ item }}"
       with_items: "{{ groups.monitoring }}"
 
     - name: Disable the server in haproxy
-      community.general.net_tools.haproxy: state=disabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats
+      community.general.haproxy:
+        state: disabled
+        backend: myapplb
+        host: "{{ inventory_hostname }}"
+        socket: /var/lib/haproxy/stats
       delegate_to: "{{ item }}"
       with_items: "{{ groups.lbservers }}"
 

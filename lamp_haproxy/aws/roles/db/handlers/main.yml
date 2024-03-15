@@ -1,5 +1,8 @@
 ---
 # Handler to handle DB tier notifications
 
-- name: restart mysql
-  service: name=mysqld state=restarted
+- name: Restart mysql
+  ansible.builtin.service:
+    name: mysqld
+    state: restarted
+  listen: restart_mysql

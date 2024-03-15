@@ -12,7 +12,7 @@
 - name: Configure SELinux to start mysql on any port
   ansible.posix.seboolean:
     name: mysql_connect_any
-    state: "true"
+    state: true
     persistent: true
   when: sestatus.rc != 0
 

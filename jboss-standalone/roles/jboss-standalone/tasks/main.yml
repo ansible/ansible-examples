@@ -1,103 +1,102 @@
 ---
 - name: Install Java 1.7 and some basic dependencies
-  yum:
+  ansible.builtin.yum:
     name: "{{ item }}"
     state: present
   with_items:
-   - unzip
-   - java-1.7.0-openjdk
-   - libselinux-python
-   - libsemanage-python
+    - unzip
+    - java-1.7.0-openjdk
+    - libselinux-python
+    - libsemanage-python
 
 - name: Download JBoss from jboss.org
-  get_url:
+  ansible.builtin.get_url:
     url: http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip
     dest: /opt/jboss-as-7.1.1.Final.zip
 
 - name: Extract archive
-  unarchive:
+  ansible.builtin.unarchive:
     dest: /usr/share
     src: /opt/jboss-as-7.1.1.Final.zip
     creates: /usr/share/jboss-as
-    copy: no
+    copy: false
 
-  # Rename the dir to avoid encoding the version in the init script
+# Rename the dir to avoid encoding the version in the init script
 - name: Rename install directory
-  command: /bin/mv jboss-as-7.1.1.Final jboss-as 
+  ansible.builtin.command: /bin/mv jboss-as-7.1.1.Final jboss-as
   args:
-    chdir: /usr/share 
+    chdir: /usr/share
     creates: /usr/share/jboss-as
 
 - name: Copying standalone.xml configuration file
-  template:
+  ansible.builtin.template:
     src: standalone.xml
     dest: /usr/share/jboss-as/standalone/configuration/
-  notify: restart jboss
+  notify: restart_jboss
 
 - name: Add group "jboss"
-  group:
+  ansible.builtin.group:
     name: jboss
 
 - name: Add user "jboss"
-  user:
+  ansible.builtin.user:
     name: jboss
     group: jboss
     home: /usr/share/jboss-as
 
 - name: Change ownership of JBoss installation
-  file:
+  ansible.builtin.file:
     path: /usr/share/jboss-as/
     owner: jboss
     group: jboss
     state: directory
-    recurse: yes
+    recurse: true
 
 - name: Copy the init script
-  copy:
+  ansible.builtin.copy:
     src: jboss-as-standalone.sh
     dest: /etc/init.d/jboss
-    mode: 0755
+    mode: "0755"
 
 - name: Workaround for systemd bug
-  shell: service jboss start && chkconfig jboss on
-  ignore_errors: yes
+  ansible.builtin.shell: service jboss start && chkconfig jboss on
+  ignore_errors: true
 
 - name: Enable JBoss to be started at boot
-  service:
+  ansible.builtin.service:
     name: jboss
-    enabled: yes
+    enabled: true
     state: started
 
-- name: deploy iptables rules
-  template:
+- name: Deploy iptables rules
+  ansible.builtin.template:
     src: iptables-save
     dest: /etc/sysconfig/iptables
     owner: root
     group: root
     mode: u=rw,g=,o=
   when: ansible_distribution_major_version != "7"
-  notify: restart iptables
+  notify: restart_iptables
 
 - name: Ensure that firewalld is installed
-  yum:
+  ansible.builtin.yum:
     name: firewalld
     state: present
   when: ansible_distribution_major_version == "7"
 
 - name: Ensure that firewalld is started
-  service:
+  ansible.builtin.service:
     name: firewalld
     state: started
   when: ansible_distribution_major_version == "7"
 
-- name: deploy firewalld rules
-  firewalld:
-    immediate: yes
+- name: Deploy firewalld rules
+  ansible.posix.firewalld:
+    immediate: true
     port: "{{ item }}"
     state: enabled
-    permanent: yes
+    permanent: true
   when: ansible_distribution_major_version == "7"
   with_items:
-  - "{{ http_port }}/tcp"
-  - "{{ https_port }}/tcp"
-
+    - "{{ http_port }}/tcp"
+    - "{{ https_port }}/tcp"

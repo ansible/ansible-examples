@@ -32,7 +32,7 @@
         group: "{{ security_group }}"
         instance_type: "{{ instance_type }}"
         image: "{{ image }}"
-        wait: "true"
+        wait: true
         count: "5"
       register: ec2
 

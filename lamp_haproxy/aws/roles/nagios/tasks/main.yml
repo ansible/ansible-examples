@@ -1,8 +1,8 @@
 ---
 # This will install nagios
 
-- name: install nagios
-  yum:
+- name: Install nagios
+  ansible.builtin.yum:
     pkg: "{{ item }}"
     state: present
   with_items:
@@ -14,39 +14,43 @@
     - nagios-plugins-http
     - nagios-plugins-mysql
     - nagios-devel
-  notify: restart httpd
+  notify: restart_httpd
 
-- name: create nagios config dir
-  file:
+- name: Create nagios config dir
+  ansible.builtin.file:
     path: /etc/nagios/ansible-managed
     state: directory
 
-- name: configure nagios
-  copy:
+- name: Configure nagios
+  ansible.builtin.copy:
     src: nagios.cfg
     dest: /etc/nagios/nagios.cfg
-  notify: restart nagios
+  notify: restart_nagios
 
-- name: configure localhost monitoring
-  copy:
+- name: Configure localhost monitoring
+  ansible.builtin.copy:
     src: localhost.cfg
     dest: /etc/nagios/objects/localhost.cfg
-  notify: restart nagios
+  notify: restart_nagios
 
-- name: configure nagios services
-  copy:
+- name: Configure nagios services
+  ansible.builtin.copy:
     src: ansible-managed-services.cfg
     dest: /etc/nagios/
 
-- name: create the nagios object files
-  template:
-    src: "{{ item + '.j2' }}"
-    dest: /etc/nagios/ansible-managed/{{ item }}
+- name: Create the nagios object files
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /etc/nagios/ansible-managed/
   with_items:
     - webservers.cfg
     - dbservers.cfg
     - lbservers.cfg
-  notify: restart nagios
+  notify: restart_nagios
 
-- name: start nagios
-  service: name=nagios state=started enabled=yes
+- name: Start nagios
+  ansible.builtin.service:
+    name: nagios
+    state: started
+    enabled: "yes"
+    cmd: ""
