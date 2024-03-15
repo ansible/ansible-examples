@@ -72,6 +72,9 @@
   template:
     src: iptables-save
     dest: /etc/sysconfig/iptables
+    owner: root
+    group: root
+    mode: u=rw,g=,o=
   when: ansible_distribution_major_version != "7"
   notify: restart iptables
 
