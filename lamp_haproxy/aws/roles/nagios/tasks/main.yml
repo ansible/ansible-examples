@@ -6,14 +6,14 @@
     pkg: "{{ item }}"
     state: present
   with_items:
-   - nagios
-   - nagios-plugins
-   - nagios-plugins-nrpe
-   - nagios-plugins-ping
-   - nagios-plugins-ssh
-   - nagios-plugins-http
-   - nagios-plugins-mysql
-   - nagios-devel
+    - nagios
+    - nagios-plugins
+    - nagios-plugins-nrpe
+    - nagios-plugins-ping
+    - nagios-plugins-ssh
+    - nagios-plugins-http
+    - nagios-plugins-mysql
+    - nagios-devel
   notify: restart httpd
 
 - name: create nagios config dir
@@ -41,7 +41,7 @@
 - name: create the nagios object files
   template:
     src: "{{ item + '.j2' }}"
-    dest: "/etc/nagios/ansible-managed/{{ item }}"
+    dest: /etc/nagios/ansible-managed/{{ item }}
   with_items:
     - webservers.cfg
     - dbservers.cfg

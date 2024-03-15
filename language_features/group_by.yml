@@ -12,19 +12,17 @@
 
   tasks:
     - name: Create a group of all hosts by operating system
-      group_by: key={{ansible_distribution}}-{{ansible_distribution_version}}
-
-# the following host group does not exist in inventory and was created by the group_by
-# module.
+      ansible.builtin.group_by:
+        key: "{{ ansible_distribution }}-{{ ansible_distribution_version }}"
 
 - hosts: CentOS-6.2
 
   tasks:
-    - name: ping all CentOS 6.2 hosts
-      ping:
+    - name: Ping all CentOS 6.2 hosts
+      ansible.builtin.ping:
 
 - hosts: CentOS-6.3
 
   tasks:
-    - name: ping all CentOS 6.3 hosts
-      ping:
+    - name: Ping all CentOS 6.3 hosts
+      ansible.builtin.ping:

@@ -16,33 +16,33 @@
 
   # These are the tasks to run before applying updates:
   pre_tasks:
-  - name: disable nagios alerts for this host webserver service
-    nagios: 'action=disable_alerts host={{ inventory_hostname }} services=webserver'
-    delegate_to: "{{ item }}"
-    with_items: "{{ groups.tag_ansible_group_monitoring }}"
+    - name: disable nagios alerts for this host webserver service
+      nagios: action=disable_alerts host={{ inventory_hostname }} services=webserver
+      delegate_to: "{{ item }}"
+      with_items: "{{ groups.tag_ansible_group_monitoring }}"
 
-  - name: disable the server in haproxy
-    haproxy: 'state=disabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats'
-    delegate_to: "{{ item }}"
-    with_items: "{{ groups.tag_ansible_group_lbservers }}"
+    - name: disable the server in haproxy
+      haproxy: state=disabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats
+      delegate_to: "{{ item }}"
+      with_items: "{{ groups.tag_ansible_group_lbservers }}"
 
   roles:
-  - web
+    - web
   ## Optionally, re-run the common and base-apache roles
   #- common
   #- base-apache
 
   # These tasks run after the roles:
   post_tasks:
-  - name: wait for webserver to come up
-    wait_for: 'host={{ inventory_hostname }} port=80 state=started timeout=80'
+    - name: wait for webserver to come up
+      wait_for: host={{ inventory_hostname }} port=80 state=started timeout=80
 
-  - name: enable the server in haproxy
-    haproxy: 'state=enabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats'
-    delegate_to: "{{ item }}"
-    with_items: "{{ groups.tag_ansible_group_lbservers }}"
+    - name: enable the server in haproxy
+      haproxy: state=enabled backend=myapplb host={{ inventory_hostname }} socket=/var/lib/haproxy/stats
+      delegate_to: "{{ item }}"
+      with_items: "{{ groups.tag_ansible_group_lbservers }}"
 
-  - name: re-enable nagios alerts
-    nagios: 'action=enable_alerts host={{ inventory_hostname }} services=webserver'
-    delegate_to: "{{ item }}"
-    with_items: "{{ groups.tag_ansible_group_monitoring }}"
+    - name: re-enable nagios alerts
+      nagios: action=enable_alerts host={{ inventory_hostname }} services=webserver
+      delegate_to: "{{ item }}"
+      with_items: "{{ groups.tag_ansible_group_monitoring }}"

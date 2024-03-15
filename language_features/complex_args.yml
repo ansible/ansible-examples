@@ -29,8 +29,8 @@
       action: ping data='Hi Mom'
 
     - name: of course this can also be written like so, which is shorter
-      ansible.builtin.ping: 
-        data: 'Hi Mom'
+      ansible.builtin.ping:
+        data: Hi Mom
 
     - name: but what if you have a complex module that needs complicated data?
       ansible.builtin.ping:

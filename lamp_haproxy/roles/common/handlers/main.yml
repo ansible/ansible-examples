@@ -1,8 +1,14 @@
 ---
 # Handlers for common notifications
 
-- name: restart ntp
-  service: name=ntpd state=restarted
+- name: Restart ntp
+  ansible.builtin.service:
+    name: ntpd
+    state: restarted
+  listen: restart_ntp
 
-- name: restart iptables
-  service: name=iptables state=restarted
+- name: Restart iptables
+  ansible.builtin.service:
+    name: iptables
+    state: restarted
+  listen: restart_iptables

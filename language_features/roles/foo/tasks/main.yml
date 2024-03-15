@@ -1,11 +1,15 @@
 ---
-- name: copy operation
-  copy: src=foo.txt dest=/tmp/roles_test1.txt
+- name: Copy operation
+  ansible.builtin.copy:
+    src: foo.txt
+    dest: /tmp/roles_test1.txt
 
-- name: template operation
-  template: src=foo.j2 dest=/tmp/roles_test2.txt
+- name: Template operation
+  ansible.builtin.template:
+    src: foo.j2
+    dest: /tmp/roles_test2.txt
   notify:
     - blippy
 
-- name: demo that parameterized roles work
-  shell: echo just FYI, param1={{ param1 }}, param2 ={{ param2 }}
+- name: Demo that parameterized roles work
+  ansible.builtin.command: echo just FYI, param1={{ param1 }}, param2 ={{ param2 }}

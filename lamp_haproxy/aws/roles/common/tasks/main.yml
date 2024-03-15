@@ -6,8 +6,8 @@
     name: "{{ item }}"
     state: present
   with_items:
-   - libselinux-python
-   - libsemanage-python
+    - libselinux-python
+    - libsemanage-python
 
 - name: Create the repository for EPEL
   copy:
@@ -24,12 +24,12 @@
     name: "{{ item }}"
     state: present
   with_items:
-   - nagios-nrpe
-   - nagios-plugins-swap
-   - nagios-plugins-users
-   - nagios-plugins-procs
-   - nagios-plugins-load
-   - nagios-plugins-disk
+    - nagios-nrpe
+    - nagios-plugins-swap
+    - nagios-plugins-users
+    - nagios-plugins-procs
+    - nagios-plugins-load
+    - nagios-plugins-disk
 
 - name: Install ntp
   yum:
@@ -48,7 +48,7 @@
   service:
     name: ntpd
     state: started
-    enabled: yes
+    enabled: true
   tags: ntp
 
 # work around RHEL 7, for now

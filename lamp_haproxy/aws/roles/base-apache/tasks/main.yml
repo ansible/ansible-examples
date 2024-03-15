@@ -6,20 +6,20 @@
     name: "{{ item }}"
     state: present
   with_items:
-   - httpd
-   - php
-   - php-mysql
-   - git
+    - httpd
+    - php
+    - php-mysql
+    - git
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean:
     name: httpd_can_network_connect_db
     state: true
-    persistent: yes
+    persistent: true
   when: sestatus.rc != 0
 
 - name: http service state
   service:
     name: httpd
     state: started
-    enabled: yes
+    enabled: true

@@ -4,14 +4,29 @@
   remote_user: root
   tasks:
     - name: Change setype of /etc/exports to non-default value
-      file: path=/etc/exports setype=etc_t
+      ansible.builtin.file:
+        path: /etc/exports
+        setype: etc_t
+
     - name: Change seuser of /etc/exports to non-default value
-      file: path=/etc/exports seuser=unconfined_u
+      ansible.builtin.file:
+        path: /etc/exports
+        seuser: unconfined_u
+
     - name: Set selinux context back to default value
-      file: path=/etc/exports context=default
+      ansible.builtin.file:
+        path: /etc/exports
+        context: default
+
     - name: Create empty file
-      command: /bin/touch /tmp/foo
+      ansible.builtin.command: /bin/touch /tmp/foo
     - name: Change setype of /tmp/foo
-      file: path=/tmp/foo setype=default_t
+      ansible.builtin.file:
+        path: /tmp/foo
+        setype: default_t
+
     - name: Try to set secontext to default, but this will fail because of the lack of a default in the policy
-      file: path=/tmp/foo context=default
+      ansible.builtin.file:
+        path: /tmp/foo
+        context: default
+

@@ -24,7 +24,7 @@
     - name: Install package
       ansible.builtin.apt:
         name: "{{ item }}"
-        update_cache: "yes"
+        update_cache: true
         state: installed
       with_items:
         - rabbitmq-server

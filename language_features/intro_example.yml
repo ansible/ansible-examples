@@ -31,7 +31,7 @@
   # obviously this does nothing useful but you get the idea
 
     - name: longrunner
-      command: /bin/sleep 15
+      ansible.builtin.command: /bin/sleep 15
       async: 45
       poll: 5
 
@@ -47,27 +47,31 @@
     # end of the playbook run
 
     - name: write some_random_foo configuration
-      template: src=templates/foo.j2 dest=/etc/some_random_foo.conf
+      ansible.builtin.template:
+        src: templates/foo.j2
+        dest: /etc/some_random_foo.conf
+        cmd: ""
       notify:
         - restart apache
 
     # make sure httpd is installed at the latest version
 
     - name: install httpd
-      yum: pkg=httpd state=latest
-
-    # make sure httpd is running
-
+      ansible.builtin.yum:
+        pkg: httpd
+        state: latest
+        cmd: ""
     - name: httpd start
-      service: name=httpd state=running
-
-  # handlers are only run when things change, at the very end of each
-  # play.  Let's define some.  The names are significant and must
-  # match the 'notify' sections above
-
+      ansible.builtin.service:
+        name: httpd
+        state: running
+        cmd: ""
   handlers:
     # this particular handler is run when some_random_foo.conf
     # is changed, and only then
 
     - name: restart apache
-      service: name=httpd state=restarted
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+        cmd: ""

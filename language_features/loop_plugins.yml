@@ -10,7 +10,13 @@
   tasks:
     # this will copy a bunch of config files over -- dir must be created first
 
-    - file: dest=/etc/fooapp state=directory
+    - ansible.builtin.file:
+        dest: /etc/fooapp
+        state: directory
 
-    - copy: src={{ item }} dest=/etc/fooapp/ owner=root mode=600
+    - ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /etc/fooapp/
+        owner: root
+        mode: "600"
       with_fileglob: /playbooks/files/fooapp/*

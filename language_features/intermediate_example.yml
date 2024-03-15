@@ -24,11 +24,7 @@
   # tasks can be written the normal way...
 
     - name: arbitrary command
-      command: /bin/true
-
-    # or we can promote reuse and simplicity by including tasks
-    # from other files, for instance, to reuse common tasks
-
+      ansible.builtin.command: /bin/true
     - include: tasks/base.yml
 
   # we could also have done something like:
@@ -51,18 +47,9 @@
     # handlers that have been notified get executed
 
     - name: restart foo
-      service: name=foo state=restarted
-
-# ===============================================================
-
-# Here's a second play in the same playbook.  This will be run
-# after the first playbook completes on all hosts.  You may want
-# a different play for each class of systems, or may want a different
-# play for each stage in a complex multi-node deployment push
-# process.  How you use them are up to you.
-
-# any play in a playbook can be executed by a user other than root
-# if you want.  sudo support is coming too.
+      ansible.builtin.service:
+        name: foo
+        state: restarted
 
 - hosts: webservers
   remote_user: mdehaan
@@ -82,4 +69,4 @@
 
   tasks:
     - name: some random command
-      command: /bin/true
+      ansible.builtin.command: /bin/true

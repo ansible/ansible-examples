@@ -17,11 +17,11 @@
     # here we just define the dictionary directly and use it
     # (here $HI is the shell variable as nothing in Ansible will replace it)
 
-    - shell: echo $HI
+    - ansible.builtin.shell: echo $HI
       environment:
         HI: test1
 
     # here we are using the "env" map variable above
 
-    - shell: echo $HI
+    - ansible.builtin.shell: echo $HI
       environment: "{{ env }}"

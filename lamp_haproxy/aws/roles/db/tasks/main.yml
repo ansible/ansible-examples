@@ -6,14 +6,14 @@
     name: "{{ item }}"
     state: present
   with_items:
-   - mysql-server
-   - MySQL-python
+    - mysql-server
+    - MySQL-python
 
 - name: Configure SELinux to start mysql on any port
   seboolean:
     name: mysql_connect_any
     state: true
-    persistent: yes
+    persistent: true
   when: sestatus.rc != 0
 
 - name: Create Mysql configuration file
@@ -21,13 +21,13 @@
     src: my.cnf.j2
     dest: /etc/my.cnf
   notify:
-  - restart mysql
+    - restart mysql
 
 - name: Start Mysql Service
   service:
     name: mysqld
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Create Application Database
   mysql_db:
@@ -39,5 +39,5 @@
     name: "{{ dbuser }}"
     password: "{{ upassword }}"
     priv: "*.*:ALL"
-    host: '%'
+    host: "%"
     state: present

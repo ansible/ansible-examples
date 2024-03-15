@@ -1,12 +1,14 @@
 ---
 # Handler to handle DB tier notifications
 
-- name: restart mysql
-  service:
+- name: Restart mysql
+  ansible.builtin.service:
     name: mysqld
     state: restarted
+  listen: restart_mysql
 
-- name: restart iptables
-  service:
+- name: Restart iptables
+  ansible.builtin.service:
     name: iptables
     state: restarted
+  listen: restart_iptables

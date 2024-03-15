@@ -2,25 +2,43 @@
 # These tasks install http and the php modules.
 
 - name: Install httpd and php
-  yum: name={{ item }} state=present
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - httpd
-   - php
-   - php-mysql
+    - httpd
+    - php
+    - php-mysql
 
 - name: Install web role specific dependencies
-  yum: name={{ item }} state=installed
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: installed
   with_items:
-   - git
+    - git
 
 - name: Start firewalld
-  service: name=firewalld state=started enabled=yes
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
 
-- name: insert firewalld rule for httpd
-  firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes
+- name: Insert firewalld rule for httpd
+  ansible.posix.firewalld:
+    port: "{{ httpd_port }}/tcp"
+    permanent: true
+    state: enabled
+    immediate: true
 
-- name: http service state
-  service: name=httpd state=started enabled=yes
+- name: Http service state
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
 
 - name: Configure SELinux to allow httpd to connect to remote database
-  seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect_db
+    state: true
+    persistent: true
+

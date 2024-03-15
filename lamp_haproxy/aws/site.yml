@@ -5,16 +5,16 @@
 - hosts: all
 
   roles:
-  - common
+    - common
 
 # Configure and deploy database servers.
 - hosts: tag_ansible_group_dbservers
 
   roles:
-  - db
+    - db
 
   tags:
-  - db
+    - db
 
 # Configure and deploy the web servers. Note that we include two roles here,
 # the 'base-apache' role which simply sets up Apache, and 'web' which includes
@@ -22,27 +22,27 @@
 - hosts: tag_ansible_group_webservers
 
   roles:
-  - base-apache
-  - web
+    - base-apache
+    - web
 
   tags:
-  - web
+    - web
 
 # Configure and deploy the load balancer(s).
 - hosts: tag_ansible_group_lbservers
 
   roles:
-  - haproxy
+    - haproxy
 
   tags:
-  - lb
+    - lb
 
 # Configure and deploy the Nagios monitoring node(s).
 - hosts: tag_ansible_group_monitoring
 
   roles:
-  - base-apache
-  - nagios
+    - base-apache
+    - nagios
 
   tags:
-  - monitoring
+    - monitoring

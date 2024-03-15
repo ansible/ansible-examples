@@ -27,7 +27,6 @@
 
   vars_files:
     - vars/external_vars.yml
-
     - ["vars/{{ facter_operatingsystem }}.yml", vars/defaults.yml]
 
   # and this is just a regular task line from a playbook, as we're used to.
@@ -39,4 +38,6 @@
       action: "{{ packager }} pkg={{ apache }} state=latest"
 
     - name: ensure apache is running
-      service: name={{ apache }} state=running
+      ansible.builtin.service:
+        name: "{{ apache }}"
+        state: running
