@@ -1,9 +1,14 @@
 ---
 # Handlers for HAproxy
 
-- name: restart haproxy
-  service: name=haproxy state=restarted
+- name: Restart haproxy
+  ansible.builtin.service:
+    name: haproxy
+    state: restarted
+  listen: restart_haproxy
 
-- name: reload haproxy
-  service: name=haproxy state=reloaded
-
+- name: Reload haproxy
+  ansible.builtin.service:
+    name: haproxy
+    state: reloaded
+  listen: reload_haproxy

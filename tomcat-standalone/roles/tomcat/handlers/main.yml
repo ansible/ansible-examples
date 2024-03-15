@@ -1,6 +1,11 @@
 ---
-- name: restart tomcat
-  service: name=tomcat state=restarted
+- name: Restart tomcat
+  ansible.builtin.service:
+    name: tomcat
+    state: restarted
 
-- name: restart iptables
-  service: name=iptables state=restarted
+- name: Restart iptables
+  ansible.builtin.service:
+    name: iptables
+    state: restarted
+

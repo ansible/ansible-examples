@@ -1,8 +1,8 @@
 ---
 # This role creates the AWS ELB and configures it.
 - name: Create the ELB in AWS
-  ec2_elb_lb:
-    name: "ansible-windows-demo-lb"
+  amazon.aws.elb_classic_lb:
+    name: ansible-windows-demo-lb
     state: present
     region: us-east-1
     zones:
@@ -13,4 +13,3 @@
       - protocol: http # options are http, https, ssl, tcp
         load_balancer_port: 80
         instance_port: 80
-

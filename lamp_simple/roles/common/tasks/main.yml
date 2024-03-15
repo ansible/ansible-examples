@@ -2,26 +2,26 @@
 # This playbook contains common plays that will be run on all nodes.
 
 - name: Install ntp
-  yum:
+  ansible.builtin.yum:
     name: ntp
     state: present
   tags: ntp
 
 - name: Configure ntp file
-  template:
+  ansible.builtin.template:
     src: ntp.conf.j2
     dest: /etc/ntp.conf
   tags: ntp
-  notify: restart ntp
+  notify: restart_ntp
 
 - name: Start the ntp service
-  service:
+  ansible.builtin.service:
     name: ntpd
     state: started
-    enabled: yes
+    enabled: true
   tags: ntp
 
-- name: test to see if selinux is running
-  command: getenforce
+- name: Test to see if selinux is running
+  ansible.builtin.command: getenforce
   register: sestatus
   changed_when: false

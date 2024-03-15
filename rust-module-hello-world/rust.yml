@@ -1,53 +1,49 @@
 ---
 - hosts: localhost
   tasks:
-  - debug:
-      msg: Testing a binary module written in Rust
-  
-  - debug:
-      var: ansible_system
-  
-  - name: ping
-    ping:
-  
-  - name: Hello, World!
-    rust_helloworld:
-    register: hello_world
-  
-  - assert:
-      that:
-      - >
-          hello_world.msg == "Hello, World!"
-  
-  - name: Hello, Ansible!
-    rust_helloworld:
-      name: Ansible
-    register: hello_ansible
-  
-  - assert:
-      that:
-      - >
-          hello_ansible.msg == "Hello, Ansible!"
-  
-  - name: Async Hello, World!
-    rust_helloworld:
-    async: 10
-    poll: 1
-    register: async_hello_world
-  
-  - assert:
-      that:
-      - >
-          async_hello_world.msg == "Hello, World!"
-  
-  - name: Async Hello, Ansible!
-    rust_helloworld:
-      name: Ansible
-    async: 10
-    poll: 1
-    register: async_hello_ansible
-  
-  - assert:
-      that:
-      - >
-          async_hello_ansible.msg == "Hello, Ansible!"
+    - ansible.builtin.debug:
+        msg: Testing a binary module written in Rust
+
+    - ansible.builtin.debug:
+        var: ansible_system
+
+    - name: ping
+      ansible.builtin.ping:
+
+    - name: Hello, World!
+      rust_helloworld:
+      register: hello_world
+
+    - ansible.builtin.assert:
+        that:
+          - hello_world.msg is match("Hello, World!")
+
+    - name: Hello, Ansible!
+      rust_helloworld:
+        name: Ansible
+      register: hello_ansible
+
+    - ansible.builtin.assert:
+        that:
+          - hello_ansible.msg is match("Hello, Ansible!")
+
+    - name: Async Hello, World!
+      rust_helloworld:
+      async: 10
+      poll: 1
+      register: async_hello_world
+
+    - ansible.builtin.assert:
+        that:
+          - async_hello_world.msg is match("Hello, World!")
+
+    - name: Async Hello, Ansible!
+      rust_helloworld:
+        name: Ansible
+      async: 10
+      poll: 1
+      register: async_hello_ansible
+
+    - ansible.builtin.assert:
+        that:
+          - async_hello_ansible.msg is match("Hello, Ansible!")

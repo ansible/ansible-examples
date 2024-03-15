@@ -14,14 +14,13 @@
 #
 #
 ---
-
-- hosts: pull_mode_hosts
+- name: Ansible-pull setup
+  hosts: pull_mode_hosts
   remote_user: root
 
   vars:
-
     # schedule is fed directly to cron
-    schedule: '*/15 * * * *'
+    schedule: "*/15 * * * *"
 
     # User to run ansible-pull as from cron
     cron_user: root
@@ -34,23 +33,43 @@
 
     # Repository to check out -- YOU MUST CHANGE THIS
     # repo must contain a local.yml file at top level
-    #repo_url: git://github.com/sfromm/ansible-playbooks.git
+    # repo_url: git://github.com/sfromm/ansible-playbooks.git
     repo_url: SUPPLY_YOUR_OWN_GIT_URL_HERE
 
   tasks:
-
     - name: Install ansible
-      yum: pkg=ansible state=installed
+      ansible.builtin.yum:
+        pkg: ansible
+        state: installed
 
     - name: Create local directory to work from
-      file: path={{workdir}} state=directory owner=root group=root mode=0751
+      ansible.builtin.file:
+        path: "{{ workdir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0751"
 
     - name: Copy ansible inventory file to client
-      copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
-              owner=root group=root mode=0644
+      ansible.builtin.copy:
+        src: /etc/ansible/hosts
+        dest: /etc/ansible/hosts
+        owner: root
+        group: root
+        mode: "0644"
 
     - name: Create crontab entry to clone/pull git repository
-      template: src=templates/etc_cron.d_ansible-pull.j2 dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
+      ansible.builtin.template:
+        src: templates/etc_cron.d_ansible-pull.j2
+        dest: /etc/cron.d/ansible-pull
+        owner: root
+        group: root
+        mode: "0644"
 
     - name: Create logrotate entry for ansible-pull.log
-      template: src=templates/etc_logrotate.d_ansible-pull.j2 dest=/etc/logrotate.d/ansible-pull owner=root group=root mode=0644
+      ansible.builtin.template:
+        src: templates/etc_logrotate.d_ansible-pull.j2
+        dest: /etc/logrotate.d/ansible-pull
+        owner: root
+        group: root
+        mode: "0644"

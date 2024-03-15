@@ -1,10 +1,12 @@
 ---
-- name: restart jboss
-  service:
+- name: Restart jboss
+  ansible.builtin.service:
     name: jboss
     state: restarted
+  listen: restart_jboss
 
-- name: restart iptables
-  service:
+- name: Restart iptables
+  ansible.builtin.service:
     name: iptables
     state: restarted
+  listen: restart_iptables

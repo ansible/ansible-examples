@@ -1,5 +1,7 @@
-- hosts: localhost
-  gather_facts: no
+---
+- name: On and Off
+  hosts: localhost
+  gather_facts: false
   connection: local
 
   vars:
@@ -9,44 +11,44 @@
       "on": true
 
   tasks:
-  - name: INCLUDE UNIQUE USERNAME FROM REGISTER.YML
-    include_vars:
-      file: username_info.yml
+    - name: INCLUDE UNIQUE USERNAME FROM REGISTER.YML
+      ansible.builtin.include_vars:
+        file: username_info.yml
 
-  - name: GRAB HUE LIGHT INFORMATION
-    uri:
-      url: "http://{{ip_address}}/api/{{username}}"
-      method: GET
-      body: '{{body_info|to_json}}'
-    register: light_info
+    - name: GRAB HUE LIGHT INFORMATION
+      ansible.builtin.uri:
+        url: http://{{ ip_address }}/api/{{ username }}
+        method: GET
+        body: "{{ body_info | to_json }}"
+      register: light_info
 
-  - name: PRINT DATA TO TERMINAL WINDOW
-    debug:
-      var: light_info.json.lights
+    - name: PRINT DATA TO TERMINAL WINDOW
+      ansible.builtin.debug:
+        var: light_info.json.lights
 
-  - name: PRINT AMOUNT OF LIGHTS TO TERMINAL WINDOW
-    debug:
-      msg: "THERE ARE {{light_info.json.lights | length}} HUE LIGHTS PRESENT"
+    - name: PRINT AMOUNT OF LIGHTS TO TERMINAL WINDOW
+      ansible.builtin.debug:
+        msg: THERE ARE {{ light_info.json.lights | length }} HUE LIGHTS PRESENT
 
-  # - name: PRINT OUT LOOP VARS
-  #   debug:
-  #     msg: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
-  #   loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
+    # - name: PRINT OUT LOOP VARS
+    #   debug:
+    #     msg: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
+    #   loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
 
-  - name: TURN LIGHTS OFF
-    uri:
-      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
-      method: PUT
-      body: '{{off_state|to_json}}'
-    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
+    - name: TURN LIGHTS OFF
+      ansible.builtin.uri:
+        url: http://{{ ip_address }}/api/{{ username }}/lights/{{ item }}/state
+        method: PUT
+        body: "{{ off_state | to_json }}"
+      loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
 
-  - name: PROMPT USER TO TURN BACK ON
-    pause:
-      prompt: "Turn them back on?"
+    - name: PROMPT USER TO TURN BACK ON
+      ansible.builtin.pause:
+        prompt: Turn them back on?
 
-  - name: TURN LIGHTS ON
-    uri:
-      url: "http://{{ip_address}}/api/{{username}}/lights/{{item}}/state"
-      method: PUT
-      body: '{{on_state|to_json}}'
-    loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"
+    - name: TURN LIGHTS ON
+      ansible.builtin.uri:
+        url: http://{{ ip_address }}/api/{{ username }}/lights/{{ item }}/state
+        method: PUT
+        body: "{{ on_state | to_json }}"
+      loop: "{{ range(1, light_info.json.lights | length + 1)|list }}"

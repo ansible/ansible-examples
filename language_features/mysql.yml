@@ -7,12 +7,20 @@
   remote_user: root
 
   tasks:
-
     - name: Create database user
-      mysql_user: user=bob password=12345 priv=*.*:ALL state=present
+      community.mysql.mysql_user:
+        user: bob
+        password: "12345"
+        priv: "*.*:ALL"
+        state: present
 
     - name: Create database
-      mysql_db: db=bobdata state=present
+      community.mysql.mysql_db:
+        db: bobdata
+        state: present
 
     - name: Ensure no user named 'sally' exists and delete if found.
-      mysql_user: user=sally state=absent
+      community.mysql.mysql_user:
+        user: sally
+        state: absent
+

@@ -1,5 +1,8 @@
 ---
 # Handler to handle DB tier notifications
 
-- name: restart mariadb
-  service: name=mariadb state=restarted
+- name: Restart mariadb
+  ansible.builtin.service:
+    name: mariadb
+    state: restarted
+    listen: restart_mariadb

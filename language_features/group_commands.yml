@@ -3,17 +3,22 @@
 
 - hosts: all
   remote_user: root
-  become: yes
+  become: true
   become_method: sudo
 
   tasks:
-
     # Walk through group creation, modification, and deletion
-    - name: create a group
-      group: name=tset
+    - name: Create a group
+      ansible.builtin.group:
+        name: tset
 
-    # You can only modify the group's gid
-    - group: name=tset gid=7777
+    - name: Set a gid
+      ansible.builtin.group:
+        name: tset
+        gid: "7777"
 
-    # And finally remove the group
-    - group: name=tset state=absent
+    - name: Delete a group
+      ansible.builtin.group:
+        name: tset
+        state: absent
+

@@ -1,7 +1,6 @@
 ---
 - name: Download WordPress
-  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/srv/wordpress-{{ wp_version }}.tar.gz
-           sha256sum="{{ wp_sha256sum }}"
+  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/srv/wordpress-{{ wp_version }}.tar.gz sha256sum="{{ wp_sha256sum }}"
 
 - name: Extract archive
   unarchive:
@@ -18,8 +17,8 @@
 - name: Fetch random salts for WordPress config
   get_url:
     url: https://api.wordpress.org/secret-key/1.1/salt/
-  register: "wp_salt"
-  become: no
+  register: wp_salt
+  become: false
   become_method: sudo
   changed_when: true
   delegate_to: localhost

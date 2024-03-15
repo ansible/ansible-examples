@@ -1,5 +1,4 @@
 ---
-
 # this is a bit of an advanced topic.
 #
 # generally Ansible likes to pass simple key=value arguments to modules.  It
@@ -19,27 +18,26 @@
 # different.
 
 - hosts: localhost
-  gather_facts: no
+  gather_facts: false
 
   vars:
     complex:
-      ghostbusters: [ 'egon', 'ray', 'peter', 'winston' ]
-      mice: [ 'pinky', 'brain', 'larry' ]
-
+      ghostbusters: [egon, ray, peter, winston]
+      mice: [pinky, brain, larry]
   tasks:
-
     - name: this is the basic way data passing works for any module
       action: ping data='Hi Mom'
 
     - name: of course this can also be written like so, which is shorter
-      ping: data='Hi Mom'
+      ansible.builtin.ping:
+        data: Hi Mom
 
     - name: but what if you have a complex module that needs complicated data?
-      ping:
+      ansible.builtin.ping:
         data:
           moo: cow
-          asdf: [1,2,3,4]
+          asdf: [1, 2, 3, 4]
 
     - name: can we make that cleaner? sure!
-      ping:
+      ansible.builtin.ping:
         data: "{{ complex }}"

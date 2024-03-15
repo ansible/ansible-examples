@@ -1,3 +1,3 @@
 ---
-- include: install_httpd.yml
-- include: copy_code.yml
+- ansible.builtin.include_tasks: install_httpd.yml
+- ansible.builtin.include_tasks: copy_code.yml

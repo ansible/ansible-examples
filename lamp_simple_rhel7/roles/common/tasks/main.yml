@@ -2,21 +2,31 @@
 # This playbook contains common plays that will be run on all nodes.
 
 - name: Install ntp
-  yum: name=ntp state=present
+  ansible.builtin.yum:
+    name: ntp
+    state: present
   tags: ntp
 
 - name: Install common dependencies
-  yum: name={{ item }} state=installed
-  with_items:
-   - libselinux-python
-   - libsemanage-python
-   - firewalld
+  ansible.builtin.yum:
+    name: "{{ packages }}"
+    state: installed
+  vars:
+    packages:
+      - libselinux-python
+      - libsemanage-python
+      - firewalld
 
 - name: Configure ntp file
-  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  ansible.builtin.template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
   tags: ntp
-  notify: restart ntp
+  notify: restart_ntp
 
 - name: Start the ntp service
-  service: name=ntpd state=started enabled=yes
+  ansible.builtin.service:
+    name: ntpd
+    state: started
+    enabled: true
   tags: ntp

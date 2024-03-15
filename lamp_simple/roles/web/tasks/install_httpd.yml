@@ -2,36 +2,37 @@
 # These tasks install http and the php modules.
 
 - name: Install http and php etc
-  yum:
-    name: "{{ item }}"
+  ansible.builtin.yum:
+    name: "{{ packages }}"
     state: present
-  with_items:
-   - httpd
-   - php
-   - php-mysql
-   - git
-   - libsemanage-python
-   - libselinux-python
+  vars:
+    packages:
+      - httpd
+      - php
+      - php-mysql
+      - git
+      - libsemanage-python
+      - libselinux-python
 
-- name: insert iptables rule for httpd
-  lineinfile:
+- name: Insert iptables rule for httpd
+  ansible.builtin.lineinfile:
     dest: /etc/sysconfig/iptables
-    create: yes
+    create: true
     state: present
     regexp: "{{ httpd_port }}"
     insertafter: "^:OUTPUT "
-    line: "-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
+    line: -A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT
   notify: restart iptables
 
-- name: http service state
-  service:
+- name: Http service state
+  ansible.builtin.service:
     name: httpd
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Configure SELinux to allow httpd to connect to remote database
-  seboolean:
+  ansible.posix.seboolean:
     name: httpd_can_network_connect_db
     state: true
-    persistent: yes
+    persistent: true
   when: sestatus.rc != 0

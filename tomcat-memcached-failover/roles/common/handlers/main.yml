@@ -1,3 +1,6 @@
 ---
-- name: restart iptables
-  service: name=iptables state=restarted
+- name: Restart iptables
+  ansible.builtin.service:
+    name: iptables
+    state: restarted
+  listen: restart_iptables
