@@ -23,18 +23,15 @@
 # referencing a "src=foo.j2" rather than having to explicitly path src=roles/foo/templates/foo.j2.
 
 ---
+- hosts: all
 
-  - hosts: all
+  pre_tasks:
+    # these tasks are executed prior to roles.
+    # this might be a good time to signal an outage window or take a host out of a load balanced pool
 
-    pre_tasks:
+    - local_action: shell echo "hi this is a pre_task step about {{ inventory_hostname }}"
 
-        # these tasks are executed prior to roles.
-        # this might be a good time to signal an outage window or take a host out of a load balanced pool
-
-        - local_action: shell echo "hi this is a pre_task step about {{ inventory_hostname }}"
-
-    roles:
-
+  roles:
     # a role can be listed flat like this:
     #
     #   - common
@@ -44,28 +41,23 @@
     # a role more than once with different parameters too.  It might look like the section
     # below.  Note I can also declare tags at this time.
 
-      - { role: foo, param1: 1000, param2: 2000, tags: [ 'foo', 'bar' ] }
-      - { role: foo, param1: 8000, param2: 9000, tags: [ 'baz' ]  }
+    - { role: foo, param1: 1000, param2: 2000, tags: [foo, bar] }
+    - { role: foo, param1: 8000, param2: 9000, tags: [baz] }
 
-    # add as many roles as you like, roles takes a list of roles names
-    # these paths can be qualified, but if bare, it will look from them in
-    # roles/{{rolename}} relative to the playbook
+  # add as many roles as you like, roles takes a list of roles names
+  # these paths can be qualified, but if bare, it will look from them in
+  # roles/{{rolename}} relative to the playbook
 
-    # explicit tasks and handlers can be used, but are not required.
-    # they will run after the roles if present.
+  # explicit tasks and handlers can be used, but are not required.
+  # they will run after the roles if present.
 
-    tasks:
+  tasks:
+    # you can still have loose tasks/handlers and they will execute after roles are applied
 
-        # you can still have loose tasks/handlers and they will execute after roles are applied
+    - shell: echo 'this is a loose task'
 
-        - shell: echo 'this is a loose task'
+  post_tasks:
+    # just to provide a syntactic mirroring to 'pre_tasks', these run absolute last in the play.
+    # this might be a good time to put a host back in a load balanced pool or end an outage window
 
-    post_tasks:
-
-        # just to provide a syntactic mirroring to 'pre_tasks', these run absolute last in the play.
-        # this might be a good time to put a host back in a load balanced pool or end an outage window
-
-        - local_action: shell echo 'this is a post_task about {{ inventory_hostname }}'
-
-
-
+    - local_action: shell echo 'this is a post_task about {{ inventory_hostname }}'

@@ -1,5 +1,4 @@
 ---
-
 - name: copy operation
   copy: src=foo.txt dest=/tmp/roles_test1.txt
 
@@ -10,5 +9,3 @@
 
 - name: demo that parameterized roles work
   shell: echo just FYI, param1={{ param1 }}, param2 ={{ param2 }}
-
-

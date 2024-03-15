@@ -3,17 +3,16 @@
 # before moving on to the remaining hosts, use the 'serial' keyword like so:
 
 ---
-- hosts: all
+- name: Batch size controll
+  hosts: all
   serial: 3
 
-# now each of the tasks below will complete on 3 hosts before moving on to the next 3, regardless of how many
-# hosts are selected by the "hosts:" line
+  # now each of the tasks below will complete on 3 hosts before moving on to the next 3, regardless of how many
+  # hosts are selected by the "hosts:" line
 
   tasks:
+    - name: Ping
+      ansible.builtin.ping:
 
-  - name: ping
-    ping:
-  - name: ping2
-    ping:
-
-
+    - name: Ping2
+      ansible.builtin.ping:

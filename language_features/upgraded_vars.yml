@@ -1,30 +1,27 @@
 # this just shows some tricks possible with variables in Ansible 1.2 and later.
 
 ---
+- hosts: all
 
-  - hosts: all
+  vars:
+    a_list:
+      - a
+      - b
+      - c
 
-    vars:
-      a_list:
-        - a
-        - b
-        - c
+  tasks:
+    - ansible.builtin.debug:
+        msg: '"hello {{ ansible_hostname.upper() }}"'
+    - ansible.builtin.command: echo match
+      when: 2 == 2
 
-    tasks:
-      - debug: msg="hello {{ ansible_hostname.upper() }}"
+    - ansible.builtin.command: echo no match
+      when: 2 == 2 + 1
 
-      - shell: echo match
-        when: 2 == 2
+    - ansible.builtin.debug:
+        msg: '"{{ ansible_os_family }}"'
+    - ansible.builtin.command: echo {{ item }}
+      with_items: a_list
 
-      - shell: echo no match
-        when: 2 == 2 + 1
-
-      - debug: msg="{{ ansible_os_family }}"
-
-      - shell: echo {{ item }}
-        with_items: a_list
-
-      - shell: echo 'RedHat'
-        when: ansible_os_family == 'RedHat'
-
-
+    - ansible.builtin.command: echo 'RedHat'
+      when: ansible_os_family == 'RedHat'

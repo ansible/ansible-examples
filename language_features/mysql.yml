@@ -7,7 +7,6 @@
   remote_user: root
 
   tasks:
-
     - name: Create database user
       mysql_user: user=bob password=12345 priv=*.*:ALL state=present
 

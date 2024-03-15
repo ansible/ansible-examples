@@ -11,10 +11,10 @@
   hosts: all
   remote_user: root
 
-# could have also have done:
-#  remote_user: mdehaan
-#  become: yes
-#  become_method: sudo
+  # could have also have done:
+  #  remote_user: mdehaan
+  #  become: yes
+  #  become_method: sudo
 
   # make these variables available inside of templates
   # for when we use the 'template' action/module later on...
@@ -26,52 +26,48 @@
   # define the tasks that are part of this play...
 
   tasks:
-
   # task #1 is to run an arbitrary command
   # we'll simulate a long running task, wait for up to 45 seconds, poll every 5
   # obviously this does nothing useful but you get the idea
 
-  - name: longrunner
-    command: /bin/sleep 15
-    async: 45
-    poll: 5
+    - name: longrunner
+      command: /bin/sleep 15
+      async: 45
+      poll: 5
 
-  # let's demo file operations.
-  #
-  # We can 'copy' files or 'template' them instead, using jinja2
-  # as the templating engine.  This is done using the variables
-  # from the vars section above mixed in with variables bubbled up
-  # automatically from tools like facter and ohai.  'copy'
-  # works just like 'template' but does not do variable subsitution.
-  #
-  # If and only if the file changes, restart apache at the very
-  # end of the playbook run
+    # let's demo file operations.
+    #
+    # We can 'copy' files or 'template' them instead, using jinja2
+    # as the templating engine.  This is done using the variables
+    # from the vars section above mixed in with variables bubbled up
+    # automatically from tools like facter and ohai.  'copy'
+    # works just like 'template' but does not do variable subsitution.
+    #
+    # If and only if the file changes, restart apache at the very
+    # end of the playbook run
 
-  - name: write some_random_foo configuration
-    template: src=templates/foo.j2 dest=/etc/some_random_foo.conf
-    notify:
-    - restart apache
+    - name: write some_random_foo configuration
+      template: src=templates/foo.j2 dest=/etc/some_random_foo.conf
+      notify:
+        - restart apache
 
-  # make sure httpd is installed at the latest version
+    # make sure httpd is installed at the latest version
 
-  - name: install httpd
-    yum: pkg=httpd state=latest
+    - name: install httpd
+      yum: pkg=httpd state=latest
 
-  # make sure httpd is running
+    # make sure httpd is running
 
-  - name: httpd start
-    service: name=httpd state=running
+    - name: httpd start
+      service: name=httpd state=running
 
   # handlers are only run when things change, at the very end of each
   # play.  Let's define some.  The names are significant and must
   # match the 'notify' sections above
 
   handlers:
-
     # this particular handler is run when some_random_foo.conf
     # is changed, and only then
 
     - name: restart apache
       service: name=httpd state=restarted
-
-

@@ -12,9 +12,9 @@
   hosts: all
   remote_user: root
   tasks:
-  - name: say hi
-    tags: foo
-    shell: echo "hi..."
+    - name: say hi
+      tags: foo
+      shell: echo "hi..."
 
 # and this is how we include another playbook, be careful and
 # don't recurse infinitely or anything.  Note you can't use

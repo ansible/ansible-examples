@@ -20,26 +20,24 @@
   # the tag extra
 
   tags:
-     - extra
+    - extra
 
   tasks:
-
   # this task will run if you don't specify any tags,
   # if you specify 'foo' or if you specify 'extra'
 
-  - name: hi
-    tags: ['foo']
-    shell: echo "first task ran"
+    - name: hi
+      tags: [foo]
+      shell: echo "first task ran"
 
 - name: example play two
   hosts: all
   remote_user: root
   tasks:
-  - name: hi
-    tags:
-      - bar
-    shell: echo "second task ran"
-  - include: tasks/base.yml
-    tags:
-      - base
-
+    - name: hi
+      tags:
+        - bar
+      shell: echo "second task ran"
+    - include: tasks/base.yml
+      tags:
+        - base

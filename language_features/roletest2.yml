@@ -23,10 +23,8 @@
 # referencing a "src=foo.j2" rather than having to explicitly path src=roles/foo/templates/foo.j2.
 
 ---
-
-  - hosts: all
-    roles:
-
+- hosts: all
+  roles:
     # a role can be listed flat like this:
     #
     #   - common
@@ -35,22 +33,19 @@
     # but you can also pass variables to them, so they can be parameterized.  You can call
     # a role more than once with different parameters too.  It might look like this:
 
-      - role: foo
-        param1: '{{ foo }}'
-        param2: '{{ some_var1 + "/" + some_var2 }}'
-        when: ansible_os_family == 'RedHat'
+    - role: foo
+      param1: "{{ foo }}"
+      param2: '{{ some_var1 + "/" + some_var2 }}'
+      when: ansible_os_family == 'RedHat'
 
-    # add as many roles as you like, roles takes a list of roles names
-    # these paths can be qualified, but if bare, it will look from them in
-    # roles/{{rolename}} relative to the playbook
+  # add as many roles as you like, roles takes a list of roles names
+  # these paths can be qualified, but if bare, it will look from them in
+  # roles/{{rolename}} relative to the playbook
 
-    # explicit tasks and handlers can be used, but are not required.
-    # they will run after the roles if present.
+  # explicit tasks and handlers can be used, but are not required.
+  # they will run after the roles if present.
 
-    tasks:
+  tasks:
+    # you can still have loose tasks/handlers and they will execute after roles
 
-        # you can still have loose tasks/handlers and they will execute after roles
-
-        - shell: echo 'this is a loose task'
-
-
+    - shell: echo 'this is a loose task'

@@ -2,7 +2,8 @@
 # this is a demo of how the user commands work and how to reference salted passwords
 # in vars sections.  You could also use vars_files if you like (see other examples)
 
-- hosts: all
+- name: User commands
+  hosts: all
   remote_user: root
   vars:
     # created with:
@@ -10,29 +11,52 @@
     password: $1$SomeSalt$UqddPX3r4kH3UL5jq5/ZI.
 
   tasks:
-
     # Walk through account creation, modification, and deletion
-    - name: test basic user account creation
-      user: name=tset comment=TsetUser group=users shell=/sbin/nologin createhome=no
+    - name: Test basic user account creation
+      ansible.builtin.user:
+        name: tset
+        comment: TsetUser
+        group: users
+        shell: /sbin/nologin
+        createhome: false
 
-    # the following is just a simple example of how you don't have to include
-    # the 'name' element for each task
+    # the following is just a simple example of how
 
-    - user: name=tset comment=NyetUser
-    - user: name=tset password={{password}}
+    - name: Create user
+      ansible.builtin.user:
+        name: tset
+        comment: NyetUser
+
+    - name: Create user
+      ansible.builtin.user:
+        name: tset
+        password: "{{ password }}"
 
     # The following will add the user to supplementary groups.
-
     # Add the user to the groups dialout and uucp.
-    - user: name=tset groups=dialout,uucp
+    - name: Add the user to supplementary groups
+      ansible.builtin.user:
+        name: tset
+        groups: dialout,uucp
 
     # Add the user to the groups dialout and wheel,
     # This will remove tset from the group uucp.
-    - user: name=tset groups=dialout,wheel
+    - name: Add the user to the groups dialout and wheel
+      ansible.builtin.user:
+        name: tset
+        groups: dialout,wheel
+        append: true
 
-    # Add the user to the group uucp.  Because append=yes, the user
+    # Add the user to the group uucp.  Because
     # will not be removed from the groups dialout and wheel.
-    - user: name=tset groups=uucp append=yes
+    - name: Add the user to the group uucp
+      ansible.builtin.user:
+        name: tset
+        groups: uucp
+        append: true
 
     # Finally, remove the user.
-    - user: name=tset state=absent
+    - name: Remove user
+      ansible.builtin.user:
+        name: tset
+        state: absent

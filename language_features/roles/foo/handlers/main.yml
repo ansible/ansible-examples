@@ -1,5 +1,4 @@
 ---
-
 - name: blippy
   shell: echo notifier called, and the value of x is '{{ x }}'
 
@@ -7,4 +6,3 @@
 # can reference files in the same directory without doing anything special:
 
 # - include: other.yml
-

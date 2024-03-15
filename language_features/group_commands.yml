@@ -3,11 +3,10 @@
 
 - hosts: all
   remote_user: root
-  become: yes
+  become: true
   become_method: sudo
 
   tasks:
-
     # Walk through group creation, modification, and deletion
     - name: create a group
       group: name=tset

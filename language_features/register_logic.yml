@@ -1,3 +1,4 @@
+---
 # here's a cool advanced topic about how to perform conditional logic in ansible without resorting
 # to writing your own module that defines facts.  You can do that too, and it's easy to do, but
 # often you just want to run a command and then decide whether to run some steps or not.  That's
@@ -8,41 +9,38 @@
   hosts: all
 
   tasks:
+    # it is possible to save the result of any command in a named register.  This variable will be made
+    # available to tasks and templates made further down in the execution flow.
 
-      # it is possible to save the result of any command in a named register.  This variable will be made
-      # available to tasks and templates made further down in the execution flow.
+    - shell: grep hi /etc/motd
+      ignore_errors: true
+      register: motd_result
 
-      - shell: grep hi /etc/motd
-        ignore_errors: yes
-        register: motd_result
+    # and here we access the register.  Note that variable is structured data because
+    # it is a return from the command module.   The shell module makes available variables such as
+    # as 'stdout', 'stderr', and 'rc'.
 
-      # and here we access the register.  Note that variable is structured data because
-      # it is a return from the command module.   The shell module makes available variables such as
-      # as 'stdout', 'stderr', and 'rc'.
+    # here we run the next action only if the previous grep returned true
 
-      # here we run the next action only if the previous grep returned true
+    - shell: echo "motd contains the word hi"
+      when: motd_result.rc == 0
 
-      - shell: echo "motd contains the word hi"
-        when: motd_result.rc == 0
+    # alternatively:
 
-      # alternatively:
+    - shell: echo "motd contains the word hi"
+      when: motd_result.stdout.find('hi') != -1
 
-      - shell: echo "motd contains the word hi"
-        when: motd_result.stdout.find('hi') != -1
+    # or also:
 
-      # or also:
+    - shell: echo "motd contains word hi"
+      when: "'hi' in motd_result.stdout"
 
-      - shell: echo "motd contains word hi"
-        when: "'hi' in motd_result.stdout"
+    # you can use 'stdout_lines' to loop over the registered output lines
+    - name: motd lines matching 'hi'
+      shell: echo "{{ item  }}"
+      with_items: motd_result.stdout_lines
 
-      # you can use 'stdout_lines' to loop over the registered output lines
-      - name: motd lines matching 'hi'
-        shell: echo "{{ item  }}"
-        with_items: motd_result.stdout_lines
-
-      # you can also split 'stdout' yourself
-      - name: motd lines matching 'hi'
-        shell: echo "{{ item  }}"
-        with_items: motd_result.stdout.split('\n')
-
-
+    # you can also split 'stdout' yourself
+    - name: motd lines matching 'hi'
+      shell: echo "{{ item  }}"
+      with_items: motd_result.stdout.split('\n')

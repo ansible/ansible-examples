@@ -7,23 +7,23 @@
 #
 ---
 - hosts: webservers
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   tasks:
-  - name: ensure apt cache is up to date
-    apt: update_cache=yes
-  - name: ensure packages are installed
-    apt: name={{item}}
-    with_items:
+    - name: ensure apt cache is up to date
+      apt: update_cache=yes
+    - name: ensure packages are installed
+      apt: name={{item}}
+      with_items:
         - postgresql
         - libpq-dev
         - python-psycopg2
 
 - hosts: webservers
-  become: yes
+  become: true
   become_user: postgres
-  gather_facts: no
+  gather_facts: false
 
   vars:
     dbname: myapp
@@ -31,15 +31,14 @@
     dbpassword: mysupersecretpassword
 
   tasks:
-  - name: ensure database is created
-    postgresql_db: name={{dbname}}
+    - name: ensure database is created
+      postgresql_db: name={{dbname}}
 
-  - name: ensure user has access to database
-    postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
+    - name: ensure user has access to database
+      postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
 
-  - name: ensure user does not have unnecessary privilege
-    postgresql_user: name={{dbuser}} role_attr_flags=NOSUPERUSER,NOCREATEDB
-  
-  - name: ensure no other user can access the database
-    postgresql_privs: db={{dbname}} role=PUBLIC type=database priv=ALL state=absent
+    - name: ensure user does not have unnecessary privilege
+      postgresql_user: name={{dbuser}} role_attr_flags=NOSUPERUSER,NOCREATEDB
 
+    - name: ensure no other user can access the database
+      postgresql_privs: db={{dbname}} role=PUBLIC type=database priv=ALL state=absent

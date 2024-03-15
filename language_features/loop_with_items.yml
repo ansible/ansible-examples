@@ -7,28 +7,27 @@
   remote_user: root
 
   tasks:
+    - name: install packages
+      yum: name={{ item }} state=installed
+      with_items:
+        - cobbler
+        - httpd
 
-  - name: install packages
-    yum: name={{ item }} state=installed
-    with_items:
-       - cobbler
-       - httpd
-
-  - name: configure users
-    user: name={{ item }} state=present groups=wheel
-    with_items:
-       - testuser1
-       - testuser2
-
-  - name: remove users
-    user: name={{ item }} state=absent
-    with_items:
+    - name: configure users
+      user: name={{ item }} state=present groups=wheel
+      with_items:
         - testuser1
         - testuser2
 
-  - name: copy templates
-    template: src={{ item.src }} dest={{ item.dest }}
-    with_items:
+    - name: remove users
+      user: name={{ item }} state=absent
+      with_items:
+        - testuser1
+        - testuser2
+
+    - name: copy templates
+      template: src={{ item.src }} dest={{ item.dest }}
+      with_items:
         - src: templates/testsource1
           dest: /example/dest1/test.conf
         - src: templates/testsource2
