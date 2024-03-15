@@ -1,28 +1,49 @@
 ---
 # This playbook will install MariaDB and create db user and give permissions.
-
 - name: Install MariaDB package
-  yum: name={{ item }} state=installed
-  with_items:
-   - mariadb-server
-   - MySQL-python
-   - libselinux-python
-   - libsemanage-python
+  ansible.builtin.yum:
+    name: "{{ mariadb_packages }}"
+    state: installed
+  vars:
+    mariadb_packages:
+      - mariadb-server
+      - MySQL-python
+      - libselinux-python
+      - libsemanage-python
 
 - name: Configure SELinux to start mysql on any port
-  seboolean: name=mysql_connect_any state=true persistent=yes
+  ansible.posix.seboolean:
+    name: mysql_connect_any
+    state: true
+    persistent: true
 
 - name: Create Mysql configuration file
-  template: src=my.cnf.j2 dest=/etc/my.cnf
+  ansible.builtin.template:
+    src: my.cnf.j2
+    dest: /etc/my.cnf
+    owner: root
+    group: mysql
+    mode: u=rw,g=r,o=r
   notify:
-  - restart mariadb
+    - restart_mariadb
 
 - name: Create MariaDB log file
-  file: path=/var/log/mysqld.log state=touch owner=mysql group=mysql mode=0775
+  ansible.builtin.file:
+    path: /var/log/mysqld.log
+    state: touch
+    owner: mysql
+    group: mysql
+    mode: u=rwx,g=rwx,o=rx
 
 - name: Start MariaDB Service
-  service: name=mariadb state=started enabled=yes
+  ansible.builtin.service:
+    name: mariadb
+    state: started
+    enabled: true
 
-- name: insert firewalld rule
-  firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
-  ignore_errors: yes
+- name: Insert firewalld rule
+  ansible.posix.firewalld:
+    port: "{{ mysql_port }}/tcp "
+    permanent: true
+    state: enabled
+    immediate: true
