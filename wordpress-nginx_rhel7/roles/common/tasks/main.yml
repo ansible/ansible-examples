@@ -1,24 +1,44 @@
 ---
 - name: Copy the NGINX repository definition
-  copy: src=nginx.repo dest=/etc/yum.repos.d/
+  ansible.builtin.copy:
+    src: nginx.repo
+    dest: /etc/yum.repos.d/
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
 
-- name: Copy the EPEL repository definition
-  copy: src=epel.repo dest=/etc/yum.repos.d/
+- name: Install the EPEL repository definition
+  ansible.builtin.yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
 
-- name: Copy the REMI repository definition
-  copy: src=remi.repo dest=/etc/yum.repos.d/
+- name: Install the REMI repository definition
+  ansible.builtin.yum:
+    name: https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
 
 - name: Create the GPG key for NGINX
-  copy: src=RPM-GPG-KEY-NGINX dest=/etc/pki/rpm-gpg
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://nginx.org/keys/nginx_signing.key
 
-- name: Create the GPG key for EPEL
-  copy: src=RPM-GPG-KEY-EPEL-7 dest=/etc/pki/rpm-gpg
+- name: Create the GPG key for EPEL 7
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 
-- name: Create the GPG key for REMI
-  copy: src=RPM-GPG-KEY-remi dest=/etc/pki/rpm-gpg
-  
+- name: Create the GPG key for Remi Repo EL 7
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://rpms.remirepo.net/enterprise/7/RPM-GPG-KEY-remi
+
 - name: Install Firewalld
-  yum: name=firewalld state=present
+  ansible.builtin.yum:
+    name: firewalld
+    state: present
 
 - name: Firewalld service state
-  service: name=firewalld state=started enabled=yes
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
