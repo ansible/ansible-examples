@@ -11,7 +11,7 @@
 
 - name: Download & Extract WordPress
   ansible.builtin.unarchive:
-    src: "http://wordpress.org/wordpress-{{ wp_version }}.tar.gz"
+    src: http://wordpress.org/wordpress-{{ wp_version }}.tar.gz
     dest: /srv/wordpress
     owner: wordpress
     group: wordpress
@@ -61,43 +61,43 @@
 
 - name: Set the SELinux policy for the Wordpress directory
   community.general.sefcontext:
-    target: '/srv/wordpress(/.*)?'
+    target: /srv/wordpress(/.*)?
     setype: httpd_sys_content_t
     state: present
 
 - name: Set the SELinux policy for wp-config.php
   community.general.sefcontext:
-    target: '/srv/wordpress/wp-config\.php'
+    target: /srv/wordpress/wp-config\.php
     setype: httpd_sys_script_exec_t
     state: present
 
 - name: Set the SELinux policy for wp-content directory
   community.general.sefcontext:
-    target: '/srv/wordpress/wp-content(/.*)?'
+    target: /srv/wordpress/wp-content(/.*)?
     setype: httpd_sys_rw_content_t
     state: present
 
 - name: Set the SELinux policy for the *.php files
   community.general.sefcontext:
-    target: '/srv/wordpress/.*\.php'
+    target: /srv/wordpress/.*\.php
     setype: httpd_sys_script_exec_t
     state: present
 
 - name: Set the SELinux policy for the Upgrade directory
   community.general.sefcontext:
-    target: "/srv/wordpress/wp-content/upgrade(/.*)?"
+    target: /srv/wordpress/wp-content/upgrade(/.*)?
     setype: httpd_sys_rw_content_t
     state: present
 
 - name: Set the SELinux policy for the Uploads directory
   community.general.sefcontext:
-    target: "/srv/wordpress/wp-content/uploads(/.*)?"
+    target: /srv/wordpress/wp-content/uploads(/.*)?
     setype: httpd_sys_rw_content_t
     state: present
 
 - name: Set the SELinux policy for the wp-includes php files
   community.general.sefcontext:
-    target: '/srv/wordpress/wp-includes/.*\.php'
+    target: /srv/wordpress/wp-includes/.*\.php
     setype: httpd_sys_script_exec_t
     state: present
 

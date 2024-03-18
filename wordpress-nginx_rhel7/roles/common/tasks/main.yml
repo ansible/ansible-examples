@@ -3,10 +3,13 @@
   ansible.builtin.copy:
     src: nginx.repo
     dest: /etc/yum.repos.d/
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
 
 - name: Install the EPEL repository definition
   ansible.builtin.yum:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
     state: present
 
 - name: Install the REMI repository definition

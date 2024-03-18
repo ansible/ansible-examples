@@ -11,7 +11,7 @@
     owner: nginx
     group: nginx
     mode: u=rwX,g=rwX,o=rX
-  notify: restart_nginx
+  notify: restart nginx
 
 - name: Insert firewalld rule for nginx
   ansible.posix.firewalld:

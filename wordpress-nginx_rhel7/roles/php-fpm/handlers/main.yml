@@ -3,3 +3,4 @@
   ansible.builtin.service:
     name: php-fpm
     state: restarted
+  listen: restart php-fpm

@@ -1,28 +1,36 @@
 ---
 - name: Install php-fpm and deps
   ansible.builtin.yum:
-    name: "{{"
+    name: "{{ php_packages }}"
     state: present
-    cmd: item }}
-  with_items:
-    - php
-    - php-fpm
-    - php-enchant
-    - php-IDNA_Convert
-    - php-mbstring
-    - php-mysql
-    - php-PHPMailer
-    - php-process
-    - php-simplepie
-    - php-xml
+  vars:
+    php_packages:
+      - php
+      - php-fpm
+      - php-enchant
+      - php-IDNA_Convert
+      - php-mbstring
+      - php-mysql
+      - php-PHPMailer
+      - php-process
+      - php-simplepie
+      - php-xml
 
 - name: Disable default pool
-  ansible.builtin.command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.disabled creates=/etc/php-fpm.d/www.disabled
+  ansible.builtin.copy:
+    src: /etc/php-fpm.d/www.conf
+    dest: /etc/php-fpm.d/www.disabled
+    remote_src: true
+    owner: root
+    group: nginx
+    mode: u=rw,g=r,o=r
   notify: restart php-fpm
 
 - name: Copy php-fpm configuration
   ansible.builtin.template:
-    src: wordpress.conf
+    src: wordpress.conf.j2
     dest: /etc/php-fpm.d/
-    
+    owner: root
+    group: nginx
+    mode: u=rw,g=r,o=r
   notify: restart php-fpm

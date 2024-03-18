@@ -25,7 +25,7 @@
     group: mysql
     mode: u=rw,g=r,o=r
   notify:
-    - restart_mariadb
+    - restart mariadb
 
 - name: Create MariaDB log file
   ansible.builtin.file:

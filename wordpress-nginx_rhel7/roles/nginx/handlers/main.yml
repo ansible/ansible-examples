@@ -4,4 +4,4 @@
     name: nginx
     state: restarted
     enabled: true
-    listen: restart_nginx
+  listen: restart nginx
